@@ -1,0 +1,113 @@
+﻿@model TPC.Core.Models.ItemContainerViewModel
+@using TPC.Core.Models;
+
+@{
+    string formattedgrpName="";
+ 
+}
+<script src="~/Scripts/jquery.magnific-popup.js"></script>
+<link href="~/Content/magnific-popup.css" rel="stylesheet" />
+ @*@Scripts.Render("~/bundles/metro")*@
+<script type="text/javascript">
+    $(function () {
+        //Hide the div tag when page is loading
+        $('#divListView').show();
+        $('#ViewList').hide();
+        $('#divTabularView').hide();
+        $('#divViewContent').addClass('divContain-scroll');
+
+        //For Showing the TabularView div
+        $("#ViewTabular").click(function () {
+            $('#divListView').hide();
+            $('#divTabularView').show();
+            $('#ViewList').show();
+            $('#ViewTabular').hide();
+            $('#liListView').hide()
+            $('#liTabularView').show()
+            $('#divViewContent').removeClass('divContain-scroll');
+        });
+
+        //For Showing the ListView div
+        $("#ViewList").click(function () {
+            $('#divListView').show();
+            $('#divTabularView').hide();
+            $('#ViewList').hide();
+            $('#ViewTabular').show();
+            $('#liListView').show()
+            $('#liListView').addClass('active');
+            $('#liTabularView').hide()
+            $('#divViewContent').addClass('divContain-scroll');
+        });
+    });
+</script>
+
+
+ 
+<div id="ViewLinks" class="place-left span1 div-MainHeight3 text-left">
+        <a id="ViewTabular" class="Tabular"><i class="icon-grid ItemPointer"></i></a>
+        <a id="ViewList" class="List"><i class="icon-list ItemPointer"></i></a>
+</div>
+<div id="searchdiv" class="place-left span10 div-contentheight1 text-center">
+       @Resources.TCPResources.SearchText  
+</div>
+
+ 
+<div id="divViewContent" class="place-left span12 body-text div-itemContainerHeight" >
+    <div id="FilterPartialViewLoading" class="place-left span3">
+        @Html.Partial("../TCPViews/Partial/FilterPartial")
+    </div>
+    <div  id="divListView" class="place-left span9">
+       @* <div class="place-left span12 div-contentheight1 text-left">
+             @Resources.TCPResources.ListViewText
+        </div>*@
+        <div class="span9 itemheight ">
+        @*/VerticalText/*@
+            @foreach (ItemGroupViewModel iGroupVm in @Model.ListItemGropVM)
+            {
+            <div id="@iGroupVm.GroupID">
+                
+                <div class="border verticaltxt place-left " >
+                   @{ formattedgrpName=iGroupVm.GroupName;
+                      if (iGroupVm.GroupName.Length > 7)
+                          {
+                              formattedgrpName = iGroupVm.GroupName.Substring(0, 7) + "..";
+                          }
+                    }
+                    <verticaltext><a title="@iGroupVm.GroupName" class="ItemPointer">@formattedgrpName</a> </verticaltext>
+            
+                </div>
+                <div class="place-left itemGroupBeforeAfterSpace">
+
+                </div>
+                @*/ItemParentPartial/*@
+                <div class="place-left span8 ItemContainerPartial " >
+                    @Html.Partial("../TCPViews/Partial/ItemParentPartial",iGroupVm.ItemPVM)
+                </div>
+        
+                <div class="place-left span9 div-MainHeight10">
+
+                </div>
+            </div>
+            
+            }
+      
+    </div>
+    </div>
+    <div  id="divTabularView" class="place-left span9">
+       @* <div class="place-left span12 div-contentheight1 text-left">
+            @Resources.TCPResources.TabularViewText
+        </div>*@
+        <div class="place-left span9 ">
+           @* @foreach (ItemGroupViewModel iGroupVm in @Model.ListItemGropVM)
+                {
+                    @Html.Partial("../TCPViews/Partial/TabularItemPartial",iGroupVm)
+                    
+                }*@
+
+             @Html.Partial("../TCPViews/Partial/TabularItemPartial",Model.ListItemGropVM)
+        </div>
+    </div>
+</div>
+
+
+

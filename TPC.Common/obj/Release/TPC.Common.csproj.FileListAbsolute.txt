@@ -1,0 +1,6 @@
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Release\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Release\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Release\log4net.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Release\log4net.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\obj\Release\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\obj\Release\TPC.Common.pdb

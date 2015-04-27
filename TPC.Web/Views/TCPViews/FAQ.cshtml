@@ -1,0 +1,76 @@
+﻿@model  TPC.Core.Models.FAQViewModel
+@using TPC.Core.Models;
+@using System.Configuration;
+@{
+    ViewBag.Title = Resources.TCPResources.MenuAboutUsforbreadcrumbs;
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+    int index = 0;
+    string imagePath = ConfigurationManager.AppSettings["AboutUs"];
+}
+
+<div id="hiddenFiledsDiv" class="hide">
+      <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="faq" class="span12 txt-Medium margin20 nlm nrm nbm">
+    <div class="introductionTextSize">
+        @Resources.TCPResources.AboutUsIntoductionText
+    </div>
+     <div class="padding15 nrp nlp">
+        @foreach (FAQCategoriesViewModel FaqCat in Model.FAQCategories)
+        {
+            <div id="@FaqCat.Categories">
+                <div class="largefont">
+                    @{string categories = FaqCat.Categories == "FAQs" ? FaqCat.Categories : string.Empty;}
+                    <strong>@categories</strong>
+                </div>
+
+                @{
+            var lstQuestions = Model.FAQuestions.Where(e => e.FAQCategoryID == FaqCat.FAQCategoryID);
+                }
+
+                @foreach (var question in lstQuestions)
+                {
+                    index++;
+                   
+                    <div class="padding15 nrp nlp">
+                        <div class="iconsize"><strong>@Html.Label(@question.FAQQuestion)</strong></div>
+                         @if(index<6)
+                    {
+                     @*<img src="@Url.Content(@Resources.TCPResources.HomeSlideImagePath + index + ".jpg")" />*@
+                          <img  src="~/Image/Getimage?id=@String.Format("{1}{0}{2}", index, imagePath,".jpg")">
+                }
+                        @{ var lstAnswers = Model.FAQAnswers.Where(e => e.FAQId == question.FAQId);  }
+                        <div class="padding5">
+                            @foreach (var answer in lstAnswers)
+                            {
+                               <div class="txt-Medium">@Html.Raw(@answer.FAQDetailedText)</div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+            <a href="#">Back To Top</a>
+      </div>
+</div>
+
+<div id="Prebound-dialog" class="zoom-anim-dialog  mfp-hide blackLineBorder marginLeft16">
+        <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div>
+            <strong>@Resources.TCPResources.WhyPenworthyText</strong>
+            <div class="place-left span9"><img style="height:500px" src="~/Images/Books-side-by-side.jpg" /></div>
+            <div class="place-left span4 lnht26">
+          @Resources.TCPResources.WhyPreboundDescText
+            </div>
+            <div class="place-left padding10">
+                <div id="preboundBooks" class="place-left">
+                <div id="preboundBooks" class="place-left span4"><img class="blog" src="~/Images/Better-Binding.jpg" /></div>
+                <div id="preboundBooks" class="place-left span5"><img class="blog" src="~/Images/Library-Corners.jpg" /></div>
+                <div id="preboundBooks" class="place-left span4"><img class="blog" src="~/Images/Rounded-Spines.jpg" /></div>
+            </div>
+            <div class="place-left">
+            <a href="mailto:info@penworthy.com">Email us</a>  @Resources.TCPResources.PreboundEmailRequestText
+                </div>
+        </div>
+    </div>
+    </div>

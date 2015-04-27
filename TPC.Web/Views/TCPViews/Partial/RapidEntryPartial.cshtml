@@ -1,0 +1,240 @@
+﻿@model TPC.Core.Models.RapidEntryModel
+@using TPC.Common.Enumerations;
+@{
+    string quoteType = Model.QuoteTypeID == (int)QuoteTypeEnum.DecisionWhizard ? Resources.TCPResources.DecisionWizardliText :
+        Model.QuoteTypeID == (int)QuoteTypeEnum.ShoppingCart ? @Resources.TCPResources.ShoppingCartliText : "Quote";
+    DateTime dateNow = DateTime.Now;
+}
+
+<script>
+    $(document).ready(function () {
+        var pathBarcode = $('#hdnViewSingleItembyISBNPath').val();
+        $('#Barcode').keyup(function (e) {
+
+            if (e.keyCode == 13) {
+                var value = $(this).val();
+                var quantity = $('#QuantityPerItem').val();
+                var noWhitespaceValue = value.replace(/\s+/g, '');
+                var noWhitespaceCount = noWhitespaceValue.length;
+                if (noWhitespaceCount % 13 === 0) {
+                    $.ajax({
+                        url: '../ItemListView/rapidEntryItemByISBN',
+                        type: "POST",
+                        datatype: 'html',
+                        data: { ISBN: value, QuoteID: "@Model.QuoteID", Quantity: quantity },
+                        success: function (data) {
+
+                            var model = data;
+                            var lastvalue = $('#rapidentry').find('tbody').find('#trnooftitle').find('#NoOfTitles').text();
+                            $('#NoOfTitles').text(model.NoOfTitles);
+                            $('#NoOfBooks').text(model.NoOfBooks);
+                            if (model.QuoteTypeID == "2") {
+                                $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwNWCount]').text(model.NoOfBooks);
+                                $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwNBooks]').text(model.NoOfBooks);
+                                $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwcreateDate]').text('@dateNow.ToString("g")');
+                                $('#tblDW-0').find('tbody').find('#dw-@Model.QuoteID').find('#dwTPrice').text('$' + Math.round(parseFloat(model.QuoteTotalBefortaxandCatlog).toFixed(2)));
+                            }
+                            else {
+                                $('#tblQuote').find('tbody').find('tr[id=Quote-@Model.QuoteID]').find('td[id=quoteItems]').text(model.NoOfBooks);
+                                $('#tblQuote').find('tbody').find('tr[id=Quote-@Model.QuoteID]').find('td[id=quoteUpdateDate]').text('@dateNow.ToString("g")');
+                                $('#tblQuote').find('tbody').find('#Quote-@Model.QuoteID').find('#quotePrice').text('$' + Math.round(parseFloat(model.QuoteTotalBefortaxandCatlog).toFixed(2)));
+                            }
+                            $('#QuoteTotalBefortaxandCatlog').val(model.QuoteTotalBefortaxandCatlog);
+                            $("#Barcode").val('');
+                            $("#Barcode").focus();
+                            var Exist = model.NoOfTitles;
+                            var status = model.ItemStatus;
+                            if (Exist == lastvalue && status) {
+                                $("#rapidErrorText").removeClass("hide");
+                                $('#itemErrorText').addClass('hide');
+                                $("#Barcode").val('');
+                                $("#Barcode").focus();
+                            }
+                            else {
+                                if (Exist == lastvalue && !status) {
+                                    $('#itemErrorText').removeClass('hide');
+                                    $("#rapidErrorText").addClass("hide");
+                                    $("#Barcode").val('');
+                                    $("#Barcode").focus();
+                                }
+                                else {
+                                    $('#itemErrorText').addClass('hide');
+                                    $("#rapidErrorText").addClass("hide");
+                                }
+                            }
+                            if ($('#NoOfTitles').val() != '0' || $('#NoOfBooks').val() != '0' || $('#QuoteTotalBefortaxandCatlog').val() != '0') {
+                                $('#RapidEntrySubmitOrder').removeAttr("disabled", 'disabled');
+                            }
+                            else {
+                                $('#RapidEntrySubmitOrder').attr("disabled", 'disabled');
+                            }
+                        }
+                    });
+                }
+                else {
+                    $("#Barcode").effect("shake", { times: 4 }, 100);
+                    $("#Barcode").val('');
+                }
+            }
+        });
+
+        $('.RapidSubmitQuote').on("click", function () {
+            var submitQuotePath = $('#hdnSubmiQuotePath').val();
+            $.ajax({
+                url: submitQuotePath,
+                type: "POST",
+                datatype: 'html',
+                data: { quoteID: "@Model.QuoteID" },
+                success: function (data) {
+                    submitQuoteJsonModel = data;
+                    $('#RapidEntry-dialog').css('height', '500px').css('width', '815px');
+                    $('#loadingSubmitQuoteView').html(data);
+                }
+            });
+        });
+        $('#ItemNumber').keyup(function (e) {
+            if (e.keyCode == 13) {
+                var itmID = $(this).val();
+                var quantity = $('#QuantityPerItem').val();
+
+                $.ajax({
+                    url: '../ItemListView/insertItem',
+                    type: "POST",
+                    datatype: 'html',
+                    data: { itemID: itmID, quoteID: "@Model.QuoteID", Quantity: quantity },
+                    success: function (data) {
+                        var model = data;
+                        var lastvalue = $('#rapidentry').find('tbody').find('#trnooftitle').find('#NoOfTitles').text();
+                        $('#NoOfTitles').text(model.NoOfTitles);
+                        $('#NoOfBooks').text(model.NoOfBooks);
+                        $('#QuoteTotalBefortaxandCatlog').val(model.QuoteTotalBefortaxandCatlog);
+                        if (model.QuoteTypeID == "2") {
+                            $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwNWCount]').text(model.NoOfBooks);
+                            $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwNBooks]').text(model.NoOfBooks);
+                            $('#tblDW-0').find('tbody').find('tr[id=dw-@Model.QuoteID]').find('td[id=dwcreateDate]').text('@dateNow.ToString("g")');
+                            $('#tblDW-0').find('tbody').find('#dw-@Model.QuoteID').find('#dwTPrice').text('$' + Math.round(parseFloat(model.QuoteTotalBefortaxandCatlog).toFixed(2)));
+
+                        }
+                        else {
+                            $('#tblQuote').find('tbody').find('tr[id=Quote-@Model.QuoteID]').find('td[id=quoteItems]').text(model.NoOfBooks);
+                            $('#tblQuote').find('tbody').find('tr[id=Quote-@Model.QuoteID]').find('td[id=quoteUpdateDate]').text('@dateNow.ToString("g")');
+                            $('#tblQuote').find('tbody').find('#Quote-@Model.QuoteID').find('#quotePrice').text('$' + Math.round(parseFloat(model.QuoteTotalBefortaxandCatlog).toFixed(2)));
+                        }
+                        $("#ItemNumber").val('');
+                        $("#ItemNumber").focus();
+                        var Exist = model.NoOfTitles;
+                        var status = model.ItemStatus;
+                        if (Exist == lastvalue && status) {
+                            if (!model.ItemExist) {
+                                $("#rapidErrorText").addClass("hide");
+                                $('#itemErrorText').removeClass('hide');
+                            }
+                            else {
+                                $("#rapidErrorText").removeClass("hide");
+                                $('#itemErrorText').addClass('hide');
+                            }
+                            $("#ItemNumber").val('');
+                            $("#ItemNumber").focus();
+                        }
+                        else {
+                            if (Exist == lastvalue && !status) {
+                                $('#itemErrorText').removeClass('hide');
+                                $("#rapidErrorText").addClass("hide");
+                                $("#ItemNumber").val('');
+                                $("#ItemNumber").focus();
+                            }
+                            else {
+                                $("#rapidErrorText").addClass("hide");
+                                $('#itemErrorText').addClass('hide');
+                            }
+                        }
+                        if ($('#NoOfTitles').val() != '0' || $('#NoOfBooks').val() != '0' || $('#QuoteTotalBefortaxandCatlog').val() != '0') {
+                            $('#RapidEntrySubmitOrder').removeAttr("disabled", 'disabled');
+                        }
+                        else {
+                            $('#RapidEntrySubmitOrder').attr("disabled", 'disabled');
+                        }
+
+                    }
+                });
+            }
+            else {
+
+            }
+        });
+    });
+</script>
+<table id="rapidentry">
+    <tr style="height: 50px;">
+        <td>
+            <label style="margin-left: 20px;">Quantity Per Item:</label>
+        </td>
+        <td colspan="4">
+            <div class="place-left">@Html.TextBoxFor(e => e.QuantityPerItem, new { @style = "width: 45px;" })</div>
+            <div class="place-left hide" id="rapidErrorText" style="width: 80%; text-align: center"><span class="redcolor">You have already entered this item on the quote</span></div>
+            <div class="place-left hide" id="itemErrorText" style="width: 80%; text-align: center"><span class="redcolor">Item is off-list or incorrect</span></div>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+            <input id="Barcode" type="text" placeholder="Barcode" maxlength="13" />
+        </td>
+        <td style="width: 50px"></td>
+        <td>
+            <input id="ItemNumber" type="text" placeholder="Item Number" maxlength="13" class="place-left" /></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td class="valign-baseline collectionText">
+            <label>(Enters entire set on quote)</label>
+        </td>
+        <td style="width: 50px"></td>
+        <td class="collectionText">
+            <label>(Enters only the one item number on quote)</label></td>
+        <td></td>
+    </tr>
+
+    <tr id="trnooftitle" style="height: 50px;">
+        <td>
+            <label style="margin-left: 20px;">Number Of titles:</label>
+        </td>
+        <td>@Html.TextAreaFor(e => e.NoOfTitles, new { value = @Model.NoOfTitles, @style = "", id = "NoOfTitles" })</td>
+        <td></td>
+        <td>
+            <input type="submit" name="RapidEntry" value="CLOSE RAPID BUTTON" class="popupClose" style="background-color: rgba(245, 21, 21, 0.26); width: 171px; color: black; height: 47px; text-align: CENTER" /></td>
+        <td></td>
+    </tr>
+
+    <tr style="height: 50px;">
+        <td>
+            <label style="margin-left: 20px;">Number Of Books:</label>
+        </td>
+        <td>@Html.TextAreaFor(e => e.NoOfBooks, new { @style = "", id = "NoOfBooks" })</td>
+        <td></td>
+        <td>
+            @using (Html.BeginForm("ViewQuoteandDecisionWizard", "ItemContainerPartial", new { quoteID = @Model.QuoteID, quoteType = @quoteType }, FormMethod.Post, new { @class = "marginbottom0" }))
+            {
+                <input type="submit" name="View" value="View" style="background-color: rgba(63, 167, 222, 0.38); width: 171px; color: black; height: 47px; text-align: center" />
+            }
+        </td>
+        <td></td>
+    </tr>
+
+    <tr style="height: 50px;">
+        <td>
+            <label style="margin-left: 20px;">Quote total before tax and Cataloging:</label></td>
+        <td>@Html.TextAreaFor(e => e.QuoteTotalBefortaxandCatlog, new { @style = "", id = "QuoteTotalBefortaxandCatlog" })</td>
+        <td></td>
+        <td>
+            @if(Model.QuoteTypeID!=2)
+            {
+            <input id="RapidEntrySubmitOrder" type="submit" name="RapidEntry" value="SUBMIT ORDER" class="RapidSubmitQuote" style="background-color: rgba(0, 128, 0, 0.49); width: 171px; color: black; height: 47px; text-align: center" />
+            }
+        </td>
+        <td></td>
+    </tr>
+</table>

@@ -1,0 +1,204 @@
+﻿@using TPC.Core.Models.ViewModels
+@using TPC.Core.Models;
+@using TPC.Common.Enumerations;
+@using System.Configuration;
+@model TPC.Core.Models.BaseViewModel
+
+@{
+    if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+    {
+        ViewBag.UserName = Model.UserVM.CRMModelProperties.CustParentName;
+    }
+    string defaultHomePage = Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep") ? Url.Action("ActiveQuote", "ActiveQuote") : Url.Action("GetProductDetails", "Default");
+    string hideClass = "hide";
+    string marginclass = "";
+    if(!WebSecurity.IsAuthenticated)
+    {
+        marginclass = "margin-left:6px;";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="~/Images/Penworthy-Icon.PNG" />
+    <title>@ViewBag.Title - Welcome to The Penworthy Company</title>
+
+    <link href="@Styles.Url("~/Content/TableSorter/css")" rel="stylesheet"/>
+
+    <script src="@Scripts.Url("~/bundles/jquery")"></script>
+    <script src="@Scripts.Url("~/bundles/commonscript")"></script>
+    @RenderSection("scripts", required: false)
+</head>
+
+<body class="metro">
+    <div id="hiddenfieldsdiv" class="hide">
+        <input type="hidden" id="hdnTitle" value="@ViewBag.Title" />
+        <input type="hidden" id="hdnQuoteType" value='@ViewData["QuoteType"]' />
+        <input type="hidden" id="hdnQuoteTitle" value='@ViewData["QuoteTitle"]' />
+        @*<input type="hidden" id="hdnQuoteID" value='@ViewData["QuoteID"]' />*@
+        <input type="hidden" id="hdnName" value="@ViewBag.UserName" />
+        <input type="hidden" id="hdnGroupName" value='@ViewData["GroupName"]' />
+        @{bool status = @ViewData.ContainsKey("QuoteType");}
+
+        @Html.Hidden("hdnQuoteTypeStatus", status)
+        @if (Model.UserVM != null)
+        {
+            if (Model.UserVM.CRMModelProperties != null)
+            {
+            @Html.Hidden("hdnSCItemCount", Model.UserVM.SCCount)
+            @Html.Hidden("hdnCustRoleExists", Roles.IsUserInRole("CustomerShipTo"))
+          
+            @Html.Hidden("hdnCustomerID", Model.UserVM.CRMModelProperties.CustAutoID)
+            
+            }
+        }
+        @Html.Hidden("hdnCustStatus", Model.UserVM == null ? false : !Model.UserVM.CRMModelProperties.IsRepLoggedIN)
+        @Html.Hidden("hdnDecisionWizardliText", Resources.TCPResources.DecisionWizardliText)
+        @Html.Hidden("htnCatalogInfoText", Resources.TCPResources.CatalogInfoText)
+        @Html.Hidden("hdnShoppingCartliText", Resources.TCPResources.ShoppingCartliText)
+        @Html.Hidden("hdnItemListText", Resources.TCPResources.ItemListText)
+        @Html.Hidden("hdnFilterListText", Resources.TCPResources.FilterListText)
+        @Html.Hidden("hdnRepoStatus", Roles.IsUserInRole("Repo"))
+        @Html.Hidden("hdnAdminRepStatus", Roles.IsUserInRole("AdminRep"))
+        @Html.Hidden("hdnAuthenticationStatus", Request.IsAuthenticated)
+        @Html.Hidden("hdnImgControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH135"]) }));
+           @Html.Hidden("hdnImgQuoteViewControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH80"]) }));
+           @Html.Hidden("hdnImgControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH135"]) }));
+        @Html.Hidden("hdnImagePath", @Url.Content(ConfigurationManager.AppSettings["CommonRepository"]))
+        @Html.Hidden("hdnInsideImagePath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ItemInsideImagePath"]) }));
+        @Html.Hidden("hdnLoginPath", @Url.Action("Login", "Account"))
+        @Html.Hidden("hdnViewSingleItemPath", @Url.Action("ViewSingleItem", "ItemListView"))
+        @Html.Hidden("hdnViewSingleItembyISBNPath", @Url.Action("ViewSingleItemByISBN", "ItemListView"))
+        @Html.Hidden("hdnDeletePath", @Url.Content("~/ItemContainerPartial/DeleteItemFromQuote"))
+        @Html.Hidden("hdmItemListViewSinglePath", @Url.Action("ViewSingleDetailedParialView", "ItemListView"))
+        @Html.Hidden("hdnAddCartPath", @Url.Action("UpdateStatusofAllItems", "ItemListView"))
+        @Html.Hidden("hdnActiveQuotePath", @Url.Action("ActiveQuote", "ActiveQuote"))
+        @Html.Hidden("hdnIndexPath", @Url.Action("Index", "Home"))
+        @Html.Hidden("hdnViewQuoteDwPath", @Url.Action("ViewQuoteandDecisionWizard", "ItemContainerPartial", new { quoteType = @ViewData["QuoteType"], quoteID = @ViewData["QuoteID"] }))
+        @Html.Hidden("hdnImagesPath", @Url.Content(Resources.TCPResources.ImagesPath))
+        @Html.Hidden("hdnSearchUrl", @Url.Action("SearchItems", "ItemContainerPartial"))
+        @Html.Hidden("hdnlogoPath", @ConfigurationManager.AppSettings["imgLogoPath"])
+        @*@Html.Hidden("hdnyellowBlueStarPath", Url.Content("~/Images/star-yellow-blue.png"))*@
+        @Html.Hidden("hdnImageH80Path", Url.Content(ConfigurationManager.AppSettings["ImagesH80"]));
+    </div>
+    <div id="PenworthyLayout">
+        <div class="header span965">
+            @* Div Tag Contains Images and Icons of Search and Cart *@
+            <div class="body-text place-left span12 div-MainHeight80 border-bottom " style="margin-top: 46px">
+                <div class="place-left span2 div-MainHeight35 text-center">
+                    <a href="@defaultHomePage">
+                        @*<img src="~/Images/PenWorthyLogo.jpg" />*@
+                        <img src="~/Image/Getimage?id=@ConfigurationManager.AppSettings["PenworthyLogo"]">
+                    </a>@Resources.TCPResources.PenworthyContactNumber
+                </div>
+                <div class="place-left text-left span8 div-contentheight72 margin-left2 margin-top6 border-right" style="width: 600px!important">
+                    @Html.Partial("_LoginPartial", Model)
+                </div>
+                <div class="place-left span2-5 margin-top11 div-contentheight1 visible">
+                    @if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+                    {
+@*<div class="place-left span73 div-MainHeight10">
+                            
+                            <div class="place-left span1 div-MainHeight10"><a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })" class="iconsize"><i class="icon-cart button-fg ItemPointer"></i></a></div>
+                        </div>*@
+                        <div class="place-left div-MainHeight10 margin4 ntm nrm nbm">
+                            <a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })" class="iconsize"><i class="icon-cart button-fg ItemPointer"></i></a>
+                        </div>
+                        <div class="place-left marginminus10" style="margin-top: -1px; margin-left: 2px;">
+                            <div id="SCItemCount" class="place-left"><a><sup class="supStyle" style="font-size:small">@ViewData["SCItemsCount"]</sup></a></div>
+                            <a style="font-size:small">&nbsp;items in your cart </a> 
+                        </div>
+                        <div id="SCItemPrice" class="place-left span2 cartPrice"><a style="font-size:small">-@String.Format("{0:c}", @Model.UserVM.SCPrice)</a></div>
+                    }
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <div class="place-left span73  margin4 ntm nrm nbm div-MainHeight10"><a class="popup-with-zoom-anim login" href="#small-dialog"><i class="icon-cart button-fg ItemPointer"></i></a></div>
+                        <div class="place-left span73 div-MainHeight10">
+                            <a href="#small-dialog" class="popup-with-zoom-anim login">@Resources.TCPResources.SignInText</a>
+                        </div>    
+                    }
+                    else
+                    {
+                        <div class="place-right span73 div-MainHeight10">
+                            <a href="@Url.Action("ReturnToCRM", "Account")">@Resources.TCPResources.SignOutText</a>
+                        </div>    
+                
+                    }
+                </div>
+                <div class="place-right span_2_6 div-contentheight1 visible">
+
+                    @if ((ViewBag.Title != "ActiveQuote" && ViewBag.Title!="ItemListView") && Request.IsAuthenticated)
+                    {
+                        <input type="text" placeholder="Search" name="name" id="txtSearch" />
+                    }
+                </div>
+            </div>
+
+            @* Bread Cumbs Sections --Start  *@
+            @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+            {
+                <div id="divMenus" class="place-left span12 margin5 nlm nrm body-text hide buttonbg">
+                    <nav class="breadcrumbs small">
+                        <ul id="ulBreadcrumb">
+                        </ul>
+                    </nav>
+                </div>
+            }
+            else
+            {
+                string Title = ViewBag.Title == Resources.TCPResources.ProductsText ? Resources.TCPResources.ViewCollectionText : ViewBag.Title == Resources.TCPResources.ItemListViewText ? Resources.TCPResources.MyText + " " + ViewData["QuoteTitle"]
+                    + " " + Resources.TCPResources.DecisionWizardliText : ViewBag.Title == Resources.TCPResources.MenuAboutUs ? Resources.TCPResources.LearnAbout : ViewBag.Title == Resources.TCPResources.LibrarianResourcesText ? Resources.TCPResources.LibraryHeadIntro : ViewBag.Title;
+                string fontColor = ViewBag.Title == Resources.TCPResources.ProductsText || ViewBag.Title == Resources.TCPResources.SearchText ? "color:white;" : "color:black;";
+                if (Title != "")
+                {
+                <div class="place-left span12 div-MainHeight35 bar-@ViewBag.Title">
+                   <div class="place-left"> <h2 id="headerbartext" class="margin10 nrm nbm ntm" style="@fontColor">@Title</h2></div>
+                    @if (Title == Resources.TCPResources.ViewCollectionText)
+                    {
+                    <div class="place-right">
+                        <div id="TitlesNo" class="place-right text-right divPriceText padding5 nlp nbp ntp margin-top2 color-white addCollectionPos" style="@marginclass">@ViewBag.SelectedTitlesCount @Resources.TCPResources.TitlesCollectionText</div>
+                        <div class="place-right">
+                            @if (WebSecurity.IsAuthenticated)
+                            {
+                                if (ViewBag.SelectedTitlesCount > 0)
+                                {
+                                <button id="5" name="1" value="Add this Collection" class="AddCollection pos-fix" style="background-color: transparent; border: 0px; font-size: 12px; font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; color: white;margin-top: 6px;">
+                                    Add 
+                                </button>
+                                }
+                            }
+                            else
+                            {
+                                <div class="minusmargintop28">
+                                <a class="popup-with-zoom-anim login" style="margin-right: 2px;font-size:small;color:white" href="#small-dialog">Add</a>
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            }
+            @* Bread Cumbs Sections --End  *@
+        </div>
+        @if (ViewBag.Title == "KPL" || ViewBag.Title == "Categories" || ViewBag.Title == "Products")
+        {
+            hideClass = string.Empty;
+        }
+        <div id="Loading" class="metro window-overlay @hideClass" style="background-color: rgba(0, 0, 0, 0.30);">
+            <div class="" style="overflow: hidden; position: fixed; top: 287.5px; left: 700px; background-color: transparent">
+                <div class="content" style="padding-top: 32px;">
+                    <div class="place-center padding5">
+                        <img src="~/Images/ajax-loader.gif" style="width: 65px">
+                        <span style="color: aliceblue; font-weight: bold; font-size: 15px">Please wait....</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="place-left span12 contentText" id="divBody" style="padding-left: 4px; margin-top: 130px;">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

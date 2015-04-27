@@ -1,0 +1,55 @@
+﻿@model TPC.Core.Models.ViewModels.ItemListDetailedViewModel
+
+@using TPC.Core.Models.ViewModels;
+<script type="text/javascript">
+ $(document).ready(function () {
+     
+     //Javascript for updating the DW and Cart Count in content Page
+     $('#SCItemCount sup').html('@Model.UserVM.CustomerInfoObj.DictCartDWItemsCount["SCItemsCount"]');
+     $('#DWItemCount sup').html('@Model.UserVM.CustomerInfoObj.DictCartDWItemsCount["DWItemsCount"]');
+ 
+
+     var AllCount=parseInt(@Model.noOfYesCount+@Model.noOfNoCount+@Model.noOfMaybeCount+@Model.noOfNewCount);
+   
+     var calcpercentage = String((parseInt(@Model.noOfYesCount) / parseInt(AllCount) * 100));
+    
+     var pb = $('#pb').progressbar();
+     pb.progressbar('value', parseInt(calcpercentage));
+    
+
+       
+        $('.button-set').click(function () {
+              location.reload(true);
+        });
+        $('#divMenusCustRole').removeClass('hide').addClass('visible');
+        $('#divMenusCustRole li').removeClass('navlihide active');
+        $('#liItemListView').addClass('navlihide')
+        $('#liItemDetailed').addClass('navlihide ');
+        $('.navlihide').show();
+        jQuery(document).ajaxStart(function () {
+
+            $('#ItemListDetailedView').css({ "pointer-events": "none" });
+
+
+
+        }).ajaxStop(function () {
+
+            $('#ItemListDetailedView').css({ "pointer-events": "initial" });
+        });
+  })
+ </script>
+<div id="ItemListDetailedView">
+<div id="pb" class="progress-bar span.caption" data-role="progress-bar" data-color="#99bfe6"></div>
+<div id="loadingSetView">
+   @{if(@Model.ItemDVM!=null)
+     {
+       Html.RenderPartial("../TCPViews/Partial/ItemDetailedPartial", new ViewDataDictionary(@Model.ItemDVM));
+     }
+     else{
+       <label>No Items to display</label>
+     }
+       }
+
+    </div>
+
+</div>

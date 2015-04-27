@@ -1,0 +1,49 @@
+﻿@using System.Configuration;
+@{
+    ViewBag.Title = "HomePage";
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+    ViewData["QuoteType"] = "Shopping Cart";
+}
+
+@model TPC.Core.Models.ItemContainerViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+
+@{
+    
+    List<ItemViewModel> lstItemVM = new List<ItemViewModel>();
+
+    List<ItemGroupViewModel> lstIgvm = new List<ItemGroupViewModel>();
+}
+<script src="~/Scripts/js/metro/metro-autocarousel.js"></script>
+<div id="hiddenFieldsDiv" class="hide">
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+    @Html.Hidden("hdnLoginPath", @Url.Action("Login", "Account"))
+     @Html.Hidden("hdnQuoteID", @Model.QuoteID)
+</div>
+<div class="span12 margin10 nlm nrm nbm">
+    <div id="indexCarousel" class="carousel carousel-width span12" data-role="carousel">
+        @{
+            string dirFullPath = ConfigurationManager.AppSettings["CommonRepository"] + ConfigurationManager.AppSettings["HomeSlide"];
+            int numFiles;
+            numFiles = System.IO.Directory.GetFiles(dirFullPath).Count(p => Path.GetExtension(p) == ".jpg");
+            for (int index = 1; index <= numFiles; index++)
+            {
+            <div class="slide nlp nrp" style="width:955px">
+                <img src="~/Image/Getimage?id=@string.Format("{0}{1}",dirFullPath+"Slide"+index , ".jpg")" class="shadow"/>
+            </div>
+            }
+        }
+    </div>
+</div>
+@*<div class="span12 place-left padding10 border3">
+    @Resources.TCPResources.HomeDWText
+</div>*@
+<div class="">
+    @*<div class="place-left div-MainHeight35 span12"></div>*@
+    <div id="divListView" class="place-left span9_15">
+        @Html.Partial("../TCPViews/Partial/KPLMultiItemParentPartial", @Model.ListItemGropVM)
+    </div>
+</div>

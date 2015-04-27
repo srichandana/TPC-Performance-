@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "DecisionWizard";
+    string imagePath = ConfigurationManager.AppSettings["ImagesH80"];
+}
+@model  TPC.Core.Models.ShoppingCartViewModel
+@using TPC.Common.Enumerations;
+@using TPC.Core.Models.ViewModels;
+@using System.Configuration;
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<div id="divHiddenFields" class="hide">
+    @Html.Hidden("hdnQuoteID", Model.QuoteID)
+    @Html.Hidden("hdnQuoteTypeID", Model.QuoteTypeID)
+    @Html.Hidden("hdnTotalPrice", String.Format("{0:c}", @Model.CartListView.Sum(e => e.Price)))
+    @Html.Hidden("hdnTotalItems", @Model.CartListView.Select(e => e.Title).Count())
+    @Html.Hidden("hdnDWText", @Resources.TCPResources.DecisionWizardliText)
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="tblHeader" class="hide">
+    <table>
+        <tr style="height: 80px">
+            <td></td>
+            <td>
+                @*     <img src="@ConfigurationManager.AppSettings["imgLogoPath"]/Images/excelpenworthylogo.jpg" />*@
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+
+            <td>To submit your order and for all order questions, please contact:</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @Model.UserVM.CRMModelProperties.RepName
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @Model.UserVM.CRMModelProperties.RepEmail
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Phone: @Model.UserVM.CRMModelProperties.RepPhoneCustSrvc,ext. @Model.UserVM.CRMModelProperties.RepPhoneDirect
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<div id="DecisionWizard" class="body-text span12">
+    <div class="place-left span12 margin20 nrm nlm nbm">
+        <div class="place-left text-left span1">
+            #Titles
+        </div>
+        <div class="place-left div-contentheight divspanWidth1">
+        </div>
+        <div class="place-left span1">
+            :  <a id="lblTotalTitles"></a>
+        </div>
+        <div class="place-left text-right span1">
+            @Resources.TCPResources.PriceText
+        </div>
+        <div class="place-left div-contentheight divspanWidth1">
+        </div>
+        <div class="place-left span3 text-left">
+            :   <a id="lblTotalPrice"></a>
+        </div>
+        <div class="place-left text-right margin20 nlm ntm nbm">
+            @Html.CheckBox("ShowImages") <a>@Resources.TCPResources.ShowImages</a>
+        </div>
+        <div class="place-left divspanWidthHT text-right">
+            <a id="Excel" title=""><i class="icon-file-excel  fg-green"></i></a>
+            <a href="@Url.Action("CartDWPdfGeneration", "ShoppingCart", new { cartDWID = Model.QuoteID })" title="" target="_blank"><i class="icon-file-pdf link"></i></a>
+        </div>
+    </div>
+
+
+    <div id="divSCtable" class="place-left span12 ">
+        @if (@Model.CartListView != null)
+        {
+            <table id="grid" class="table striped hovered span12">
+                <thead class="gridfourHeader">
+                    <tr>
+                        <th class="text-left place-left">
+                            @Html.LabelFor(e => e.CartListView[0].Title)
+                        </th>
+                        <th class="text-left place-left">
+                            @Html.LabelFor(e => e.CartListView[0].Series)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Author)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].AR)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Lexile)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Price)
+                        </th>
+                        <th class="text-left">
+                            @Html.Label("Delete", new { @class = "DeleteHead" })
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="gridFourBodyContent">
+                    @foreach (TPC.Core.Models.CartViewModel Cvm in Model.CartListView)
+                    {
+                        <tr id="-@Cvm.ItemId"  style="white-space: nowrap; overflow: hidden;">
+                            <td id="Title">
+                                @*<img src="@Url.Content(ConfigurationManager.AppSettings["ImagesH80"] + Cvm.ISBN + ".jpg")" class="hide shadow margin10 nlm nrm ntm">*@
+                                <img  class="hide shadow margin10 nlm nrm ntm" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", Cvm.ISBN, imagePath, "\\", ".jpg")">
+
+                                <br />
+                                <a title="@Cvm.ItemId" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >
+                                    @Cvm.Title</a>
+                            </td>
+                            <td id="Series">@Cvm.Series</td>
+                            <td id="Author">
+                                @Cvm.Author
+                            </td>
+                            <td id="AR">@Cvm.AR</td>
+                            <td id="Lexile">@Cvm.Lexile</td>
+                            <td id="ItemPrice">
+                                <div id="@Cvm.ItemId" class="calculatePrice">
+                                    @String.Format("{0:C}", @Cvm.Price)
+                                </div>
+                            </td>
+                            <td class="text-center" id="Del">
+                                <a id="DeleteItem" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog"  data-Title="@Cvm.Title" title="@Cvm.ItemId"><i class="icon-minus fg-red"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="gridFourFootContent">
+                    <tr>
+                        <th class="text-left">Sales Tax :</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="" id="SalesTax" data-tx="@Model.SalesTax">
+                            @{
+                              
+                    var totalPrice =Model.CartListView.Sum(e => e.Price);
+                    double taxtPrice = 0;
+                    if (Model.SalesTax > 0)
+                    {
+                        taxtPrice = (totalPrice * (double)Model.SalesTax);
+                    }
+                            }
+                            @String.Format("{0:c}", taxtPrice)
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Total Price :</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="" id="totalPrice">
+                            @String.Format("{0:c}", (totalPrice+taxtPrice))
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        }
+    </div>
+</div>
+<div id="divTableData" class="hide"></div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    @*dont remove style*@
+    <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close nlp">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView">
+        @*PartialView Will Load Here*@
+    </div>
+    <div id="ItemListView">
+    </div>
+</div>
+<div id="Delete-dialog" class="zoom-anim-dialog mfp-hide span5" style="background-color: white; margin-left: 40%">
+    <h3 class="center button-bg" style="color: white;">Delete</h3>
+    <div class="padding5">
+        <label id="lbldeleteID"></label>
+    </div>
+    <button title="Close (Esc)" type="button" class="mfp-close" style="color: white; padding-left: 0px; height: 31px; border: 0px;">@Resources.TCPResources.CloseText</button>
+    <div id="DivDeleteQuote" class="span5 div-contentheight contentText text-center">
+        <button id="btnDeleteCart">OK</button>
+        <button class="BtnDeleteCancel">Cancel</button>
+    </div>
+</div>

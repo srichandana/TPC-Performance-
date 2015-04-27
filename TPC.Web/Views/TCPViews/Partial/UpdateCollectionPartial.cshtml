@@ -1,0 +1,38 @@
+﻿@model List<TPC.Core.Models.Models.FilterModel>
+@using TPC.Core.Models.Models;
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').click(function () {
+            $(this).closest('form').submit();
+        });
+        if ("@ViewBag.Status" != '')
+        {
+            $('#UpdateStatusForm').submit();
+        }
+    });
+</script>
+<input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+<div class="border span5 place-left margin20 nlm nrm nbm  place-left" style="height: 630px; overflow-x: auto">
+    <nav class="sidebar light">
+        <ul>
+            <li class="title"><a href="../Collection/Update"><strong>Collection</strong></a></li>
+            @foreach (FilterModel filterModel in Model)
+            {
+                <li class="stick">
+                    @using (Ajax.BeginForm("UpdateCollectionBygroupID", "Collection", new { groupID = filterModel.GroupID }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UpdateSelectedCollection", LoadingElementId = "loader" }, new { enctype = "multipart/form-data", @style = "margin:0px" }))
+                    {
+                        <a class="dropdown-toggle" href="#"> @filterModel.PackagePriority &nbsp;&nbsp;&nbsp; @filterModel.GroupName (<span id="groupPackageItems-@filterModel.GroupID">@filterModel.groupPackageItems</span>)</a>
+                        <ul class="dropdown-menu" data-role="dropdown" style="display: none;">
+                        </ul>
+                        //Html.ActionLink("", "AddNewCollections", "ItemContainerPartialController");
+                    }
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@if (ViewBag.Status != null)
+{
+      using (Ajax.BeginForm("UpdateStatus", "Collection", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "lblstatus", LoadingElementId = "loader" }, new { enctype = "multipart/form-data", @style = "margin:0px", @id = "UpdateStatusForm"  })) { }
+}

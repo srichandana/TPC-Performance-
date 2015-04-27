@@ -1,0 +1,163 @@
+﻿@model TPC.Web.Models.LoginModel
+@using System.Configuration
+@{
+    ViewBag.Title = "Log in";
+}
+<hgroup class="title">
+    @*  <h1>@ViewBag.Title.</h1>*@
+</hgroup>
+
+<div id="divLoginForm" class="popup-with-zoom-anim">
+    <section id="loginForm">
+        @*<h2>Use a local account to log in.</h2>*@
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @id = "loginform" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="hide">
+                @Html.HiddenFor(n => n.CustAutoID)
+                @Html.Hidden("hdnDafultPassword", @ConfigurationManager.AppSettings["DefaultPassword"])
+            </div>
+            <table id="loginfieldset" class="margin-top6" cellpadding="2" style="width: 384px">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center"><strong>@Resources.TCPResources.SignInRecommendationText</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="height: 21px; width: 0px;">
+                            <div id="invaliduname" class="redcolor hide">@Resources.TCPResources.ErrorMessage<a href="mailto:info@penworthy.com"> info@penworthy.com </a></div>
+                            <div id="forgotPassword" class="redcolor hide">@Resources.TCPResources.PasswordError<a href="mailto:info@penworthy.com"> info@penworthy.com </a>and we will reset your password for you.</div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.UserEmail)
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(m => m.UserEmail, new { @class = "span3 allowEnterKey" })<span id="uname" class="redcolor hide"></span>
+                            @Html.ValidationMessageFor(m => m.UserEmail)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Password)
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.PasswordFor(m => m.Password, new { @class = "span3 allowEnterKey" })<span id="upass" class="redcolor hide"></span>
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </td>
+                        <td><a id="login" href="#" style="font-size: 13pt" class="div-MainHeight25 place-right userValidations">SIGN IN</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-control checkbox" data-role="input-control">
+                                <label>
+                                    <input type="checkbox">
+                                    <span class="check"></span>
+                                    Remember me
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            @*<a id="forgorPass" href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 11px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 place-right">@Resources.TCPResources.ForgotPasswordText</a>*@
+                            @*                            <input type="submit" value="Forgot my password" style="padding: 0px 0px; text-align: left; vertical-align: middle!important; background-color: #fff; border: 1px transparent solid; color: #00a0cf; border-radius: 0; cursor: pointer; display: inline-block; outline: 0; font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 11px; line-height: 20px; letter-spacing: 0.01em;" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr id="userErrorInfo">
+                        <td>
+                            <a id="" href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25  forgorPass">@Resources.TCPResources.ForgotPasswordText</a>
+                        </td>
+                        <td id="password">
+                            <a id="changePass" href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 forgorPass ">Change Password</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+@*      <fieldset id="loginfieldset">
+                <legend class="span3">@Resources.TCPResources.SignInRecommendationText</legend>
+                <ol>
+                    <li>
+                        @Html.LabelFor(m => m.UserEmail)
+                        @Html.TextBoxFor(m => m.UserEmail, new { @class = "span3" })
+                        @Html.ValidationMessageFor(m => m.UserEmail)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "span3" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </li>
+                    <li>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "place-left margin5 nlm" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                    </li>
+                </ol>
+
+                <ol>
+                    <li>
+                        @*<input type="submit" value="Log in" style="font-size:13pt" class="div-MainHeight25"/>
+                        <a id="login" href="#" style="font-size: 13pt" class="div-MainHeight25">Log in</a>
+                    </li>
+                </ol>
+            </fieldset>   *@
+            <div id="loginCustomerDetails" class="hide text-center" style="margin: 40px 0px 0px 0px">
+                Please Select Customer      
+
+                  <select id="ddl" class="padding5">
+                  </select><br />
+                <div class="margin10">
+                    <a id="customerSelectionConfirmation" href="#" style="font-size: 13pt" class="div-MainHeight25 border userValidations">&nbsp OK &nbsp</a>
+                </div>
+            </div>
+            <div id="manageCustomerDetails" class="hide"></div>
+            <div id="forgotPasswordDetails" class="hide">
+                <div id="loadingUserError" class="">
+                    <table id="forgotPasswordWizard" style="margin: 20px 0px 0px 0px;">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align: center"><strong>@Resources.TCPResources.UserErrorText</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 place-right ">Cancel</a>
+                                </td>
+                                <td>
+                                    <a href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 place-right forgorPass">@Resources.TCPResources.ForgotPasswordText</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         
+@*
+    <p>
+        @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>*@
+        }
+    </section>
+</div>
+
+
+@*<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

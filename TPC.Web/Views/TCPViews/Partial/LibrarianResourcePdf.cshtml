@@ -1,0 +1,19 @@
+﻿@model string
+
+@*@if (@Model.Contains(".pdf")) //for Thumbnails
+{*@
+    @{
+        string pdfpath = @Model.Replace(".jpg", ".pdf"); }
+    <div class="">
+        <div>
+            <object data="@Url.Action("GetPdf", "Image", new
+                                            {
+                                                path = pdfpath
+                                            })" style="height: 550px; width: 1028px" type="application/pdf">
+            </object>
+           @* <object data="~/Image/GetPdf?path=@pdfpath" style="height: 628px; width: 1028px" type="application/pdf">
+
+            </object>*@
+        </div>
+    </div>
+@*}*@

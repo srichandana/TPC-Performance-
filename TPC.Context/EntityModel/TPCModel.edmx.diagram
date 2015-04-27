@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="814603c9ade546bd9b137a3f9505f53a" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="PenworthyModel.AppUser" Width="1.5" PointX="18" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.AppUserType" Width="1.5" PointX="15.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Author" Width="1.5" PointX="3.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CalTagInfo" Width="1.5" PointX="6" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogColumnType" Width="1.5" PointX="9" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogInformation" Width="1.5" PointX="6.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogProfileValidation" Width="1.5" PointX="13.5" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSoftwareVersionMapping" Width="1.5" PointX="15.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubject" Width="1.5" PointX="9" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectItemIDMapping" Width="1.5" PointX="8.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectOptionProtector" Width="1.5" PointX="13.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectOptionProtectorValue" Width="1.5" PointX="15.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectOption" Width="1.5" PointX="11.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectoptionShelfReady" Width="1.5" PointX="13.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectOptionShelfReadyValue" Width="1.5" PointX="18.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CatalogSubjectOptionValue" Width="1.5" PointX="13.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CollectionsDisplayPage" Width="1.5" PointX="3.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Customer" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerAddress" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerCatalogInformation" Width="1.5" PointX="18.75" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerCatalogProtectorInformation" Width="1.5" PointX="21" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerCatalogShelfReadyInformation" Width="1.5" PointX="21" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerRep" Width="1.5" PointX="21" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerRepAssignment" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerSeriesCharacter" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerShipToAddress" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerTag" Width="1.5" PointX="13.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.CustomerTitle" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.DWSelectionStatu" Width="1.5" PointX="6" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.ELMAH_Error" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.FAQ" Width="1.5" PointX="16" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.FAQCategory" Width="1.5" PointX="13.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.FAQDetail" Width="1.5" PointX="18.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Group" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.GroupPackage" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.GroupPackageItem" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.GroupStyle" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.InvoiceHistory" Width="1.5" PointX="15.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Item" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.ItemHistory" Width="1.5" PointX="3.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.ItemTag" Width="1.5" PointX="13.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.MailHistory" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Order" Width="1.5" PointX="10.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Package" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.PackageSubPackage" Width="1.5" PointX="6" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Publisher" Width="1.5" PointX="3.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Quote" Width="1.5" PointX="6" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.QuoteCallTag" Width="1.5" PointX="8.25" PointY="39.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.QuoteDetail" Width="1.5" PointX="8.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.QuoteSubmitSaveInfo" Width="1.5" PointX="11.25" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.QuoteType" Width="1.5" PointX="3.75" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.RepUser" Width="1.5" PointX="18.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.SeriesAndCharacter" Width="1.5" PointX="0.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.SourceType" Width="1.5" PointX="9" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Status" Width="1.5" PointX="3.75" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.Tag" Width="1.5" PointX="11" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.TagType" Width="1.5" PointX="8.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.TaxSchedule" Width="1.5" PointX="15.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.User" Width="1.5" PointX="16.5" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.UserPreference" Width="1.5" PointX="18.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.webpages_Membership" Width="1.5" PointX="17.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.webpages_OAuthMembership" Width="1.5" PointX="17.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.webpages_Roles" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.vDWCRMComm" Width="1.5" PointX="19.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.vDWMailHistory" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.vDWstat" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.vQuote" Width="1.5" PointX="0.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PenworthyModel.vWebUser" Width="1.5" PointX="21.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="PenworthyModel.FK_AppUser_AppUserTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Item_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteCatalog_CalTagInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptions_CatalogColumnType_ColumnType" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubject_CatalogInfoID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions1" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectItemIDMapping_ItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectoptionProtector_CatalogSubjectoption" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptionID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptions_Item_ItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogInformation_CatalogSubjectOptionValueID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Group_PageToDisplay" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerAddress_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogInformation_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerRep_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerSeriesCharacter_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerShipToAddress_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerTitles_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_User_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_User_CustomerCatalogInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerRep_RepUser" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerSeriesCharacter_SeriesCharacter" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_CustomerTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteDetail_DWSelectionID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_FAQ_FAQCategoriesID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_FAQDetails_FAQID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Group_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupPackage_GroupID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupStyle_GroupID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_PackageItem_GroupID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupPackage_PackageID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupPackageItem_Item_ItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupPackageItem_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_GroupPackageItem_PackageSub" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Item_Character" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Item_ItemHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Item_Publisher" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Item_Series" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteDetail_ItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_ItemTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Package_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_PackageSubPackage_PackageID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_PackageSubPackage_SubPackageID" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Publisher_Publisher" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Quote_QuoteType" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Quote_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Quote_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteCatalog_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteDetail_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteSubmitSaveInfo_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteSubmitSaveInfo_QuoteType" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_QuoteSubmitSaveInfo_SourceType" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_RepUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_Tag_TagType" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.FK_UserPreferences_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PenworthyModel.webpages_UsersInRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

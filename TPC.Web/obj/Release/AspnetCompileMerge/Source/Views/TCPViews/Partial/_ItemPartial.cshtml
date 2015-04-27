@@ -1,0 +1,40 @@
+﻿@model TPC.Core.Models.ItemViewModel
+@using TPC.Core.Models;
+
+@{string formattedItemName=Model.Description;
+  if(!string.IsNullOrEmpty(Model.Description))
+  {
+  if (Model.Description.Length > 9)
+      {
+
+          formattedItemName = @Model.Description.Substring(0, 9) + "...";
+
+      }
+  }  
+}
+
+
+    
+<div id="#small-dialog" class="zoom-anim-dialog mfp-hide">
+
+    <button title="Close (Esc)" type="button" class="mfp-close">X</button>
+    <div id="loadingSetView" >
+
+    </div>
+</div>
+<div id="Item" class="body-text">
+    
+    <div id="ViewDetailItem" class="singleImgWidth margin5  nlm ntm nbm  place-left">
+        <div class="singleImgWidth place-left text-center ItemImageheight">
+            <a title="@Model.ItemID" class="popup-with-zoom-anim ItemDetail" href="#small-dialog " >
+              @*  <img src="@Url.Content(@Resources.TCPResources.ItemImagePath + Model.ISBN + ".jpg")"  style="height:80px">*@
+            <img  style="height:80px" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", Model.ISBN, @Resources.TCPResources.ItemImagePath,"\\",".jpg")">
+            </a>
+        </div>
+        
+        <div class="place-left itemTextWidth ItemTitleheight itemTextSize ">
+            <div class="text-center">@Model.Title</div>
+        </div>
+    </div>
+
+</div>

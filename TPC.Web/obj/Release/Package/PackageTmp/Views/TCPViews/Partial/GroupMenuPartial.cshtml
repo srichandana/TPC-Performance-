@@ -1,0 +1,42 @@
+﻿@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Models.ViewModels
+@using TPC.Common.Enumerations;
+@{
+    
+    string quoteType = "Category";
+    int quoteID = 0;
+    if (Request.IsAuthenticated)
+    {
+        // quoteType = "Category";
+
+        quoteID = Model.UserVM.CurrentQuoteID;
+
+    }
+}
+<div id="HRMenus" class="place-left span12">
+    <nav class="horizontal-menu place-left" style="font-family: Arial;">
+        <ul class="menuht" style="margin: -10px 0px 0px 0px">
+            <li><a href="@Url.Action("GetProductDetails", "Default", new { quoteID = @quoteID, quoteType = "Products" })" style="font-size:12px">PRODUCTS</a></li>
+            @if (Request.IsAuthenticated && Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+            { 
+                <li><a href="#" style="font-size: 12px" class="dropdown-toggle">DECISION WIZARD</a>
+                    <ul class="dropdown-menu" data-role="dropdown">
+                        @foreach (int key in Model.UserVM.DWDetails.Keys)
+                        {
+                            <li><a  href="@Url.Action("GetItemListView", "ItemListView", new { iD = @key, type = Resources.TCPResources.DecisionWizardliText })">@Resources.TCPResources.MyText @Model.UserVM.DWDetails[key] @Resources.TCPResources.DecisionWizardliText</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+            else if(!Request.IsAuthenticated)
+            {
+                <li><a href="#small-dialog" style="font-size: 12px" class="popup-with-zoom-anim login">DECISION WIZARD</a></li>
+            }
+            <li><a style="font-size:12px" href="@Url.Action("GetLibrarianResources", "Default")">@Resources.TCPResources.MenuLibrary</a></li>
+            <li><a style="font-size:12px" href="@Url.Action("GetFAQQuestions", "Default")">@Resources.TCPResources.MenuAboutUs</a></li>
+            <li><a style="font-size:12px" href="@Url.Action("GetContactDetails", "Default")">@Resources.TCPResources.MenuContactus</a></li>
+        </ul>
+
+    </nav>
+
+</div>

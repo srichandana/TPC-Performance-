@@ -1,0 +1,46 @@
+﻿@model TPC.Core.Models.ViewModels.ContactViewModel
+@using System.Configuration;
+@using TPC.Common.Enumerations;
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@{
+    ViewBag.Title = "Contact Penworthy";
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+}
+
+<div id="hiddenFiledsDiv" class="hide">
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="ContactUs" class="span12 place-left body-text margin20 nlm nrm nbm">
+    <div class="span12 place-left">
+       
+        @{
+            var defualtContactValues = ConfigurationManager.AppSettings["PenworthyAddress"].Split('%');
+            }
+            @foreach (string value in @defualtContactValues)
+            {
+            <div class="addressdiv span6 ">
+                @if (value.Contains("com"))
+                {
+                    <a href="mailto:@value">@value</a>
+                }
+                else
+                {
+                    @value
+                }
+            </div>
+            }
+            <div class="place-left span12 " style="vertical-align: middle">
+                @{
+            var ImagePath = ConfigurationManager.AppSettings["ContactusImageDirectory"];
+                }
+                @*<img src=@Url.Action("GetImage", "Contact", new { imgPath = @ImagePath }) />*@
+                @*<img src="~/Images/DefaultContactImage.jpg" />*@
+               <img  src="~/Image/Getimage?id=@String.Format("{1}{0}", "Penworthy Group Photo.jpg", @ImagePath)">
+            </div>
+       
+    </div>
+
+</div>
+
+

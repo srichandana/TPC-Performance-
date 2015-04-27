@@ -1,0 +1,11 @@
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\TPC.Context.dll.config
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\TPC.Context.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\TPC.Context.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\EntityFramework.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\EntityFramework.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\obj\Release\TPC.Context.csprojResolveAssemblyReference.cache
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\obj\Release\TPC.Context.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\obj\Release\TPC.Context.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Context\bin\Release\Antlr3.Runtime.dll

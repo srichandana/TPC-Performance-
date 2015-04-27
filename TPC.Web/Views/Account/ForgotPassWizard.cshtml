@@ -1,0 +1,69 @@
+﻿@model TPC.Web.Models.LoginModel
+@{
+    ViewBag.Title = "ForgotPassWizard";
+    Layout = null;
+}
+
+<div id="divLoginForm" class="popup-with-zoom-anim" style="margin: 40px 0px 0px 3px">
+
+
+    <table id="forgotpassWizard" cellpadding="2">
+        <thead>
+            <tr>
+                <th colspan="2"><strong>@*Reset password is about to complete and send to Email.Do want to continue?*@
+                    @*A temporary password will be sent to the Email below. If your Email has invalid contact Penworthy*@
+                    A temporary password will be sent to the Email below. </strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="height55">
+                <td colspan="2">
+                    @Html.TextBox("ForgotEmail", "", new { @class = "span3 allowEnterKey marginleft50", @readonly = "true", })
+                </td>
+            </tr>
+
+            <tr class="height55">
+
+                <td>
+                    <a href="#" style="font-size: 13pt" class="div-MainHeight25 text-center  forgorPasserror marginleft85">@Resources.TCPResources.ForgotPasswordText</a>
+                    @*    <input type="submit" value="Forgot my password" style="padding: 0px 0px; text-align: left; vertical-align: middle!important; background-color: #fff; border: 1px transparent solid; color: #00a0cf; border-radius: 0; cursor: pointer; display: inline-block; outline: 0; font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 11px; line-height: 20px; letter-spacing: 0.01em;" />*@
+                </td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table id="conformDialog" style="margin: 20px 0px 0px 0px;" class="hide">
+        <thead>
+            <tr>
+                <th colspan="2" style="text-align: center"><strong>Reset password is about to complete and send to Email.Do want to continue?</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <a href="#" style="font-size: 13pt;" class="div-MainHeight25 text-center margin-left4 forgorPasserror">Cancel</a>
+                </td>
+                <td>
+                    <a href="#" style="font-size: 13pt" class="div-MainHeight25 text-center  place-right forgorPasserror">@Resources.TCPResources.ForgotPasswordText</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @*  <div id="loginCustomerDetails" class="hide text-center margin10">
+            Please Select Customer      
+
+                  <select id="ddl" class="padding5">
+                  </select><br />
+            <div class="margin10">
+                <a  href="#" style="font-size: 13pt" class="div-MainHeight25 border forgorPasserror">&nbsp Send Email &nbsp</a>
+            </div>
+        </div>*@
+    <div id="manageCustomerDetails" class="hide"></div>
+    @*
+    <p>
+        @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>*@
+
+</div>

@@ -1,0 +1,145 @@
+﻿@model TPC.Core.Models.ItemListViewModel
+@{
+    int NoOfPages = (int)Math.Ceiling((@Model.SelectionCount) / (double)10);
+    ViewBag.Title = "ItemListView";
+    if (Model.QuoteTitle != null && Model.QuoteType != null)
+    {
+        // ViewData["QuoteTitle"] = Model.QuoteTitle;
+        // ViewData["QuoteType"] = Model.QuoteType;
+        ViewData["QuoteID"] = Model.QuoteID;
+        ViewData["Type"] = Model.KPLItemListVM != null && Model.KPLItemListVM.Count() > 0 ? Model.KPLItemListVM.FirstOrDefault().QuoteFlag : string.Empty;
+    }
+}
+
+<div class="hide">
+    @Html.Hidden("hdnNoofpages", NoOfPages)
+    <input type="hidden" id="hdnPreviewStatus" value="@Resources.TCPResources.DetailList" />
+</div>
+<div id="displayItems" class="place-left span12 ">
+    <div>
+    </div>
+    <div id="divStatusList" class="span12 place-left contentTextSmall" style="position: fixed; z-index: 1; margin-top: -12px;">
+        <table id="tblStatusList" class="span12 ">
+            <tr>
+                <td>
+                    @if (Model.QuoteType == Resources.TCPResources.DecisionWizardliText && Model.IsListView == true)
+                    {                                                                                                           
+                        <div id="pb1" class="progress-bar custom-progress-bar" data-role="progress-bar" data-color="#99bfe6"></div>
+                    }
+                </td>
+            </tr>
+             <tr>
+                <td colspan="3">
+                        <div id="goldStarText" class="place-left margin10 nlm nbm ">
+                            <i id="staricon-yellow" class="icon-star-3 margin5 ntm nbm nlm fg-yellow itemTextSize"></i>@Resources.TCPResources.goldStarText
+                        </div>
+                        <div class="place-left margin10 nbm ">
+                            <i id="staricon-blue" class="icon-star-3 margin5 ntm nbm nlm button-fg itemTextSize"></i>@Resources.TCPResources.BlueStarText
+                        </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="divStatus" class="span6_5 place-left contentTextSmall">
+                        @if (Model.QuoteType == Resources.TCPResources.DecisionWizardliText)
+                        {
+                            <table id="tblStatus" class="span6_5 margin10 nlm nrm">
+                                <tr>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="SelectAll" data-count="@Convert.ToInt32(@Model.noOfYesCount + @Model.noOfNoCount + @Model.noOfMaybeCount + @Model.noOfNewCount)" value="0">
+                                    </td>
+                                    <td style="width: 53px">
+                                        <label class="place-left LableHdTD ">All</label>
+                                        <label class="place-left lableValTD" id="0">(@Convert.ToInt32(@Model.noOfYesCount + @Model.noOfNoCount + @Model.noOfMaybeCount + @Model.noOfNewCount))</label>
+                                    </td>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="1" data-count="@Model.noOfYesCount">
+                                    </td>
+                                    <td>
+                                        <label class="place-left LableHdTD">Yes</label>
+                                        <label class="place-left lableValTD" id="1">(@Model.noOfYesCount)</label>
+                                        <label class="place-left LableHdTD">&nbsp;Price&nbsp; </label>
+                                        <label class="place-left LableHdTD" id="lblYesPrice">@String.Format("{0:C}", Model.YesTotalPrice)</label>
+                                    </td>
+
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="2" data-count="@Model.noOfNoCount">
+                                    </td>
+                                    <td style="width: 53px">
+                                        <label class="place-left LableHdTD">No</label>
+                                        <label class="place-left lableValTD" id="2">(@Model.noOfNoCount)</label>
+                                    </td>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="3" data-count="@Model.noOfMaybeCount">
+                                    </td>
+                                    <td style="width: 76px">
+                                        <label class="place-left LableHdTD">Maybe</label>
+                                        <label class="place-left lableValTD" id="3">(@Model.noOfMaybeCount)</label>
+                                    </td>
+
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="5" data-count="@Model.noOfNewCount">
+                                    </td>
+                                    <td style="width: 59px">
+                                        <label class="place-left LableHdTD">New</label>
+                                        <label class="place-left lableValTD" id="5">(@Model.noOfNewCount)</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index","Home")">Back To Home</a>
+                        }
+                    </div>
+                </td>
+
+                <td>
+                    <div class=" place-right span6 margin10 nbm nrm">
+                        @if (Model.IsListView)
+                        {
+                            <input type="button" id="btnviewOne" class="text-right place-right" value="View One" style="background-color: transparent">
+                        }
+                        else
+                        {
+                            <input type="button" id="btnviewAll" class="text-right place-right" value="View All" style="background-color: transparent">
+                            using (Ajax.BeginForm("DeleteNoItemsByQuoteID", "ItemContainerPartial", new { quoteID = Model.QuoteID }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "DeleteNoItemsSucess", UpdateTargetId = "UpdateSelectedCollection", LoadingElementId = "loader" }, new { enctype = "multipart/form-data", @style = "margin:0px" }))
+                            {
+                                <input type="submit" id="btnDeleteNoTitles" class="text-right place-right margin-right22" value="Delete No Titles" style="background-color: transparent">
+                            }
+                        }
+
+                    </div>
+                </td>
+                <td class="place-right span3">
+
+                    <div class=" place-right span3">
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="div-MainHeight20 span12 place-left border-top"></div>
+    <div id="ItemListView" class="body-text span12" style="margin-top: 54px">
+        @Html.Partial("../TCPViews/Partial/SingleItemListViewPartial", @Model.KPLItemListVM)
+    </div>
+
+</div>
+
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">X</button>
+    <div id="loadingSetView">
+    </div>
+</div>
+
+<div id="loginPopup-dialog" class="zoom-anim-dialog mfp-hide">
+    <div class="loginsmall-dialog">
+        <div>
+            <button title="Close (Esc)" type="button" class="mfp-close" style="position: static; margin-top: -18px; float: left; margin-left: -29px;">@Resources.TCPResources.CloseText</button>
+            <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        </div>
+        <div id="loadingLoginSetView">
+        </div>
+    </div>
+</div>

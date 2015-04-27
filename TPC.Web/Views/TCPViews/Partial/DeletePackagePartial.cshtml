@@ -1,0 +1,19 @@
+﻿@model TPC.Core.Models.Models.FilterModel
+@using TPC.Core.Models.Models;
+
+
+<div class="span100per place-left">
+    <div class="text-left span2 place-left">
+        <label>Package Name</label>
+    </div>
+
+    <div class=" margin10 nrm ntm span4 place-left">@Html.DropDownList("PackageNames", (IEnumerable<SelectListItem>)ViewBag.PackageNames, "Select Package Name")</div>
+
+</div>
+
+<div class="span4 place-left" style="margin-left: 211px;">
+    <div class="span2 place-left">
+        <button class="primary">Delete Package</button>
+    </div>
+    <div id="lblpackagestatus" class="place-left margin5">@ViewBag.message</div>
+</div>

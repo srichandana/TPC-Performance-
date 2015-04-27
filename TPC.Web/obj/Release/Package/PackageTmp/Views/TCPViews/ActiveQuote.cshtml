@@ -1,0 +1,627 @@
+﻿@using TPC.Core.Models.ViewModels;
+@using System.Configuration;
+@using TPC.Core.Models.Models;
+@using TPC.Common.Enumerations;
+﻿@model TPC.Core.Models.ViewModels.ActiveQuoteViewModel
+@using TPC.Web.Infrastructure;
+@{
+    ViewBag.Title = "ActiveQuote";
+}
+
+<script>
+    //Google Analytics
+    var mydate = new Date();
+    mydate = mydate.setFullYear(2020, mydate.getDate(), mydate.getMonth());
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = mydate; a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<div id="CreateQuote-dialog" class="zoom-anim-dialog mfp-hide">
+    @*dont remove style*@
+    <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="CreateQuoteView">
+        @*PartialView Will Load Here*@  
+    </div>
+
+</div>
+@*<div id="SendEmaildiv" class="hide">
+    <div>
+        <div class="padding5">
+            <label class="center button-bg">Select Send Option</label>
+        </div>
+        <div class="margin10">
+            <table class="padding20 margin10">
+                <tr>
+                    <td class="span120">
+                        <input type="checkbox" id="Pdf" value="Pdf" class="place-right " checked="checked" /></td>
+                    <td class="textplace place-left">Export Pdf</td>
+                </tr>
+                <tr>
+                    <td class="span120">
+                        <input type="checkbox" id="Excel" class="place-right " value="Excel" /></td>
+                    <td class="textplace place-left">Export Excel</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="place-right span1"><a id="mailcancelbtn" class="button btncancel aButton">Cancel</a></div>
+                        <div class="place-right " style="width: 70px!important"><a id="mailQuote" class="button aButton ">Send</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>*@
+
+<div id="SendEmaildiv" class="hide">
+    <div>
+        <div class="padding5">
+            <label class="center button-bg">Select Send Option</label>
+        </div>
+              <table class="padding20 margin10">
+                <tr>
+                    <td class="span120">
+                        <input type="checkbox" id="Pdf" value="Pdf" class="place-right sendQuoteOption hide" checked="checked" />        
+                        <input type="radio"  value="Initial" name="sendDWOption" class="place-right sendDWOption hide" checked="checked" />  
+                    </td>
+                    <td class="textplace place-left" id="pdfOrIntialText"></td>
+                </tr>
+                <tr>
+                    <td class="span120">
+                        <input type="checkbox" id="Excel" class="place-right sendQuoteOption  hide" value="Excel" />   
+                       <input type="radio" value="Remainder" name="sendDWOption" class="place-right sendDWOption hide" /> 
+                    </td>
+                    <td class="textplace place-left" id="excelOrRemainderText"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="place-right span1"><a id="mailcancelbtn" class="button btncancel aButton">Cancel</a></div>
+                        <div class="place-right " style="width: 70px!important"><a id="mailQuote" class="button aButton ">Send</a></div>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+<div id="hiddenfieldDiv" class="hide">
+    @Html.Hidden("hdnMailURL", ConfigurationManager.AppSettings["MailDWURL"])
+    @Html.Hidden("hdnMailSubject", ConfigurationManager.AppSettings["MailDWSubject"])
+    @Html.Hidden("hdnInvoiceMailSubject", ConfigurationManager.AppSettings["MailInvoiceSubject"])
+    @Html.Hidden("hdnSubmiQuotePath", @Url.Action("SubmitQuotePartialView", "ActiveQuote"))
+    @Html.Hidden("hdnstatusID",(int)QuoteStatusEnum.Transferred)
+    @Html.Hidden("hdnQuoteMailPath", Model.UserVM != null ? Model.UserVM.CRMModelProperties != null ? Model.UserVM.CRMModelProperties.CustEmail : "" : "")
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+
+<div class="body-text">
+
+    <div id="" class="place-left span12 contentText margin10 ntm nlm nrm ">
+        <div class="span12 contentText place-left margin10 ntm nlm nrm">
+            @Html.DropDownListFor(e => e.UserVM.CRMModelProperties.LoggedINCustomerUserID, new SelectList(Model.LstCustomerEmails, "ItemID", "ItemValue"))
+        </div>
+        @if (Model.ListCustomerAccountSCDWQuoteInfo != null)
+        {
+            for (int i = 0; i < Model.ListCustomerAccountSCDWQuoteInfo.Count; i++)
+            {
+            @Html.Hidden("hdnDefaultCustomerID", @Model.ListCustomerAccountSCDWQuoteInfo[0].CustomerAccountID);
+                                                                                                              string customerName = @Model.ListCustomerAccountSCDWQuoteInfo == null ? string.Empty : @Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountName;
+                                                                                                              string customerEmail = @Model.ListCustomerAccountSCDWQuoteInfo == null ? string.Empty : @Model.ListCustomerAccountSCDWQuoteInfo[i].UserEmail;
+                                                                                                              string showHideClass = Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID == Model.UserVM.CRMModelProperties.LoggedINCustomerUserID.ToString() ? "" : "hide";
+            <div id="CustomerInfo-@Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID" class="@showHideClass CustomerInfo divBorder span12 contentText place-left ">
+                <div class="dwstatus">
+                    @*Shopping Cart Grid--Start *@
+                    <div class="divlayoutcss">
+                        <div class="place-left span12 div-MainHeight25">
+                            <div class="place-left span2 text-left div-MainHeight20 ">
+                                <b>@Resources.TCPResources.ShoppingCartText</b>
+                            </div>
+                            <div class="place-left icontext div-MainHeight20"></div>
+                            <div class="place-left span1 div-MainHeight20"></div>
+                            <div class=" place-left div-MainHeight20 viewtextwidth">
+                                <a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = @Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID })"><span class="acolor">@Resources.TCPResources.ViewText</span></a>
+                            </div>
+                            <div class="place-left span1 div-MainHeight20"></div>
+                            <div class="place-left listbuttontextwidth div-MainHeight20">
+                            </div>
+                            <div class="place-left span1 div-MainHeight20"></div>
+
+                            <div class="place-left div-MainHeight20 padding10 ntp nlp nrp ">
+                                <b>@Resources.TCPResources.CatalogInfoText :&nbsp;</b>
+                            </div>
+                            <div class="place-left div-MainHeight20 padding10 ntp nlp nrp">
+                                <a href="@Url.Action("ViewCatalogInfo", "CatalogInfo", new { custAutoID = @Model.UserVM.CRMModelProperties.CustAutoID })"><span class="acolor">@Model.ListCustomerAccountSCDWQuoteInfo[i].CatalogStatus</span></a>
+                            </div>
+                        </div>
+                        <div class="place-left span12">
+                            <table class="table striped">
+                                <thead class="nofixedHeader">
+                                    <tr>
+                                        <th>
+                                            @* Maintained Space *@
+                                        </th>
+                                        <th>
+                                            @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[0].ShopingCartInfo.PenworthyUpdatedDate, new { @class = "labelHeight" })
+                                        </th>
+                                        <th>
+                                            @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[0].ShopingCartInfo.CustomerUpdatedDate, new { @class = "labelHeight" })
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                        <th colspan="3"></th>
+                                        <th>
+                                            @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[0].ShopingCartInfo.NumberOfBooks, new { @class = "labelHeight" })
+                                        </th>
+                                        <th class="text-right">
+                                            @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[0].ShopingCartInfo.TotalPrice, new { @class = "labelHeight" })
+                                        </th>
+                                        <th>
+                                            @* Icon Place *@
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="noscrollContent ">
+                                    <tr>
+                                        <td>
+                                            @* Maintained Space *@
+                                        </td>
+                                        <td>
+                                            @Html.ConvertUniversalDateTimeToLocalTime(Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.PenworthyUpdatedDate, HttpContext.Current.Timestamp)
+                                            @*@String.Format("{0:g}", Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.PenworthyUpdatedDate.ToLocalTime())*@
+                                        </td>
+                                        <td>
+                                            @Html.ConvertUniversalDateTimeToLocalTime(Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.CustomerUpdatedDate, HttpContext.Current.Timestamp)
+                                            @*@String.Format("{0:g}", Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.CustomerUpdatedDate.ToLocalTime())*@
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="3"></td>
+                                        <td>
+                                            @Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.NumberOfBooks
+                                        </td>
+                                        <td class="text-right">
+                                            @String.Format("{0:C0}", Model.ListCustomerAccountSCDWQuoteInfo[i].ShopingCartInfo.TotalPrice)
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*Decision Wizard Grid--Start *@
+                    <div class="divlayoutcss dwlinks">
+                        @using (Html.BeginForm("ItemContainer", "ItemContainerPartial", FormMethod.Post))
+                        {
+                            string id = @Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo.Count() == 0 ? @Model.ListCustomerAccountSCDWQuoteInfo[0].CustomerAccountID.ToString() : @Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID.ToString();
+                            <div class="place-left span12 div-MainHeight25 dw-@i ">
+                                <div class="place-left span2 text-left div-MainHeight20">
+                                    <b>@Resources.TCPResources.DecisionWizardText</b>
+                                </div>
+                                <div class="place-left icontext div-MainHeight20">
+                                    @if (@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo != null && @Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo.Count() > 0)
+                                    {
+                                        <a id="@id" data-mail="@Model.ListCustomerAccountSCDWQuoteInfo[i].CommunicationEmail" href="#CreateQuote-dialog" class=" popup-with-zoom-anim acolor text-right txt-Medium btnSendInfo"><i class="icon-mail acolor "></i></a>
+                                        <a id="@id" data-mail="@Model.ListCustomerAccountSCDWQuoteInfo[i].CommunicationEmail" href="#small-dialog" class=" popup-with-zoom-anim acolor text-right txt-Medium sendEmail"><i class="icon-mail acolor "></i></a>
+                                        @* <a id="@id" data-mail="@Model.ListCustomerAccountSCDWQuoteInfo[i].CommunicationEmail" href="#small-dialog" class=" popup-with-zoom-anim acolor text-right txt-Medium sendEmail"><i class="icon-mail acolor "></i></a>*@
+                                    }
+                                </div>
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="place-left div-MainHeight20 viewtextwidth">
+                                    <input type="submit" class="dwviewlinks-@i" name="DWView" value="View" style="background-color: white;" />
+                                </div>
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="place-left div-MainHeight20 listbuttontextwidth">
+                                    <input type="submit" class="dwviewlinks-@i" name="KPL" value="@Resources.TCPResources.ItemListText" />
+                                </div>
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="place-left div-MainHeight20 filterbuttontextWidth">
+                                    <input type="submit" class="dwviewlinks-@i" name="Category" value="@Resources.TCPResources.FilterListText" style="background-color: white;" />
+                                </div>
+
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="place-left div-MainHeight20 buttonstext">
+                                    <input type="submit" class="dwviewlinks-@i" name="DetailList" value="@Resources.TCPResources.DetailList" style="background-color: white;" />
+                                </div>
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="place-left div-MainHeight20 buttonstext">
+                                </div>
+                                <div class="place-left span1 div-MainHeight20"></div>
+                                <div class="icontext place-left text-right div-MainHeight20 padding ntp nbp">
+                                    <a id="CreateDW" href="#CreateQuote-dialog" class="text-left popup-with-zoom-anim CreateDW"><i class="icon-plus fg-green"></i></a>
+                                </div>
+
+                            </div>
+                                    if (@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo != null && @Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo.Count() > 0)
+                                    {
+                            <div id="@Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID" class="divDW place-left span12">
+                                <table id="tblDW-@i" title="@Model.ListCustomerAccountSCDWQuoteInfo[i].CustomerAccountID"  class="tblDW tabledw-@i table striped tablesorter">
+                                    <thead class="nofixedHeaderDW">
+                                        <tr>
+                                            <th>
+                                                @Html.Label(Resources.TCPResources.SelectText, new { @class = "labelHeight" })
+                                            </th>
+                                            <th>
+                                                @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].PenworthyUpdatedDate, new { @class = "labelHeight" })
+                                            </th>
+                                            <th>
+                                                @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].CustomerUpdatedDate, new { @class = "labelHeight" })
+                                            </th>
+                                            <th>@Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].DWName, new { @class = "labelHeight" })</th>
+                                            <th>@Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].NoofYesCount, new { @class = "labelHeight" })</th>
+                                            <th>@Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].NoofNoCount, new { @class = "labelHeight" })</th>
+                                            <th>@Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].NoofMaybCount, new { @class = "labelHeight" })</th>
+                                            <th>@Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].NoofNewCount, new { @class = "labelHeight" })</th>
+                                            <th>
+                                                @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].NumberOfBooks, new { @class = "labelHeight" })
+                                            </th>
+                                            <th class="text-left">
+                                                @Html.LabelFor(e => e.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[0].TotalPrice, new { @class = "labelHeight" })
+                                            </th>
+                                            <th class="text-left">
+                                                @Html.Label(Resources.TCPResources.DeleteText, new { @class = "labelHeight" })
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="noscrollContentDW">
+                                        @for (int j = 0; j < Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo.Count; j++)
+                                        {
+                                            <tr id="dw-@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].QuoteID">
+                                                <td id="dwchkInfo">
+                                                    <input  id="assignDWChkBx" data-quoteID="@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].QuoteID" data-QuoteTypeText="@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].DWName" name="assignChkBx" type="checkbox" class="DWQuoteID" value ="@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].QuoteID%@Resources.TCPResources.DecisionWizardliText%@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NumberOfBooks%@string.Format("{0:C0}", Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].TotalPrice)"/>
+                                                </td>
+                                                <td id="dwcreateDate">
+                                                    @Html.ConvertUniversalDateTimeToLocalTime(Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].PenworthyUpdatedDate, HttpContext.Current.Timestamp)
+                                                    @*@String.Format("{0:g}", Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].PenworthyUpdatedDate.ToLocalTime())*@
+                                                </td>
+                                                <td id="dwUpdatedate">
+                                                    @Html.ConvertUniversalDateTimeToLocalTime(Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].CustomerUpdatedDate, HttpContext.Current.Timestamp)
+                                                    @*@String.Format("{0:g}", Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].CustomerUpdatedDate.ToLocalTime())*@
+                                                </td>
+                                                <td id="dwname" style="word-break: break-all; line-height: normal; padding-top: 1px;">
+                                                    @Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].DWName
+                                                </td>
+                                                <td class="padding5 nbp" id="dwYNCount">@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NoofYesCount</td>
+                                                <td id="dwNCount">@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NoofNoCount</td>
+                                                <td id="dwMCount">@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NoofMaybCount</td>
+                                                <td id="dwNWCount">@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NoofNewCount</td>
+                                                <td id="dwNBooks">
+                                                    @Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].NumberOfBooks
+                                                </td>
+                                                <td class="text-right " id="dwTPrice">
+                                                    @string.Format("{0:C0}", Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].TotalPrice)
+                                                </td>
+                                                <td class="text-right" id="dwDialog">
+                                                    @{
+                                            string deleteDialogHideClass = string.Empty;
+                                            deleteDialogHideClass = Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].DWName != Resources.TCPResources.PenworthyText ? "fg-red" : "fg-orange";
+                                                    }
+                                                    <a id="DW" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog" data-id="@i" data-dwName="@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].DWName" title="DeleteDW" data-quoteID="@Model.ListCustomerAccountSCDWQuoteInfo[i].DesicionWhizardInfo[j].QuoteID" data-QuoteTypeID="@Convert.ToInt32(QuoteTypeEnum.DecisionWhizard)"><i class="icon-minus @deleteDialogHideClass"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                                    }
+                        }
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+
+    <div class="divBorder divlayoutcss margin10 ntm nlm nrm ">
+        @using (Html.BeginForm("ItemContainer", "ItemContainerPartial", FormMethod.Post))
+        {
+            <div class="place-left margin5 nlm nrm nbm span12 div-MainHeight25">
+                <div class="place-left span2 text-left div-MainHeight20">
+                    <b>@Resources.TCPResources.ActiveQuoteText</b>
+                </div>
+                <div class="place-left icontext div-MainHeight20">
+                    <a id="quoteEmailLink" href="#CreateQuote-dialog" class="text-left popup-with-zoom-anim  txt-Medium btnSendInfo"><i class="acolor icon-mail"></i></a>
+                    @*<a id="mailQuote" class="text-right txt-Medium "><i class="acolor icon-mail"></i></a>*@
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="place-left div-MainHeight20 viewtextwidth">
+                    <input type="submit" class="quoteLinks disableview" name="View" value="View" style="background-color: white;" />
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="place-left div-MainHeight20 listbuttontextwidth">
+                    <input type="submit" class="quoteLinks disablekpl" name="KPL" value="@Resources.TCPResources.ItemListText" />
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="place-left div-MainHeight20 filterbuttontextWidth">
+                    <input type="submit" class="quoteLinks disablecategory" name="Category" value="@Resources.TCPResources.FilterListText" style="background-color: white;" />
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="place-left div-MainHeight20 buttonstext">
+                    <a id="submitQuoteInfo" class="popup-with-zoom-anim quoteLinks SubmitQuote disableSubmit" href="#SubmitQuote-dialog">@Resources.TCPResources.SubmitText</a>
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="place-left div-MainHeight20 buttonstext">
+                    <a id="mergeQuote" class="popup-with-zoom-anim Merge quoteLinks disbalmerge" href="#small-dialog">@Resources.TCPResources.MergeText</a>
+                </div>
+                <div class="place-left span1 div-MainHeight20"></div>
+                <div class="icontext place-left text-right div-MainHeight20 padding ntp nbp">
+                    <a id="CreateQuote" class="popup-with-zoom-anim CreateQuote" href="#CreateQuote-dialog"><i class="icon-plus fg-green"></i></a>
+                </div>
+
+            </div>
+                 
+            <div id="ListActiveQuote" class="place-left span12">
+                <table id="tblQuote" class="table striped tablesorter ">
+                    @{string quoteEmptyStatus = (Model.ListActiveQuote != null && Model.ListActiveQuote.Count > 0) ? "" : "hide";}
+                    <thead class="nofixedHeader @quoteEmptyStatus">
+                        <tr>
+                            <th>
+                                @Html.Label(Resources.TCPResources.SelectText, new { @class = "labelHeight" })
+                            </th>
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].CreatedDate, new { @class = "labelHeight" })
+                            </th>
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].UpdateDate, new { @class = "labelHeight" })
+                            </th>
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].QuoteName, new { @class = "labelHeight" })
+                            </th>
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].QuoteTypeText, new { @class = "labelHeight" })
+                            </th>
+
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].StatusID, new { @class = "labelHeight" })
+                            </th>
+
+                            <th>
+                                @Html.LabelFor(e => e.ListActiveQuote[0].TotalItems, new { @class = "labelHeight" })
+                            </th>
+                            <th class="text-center  ">
+                                @Html.LabelFor(e => e.ListActiveQuote[0].TotalPrice, new { @class = "labelHeight" })
+                            </th>
+                            <th class="text-left ">
+                                @Html.Label(Resources.TCPResources.DeleteText, new { @class = "labelHeight" })
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="noscrollContent ">
+                        @if (Model.ListActiveQuote != null && Model.ListActiveQuote.Count > 0)
+                        {
+                            for (int i = 0; i < Model.ListActiveQuote.Count; i++)
+                            {
+                            <tr id="Quote-@Model.ListActiveQuote[i].QuoteID">
+                                <td id="chkQuoteInfo">
+                                    <input  id="assignChkBx" data-quoteID="@Model.ListActiveQuote[i].QuoteID"  data-statusid="@Model.ListActiveQuote[i].StatusID"
+                                        data-quoteType="@Model.ListActiveQuote[i].QuoteTypeID" name="assignChkBx" 
+                                        type="checkbox" class="Quote" value ="@Model.ListActiveQuote[i].QuoteID%@Model.ListActiveQuote[i].QuoteTypeText%@Model.ListActiveQuote[i].TotalItems%@string.Format("{0:C}", Model.ListActiveQuote[i].TotalPrice)" />
+                                </td>
+                                <td id="quoteCreateDate">
+                                    @Html.ConvertUniversalDateTimeToLocalTime(Model.ListActiveQuote[i].CreatedDate, HttpContext.Current.Timestamp)
+                                    @*@String.Format("{0:g}", Model.ListActiveQuote[i].CreatedDate)*@
+                                </td>
+                                <td id="quoteUpdateDate">
+                                    @Html.ConvertUniversalDateTimeToLocalTime(Model.ListActiveQuote[i].UpdateDate, HttpContext.Current.Timestamp)
+                                    @*@String.Format("{0:g}", Model.ListActiveQuote[i].UpdateDate)*@
+                                </td>
+                                <td id="quoteName" style="word-break: break-all; line-height: normal; padding-top: 1px;">
+                                    @Model.ListActiveQuote[i].QuoteName
+                                </td>
+                                <td id="quoteTitle">
+                                    @Model.ListActiveQuote[i].QuoteTypeText
+                                </td>
+                                <td id="quotestatus">
+                                    @Html.DisplayFor(e => e.ListActiveQuote[i].StatusText)
+                                </td>
+                                <td id="quoteItems">
+                                    @Model.ListActiveQuote[i].TotalItems
+                                </td>
+                                <td class="text-right" id="quotePrice">
+                                    @String.Format("{0:C0}", Model.ListActiveQuote[i].TotalPrice)
+                                </td>
+                                <td class="text-right" id="quoteDialog">
+                                    @{ string shippingIconClass = (Model.ListActiveQuote[i].QuoteTypeID == (int)QuoteTypeEnum.Preview) && (Model.ListActiveQuote[i].StatusID == (int)QuoteStatusEnum.Transferred) ? "" : "hide";
+                                       string hideDeleteforTransferredstatus = Model.ListActiveQuote[i].StatusID == (int)QuoteStatusEnum.Transferred ? "hide" : "";
+                                    }
+                                    <div class="place-right numericUpDownButtonsWidth"><a id="Quote" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog @hideDeleteforTransferredstatus" title="DeleteQuote" data-quoteID="@Model.ListActiveQuote[i].QuoteID"><i class="icon-minus fg-red"></i></a></div>
+                                    <div class="place-left  margin-left2 @shippingIconClass"><a id="calTagInfo" class="popup-with-zoom-anim quoteLinks calTag" data-quoteID="@Model.ListActiveQuote[i].QuoteID" href="#Caltag-dialog"><i class="icon-shipping"></i></a></div>
+                                    @*<input type="hidden" id="@Model.ListActiveQuote[i].QuoteID" class="hiddenid" name="quoteid" value="@Model.ListActiveQuote[i].QuoteID" />*@
+                                </td>
+                            </tr> 
+                            }
+                        }
+                    </tbody>
+                    <tfoot style="display: none">
+                        <tr id="Quote-">
+                            <td id="chkQuoteInfo">
+                                <input id="assignChkBx" data-quoteid="" data-statusid="" data-quotetype="" name="assignChkBx" type="checkbox" class="Quote" value="" />
+                            </td>
+                            <td id="quoteCreateDate"></td>
+                            <td id="quoteUpdateDate"></td>
+                            <td id="quoteName" style="word-break: break-all; line-height: normal; padding-top: 1px;"></td>
+                            <td id="quoteTitle"></td>
+                            <td id="quotestatus"></td>
+                            <td id="quoteItems"></td>
+                            <td class="text-right" id="quotePrice"></td>
+                            <td class="text-right" id="quoteDialog">
+                                <a id="Quote" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog" title="DeleteQuote" data-quoteid=""><i class="icon-minus fg-red"></i></a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    @* <tfoot style="border-bottom:none">
+                            <tr>
+                                <th class="text-left">
+                                    
+                                </th>
+                            </tr>
+                        </tfoot>*@
+                </table>
+                <input type="hidden" id="hdnQuoteid" name="quoteid" value="" />
+            </div>
+        }
+    </div>
+    <div class="divBorder divlayoutcss  margin10 ntm nlm nrm ">
+        <div class="place-left text-left span12 margin5 nlm nrm ">
+            <div class="place-left span2 text-left div-MainHeight20">
+                <b>@Resources.TCPResources.QuoteHistoryText</b>
+            </div>
+             <div class="place-left icontext div-MainHeight20">
+                    <a href="#CreateQuote-dialog" class="text-left popup-with-zoom-anim btnSendInfo Orderhistory txt-Medium"><i class="acolor icon-mail"></i></a>
+                  @* <a class="text-left popup-with-zoom-anim   txt-Medium"><i class="acolor icon-mail"></i></a>
+                    *@
+                </div> 
+        </div>
+        <table class="table striped" id="InvoiceHistory">
+            <thead class="nofixedHeader">
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.LabelFor(e => e.ListActiveQuote[0].CreatedDate, new { @class = "labelHeight" })
+                    </th>
+                    <th>
+                        @Html.LabelFor(e => e.ListActiveQuote[0].UpdateDate, new { @class = "labelHeight" })
+                    </th>
+                    <th>
+                        @Html.LabelFor(e => e.ListActiveQuote[0].QuoteName, new { @class = "labelHeight" })
+                    </th>
+                    <th>
+                        @Html.LabelFor(e => e.ListActiveQuote[0].QuoteTypeText, new { @class = "labelHeight" })
+                    </th>
+                    <th colspan="3">                                                                               
+                        @Html.LabelFor(e => e.ListActiveQuote[0].StatusID, new { @class = "labelHeight" })
+                    </th>
+                     <th>
+                       @Html.Label("PO#", new { @class = "labelHeight margin-left35"})  
+                    </th>
+                    <th class="text-right">
+                                           @Html.Label("Invoice#", new { @class = "labelHeight" })    
+                    </th>
+                    <th>
+                        @Html.LabelFor(e => e.ListActiveQuote[0].TotalItems, new { @class = "labelHeight" })
+                    </th>
+                    <th class="text-right">
+                        @Html.LabelFor(e => e.ListActiveQuote[0].TotalPrice, new { @class = "labelHeight" })
+                    </th>
+                    <th class="text-right">
+                        @Html.Label(Resources.TCPResources.ViewText, new { @class = "labelHeight" })
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody class="noscrollContent">
+                @foreach (TPC.Core.Models.Models.QuoteModel Qvm in Model.ListQuoteHistory)
+                {
+                    <tr>
+                        <td>
+                             <input  id="assignChkBx" data-quoteID="@Qvm.QuoteID"  data-statusid="@Qvm.StatusID"
+                                        data-quoteType="@Qvm.QuoteTypeID" name="assignChkBx" 
+                                        type="checkbox" class="Quote " />
+                        </td>
+                        <td class="padding-left12">
+                            @Html.ConvertUniversalDateTimeToLocalTime(Qvm.CreatedDate, HttpContext.Current.Timestamp)
+                            @*@String.Format("{0:g}", @Qvm.CreatedDate)*@
+                        </td>
+                        <td class="paddingforupdate">
+                            @Html.ConvertUniversalDateTimeToLocalTime(Qvm.UpdateDate, HttpContext.Current.Timestamp)
+                            @*@String.Format("{0:g}", @Qvm.UpdateDate)*@
+                        </td>
+                        <td style="word-break: break-all; line-height: normal; padding-top: 1px;">
+                            @Qvm.QuoteName
+                        </td>
+                        <td class="padding-left33">
+                            @Qvm.QuoteTypeText
+                        </td>
+                        <td colspan="3" class="paddingforstatus">
+                            @Qvm.StatusText
+                        </td>
+                        <td>
+                            @Qvm.PurchaseOrderNumber
+                        </td>
+                        <td >
+                          @Qvm.InvoiceNumber
+                        </td>
+                        <td>
+                            @Qvm.TotalItems
+                        </td>
+                        <td class="text-right padding-right9">
+                            @string.Format("{0:C0}", Qvm.TotalPrice)
+                        </td>
+                        <td class="text-right">
+                            <a id="btnpdf" href="@Url.Action("GeneratePDF", "ActiveQuote", new { quoteID = Qvm.QuoteID })" data-QuoteID="@Qvm.QuoteID" target="_blank"><i class="icon-file-pdf"></i></a>
+                        </td>
+                    </tr>  
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+    <div id="Delete-dialog" class="zoom-anim-dialog mfp-hide span5" style="background-color: white; margin-left: 35%">
+        <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <h3 class="center button-bg" style="color: white;" id="h3Title"></h3>
+        <div class="padding5">
+            <label id="lbldeleteID"></label>
+        </div>
+        <div id="DivDeleteQuote" class="span5 div-contentheight contentText text-center">
+            <button id="btnDeleteQuote">OK</button>
+            <button class="BtnDeleteCancel">Cancel</button>
+        </div>
+    </div>
+    <div id="SubmitQuote-dialog" class="zoom-anim-dialog mfp-hide">
+        @*dont remove style*@
+        <div class="padding5">
+            <label class="center button-bg" id="lblID">Submit Quote</label>
+        </div>
+        <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div id="loadingSubmitQuoteView">
+        </div>
+    </div>
+    <div id="Caltag-dialog" class="zoom-anim-dialog mfp-hide">
+        @*dont remove style*@
+        <div class="padding5">
+            <label class="center button-bg">Call Tag</label>
+        </div>
+        <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div id="loadingCalTageView">
+        </div>
+    </div>
+    <div id="small-dialog" class="tableWidth zoom-anim-dialog mfp-hide">
+           <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div id="MergeQuoteData" class="span11 padding5 nlm nrm contentText hide">
+            <div class="span10 padding10 nrp">
+                @Resources.TCPResources.AssignAccountMergeText  @Html.DropDownListFor(e => e.LstCustomerEmails, new SelectList(Model.LstCustomerEmails, "ItemID", "ItemValue"))
+            </div>
+            <div id="divMergeQuote" class="span11  nrp ntp nbp divMergeQuoteScroll">
+                <table id="tblMergeQuote" class="table striped span11 padding10 nrp ntp nbp">
+                </table>
+            </div>
+            <div class="place-left tex-right nlp nrp span11 padding10">
+                <div class="place-right text-right ">
+                    <a id="mergebtn" class="button aButton ">@Resources.TCPResources.MergeButtonText</a>
+                </div>
+                <div class="place-right padding10 ntp nbp text-right ">
+                    <a id="Cancelbtn" class="button btncancel aButton">@Resources.TCPResources.CancelText</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="DWMailData" class="padding15 margin20 nlm nrm ntp contentText hide divMergeQuoteScroll tableWidth">
+        </div>
+        <div id="MailButtons" class="span2 place-right padding5 tex-right  nlp nrp  div-MainHeight25 divbuttonswidth">
+            <div class="place-left padding10 ntp nbp text-right div-MainHeight25">
+                <a id="mailcancelbtn" class="button btncancel aButton">@Resources.TCPResources.CancelText</a>
+            </div>
+            <div class="place-left text-right div-MainHeight25">
+                <a id="mailokbtn" class="button aButton ">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>

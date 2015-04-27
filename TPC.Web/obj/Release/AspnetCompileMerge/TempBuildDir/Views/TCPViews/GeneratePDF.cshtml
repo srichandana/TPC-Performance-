@@ -1,0 +1,23 @@
+﻿
+
+@model TPC.Core.Models.OrderViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+   @if (Model.Type == "Export")
+   {
+      @Html.Partial("../TCPViews/Partial/EmailPdfGeneration",Model)
+   }
+   else
+   {
+            @Html.Partial("../TCPViews/Partial/OrderHistoryPdfGeneration",Model)
+   }
+</body>
+</html>

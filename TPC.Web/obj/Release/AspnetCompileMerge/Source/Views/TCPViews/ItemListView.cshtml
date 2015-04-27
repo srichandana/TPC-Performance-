@@ -1,0 +1,61 @@
+﻿@model TPC.Core.Models.ItemListViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Interfaces;
+@using TPC.Common.Enumerations;
+@using TPC.Core;
+@{
+    
+    ViewBag.Title = "ItemListView";
+
+
+    // int NoOfPages = (int)Math.Ceiling((@Model.SelectionCount) / (double)Convert.ToInt32(Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemValue));
+    IItemListViewService _itemListServ = new ItemListViewService();
+    if (Model.QuoteTitle != null && Model.QuoteType != null)
+    {
+        // ViewData["QuoteTitle"] = Model.QuoteTitle;
+        // ViewData["QuoteType"] = Model.QuoteType;
+        ViewData["QuoteID"] = Model.QuoteID;
+        ViewData["Type"] = Model.KPLItemListVM != null && Model.KPLItemListVM.Count() > 0 ? Model.KPLItemListVM.FirstOrDefault().QuoteFlag: string.Empty;
+    }
+   
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.QuoteID)
+    @Html.Hidden("hdnGroupID", @Model.GroupID)
+    @Html.Hidden("hdnCurrentPageIndex", Model.currentPageIndex)
+    @Html.Hidden("hdnSelectionCount", Model.SelectionCount)
+    @Html.Hidden("hdnYesCount", Model.noOfYesCount)
+    @Html.Hidden("hdnNoCount", Model.noOfNoCount)
+    @Html.Hidden("hdnMayBeCount", Model.noOfMaybeCount)
+    @Html.Hidden("hdnNewCount", Model.noOfNewCount)
+    <input type="hidden" id="hdnViewDataGroupID" value="@ViewData["GroupID"]"/>
+    <input type="hidden" id="hdnQuoteType" value="@ViewData["QuoteType"]"/>
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+    <input type="hidden" id="hdnPageType" value="@ViewData["Type"]" />
+</div>
+<div id="onScreen-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+
+<div id="divMain" class="metro margin20 nlm nrm nbm">
+    @Html.Partial("../TCPViews/Partial/ItemListViewPartial", @Model)
+</div>
+
+

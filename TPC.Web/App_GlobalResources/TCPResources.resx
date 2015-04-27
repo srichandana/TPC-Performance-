@@ -1,0 +1,1046 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveQuoteText" xml:space="preserve">
+    <value>Active Quotes :</value>
+  </data>
+  <data name="DecisionWizardText" xml:space="preserve">
+    <value>Decision Wizard :</value>
+  </data>
+  <data name="Loggedin" xml:space="preserve">
+    <value>ABC Company</value>
+  </data>
+  <data name="money" xml:space="preserve">
+    <value>$400.00</value>
+  </data>
+  <data name="NoofCarts" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="QuoteHistoryText" xml:space="preserve">
+    <value>Order History :</value>
+  </data>
+  <data name="ShoppingCartText" xml:space="preserve">
+    <value>Shopping Cart :</value>
+  </data>
+  <data name="MenuFaq" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="MenuFun" xml:space="preserve">
+    <value>Fun &amp; Games</value>
+  </data>
+  <data name="MenuHome" xml:space="preserve">
+    <value>HOME</value>
+  </data>
+  <data name="MenuLibrary" xml:space="preserve">
+    <value>LIBRARIAN RESOURCES</value>
+  </data>
+  <data name="MenuRep" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="MenuShop" xml:space="preserve">
+    <value>Shop Penworthy</value>
+  </data>
+  <data name="BookGroupText" xml:space="preserve">
+    <value>Puppets Category</value>
+  </data>
+  <data name="BookText" xml:space="preserve">
+    <value>GoodNight Moon</value>
+  </data>
+  <data name="CreateNewQuoteText" xml:space="preserve">
+    <value>Create New Quote</value>
+  </data>
+  <data name="ListViewText" xml:space="preserve">
+    <value>You are viewing the List View</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TabularViewText" xml:space="preserve">
+    <value>You are viewing the Tabular View</value>
+  </data>
+  <data name="ItemImagePath" xml:space="preserve">
+    <value>~/Images/PenworthyImages/ScansCover-500/</value>
+  </data>
+  <data name="ItemPriceText" xml:space="preserve">
+    <value>Item Price</value>
+  </data>
+  <data name="ItemText" xml:space="preserve">
+    <value>Item Name</value>
+  </data>
+  <data name="QunatityText" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="NoofItems" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ARLevelText" xml:space="preserve">
+    <value>AR Level</value>
+  </data>
+  <data name="ARQuizText" xml:space="preserve">
+    <value>AR Quiz #</value>
+  </data>
+  <data name="AuthorText" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="BarCodeText" xml:space="preserve">
+    <value>Barcode</value>
+  </data>
+  <data name="CharacterText" xml:space="preserve">
+    <value>Character</value>
+  </data>
+  <data name="ClassText" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="DescriptionText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="IllustratorText" xml:space="preserve">
+    <value>Illustrator</value>
+  </data>
+  <data name="InterestGradeText" xml:space="preserve">
+    <value>Interest Grade</value>
+  </data>
+  <data name="ISBNText" xml:space="preserve">
+    <value>ISBN</value>
+  </data>
+  <data name="ItemIDText" xml:space="preserve">
+    <value>Item ID</value>
+  </data>
+  <data name="LexileText" xml:space="preserve">
+    <value>Lexile</value>
+  </data>
+  <data name="OffListDateText" xml:space="preserve">
+    <value>Off-List-Date</value>
+  </data>
+  <data name="OnHandQtyText" xml:space="preserve">
+    <value>On-Hand Quantity</value>
+  </data>
+  <data name="OnListDateText" xml:space="preserve">
+    <value>On-List-Date</value>
+  </data>
+  <data name="PagesText" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="PriceText" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="ProductTypeText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="QuoteTypeText" xml:space="preserve">
+    <value>Quote Type</value>
+  </data>
+  <data name="RCLevelText" xml:space="preserve">
+    <value>RC level</value>
+  </data>
+  <data name="RCQuizText" xml:space="preserve">
+    <value>RC Quiz #</value>
+  </data>
+  <data name="ReviewSourceText" xml:space="preserve">
+    <value>Review Source</value>
+  </data>
+  <data name="SeriesText" xml:space="preserve">
+    <value>Series</value>
+  </data>
+  <data name="SetDescriptionText" xml:space="preserve">
+    <value>Set Description</value>
+  </data>
+  <data name="SetNameText" xml:space="preserve">
+    <value>Set Name</value>
+  </data>
+  <data name="SetNoText" xml:space="preserve">
+    <value>Set #</value>
+  </data>
+  <data name="SizeText" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="SubjectText" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="TitleText" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="BooksPriceValue" xml:space="preserve">
+    <value>$20.00</value>
+  </data>
+  <data name="LastCustomerTouchText" xml:space="preserve">
+    <value>Customer Updated</value>
+  </data>
+  <data name="LastCutomerTouchDateValue" xml:space="preserve">
+    <value>2013/12/07</value>
+  </data>
+  <data name="LastPenworthyTouchDateValue" xml:space="preserve">
+    <value>2013/12/10</value>
+  </data>
+  <data name="LastPenworthyTouchText" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="NoofBooksText" xml:space="preserve">
+    <value>Books #</value>
+  </data>
+  <data name="CreateDateText" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ModifiedDateText" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="NoofItemsText" xml:space="preserve">
+    <value># Items</value>
+  </data>
+  <data name="CustomerText" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="NotificationText" xml:space="preserve">
+    <value>PO required, AR hold, ship only to warehouse!!!</value>
+  </data>
+  <data name="QuoteCreatedDateText" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="QuoteID" xml:space="preserve">
+    <value>1001</value>
+  </data>
+  <data name="QuoteIDText" xml:space="preserve">
+    <value>Quote ID</value>
+  </data>
+  <data name="BuildWithCatalogsText" xml:space="preserve">
+    <value>Build With Categories</value>
+  </data>
+  <data name="BuildWithKPLText" xml:space="preserve">
+    <value>Build With KPL</value>
+  </data>
+  <data name="QuoteModifiedDateText" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="RepresentativeText" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="ViewText" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="AcceleratedReaderText" xml:space="preserve">
+    <value>Accelerated Reader</value>
+  </data>
+  <data name="ActivityBookText" xml:space="preserve">
+    <value>Activity Books</value>
+  </data>
+  <data name="BindingTypeText" xml:space="preserve">
+    <value>Binding Type</value>
+  </data>
+  <data name="BoardBookText" xml:space="preserve">
+    <value>Board Book</value>
+  </data>
+  <data name="BookForBoyText" xml:space="preserve">
+    <value>Books for boys</value>
+  </data>
+  <data name="BookForGitlText" xml:space="preserve">
+    <value>Books for girls</value>
+  </data>
+  <data name="BookFormatText" xml:space="preserve">
+    <value>Book format</value>
+  </data>
+  <data name="ChapterBookText" xml:space="preserve">
+    <value>Chapter Books</value>
+  </data>
+  <data name="CharacterPuppetText" xml:space="preserve">
+    <value>Character Puppets</value>
+  </data>
+  <data name="CharPurchasedBeforeText" xml:space="preserve">
+    <value>Character purchased before</value>
+  </data>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EmailText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FicorNonFicText" xml:space="preserve">
+    <value>Fiction/nonfiction</value>
+  </data>
+  <data name="FictionText" xml:space="preserve">
+    <value>Fiction</value>
+  </data>
+  <data name="FingerPuppetText" xml:space="preserve">
+    <value>Finger Puppets</value>
+  </data>
+  <data name="Grades23Text" xml:space="preserve">
+    <value>Grades 2-3</value>
+  </data>
+  <data name="Grades4Text" xml:space="preserve">
+    <value>Grades 4+</value>
+  </data>
+  <data name="GradesK1Text" xml:space="preserve">
+    <value>Grades K-1</value>
+  </data>
+  <data name="GraphicsText" xml:space="preserve">
+    <value>Graphics</value>
+  </data>
+  <data name="HandPuppetText" xml:space="preserve">
+    <value>Hand Puppets</value>
+  </data>
+  <data name="HolidayText" xml:space="preserve">
+    <value>Holiday</value>
+  </data>
+  <data name="LeveledReadersText" xml:space="preserve">
+    <value>Leveled Readers</value>
+  </data>
+  <data name="LibraryBoundBookText" xml:space="preserve">
+    <value>Library bound</value>
+  </data>
+  <data name="NewthisMonthText" xml:space="preserve">
+    <value>New this month</value>
+  </data>
+  <data name="NonFictionText" xml:space="preserve">
+    <value>Nonfiction</value>
+  </data>
+  <data name="OnlyinPaperText" xml:space="preserve">
+    <value>Only in paper</value>
+  </data>
+  <data name="OtherText" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="PackMemershipText" xml:space="preserve">
+    <value>Package membership</value>
+  </data>
+  <data name="PenworthyPreBoundBookText" xml:space="preserve">
+    <value>Penworthy Prebound Book</value>
+  </data>
+  <data name="PictureBook8Text" xml:space="preserve">
+    <value>Picture Books 8x8</value>
+  </data>
+  <data name="PictureBookText" xml:space="preserve">
+    <value>Picture Books</value>
+  </data>
+  <data name="PreSchoolText" xml:space="preserve">
+    <value>Headstart | Preschool</value>
+  </data>
+  <data name="PuppetsText" xml:space="preserve">
+    <value>Puppet</value>
+  </data>
+  <data name="PurchaseHistoryText" xml:space="preserve">
+    <value>Purchasing history</value>
+  </data>
+  <data name="ReadersnotleveledText" xml:space="preserve">
+    <value>Readers, not leveled</value>
+  </data>
+  <data name="ReadingCountText" xml:space="preserve">
+    <value>Reading Counts</value>
+  </data>
+  <data name="ReadingProgramText" xml:space="preserve">
+    <value>Reading level/program</value>
+  </data>
+  <data name="SelectText" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SeriesPurchasedBeforeText" xml:space="preserve">
+    <value>Series purchased before</value>
+  </data>
+  <data name="SmallPressText" xml:space="preserve">
+    <value>Small press</value>
+  </data>
+  <data name="StagePuppetText" xml:space="preserve">
+    <value>Stage Puppets</value>
+  </data>
+  <data name="SummerReadingFizzText" xml:space="preserve">
+    <value>Summer reading - Fizz, Boom, Read</value>
+  </data>
+  <data name="SummerReadingPAWSText" xml:space="preserve">
+    <value>Summer reading - PAWS</value>
+  </data>
+  <data name="ArtText" xml:space="preserve">
+    <value>Arts/Recreation</value>
+  </data>
+  <data name="ConceptText" xml:space="preserve">
+    <value>Concepts</value>
+  </data>
+  <data name="HistoryText" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="LanguageText" xml:space="preserve">
+    <value>Language/Literature</value>
+  </data>
+  <data name="ScienceText" xml:space="preserve">
+    <value>Science</value>
+  </data>
+  <data name="SocialText" xml:space="preserve">
+    <value>Social Studies</value>
+  </data>
+  <data name="OrderText" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="ItemListDetailedView" xml:space="preserve">
+    <value>Item List Detailed View</value>
+  </data>
+  <data name="ItemListView" xml:space="preserve">
+    <value>Item List View</value>
+  </data>
+  <data name="CategoriesText" xml:space="preserve">
+    <value>Filter List</value>
+  </data>
+  <data name="DecisionWizardliText" xml:space="preserve">
+    <value>Decision Wizard</value>
+  </data>
+  <data name="KPLQuoteBuilderText" xml:space="preserve">
+    <value>Item List</value>
+  </data>
+  <data name="ShoppingCartliText" xml:space="preserve">
+    <value>Shopping Cart</value>
+  </data>
+  <data name="ViewQuoteText" xml:space="preserve">
+    <value>View Quote</value>
+  </data>
+  <data name="CommentText" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Search Results : </value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show All</value>
+  </data>
+  <data name="BackText" xml:space="preserve">
+    <value>BACK</value>
+  </data>
+  <data name="BootomUpText" xml:space="preserve">
+    <value>Bottom Up</value>
+  </data>
+  <data name="CatalogInfoText" xml:space="preserve">
+    <value>Cataloging</value>
+  </data>
+  <data name="CoverText" xml:space="preserve">
+    <value>COVER</value>
+  </data>
+  <data name="FlyLeafText" xml:space="preserve">
+    <value>FLY LEAF</value>
+  </data>
+  <data name="FrontText" xml:space="preserve">
+    <value>FRONT</value>
+  </data>
+  <data name="InsideBackOptionsText" xml:space="preserve">
+    <value>Inside Back Options:</value>
+  </data>
+  <data name="InsideFrontOptionsText" xml:space="preserve">
+    <value>Inside Front Options:</value>
+  </data>
+  <data name="OutsideOptionsText" xml:space="preserve">
+    <value>Outside Options:</value>
+  </data>
+  <data name="TopDownText" xml:space="preserve">
+    <value>Top Down</value>
+  </data>
+  <data name="VerticalBottomUpText" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="VerticalLabelIllustrationText" xml:space="preserve">
+    <value>Vertical Label Alignment Illustrations:</value>
+  </data>
+  <data name="verticalTopDownText" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="DecisionWizardText1" xml:space="preserve">
+    <value>Decision Wizard</value>
+  </data>
+  <data name="Loggedin1" xml:space="preserve">
+    <value>Logged In For ABC Company</value>
+  </data>
+  <data name="MenuFaq1" xml:space="preserve">
+    <value>Faqs</value>
+  </data>
+  <data name="MenuFun1" xml:space="preserve">
+    <value>Fun &amp; Games</value>
+  </data>
+  <data name="MenuHome1" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MenuLibrary1" xml:space="preserve">
+    <value>Librarian Resources</value>
+  </data>
+  <data name="MenuRep1" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="MenuShop1" xml:space="preserve">
+    <value>Shop Penworthy</value>
+  </data>
+  <data name="money1" xml:space="preserve">
+    <value>$20000</value>
+  </data>
+  <data name="NoofCarts1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ShoppingCartText1" xml:space="preserve">
+    <value>Shopping Cart</value>
+  </data>
+  <data name="LibrarianItem1Text" xml:space="preserve">
+    <value>Dream Big!
+Summer Reading
+Activities</value>
+  </data>
+  <data name="LibrarianItem2Text" xml:space="preserve">
+    <value>Coloring Pages</value>
+  </data>
+  <data name="LibrarianItem3Text" xml:space="preserve">
+    <value>Word Games</value>
+  </data>
+  <data name="LibrarianItem4Text" xml:space="preserve">
+    <value>Reading
+Logs &amp; Certificates</value>
+  </data>
+  <data name="LibrarianItem5Text" xml:space="preserve">
+    <value>Other Games &amp;
+Activites</value>
+  </data>
+  <data name="LibrarianItem6Text" xml:space="preserve">
+    <value>Adopt-a-book
+Resources</value>
+  </data>
+  <data name="LibrarianIntroduction" xml:space="preserve">
+    <value>Welcome to Penworthy's Librarian resources section, a special place where you can share ideas and stories with other librarians across the country. Click on one of the categories below to read stories within that category, or submit your own idea. If your idea appears on the web site, we'll send you a Penworthy Bear to say thank you!</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="DecisionWizardViewText" xml:space="preserve">
+    <value>DecisionWizard</value>
+  </data>
+  <data name="ItemInsideImagePath" xml:space="preserve">
+    <value>~/Images/PenworthyImages/Inside/</value>
+  </data>
+  <data name="DWNameText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AssignAccountMergeText" xml:space="preserve">
+    <value>Assign Account for Merged Quote :</value>
+  </data>
+  <data name="CancelText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MergeButtonText" xml:space="preserve">
+    <value>Create Merged Quote</value>
+  </data>
+  <data name="DefaultKPLValues" xml:space="preserve">
+    <value>ItemID,Price,Type,Title,Primarycharacter,Series</value>
+  </data>
+  <data name="FilterListText" xml:space="preserve">
+    <value>Filter List</value>
+  </data>
+  <data name="ItemListText" xml:space="preserve">
+    <value>Item List</value>
+  </data>
+  <data name="MenuContactus" xml:space="preserve">
+    <value>CONTACT US</value>
+  </data>
+  <data name="HomeSlideImagePath" xml:space="preserve">
+    <value>~/Images/HomeSlide/Slide</value>
+  </data>
+  <data name="HomeDWText" xml:space="preserve">
+    <value>Decision Wizard® – Presentation of the selections are displayed in secure portal on the website for the customer to review and make selections. 
+         Orders submitted to the ERP that began as a Decision Wizard® are considered Direct sales.</value>
+  </data>
+  <data name="categoryText" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="SignInText" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="columnfilterText" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="RowFilterText" xml:space="preserve">
+    <value>Row</value>
+  </data>
+  <data name="ProductsText" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="AllText" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ClearAllText" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+  <data name="PhoneText" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Primary Contact Name</value>
+  </data>
+  <data name="SeeAllText" xml:space="preserve">
+    <value>See all</value>
+  </data>
+  <data name="SignInRecommendationText" xml:space="preserve">
+    <value>Please sign in to see your Decision Wizard selection list or add items to your shopping cart</value>
+  </data>
+  <data name="TitlesText" xml:space="preserve">
+    <value>titles</value>
+  </data>
+  <data name="MenuAboutUs" xml:space="preserve">
+    <value>ABOUT US</value>
+  </data>
+  <data name="AboutUsIntoductionText" xml:space="preserve">
+    <value>The Penworthy Company has been providing an exceptional selection of children's books to schools and public libraries in the United States since 1982.  We are the exclusive source for Penworthy Prebound Books – the most attractive and durable children’s books on the market.  Our expert sales representatives provide personalized customer service that libraries can trust.  In short, The Penworthy Company makes buying children’s books the pleasure it ought to be!®</value>
+  </data>
+  <data name="PreboundEmailRequestText" xml:space="preserve">
+    <value>to request a Penworthy Prebound Book sample and conduct your own experiment. Once you see the difference for yourself, it's clear that Penworthy Prebound Books are the best choice for your collection.</value>
+  </data>
+  <data name="WhyPenworthyText" xml:space="preserve">
+    <value>Why Penworthy Prebound Books Are Better: a True Story</value>
+  </data>
+  <data name="WhyPreboundDescText" xml:space="preserve">
+    <value>We gave a Penworthy Prebound Book to a prospective customer and asked her to put it into circulation to personally see our books’ durability. She took it a step further and bought a similar title from another prebound vendor and put both into circulation.  These photos show the results of her experiment. Both books are classified as prebound. Both are two years old. Both circulated 34 times. That’s where the similarities end. The Penworthy Prebound Book looks almost new while the other book shows significant wear and is at the end of its useful life.</value>
+  </data>
+  <data name="DetailList" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="ImagesPath" xml:space="preserve">
+    <value>~/Images/</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>(777)123-4567</value>
+  </data>
+  <data name="SignOutText" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="MergeText" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="SubmitText" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="ProtectorText" xml:space="preserve">
+    <value>Protector</value>
+  </data>
+  <data name="ShelfReadyUnitText" xml:space="preserve">
+    <value>Shelf Ready Unit</value>
+  </data>
+  <data name="CatalogingPriceperBookText" xml:space="preserve">
+    <value>Cataloging Price per Book</value>
+  </data>
+  <data name="ExtraProtectorsText" xml:space="preserve">
+    <value>Extra Protectors</value>
+  </data>
+  <data name="SpecialBookChargeText" xml:space="preserve">
+    <value>Special Per Book Charge</value>
+  </data>
+  <data name="SpecialBulkChargeText" xml:space="preserve">
+    <value>Special Bulk Charge</value>
+  </data>
+  <data name="SpecialInstructionsText" xml:space="preserve">
+    <value>Special Instructions</value>
+  </data>
+  <data name="IncludeCatalogText" xml:space="preserve">
+    <value>Include Cataloging</value>
+  </data>
+  <data name="PromotionalText" xml:space="preserve">
+    <value>Promotional</value>
+  </data>
+  <data name="ShowImages" xml:space="preserve">
+    <value>Show Images</value>
+  </data>
+  <data name="BlueStarText" xml:space="preserve">
+    <value>Blue star indicates titles related to past purchases.</value>
+  </data>
+  <data name="goldStarText" xml:space="preserve">
+    <value>Gold star indicates titles you have purchased.</value>
+  </data>
+  <data name="TitlesCollectionText" xml:space="preserve">
+    <value>titles in collection</value>
+  </data>
+  <data name="FurtherRefineText" xml:space="preserve">
+    <value>Further Refine</value>
+  </data>
+  <data name="ViewCollectionText" xml:space="preserve">
+    <value>View Penworthy Collection</value>
+  </data>
+  <data name="CatalogCompleteText" xml:space="preserve">
+    <value>Cataloging Complete</value>
+  </data>
+  <data name="CatalogDisplayText" xml:space="preserve">
+    <value>Current Hold:</value>
+  </data>
+  <data name="CatalogInCompleteText" xml:space="preserve">
+    <value>Cataloging InComplete</value>
+  </data>
+  <data name="CatalogNoneText" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="CalTagInvoiceToText" xml:space="preserve">
+    <value>Invoice To</value>
+  </data>
+  <data name="CalTagSendText" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="MyText" xml:space="preserve">
+    <value> My </value>
+  </data>
+  <data name="OrderHistoryPdfCanceledText" xml:space="preserve">
+    <value>titles canceled and not backordered</value>
+  </data>
+  <data name="PenworthyText" xml:space="preserve">
+    <value>Penworthy</value>
+  </data>
+  <data name="LearnAbout" xml:space="preserve">
+    <value>Learn about Penworthy</value>
+  </data>
+  <data name="LibraryHeadIntro" xml:space="preserve">
+    <value>Print these fun activities to keep little hands busy in the library!</value>
+  </data>
+  <data name="CatalogShelfReadyOptBarcodeText" xml:space="preserve">
+    <value>Choose position and alignment for non-spine labels</value>
+  </data>
+  <data name="CatalogShelfReadyOptSpineLabelText" xml:space="preserve">
+    <value>Choose application position and alignment for UP TO 3 spine labels (additional labels choose Unapplied)</value>
+  </data>
+  <data name="ItemListViewText" xml:space="preserve">
+    <value>ItemListView</value>
+  </data>
+  <data name="LibrarianResourcesText" xml:space="preserve">
+    <value>LibrarianResources</value>
+  </data>
+  <data name="OffListItemsText" xml:space="preserve">
+    <value>OffList items that were deleted from the quote:</value>
+  </data>
+  <data name="QuoteEmailExcelFooterTable" xml:space="preserve">
+    <value>&lt;table&gt;&lt;tr&gt;&lt;td colspan="5"&gt;&lt;/td&gt;&lt;td&gt;Net Invoice:&lt;/td&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="5" style="text-align:center"&gt; &lt;/td&gt;&lt;td&gt;Shipping &amp; Handling :&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="5" style="text-align:center"&gt;&lt;/td&gt;&lt;td&gt;Invoice Total: &lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;/tr&gt;  &lt;tr&gt;&lt;td colspan="11" class="hide place-left text-left" style="font-size:8pt;"&gt;This is an order acknowledgement. Your final invoice will be included with your shipment.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+  </data>
+  <data name="QuoteEmailExcelHeaderTable" xml:space="preserve">
+    <value>&lt;table&gt;
+&lt;tr&gt;    
+ &lt;td&gt;&lt;/td&gt;
+        &lt;td colspan=""&gt;&lt;/td&gt;
+        &lt;td  style="height: 80px"&gt;  &lt;img src="{0}/Images/excelpenworthylogo.jpg" /&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+   &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+         &lt;td &gt;&lt;/td&gt;
+        &lt;td&gt;Current Date: {1}&lt;/td&gt;
+        &lt;td&gt;219 N. Milwaukee St. &lt;/td&gt;
+        &lt;td&gt;Quote Number :&lt;/td&gt;
+        &lt;td style="text-align: left"&gt;{2}&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+  &lt;td &gt;&lt;/td&gt;
+        &lt;td&gt;For questions call:&lt;/td&gt;
+        &lt;td&gt;Milwaukee, WI 53202&lt;/td&gt;
+        &lt;td&gt;Customer Number :&lt;/td&gt;
+        &lt;td&gt;{3}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+&lt;td &gt;&lt;/td&gt;
+        &lt;td colspan="2"&gt;{4}&lt;/td&gt;
+        &lt;td colspan="2"&gt;Phone 800-262-2665 &lt;/td&gt;
+        &lt;td&gt;Customer Name:&lt;/td&gt;
+        &lt;td style="text-align: left"&gt;{5} &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+&lt;td &gt;&lt;/td&gt;
+        &lt;td colspan="2"&gt;{6}&lt;/td&gt;
+        &lt;td colspan="2"&gt;Fax: 414-287-4602&lt;/td&gt;
+        &lt;td&gt;Contact:&lt;/td&gt;
+        &lt;td style="text-align: left"&gt;{7} &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;tr&gt;&lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="BackToProduct" xml:space="preserve">
+    <value>Back To Products</value>
+  </data>
+  <data name="CloseText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MenuAboutUsforbreadcrumbs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="CollectionDescription" xml:space="preserve">
+    <value>Penworthy's goal is to save you time in the selection process by bringing you the titles kids want to read in bindings that last. We offer new titles every month, helping you stay on top of the characters and series the kids in your library are requesting. Our collection of Penworthy Prebound Books is complemented by specially selected library bound titles, board books and Folkmanis® Puppets.</value>
+  </data>
+  <data name="PenworthyContactNumber" xml:space="preserve">
+    <value>800-262-2665</value>
+  </data>
+  <data name="SetPageARLevel" xml:space="preserve">
+    <value>AR level</value>
+  </data>
+  <data name="SetPageCharacter" xml:space="preserve">
+    <value>Character</value>
+  </data>
+  <data name="SetPageCopyRight" xml:space="preserve">
+    <value>CopyRight</value>
+  </data>
+  <data name="SetPageDewey" xml:space="preserve">
+    <value>Dewey</value>
+  </data>
+  <data name="SetPageInterestGrade" xml:space="preserve">
+    <value>Interest grade</value>
+  </data>
+  <data name="SetPageISBN" xml:space="preserve">
+    <value>ISBN</value>
+  </data>
+  <data name="SetPageItem" xml:space="preserve">
+    <value>Item #</value>
+  </data>
+  <data name="SetPageLexile" xml:space="preserve">
+    <value>Lexile</value>
+  </data>
+  <data name="SetPagePages" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="SetPageRCLevel" xml:space="preserve">
+    <value>RC level</value>
+  </data>
+  <data name="SetPageSeries" xml:space="preserve">
+    <value>Series</value>
+  </data>
+  <data name="SetPageSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="DafultPasswordText" xml:space="preserve">
+    <value>newuser</value>
+  </data>
+  <data name="UserErrorText" xml:space="preserve">
+    <value>Unfortunatly the password entered does not match this Email Address. Please reset password or contact Penworthy at 800-262-2665 for assistance</value>
+  </data>
+  <data name="CurrentDateText" xml:space="preserve">
+    <value>Current Date:</value>
+  </data>
+  <data name="ManagePasswordText" xml:space="preserve">
+    <value>Please Create your account to access Penworthy's new and improved website!</value>
+  </data>
+  <data name="DefaultPenworthyDW" xml:space="preserve">
+    <value>DefaultPenworthyDW</value>
+  </data>
+  <data name="ForgotPasswordText" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ChangepassowrdText" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="DeleteAllText" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="DWEndItemsText" xml:space="preserve">
+    <value>"You have looked at all of the titles in the selected category (indicated with a check in the box above: yes, no, maybe or new).  &lt;br/&gt;                                                                                                                                                                                                                                                                                 Here's what to do next: &lt;br/&gt;                                                                                                                                        &amp;nbsp; &amp;nbsp; &amp;nbsp;         1.  Click the "order now" button if you are ready to place your order; or     &lt;br/&gt;        &amp;nbsp; &amp;nbsp; &amp;nbsp;                      2.  Click a different check box to review the titles in that category; or      &lt;br/&gt;           &amp;nbsp; &amp;nbsp; &amp;nbsp;                            3.  Click "Products" on the menu bar to browse through our entire collection.</value>
+  </data>
+  <data name="SearchDescription" xml:space="preserve">
+    <value>Penworthy's expertise is helping you keep your collection fresh and relevant with new titles every month, including the series and characters that kids are requesting today. Penworthy's I Love My Library Collection shown below is a great example of some of our most popular titles today.  If you don't find what you are looking  for in your search, just give us a call. Your Penworthy representative will put together a suggestion list based on your specific interests and needs.</value>
+  </data>
+  <data name="Closethiswindow" xml:space="preserve">
+    <value>close this window</value>
+  </data>
+  <data name="PDFDescription" xml:space="preserve">
+    <value>Penworthy ships immediately with no backorders, so you will have your books in days and always get exactly              what you expected.Here is a PDF of your order if you would like to print or save a copy.</value>
+  </data>
+  <data name="CatCompleteText" xml:space="preserve">
+    <value>View your cataloging requirements. Contact your Penworthy representative with required changes</value>
+  </data>
+  <data name="CatIncompleteText" xml:space="preserve">
+    <value>Please contact your Penworthy representative with your cataloging requirements</value>
+  </data>
+  <data name="InComplete" xml:space="preserve">
+    <value>InComplete</value>
+  </data>
+  <data name="Hold2previewsText" xml:space="preserve">
+    <value>Hold-2 previews</value>
+  </data>
+  <data name="HoldAuditText" xml:space="preserve">
+    <value>Hold-Audit</value>
+  </data>
+  <data name="HoldCreditText" xml:space="preserve">
+    <value>Hold-Credit</value>
+  </data>
+  <data name="HoldPOText" xml:space="preserve">
+    <value>Hold-PO</value>
+  </data>
+  <data name="HoldProfileIncompleteText" xml:space="preserve">
+    <value>Hold-Profile Incomplete</value>
+  </data>
+  <data name="HoldRepresentativeText" xml:space="preserve">
+    <value>Hold-Representative</value>
+  </data>
+  <data name="UpdateCollectionText" xml:space="preserve">
+    <value>UpdateCollection</value>
+  </data>
+  <data name="PlacementLocationtext" xml:space="preserve">
+    <value>Placement Location Reference</value>
+  </data>
+  <data name="zPositionText" xml:space="preserve">
+    <value>Z - Other Position; Document in comments</value>
+  </data>
+  <data name="UpdateText" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="AddNewText" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="NewCategoryText" xml:space="preserve">
+    <value>2.  Your DW selection list always defaults to the "New" Category. View any other category by clicking the check box. The number of titles in each of your decision categories displays behind the category.</value>
+  </data>
+  <data name="OneatatimeText" xml:space="preserve">
+    <value>1. Your Decision Wizard selection list defaults to the "one at a time" view. If you prefer to view all titles on one page, click  view all.</value>
+  </data>
+  <data name="YesNoMayBeText" xml:space="preserve">
+    <value>3. Click YES, NO or MAYBE to indicate your choice on each title</value>
+  </data>
+  <data name="YesTitleText" xml:space="preserve">
+    <value>4. Your "Yes" titles are automatically put in your shopping cart and your total shows in the upper right corner of your screen. Click Order Now to review your items and place your order.</value>
+  </data>
+  <data name="YourDecision WizardText" xml:space="preserve">
+    <value>Your Decision Wizard®  list is a quick, easy way to make your book selections.  Click Yes, Maybe or No to indicate your choice. Your YES titles are put into your shopping cart for you to submit as your order. Your NO  titles are deleted when your order is placed.  Any titles you didn't have time to review and your MAYBE titles are held in your Decision Wizard tool for next time.</value>
+  </data>
+  <data name="HowtouseDWText" xml:space="preserve">
+    <value>This is a mock up of a new page that provides a quick review of how to use the DW. We will have to improve the images, but this is the general idea.</value>
+  </data>
+  <data name="QuestionText" xml:space="preserve">
+    <value>QUESTION:    Should we create it as an image?</value>
+  </data>
+  <data name="ShipmentText" xml:space="preserve">
+    <value>This is an order acknowledgement. Your final invoice will be included with your shipment.</value>
+  </data>
+  <data name="DWuserSelection" xml:space="preserve">
+    <value>Title,ItemId,Series,Author,AR,Lexile,DwstatusID,Price,Type</value>
+  </data>
+  <data name="QuoteEmailExcelFooter" xml:space="preserve">
+    <value>&lt;table&gt;&lt;tr&gt;&lt;td colspan="{0}"&gt;Sales Tax:&lt;td&gt;{1}&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="{0}" &gt;Total Price :&lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;/tr&gt; &lt;tr&gt;&lt;td colspan="11" class="hide place-left text-left" style="font-size:8pt;"&gt;This is an order acknowledgement. Your final invoice will be included with your shipment.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</value>
+  </data>
+  <data name="QuoteuserSelection" xml:space="preserve">
+    <value>Title,ItemId,Author,ISBN,AR,Lexile,ItemPrice,Quantity,Price,Type</value>
+  </data>
+  <data name="ShoppingCartuserSelection" xml:space="preserve">
+    <value>Title,ItemId,Series,Author,ISBN,AR,Lexile,ItemPrice,Quantity,Price,Type</value>
+  </data>
+  <data name="RepCommentsText" xml:space="preserve">
+    <value>Rep Comments :</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>We’re sorry, but we do not recognize this email address. Please contact Penworthy at 800-262-2665 or</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>The password you entered is not correct for this user email.  If you do not remember your password, click the “reset password” link below to receive an email to change your password. Or contact Penworthy at 800-262-2665 or </value>
+  </data>
+</root>

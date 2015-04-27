@@ -1,0 +1,404 @@
+﻿@using TPC.Core.Models.ViewModels
+@using TPC.Core.Models;
+@using TPC.Common.Enumerations;
+@using System.Configuration;
+@model TPC.Core.Models.BaseViewModel
+
+@{
+    if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+    {
+        ViewBag.UserName = Model.UserVM.CRMModelProperties.CustParentName;
+    }
+    string defaultHomePage = Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep") ? Url.Action("ActiveQuote", "ActiveQuote") : Url.Action("GetProductDetails", "Default");
+    string hideClass = "hide";
+    string marginclass = "";
+    if (!WebSecurity.IsAuthenticated)
+    {
+        marginclass = "margin-left:6px;";
+    }
+
+    string textwidth = Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()) == true ? "width: 132px" : "";
+    string orderDisableMode = string.Empty;
+    if (Model.UserVM != null)
+    {
+        orderDisableMode = Model.UserVM.SCCount != null ? Model.UserVM.SCCount != 0 ? "" : "disabled div-disable" : "div-disable disabled";
+    }
+    string strempty = string.Empty;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="~/Images/Penworthy-Icon.PNG" />
+    <title>@ViewBag.Title - Welcome to The Penworthy Company</title>
+
+    <link href="@Styles.Url("~/Content/TableSorter/css")" rel="stylesheet"/>
+
+    <script src="@Scripts.Url("~/bundles/jquery")"></script>
+    <script src="@Scripts.Url("~/bundles/commonscript")"></script>
+    @RenderSection("scripts", required: false)
+</head>
+
+<body class="metro">
+    <div id="hiddenfieldsdiv" class="hide">
+        <input type="hidden" id="hdnLoginStatus"  value="@ViewBag.isLogin" />
+        <input type="hidden" id="hdnTitle" value="@ViewBag.Title" />
+        <input type="hidden" id="hdnQuoteType" value='@ViewData["QuoteType"]' />
+        <input type="hidden" id="hdnQuoteTitle" value='@ViewData["QuoteTitle"]' />
+        @*<input type="hidden" id="hdnQuoteID" value='@ViewData["QuoteID"]' />*@
+        <input type="hidden" id="hdnName" value="@ViewBag.UserName" />
+        <input type="hidden" id="hdnGroupName" value='@ViewData["GroupName"]' />
+        @{bool status = @ViewData.ContainsKey("QuoteType");}
+
+        @Html.Hidden("hdnQuoteTypeStatus", status)
+        @if (Model.UserVM != null)
+        {
+            if (Model.UserVM.CRMModelProperties != null)
+            {
+            @Html.Hidden("hdnSCItemCount", Model.UserVM.SCCount)
+            @Html.Hidden("hdnCustRoleExists", Roles.IsUserInRole("CustomerShipTo"))
+            @Html.Hidden("hdnCustomerlogininfo", Model.UserVM.CRMModelProperties.CustNO + '_' + Model.UserVM.CRMModelProperties.CustFirstName + ' ' + Model.UserVM.CRMModelProperties.CustLastName)
+            @Html.Hidden("hdnCustomerID", Model.UserVM.CRMModelProperties.CustAutoID)
+            @Html.Hidden("hdnLoggedInUserID", Model.UserVM.CRMModelProperties.LoggedINUserID)
+            @Html.Hidden("hdnLoggedInEmail", !Model.UserVM.CRMModelProperties.IsRepLoggedIN ? Model.UserVM.CRMModelProperties.CustEmail : Model.UserVM.CRMModelProperties.RepEmail)
+            }
+        }
+        @Html.Hidden("hdnCustStatus", Model.UserVM == null ? false : !Model.UserVM.CRMModelProperties.IsRepLoggedIN)
+        @Html.Hidden("hdnDecisionWizardliText", Resources.TCPResources.DecisionWizardliText)
+        @Html.Hidden("htnCatalogInfoText", Resources.TCPResources.CatalogInfoText)
+        @Html.Hidden("hdnShoppingCartliText", Resources.TCPResources.ShoppingCartliText)
+        @Html.Hidden("hdnItemListText", Resources.TCPResources.ItemListText)
+        @Html.Hidden("hdnFilterListText", Resources.TCPResources.FilterListText)
+        @Html.Hidden("hdnRepoStatus", Roles.IsUserInRole("Repo"))
+        @Html.Hidden("hdnAdminRepStatus", Roles.IsUserInRole("AdminRep"))
+        @Html.Hidden("hdnAuthenticationStatus", Request.IsAuthenticated)
+        @Html.Hidden("hdnImgControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH135"]) }));
+           @Html.Hidden("hdnImgQuoteViewControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH80"]) }));
+           @Html.Hidden("hdnImgControlPath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ImagesH135"]) }));
+        @Html.Hidden("hdnImagePath", @Url.Content(ConfigurationManager.AppSettings["CommonRepository"]))
+        @Html.Hidden("hdnInsideImagePath", @Url.Action("GetImage", "Image", new { id = @Url.Content(ConfigurationManager.AppSettings["ItemInsideImagePath"]) }));
+        @Html.Hidden("hdnLoginPath", @Url.Action("Login", "Account"))
+        @Html.Hidden("hdnViewSingleItemPath", @Url.Action("ViewSingleItem", "ItemListView"))
+        @Html.Hidden("hdnViewSingleItembyISBNPath", @Url.Action("ViewSingleItemByISBN", "ItemListView"))
+        @Html.Hidden("hdnDeletePath", @Url.Content("~/ItemContainerPartial/DeleteItemFromQuote"))
+        @Html.Hidden("hdmItemListViewSinglePath", @Url.Action("ViewSingleDetailedParialView", "ItemListView"))
+        @Html.Hidden("hdnAddCartPath", @Url.Action("UpdateStatusofAllItems", "ItemListView"))
+        @Html.Hidden("hdnActiveQuotePath", @Url.Action("ActiveQuote", "ActiveQuote"))
+        @Html.Hidden("hdnIndexPath", @Url.Action("Index", "Home"))
+        @Html.Hidden("hdnViewQuoteDwPath", @Url.Action("ViewQuoteandDecisionWizard", "ItemContainerPartial", new { quoteType = @ViewData["QuoteType"], quoteID = @ViewData["QuoteID"] }))
+        @Html.Hidden("hdnImagesPath", @Url.Content(Resources.TCPResources.ImagesPath))
+        @Html.Hidden("hdnSearchUrl", @Url.Action("SearchItems", "ItemContainerPartial"))
+        @Html.Hidden("hdnlogoPath", @ConfigurationManager.AppSettings["imgLogoPath"])
+        @*@Html.Hidden("hdnyellowBlueStarPath", Url.Content("~/Images/star-yellow-blue.png"))*@
+        @Html.Hidden("hdnImageH80Path", Url.Content(ConfigurationManager.AppSettings["ImagesH80"]))
+        @Html.Hidden("hdnDateTime", System.DateTime.Now.ToString("g"))
+        @Html.Hidden("hdnDateTimeWithFormat", string.Format("{0:M/d/yy}", System.DateTime.Now))
+    </div>
+    <div id="PenworthyLayout">
+        <div class="header span965">
+            @* Div Tag Contains Images and Icons of Search and Cart *@
+            <div class="body-text place-left span12 div-MainHeight102 border-bottom " style="margin-top: 10px">
+                <div class="place-left span2 div-MainHeight35 text-center">
+                    <a href="@defaultHomePage">
+                        @*<img src="~/Images/PenWorthyLogo.jpg" />*@
+                        <img src="~/Image/Getimage?id=@ConfigurationManager.AppSettings["PenworthyLogo"]">
+                    </a>@Resources.TCPResources.PenworthyContactNumber
+                </div>
+                <div class="place-left text-left span8 div-MainHeight85 margin-left2 margin-top6 border-right" style="width: 600px!important">
+                    @Html.Partial("_LoginPartial", Model)
+                </div>
+                @if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+                {
+                    <div class="place-left div-MainHeight10 margin-left19 nrm nbm ">
+                        <a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })" class="iconsizemedium"><i class="icon-cart button-fg ItemPointer"></i></a>
+                    </div>
+                }
+                <div class="place-left span2-5 margin-top11 div-contentheight1 visible">
+                    @if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+                    {
+                        <div class="place-left marginminus10 div-MainHeight80 span3">
+                            <div id="SCItemCount" class="place-left margin-top12"><a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })"><sup class="supStyle" style="font-size: small">@ViewData["SCItemsCount"]</sup></a></div>
+                            <div class="place-left margin-top12 nlm"><a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })" style="font-size: small">@ViewData["SCItemsCount"]&nbsp;items</a></div>
+                            <div id="SCItemPrice" class="place-left margin-top12"><a href="@Url.Action("ShoppingCartByClientID", "ShoppingCart", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })" style="font-size: small">@String.Format("{0:c}", @Model.UserVM.SCPrice)</a></div>
+                            <div class="place-right" style="height: 83px;">
+                                @if (ViewBag.Title != Resources.TCPResources.LibrarianResourcesText && ViewBag.Title != "About Us" && ViewBag.Title != "Contact Penworthy" && ViewBag.Title != "CatalogInformation")
+                                {
+                                    <a href="#order-dialog" class="popup-with-zoom-anim ordernow">
+                                        <img src="~/Images/YesNoMaybe/OrderNow.jpg" /></a>
+                                }
+                            </div>
+                        </div>
+                        
+                    }
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <div class="place-left span87  margin4 ntm nrm nbm div-MainHeight10">@*<a class="popup-with-zoom-anim login" href="#small-dialog"><i class="icon-cart button-fg ItemPointer"></i></a>*@</div>
+                        <div class="place-right span87  text-right div-MainHeight10">
+                            <a href="#small-dialog" class="popup-with-zoom-anim login">@Resources.TCPResources.SignInText</a>
+                        </div>    
+                    }
+                    else
+                    {
+                        if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+                        {
+                        <div class="place-left marginminus10 div-MainHeight85 span3">
+                        </div>
+                        }
+                        <div class="margin5 nlm nrm span1 place-right ">
+                            <a href="@Url.Action("ReturnToCRM", "Account")">@Resources.TCPResources.SignOutText</a>
+                        </div>    
+                
+                    }
+                </div>
+                <div class="place-left span2 margin5 nlm ntm nbm visible">
+
+                    @if ((ViewBag.Title != "ActiveQuote" && ViewBag.Title != "ItemListView") && Request.IsAuthenticated)
+                    {
+                        <input type="text" placeholder="Search" name="name" id="txtSearch" style="margin-top: 25px; margin-left: 2px; width: 132px" />
+                    }
+                </div>
+            </div>
+
+            @* Bread Cumbs Sections --Start  *@
+            @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+            {
+                <div id="divMenus" class="place-left span12 margin5 nlm nrm body-text hide buttonbg">
+                    <nav class="breadcrumbs small">
+                        <ul id="ulBreadcrumb">
+                        </ul>
+                    </nav>
+                </div>
+            }
+            else
+            {
+                string Title = ViewBag.Title == Resources.TCPResources.ProductsText ? Resources.TCPResources.ViewCollectionText : ViewBag.Title == Resources.TCPResources.ItemListViewText ? Resources.TCPResources.MyText + " " + ViewData["QuoteTitle"]
+                    + " " + Resources.TCPResources.DecisionWizardliText : ViewBag.Title == Resources.TCPResources.MenuAboutUs ? Resources.TCPResources.LearnAbout : ViewBag.Title == Resources.TCPResources.LibrarianResourcesText ? Resources.TCPResources.LibraryHeadIntro : ViewBag.Title;
+
+
+                string fontColor = ViewBag.Title == Resources.TCPResources.ProductsText || ViewBag.Title == Resources.TCPResources.SearchText || ViewBag.Title == Resources.TCPResources.UpdateCollectionText ? "color:white;" : "color:black;";
+                if (Title != "")
+                {
+                <div class="place-left span12 div-MainHeight35 bar-@ViewBag.Title">
+                    @if (ViewBag.Title == "ItemListView")
+                    {
+                        <div class="place-right" style="background-color: white; margin-top: 4px; height: 26px; margin-right: 4px;">
+                            <a class="place-right" style="margin-right:-4px; font-size: small;height:0px;margin-top:-17px;" target="_blank" href="@Url.Action("HelpDecisionWizard", "ItemListView")">
+                                <img src="~/Images/DW%20video%20button.jpg" /></a>
+                        </div>
+                    }
+                    <div class="place-left">
+                        @if (ViewBag.Title != "HomePage")
+                        {
+                            <h2 id="headerbartext" class="margin10 nrm nbm ntm" style="@fontColor">@Title</h2>
+                        }
+                    </div>
+
+                    @if (Title == Resources.TCPResources.ViewCollectionText)
+                    {
+                        <div class="place-right">
+                            <div class="place-left" style="margin-left: -165px;">
+                                @if (WebSecurity.IsAuthenticated)
+                                {
+                                    if (ViewBag.SelectedTitlesCount > 0)
+                                    {
+                                    <button id="5" name="1" value="Add this Collection" class="AddCollection pos-fix" style="background-color: transparent; border: 0px; font-size: 12px; font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; color: white; margin-top: 6px;">
+                                        Add&nbsp;@ViewBag.SelectedTitlesCount @Resources.TCPResources.TitlesCollectionText
+                                    </button>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="minusmargintop28">
+                                        <a class="popup-with-zoom-anim login" style="margin-right: 2px; font-size: small; color: white" href="#small-dialog">Add&nbsp;@ViewBag.SelectedTitlesCount @Resources.TCPResources.TitlesCollectionText</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                }
+            }
+            @* Bread Cumbs Sections --End  *@
+        </div>
+        @if (ViewBag.Title == "KPL" || ViewBag.Title == "Categories" || ViewBag.Title == "Products")
+        {
+            hideClass = string.Empty;
+        }
+        <div id="Loading" class="metro window-overlay @hideClass" style="background-color: rgba(0, 0, 0, 0.30);">
+            <div class="" style="overflow: hidden; position: fixed; top: 287.5px; left: 700px; background-color: transparent">
+                <div class="content" style="padding-top: 32px;">
+                    <div class="place-center padding5">
+                        <img src="~/Images/ajax-loader.gif" style="width: 65px">
+                        <span style="color: aliceblue; font-weight: bold; font-size: 15px">Please wait....</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="UserError-dialog" class="zoom-anim-dialog mfp-hide">
+            <div class="error-dialog">
+                <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+                <div id="loadingUserError" class="">
+                    <table id="forgotPasswordWizard" style="margin: 20px 0px 0px 0px;">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align: center"><strong>@Resources.TCPResources.UserErrorText</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 place-right ">Cancel</a>
+                                </td>
+                                <td>
+                                    <a id="forgorPass" href="#" style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 14px; line-height: 20px; letter-spacing: 0.01em;" class="div-MainHeight25 place-right ">@Resources.TCPResources.ForgotPasswordText</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="place-left span12 contentText" id="divBody" style="padding-left: 4px; margin-top: 103px;">
+            @RenderBody()
+        </div>
+
+        <div id="order-dialog" class="zoom-anim-dialog mfp-hide span12 orderdialog">
+
+            @if (Model.UserVM != null)
+            {
+                <h3 class="center button-bg" style="color: white;">Order-Confirmation</h3>
+                <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+                <div id="" class="span12 contentText margin10">
+                    <div class="padding10 nlp nrp">
+                        <label class="span63 place-left">PO#</label>: @Html.TextBox("PoText", null, new { @class = "span2-5" })  (PO# is not required)
+                    </div>
+                    <div class="span5 place-left margin10 nlm nrm">
+                        <label class="place-left">Company Name</label>
+                        : <strong>@Model.UserVM.CRMModelProperties.CustParentName</strong>
+                    </div>
+                    <div class="span4 place-left margin10 nlm nrm">
+                        <label class="place-left">Account Manager</label>
+                        : <strong>@Model.UserVM.CRMModelProperties.RepName</strong>
+                    </div>
+                    @*<div class="span3 place-left margin10 nlm nrm">
+                        <label class="place-left">Rank</label>
+                        : <strong>-----</strong>
+                    </div>*@
+                    @if (@Model.UserVM.CustomerAddressBaseModel != null)
+                    {
+                        if (@Model.UserVM.CustomerAddressBaseModel.ShipToAddress != null)
+                        {
+                        <div class="span5 place-left margin10 nlm nrm">
+                            <label class="place-left">Address</label>
+                            : <strong>@Model.UserVM.CustomerAddressBaseModel.ShipToAddress.AddressLine1</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">City</label>
+                            : <strong>@Model.UserVM.CustomerAddressBaseModel.ShipToAddress.City</strong>
+                        </div>
+                        <div class="span2 place-left margin10 nlm nrm">
+                            <label class="place-left">State</label>
+                            : <strong>@Model.UserVM.CustomerAddressBaseModel.ShipToAddress.State</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">Zip Code</label>
+                            : <strong>@Model.UserVM.CustomerAddressBaseModel.ShipToAddress.ZipCode</strong>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="span5 place-left margin10 nlm nrm">
+                            <label class="place-left">Address</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">City</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span2 place-left margin10 nlm nrm">
+                            <label class="place-left">State</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">Zip Code</label>
+                            : <strong>@strempty</strong>
+                        </div> 
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="span5 place-left margin10 nlm nrm">
+                            <label class="place-left">Address</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">City</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span2 place-left margin10 nlm nrm">
+                            <label class="place-left">State</label>
+                            : <strong>@strempty</strong>
+                        </div>
+                        <div class="span3 place-left margin10 nlm nrm">
+                            <label class="place-left">Zip Code</label>
+                            : <strong>@strempty</strong>
+                        </div> 
+                    }
+                    <br />
+                    <div class="padding10 nlp nrp  margintop60 nlm nrm">
+                        <label class="place-left">Comments</label>: @Html.TextArea("Comments", new { @class = "span2-5", maxlength = 250 })
+                    </div>
+                    <div class="div-contentheight span6"></div>
+                    <div class="span8">
+                        @if (Model.UserVM != null)
+                        {
+                            orderDisableMode = Model.UserVM.SCCount != null ? Model.UserVM.SCCount != 0 ? "" : "disabled div-disable" : "div-disable disabled";
+                        }
+@*<button id="btnOrder" class="padding10 button-bg span22per margin10 nrm nbm ntm @orderDisableMode " data-id =""><strong>Order Now</strong></button>*@
+                        <div class="place-left span4 margin15"></div>
+                        <div class="place-left span3">
+                            <div id="btnOrder" class=" @orderDisableMode">
+                                <a data-href="@Url.Action("CartDWPdfGeneration", "ShoppingCart")" id="pdfgeneration" target="_blank" class="place-left margin5 ItemPointer  button-bg" style="background-color: #D5D5D5;height: 25px;width: 91px;padding-left: 9px;padding-top: 3px;"><strong>Order Now</strong></a>
+                            </div>
+                            <div><a class="BtnDeleteCancel place-left margin5  button-bg ItemPointer" style="background-color: #D5D5D5; height: 25px; width: 103px; padding-left: 9px; padding-top: 3px;"><strong>Cancel Order</strong></a></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+        <div id="order-pdfdialog" class="zoom-anim-dialog mfp-hide">
+            <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close" style="margin-right: 370px; color: red; width: 142px; border: none;">@Resources.TCPResources.Closethiswindow</button>
+            <div id="order-pdf">
+            </div>
+        </div>
+    </div>
+    <script>
+        //Google Analytics
+        var mydate = new Date();
+        mydate = mydate.setFullYear(2020, mydate.getDate(), mydate.getMonth());
+        var GUserIDEmail = $('#hdnLoggedInUserID').val();
+        if (GUserIDEmail != undefined) {
+            if ($('#hdnCustStatus').val() == 'False') {
+                GUserIDEmail += '_' + $('#hdnLoggedInEmail').val();
+            }
+            else {
+                GUserIDEmail = $('#hdnCustomerlogininfo').val();
+            }
+        }
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = mydate; a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-22899788-1', 'penworthy.com');
+        ga('send', 'pageview', { 'dimension1': GUserIDEmail });
+
+    </script>
+</body>
+</html>

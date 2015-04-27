@@ -1,0 +1,64 @@
+﻿@using TPC.Common.Enumerations;
+@model TPC.Core.Models.ViewModels.CategoriesItemContainerViewModel
+@{
+    string SCItemsCount = "";
+    if (@Model.UserVM != null)
+    {
+        SCItemsCount = Model.UserVM.SCCount.ToString();
+
+    }
+
+    if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()) || !WebSecurity.IsAuthenticated)
+    {
+        ViewBag.Title = "Products";
+    }
+    else
+    {
+        if (Model.CategoriesPVM.ItemGroupVM.GroupID == 0)
+        {
+            ViewBag.Title = "Search";
+        }
+        else
+        {
+            ViewBag.Title = "Categories";
+        }
+    }
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+}
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+@{
+    List<ItemViewModel> lstItemVM = new List<ItemViewModel>();
+    ItemParentViewModel itemPVM = new ItemParentViewModel();
+}
+
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <div>
+        <button title="Close (Esc)" type="button" class="mfp-close" style="position: static; margin-top: -18px;border:0px; float: left; margin-left: -29px;">@Resources.TCPResources.CloseText</button>
+        <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    </div>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+<div id="loading-div-background" class="hide">
+    <div id="dvLoading">
+        @*  <img style="height:80px;margin:30px;" src="images/loading.gif" alt="Loading.."/>*@
+        <span style="color: black; font-weight: bold; font-size: 10px">Please wait....</span>
+    </div>
+</div>
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.CategoriesPVM.QuoteID)
+    @Html.Hidden("hdnPkgID", @Model.CategoriesPVM.SelectedGroupID)
+    @Html.Hidden("hdnPageCount", @Model.CategoriesPVM.SelectedTitlesCount)
+    @Html.Hidden("hdnCollectionPath", @Url.Action("AddCollectionsToQuotDWCartbyGroupID", "ItemListView"))
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="ViewItemConatiner" class="place-left body-text span12">
+    @Html.Partial("../TCPViews/Partial/CategoriesItemViewPartial", Model.CategoriesPVM)
+</div>
+
+
+
+

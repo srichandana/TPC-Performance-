@@ -1,0 +1,62 @@
+﻿@model List<TPC.Core.Models.Models.FilterModel>
+@using TPC.Common.Enumerations;
+@using TPC.Core.Models.Models;
+@{
+    string filterType = string.Empty;
+    string classhide = string.Empty;
+}
+
+<div id="Collections" class="place-left span3 padding5 nlp nrp">
+    <div class="place-left span3 padding10 nrp ntp nbp" style="margin-top: 80px;">
+        @foreach (FilterModel lstfmPackages in Model)
+        {
+            <div class="place-left span3 collectionsLineHeight">
+                <a href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = @lstfmPackages.GroupID, currentPageIndex = 1,noofItemsPerPage=60 })" class="collectionText">
+                    <div class="ItemPointer" style="@lstfmPackages.Style"> @lstfmPackages.GroupName</div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+@if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+{
+    <div id="filterSearch" class="filterSearch place-left span3 margin15 ntm nlm nrm  divCollectionText">
+        <div class="span3 margin5 nlm">
+            <div class="place-left divCollectionText">
+                @Resources.TCPResources.FurtherRefineText
+            </div>
+            <div class="place-right">
+                <input type="button" class="clearAll" id="ClearAll" value="@Resources.TCPResources.ClearAllText" />
+            </div>
+        </div>
+        <div class="place-left span3 padding10 nrp ntp nbp">
+            @foreach (FilterModel lstfm in Model)
+            {
+                if (lstfm.ChildGroups != null)
+                {
+                    foreach (FilterModel fm in lstfm.ChildGroups)
+                    {
+                <ul id="@lstfm.GroupID" class="treeview @classhide" data-role="treeview">
+                    <li class="node divFilterTextWidth @fm.GroupID">
+                       <div class="divBorderBottom">@fm.GroupName</div> 
+                        @*//ChildGroups*@
+                        @if (fm.ChildGroups != null)
+                        {
+                            foreach (FilterModel childfm in fm.ChildGroups)
+                            {
+                            <ul>
+                                <li class="@fm.GroupID ">
+                                    <input type="checkbox" name="@childfm.GroupName" class="filterGroup childCheckBox" data-groupId="@childfm.GroupID" checked="@childfm.IsSelected"/>&nbsp;@childfm.GroupName
+                                   @* <input type="checkbox" id="subChildGroup-@childfm.GroupID" name="@childfm.GroupName" class="filterGroup childCheckBox subChildGroup-@fm.GroupID" data-grpId="@fm.GroupID" data-subGrpId="@childfm.GroupID" value="@fm.GroupID-@childfm.GroupID" checked="@childfm.IsSelected"/>&nbsp;@childfm.GroupName*@
+                                </li>
+                            </ul>
+                            }
+                        }
+                    </li>
+                </ul>
+                    }
+                }
+            }
+        </div>
+    </div>
+}

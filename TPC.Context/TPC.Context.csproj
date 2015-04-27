@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F65D8D01-FBB8-426D-9667-168C994C63B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TPC.Context</RootNamespace>
+    <AssemblyName>TPC.Context</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContextBase.cs" />
+    <Compile Include="EntityModel\AppUser.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\AppUserType.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Author.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CalTagInfo.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogColumnType.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogInformation.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogProfileValidation.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSoftwareVersionMapping.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubject.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectItemIDMapping.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectOption.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectOptionProtector.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectOptionProtectorValue.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectoptionShelfReady.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectOptionShelfReadyValue.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CatalogSubjectOptionValue.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CollectionsDisplayPage.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Customer.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerAddress.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerCatalogInformation.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerCatalogProtectorInformation.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerCatalogShelfReadyInformation.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerRep.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerRepAssignment.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerSeriesCharacter.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerShipToAddress.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerTag.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\CustomerTitle.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\DWSelectionStatu.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\ELMAH_Error.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\FAQ.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\FAQCategory.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\FAQDetail.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\FnGetCatalogPrice_Result.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Group.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\GroupPackage.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\GroupPackageItem.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\GroupStyle.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\InvoiceHistory.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Item.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\ItemHistory.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\ItemTag.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\KPLItem.cs" />
+    <Compile Include="EntityModel\MailHistory.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Order.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Package.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\PackageSubPackage.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Publisher.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Quote.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\QuoteCallTag.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\QuoteDetail.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\QuoteSubmitSaveInfo.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\QuoteType.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\RepUser.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\SeriesAndCharacter.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\SourceType.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\spgetCustomers_Result.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Status.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Tag.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\TagType.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\TaxSchedule.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\TPCModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TPCModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\TPCModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\TPCModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TPCModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\User.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\UserPreference.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\vDWCRMComm.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\vDWMailHistory.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\vDWstat.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\vQuote.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\vWebUser.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\webpages_Membership.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\webpages_OAuthMembership.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\webpages_Roles.cs">
+      <DependentUpon>TPCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\ContextManager.cs" />
+    <Compile Include="Infrastructure\TPCRepositaryContext.cs" />
+    <Compile Include="Interfaces\IContextBase.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRepositoryContext.cs" />
+    <Compile Include="ObjectContextExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPC.Common\TPC.Common.csproj">
+      <Project>{2c1b2a43-236f-4709-b50a-16bb790f2469}</Project>
+      <Name>TPC.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="EntityModel\TPCModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TPCModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityModel\TPCModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TPCModel.edmx</DependentUpon>
+      <LastGenOutput>TPCModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="EntityModel\TPCModel.edmx.diagram">
+      <DependentUpon>TPCModel.edmx</DependentUpon>
+    </None>
+    <None Include="EntityModel\TPCModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TPCModel.edmx</DependentUpon>
+      <LastGenOutput>TPCModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DBScript\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,144 @@
+﻿@model TPC.Core.Models.CreateQuoteViewModel
+
+@{
+    ViewBag.Title = "CreateQuotePartial";
+    DateTime dateNow = DateTime.Now;
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        //Hide the div tag when page is loading
+
+        $('#btnProceedQuote').click(function () {
+            $('#CreateQuote-dialog').css("height", "180px");
+        });
+        $('#mp-close').click(function () {
+            $('#CreateQuote-dialog').css("height", "180px");
+        });
+
+        $('#btnSubmitQuote').one('click', function () {
+            var quotetxt = document.getElementById('txtQuoteText').value;
+            var value = $('#QuoteTypes').val();
+            $.ajax({
+                url: "@Url.Content("~/ActiveQuote/CreateQuote")",
+                type: "POST",
+                data: { quoteText: quotetxt, quotetypeID: value },
+                datatype: 'html',
+                success: function (data) {
+                    var $trow = $("#tblQuote").find('tfoot').find('tr').clone();
+                    if ($('#tblQuote').find('tbody').find('tr').length >= 0) {
+                        $('#tblQuote').find('thead').removeClass('hide');
+                        $(".quoteLinks").removeAttr('disabled');
+                        $("#mergeQuote").css("color", "#2e92cf").attr('href', '#small-dialog');
+                        $("#submitQuoteInfo").css("color", "#2e92cf").attr('href', '#SubmitQuote-dialog');
+                        $("#quoteEmailLink").attr('href', '#CreateQuote-dialog');
+                    }
+                    $('#tblQuote').find('tbody').find('tr').find('td').find('#assignChkBx').attr('checked', false);
+                    $trow.find('td').each(function (i) {
+                        if (this.id == "chkQuoteInfo") {
+                            $(this).children('input').attr('data-quoteid', data["QuoteID"]);
+                            $(this).children('input').attr('data-quotetype', data["QuoteTypeID"]);
+                            $(this).children('input').attr('value', (data["QuoteID"] + "%" + data["QuoteTypeText"] + "%0%$0.00"));
+                            $(this).children('input').attr('checked', 'checked');
+                            $(this).children('input').attr('data-statusid',1);
+                        }
+                        else if (this.id == "quoteCreateDate") {
+                            $(this).text('@dateNow.ToString("g")');
+                        }
+                        else if (this.id == "quoteUpdateDate") {
+                            
+                            $(this).text('@dateNow.ToString("g")');
+                        }
+                        else if (this.id == "quoteName") {
+                            $(this).text(quotetxt);
+                        }
+                        else if (this.id == "quotestatus") {
+                            $(this).text('Open');
+                        }
+                        else if (this.id == "quoteTitle") {
+                            $(this).text((data["QuoteTypeText"]));
+                        }
+                        else if (this.id == "quoteDialog") {
+                            $(this).children('a').attr('data-quoteid', data["QuoteID"]);
+                        }
+                        else if (this.id == "quoteItems") {
+                            $(this).text("0");
+                        }
+                        else if (this.id == "quotePrice") {
+                            $(this).text("$0");
+                        }
+
+                    });
+                    var trow1 = '<tr id="Quote-' + data["QuoteID"] + '">' + $trow.html() + '</tr>';
+                    $("#tblQuote tbody:last").append(trow1);
+                    $('.popup-with-zoom-anim').magnificPopup({
+                        type: 'inline',
+                        fixedContentPos: false,
+                        fixedBgPos: true,
+                        overflowY: 'auto',
+                        closeBtnInside: true,
+                        preloader: false,
+                        midClick: true,
+                        removalDelay: 300,
+                        mainClass: 'my-mfp-zoom-in',
+                    });
+                    $('.tablesorter').trigger('update');
+                }
+            });
+            $.magnificPopup.close();
+
+        });
+    });
+</script>
+
+
+<h3 class="center button-bg" style="color: white;">Create Quote</h3>
+
+<div id="CreateQuotePartial" class="span5 padding5 contentText">
+    <div id="CreateQuoteType">
+        <div class="place-left span5 ">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm div-contentheight">
+                @Html.Label(@Resources.TCPResources.DWNameText)
+            </div>
+            <div class="place-left span2 div-contentheight">
+                @Html.TextBox("txtQuoteText", "", new { @class = "span3" })
+            </div>
+        </div>
+        <div class="place-left span5 div-MainHeight5" />
+        <div class="place-left span5">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm  div-contentheight">
+                @Html.LabelFor(e => e.QuoteModel.QuoteTypeText)
+            </div>
+            <div class="place-left span2 div-contentheight">
+                @Html.DropDownListFor(e => e.QuoteTypes, new SelectList(Model.QuoteTypes, "ItemID", "ItemValue"), new { @class = "span3" })
+            </div>
+        </div>
+        <div class="place-left span5 div-MainHeight5" />
+        <div class="place-left span5 ">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm div-contentheight">
+            </div>
+            <div class="place-right span2 div-contentheight" style="padding-right:20px;">
+                <a id="btnSubmitQuote" class="place-right button" href="#">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+

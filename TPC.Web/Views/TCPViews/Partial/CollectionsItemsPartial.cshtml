@@ -1,0 +1,164 @@
+﻿@model TPC.Core.Models.ItemGroupViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+@using System.Configuration;
+@{
+    int noofRowsPerpage;
+    int noofColumns = ViewBag.Title == "Search" || ViewBag.TiTle == Resources.TCPResources.ItemListViewText ? 5 : 4;
+    int noofRecords = Model.ItemPVM != null && Model.ItemPVM.ListItemVM.Count() > 0 ? Model.ItemPVM.ListItemVM.Count() : 60;
+    noofRowsPerpage = (int)Math.Ceiling(noofRecords / (double)noofColumns);
+    string currentDisplaytext = Model.ItemPVM != null && Model.ItemPVM.ListItemVM.Count() > 0 ? Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+       (Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 || Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == "" ? "Cart" : "Quote") : "Cart";
+    string imagePath = ConfigurationManager.AppSettings["ImagesH135"];
+    string divgroupwidth = ViewBag.Title == "Search" || ViewBag.TiTle == Resources.TCPResources.ItemListViewText ? "925px" : "740px";
+    int columnCount = ViewBag.Title == "Search" || ViewBag.TiTle == Resources.TCPResources.ItemListViewText ? 4 : 3;
+    int itemCount = ViewBag.Title == "Search" || ViewBag.TiTle == Resources.TCPResources.ItemListViewText ? 5 : 4;
+    string ARlevel = string.Empty;
+    string dwDateText = string.Empty;
+}
+
+<div id="dvSet-1" class="place-left margin20 ntm nbm span9_35">
+    @{
+        ItemGroupViewModel itemGVM = Model;
+        int columnsCount = 0;
+    }
+    @if (Model.ItemPVM != null)
+    {
+        for (int irows = 0; irows < @noofRowsPerpage; irows++)
+        {
+        <div id="@irows" class="place-left margin20 nlm nrm" style="width:@divgroupwidth">
+            @for (int icolumns = 0; icolumns < @noofColumns; icolumns++)
+            {
+                if ((columnsCount + icolumns) >= itemGVM.ItemPVM.ListItemVM.Count())
+                {
+                    columnsCount = itemGVM.ItemPVM.ListItemVM.Count() - 1;
+                    irows = noofRowsPerpage;
+                    icolumns = itemCount;
+                    break;
+                }
+                ItemViewModel obj = Model.ItemPVM.ListItemVM[columnsCount + icolumns];
+                <div id="Item" class="body-text ntm nbm place-left">
+                    @{
+                // string classname = @obj.IsInCustomerTitles == true ? "div-bgopacity" : "";
+                // string disableStatus = @obj.IsPreviewItem == false ? "div-bgopacity div-filterdisable" : "";
+                string disableStatus = @obj.IsPreviewItem == false ? "div-bgopacity div-filterdisable opacityz-index" : "";
+                string starPositionStatus = ViewBag.Title == "HomePage" ? "style=margin-left:-4px" : "";
+                    }
+                    <div id="ViewDetailItem-@itemGVM.GroupID-@icolumns" data-Title="@obj.IsInCustomerTitles"  class="@disableStatus collectionitemImgWidth  margin20  nlm ntm nbm place-left">
+                        @*  <div id="ViewDetailItem-@itemGVM.GroupID-@icolumns" data-Title="@obj.IsInCustomerTitles"  class="@disableStatus  opacityz-index collectionitemImgWidth  margin20  nlm ntm nbm place-left">*@
+                        <div id="@obj.ItemID" class="place-left collectionitemImgWidth text-center">
+                            <div id="divCartStatus-@obj.ItemID-@icolumns" class="divCartStatus-@obj.ItemID">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (@obj.IsInSCDWQuote == true)
+                                    {
+                                    <div id="carttext-@obj.ItemID" class="carttext-@obj.ItemID">
+                                        @if (obj.IsInCustomerTitles == true)
+                                        {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                        {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        &nbsp;In @currentDisplaytext
+                                    </div>
+                                    <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID hide">
+                                        @if (obj.IsInCustomerTitles == true)
+                                        {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                        {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif;margin-right:14px;" >Add To @currentDisplaytext</button>
+                                    </div>
+                                    }
+                                    else
+                                    {
+                                    <div id="carttext-@obj.ItemID" class="hide carttext-@obj.ItemID">
+                                        @if (obj.IsInCustomerTitles == true)
+                                        {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                        {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        &nbsp;In @currentDisplaytext
+                                    </div>
+                                    <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID">
+                                        @if (obj.IsInCustomerTitles == true)
+                                        {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                        {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                        }
+                                        <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif;margin-right:14px;" >Add To @currentDisplaytext</button>
+                                    </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <a class="popup-with-zoom-anim login carouselCartText" href="#small-dialog">Add To Cart</a>
+                                }
+                            </div>
+                        </div>
+                        <div id="divImg-@itemGVM.GroupID-@icolumns" class="collectionitemImgWidth place-left text-center divImg-@itemGVM.GroupID">
+                            <a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >
+                                <img id="@obj.ItemID" class="imgTest-@obj.ItemID-@icolumns titleShadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @obj.ISBN, imagePath, "\\", ".jpg")">
+                                @*   <img id="@obj.ItemID" class="imgTest-@obj.ItemID-@icolumns titleShadow" src="@Url.Action("Getimage","Image", new {id =@imagePath + obj.ISBN + ".jpg" })" />*@
+                                @* @Html.Action("Index", "Image")*@
+                            </a>
+
+                        </div>
+
+                        <div class="collectionitemImgWidth itemTextSize place-left text-center">
+                            @obj.Title
+                        </div>
+                        <div id="divGradePrice-@itemGVM.GroupID-@icolumns" class="collectionitemImgWidth itemTextSize place-left text-center divImg-@itemGVM.GroupID">
+                            @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) == true && ViewBag.Title != "Search")
+                            {
+                                <span>@string.Format("{0:C2}", obj.IPrice) </span>
+                                ARlevel = obj.ARLevel != string.Empty ? "," + obj.ARLevel : string.Empty;
+
+                            }
+                            else { ARlevel = obj.ARLevel; }
+                            @if (string.IsNullOrEmpty(ARlevel) && string.IsNullOrEmpty(obj.RCLevel))
+                            {
+                                <br />
+                            }
+                            else
+                            {
+                                @ARlevel  @obj.RCLevel
+                            }
+                            <input type="checkbox" id="chkItem" class="group1 hide" data-price="@obj.IPrice" value="@obj.ItemID" checked="@obj.IsSelected"/>
+                        </div>
+                        <div class="collectionitemImgWidth itemTextSize place-left text-center">
+                            @{dwDateText = string.Empty;}
+                            @if (!string.IsNullOrEmpty(obj.DWDate))
+                            {
+                                dwDateText = "LDW:" + obj.DWDate;
+                            }
+                            @if (currentDisplaytext == "DW")
+                            {
+                                <span id="ldwText-@obj.ItemID">@dwDateText</span>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                            if (icolumns == columnCount)
+                            {
+                                columnsCount += (@icolumns + 1);
+                            }
+            }
+
+        </div>
+        }
+    }
+</div>

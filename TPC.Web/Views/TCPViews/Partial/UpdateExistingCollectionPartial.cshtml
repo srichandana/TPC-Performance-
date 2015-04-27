@@ -1,0 +1,279 @@
+﻿@model TPC.Core.Models.Models.FilterModel
+@using TPC.Core.Models.Models;
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.formSubmit').click(function () {
+            var html = $('#loadingMeter').html();
+            $('#loadingSetView').html(html);
+            $('.xp_bar_filler').css('width', '0%');
+            $('.xp_bar_filler').animate({
+
+                'width': '100%'
+            }, 60000
+            );
+            $('#groupItemListForm').submit();
+        });
+        $('.PriorityUpDownBtns').on("click", function () {
+
+            var priority = $('#GroupPriority').attr('value')
+            if ($(this).hasClass('PriorityUpDownBtns plusminusbtns')) {
+                priority--;
+            }
+            else {
+                priority++;
+            }
+            if (priority < 100 && priority >= 1) {
+                $('#GroupPriority').val(priority)
+
+            }
+        });
+        $('.PackageUpDownBtns').on("click", function () {
+            var priority = $('#PackagePriority').attr('value')
+            if ($(this).hasClass('PackageUpDownBtns plusminusbtns')) {
+                priority--;
+            }
+            else {
+                priority++;
+            }
+            if (priority < 100 && priority >= 1) {
+                $('#PackagePriority').val(priority)
+            }
+        });
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in',
+        });
+
+
+    });
+</script>
+<script src="~/Scripts/js/metro/metro-accordion.js"></script>
+<script src="~/Scripts/jquery.magnific-popup.js"></script>
+@{
+    string addOrUpdateheading = Model.GroupID == 0 ? Resources.TCPResources.AddNewText : Model.GroupName == null ? "" : Resources.TCPResources.UpdateText + " " + Model.GroupName;
+    string addOrUpdate = Model.GroupID == 0 ? Resources.TCPResources.AddNewText : Model.GroupName == null ? "" : Resources.TCPResources.UpdateText;
+    List<SelectListItem> SelectListItem = Enumerable.Range(1, 100).Select(e => new SelectListItem() { Selected = Model.PackagePriority == e ? true : false, Text = e.ToString(), Value = e.ToString() }).ToList();
+}
+<div class="accordion place-left span100per" data-role="accordion" data-closeany="true">
+    <div class="accordion-frame span100per newCollection">
+        <a class="heading active" href="#" style="background-color: #00aff0; color: white;"><strong>@addOrUpdateheading Collection</strong> </a>
+        <div class="content" style="display: none; overflow: hidden">
+            @*<div class="span100per place-left">
+                    <div class=" text-left span2 place-left">
+                        <label>Group ID</label>
+                    </div>
+                    <div class=" margin10 nrm ntm
+                 place-left">@Html.TextBox("GroupID", 23, new { @disabled = "disabled", @class = "span4" })</div>
+                </div>*@
+
+            @using (Html.BeginForm("AddNewCollections", "Collection", new { groupID = Model.GroupID }))
+            {
+
+                <div class="span100per place-left">
+                    <div class="text-left span2 place-left">
+                        <label>Group Name</label>
+                    </div>
+                    <div class=" margin10 nrm ntm span4 place-left">
+                        @if (string.IsNullOrEmpty(Model.GroupName))
+                        {
+                            @Html.TextBox("GroupName", Model.GroupName, new { @class = "span4", value = "" });
+                        }
+                        else
+                        {
+                            @Html.TextBox("GroupName", null, new { @class = "span4" });
+                        }
+                    </div>
+                </div>
+                <div class="span100per place-left">
+                    <div class=" text-left span2 place-left">
+                        <label>Group Description</label>
+                    </div>
+                    <div class=" margin10 nrm ntm span4 place-left">@Html.TextArea("Description", new {@class = "span4 ht108" })</div>
+                </div>
+
+                <div class="span100per place-left margin10 nlm ntm nrm">
+                    <div class="text-left span2 place-left">
+                        <label>Priority</label>
+                    </div>
+                    <div class="text-left span2 place-left"></div>
+                    <div class="place-left marginlft">
+                        <a class="PriorityUpDownBtns plusminusbtns " id="minus">
+                            <img class="marginImg" src="~/Images/DownArrow.png" />
+                        </a>
+                    </div>
+                    <div class="place-left paddinglft">
+
+                        @Html.TextBox("PackagePriority", @Model.PackagePriority == 0 ? 1 : @Model.PackagePriority, new { id = "GroupPriority", @style = "width:24px" })
+                    </div>
+                    <div class="place-left paddinglft">
+                        <a class="PriorityUpDownBtns " id="plus">
+                            <img class="marginImg" src="~/Images/Uparrow.png" />
+                        </a>
+                    </div>
+
+                </div>
+                <div class="span100per place-left">
+                    <div class=" text-left span2 place-left">
+                        <label>Css Style</label>
+                    </div>
+                    <div class=" margin10 nrm nbm ntm span4 place-left">
+                    @Html.TextArea("Style", @Model.Style, new { @class = "span4 ht108", @placeholder = "Add Style" })
+                    </div>
+                </div>
+                <div class="place-left" style="margin-left: 94px;">
+                    <div class="span2 place-left">
+                        <button type="submit" value="Update" name="type" class="primary" style="margin-left: 52px; margin-top: 4px;">@addOrUpdate</button>
+                    </div>
+                    @if (Model.GroupID != 0)
+                    {
+                        <div class="place-left" style="margin-top: 4px;">
+                            <button type="submit" value="Delete" name="type" class="primary" style="margin-right: 3px;">Delete</button>
+                        </div>
+                    }
+                    @*  <div id="lblstatus" class="place-left"></div>*@
+                </div>
+            }
+        </div>
+    </div>
+    @if (Model.GroupID == 0)
+    {
+        <div class="accordion-frame span100per newCollection">
+            <a class="heading" href="#" style="background-color: #00aff0; color: white;"><strong>@addOrUpdateheading Package</strong> </a>
+            <div class="content" style="display: none; overflow: hidden">
+                @*<div class="span100per place-left">
+                        <div class=" text-left span2 place-left">
+                            <label>Package ID</label>
+                        </div>
+                        <div class=" margin10 nrm ntm span4 place-left">@Html.TextBox("PackageID", null, new { @class = "span4" })</div>
+                    </div>*@
+                @using (Ajax.BeginForm("AddNewPackage", "Collection", new { groupID = Model.GroupID }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "lblpackagestatus" }, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="span100per place-left">
+                        <div class="text-left span2 place-left">
+                            <label>Package Name</label>
+                        </div>
+                        <div class=" margin10 nrm ntm span4 place-left">@Html.TextBox("PackageName", null, new { @class = "span4" })</div>
+                    </div>
+                    <div class="span100per place-left">
+                        <div class=" text-left span2 place-left">
+                            <label>Priority</label>
+                        </div>
+                        <div class="text-left span2 place-left"></div>
+                        <div class="place-left marginlft">
+                            <a class="PackageUpDownBtns plusminusbtns " id="minus">
+                                <img class="marginImg" src="~/Images/DownArrow.png" />
+                            </a>
+                        </div>
+                        <div class="place-left paddinglft">
+
+                            @Html.TextBox("packagePriority", @Model.PackagePriority == 0 ? 1 : @Model.PackagePriority, new { id = "PackagePriority", @style = "width:24px" })
+                        </div>
+                        <div class="place-left paddinglft">
+                            <a class="PackageUpDownBtns " id="plus">
+                                <img class="marginImg" src="~/Images/Uparrow.png" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="span7 place-left" style="margin-left: 71px; margin-top: 3px;">
+                        <div class="span4 place-left">
+                            <button class="primary">@addOrUpdate Package</button>
+                        </div>
+                        <div id="lblpackagestatus" class="place-left margin5"></div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.lstpackages != null)
+    {
+        <div class="accordion-frame">
+            <a class="heading collapsed" href="#" style="background-color: #00aff0; color: white;"><strong>@addOrUpdateheading Package </strong></a>
+            <div class="content text-left margin10 nbm" style="display: none;">
+                @using (Ajax.BeginForm("updatepackage", "Collection", new { groupID = Model.GroupID }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "packageupdatemsg" }, new { enctype = "multipart/form-data" }))
+                {
+                    if (Model.lstpackages != null)
+                    {
+                        foreach (PackageModel package in Model.lstpackages)
+                        {
+                            <div class="place-left span3 div-MainHeight15">
+                                @if (package.IsInGroup != null)
+                                {
+                                    @Html.CheckBox("cbSelect", new { id = "cbSelect", @class = "case", value = @package.PackageID, @checked = @package.IsInGroup });
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("cbSelect", new { id = "cbSelect", @class = "case", value = @package.PackageID });
+                                }
+                                @package.PackageName
+                            </div>
+                        }
+                    }
+
+                    <div class="span4 place-left" style="margin-left: 211px;">
+                        <div class="span2 place-left">
+                            <button class="primary margin10 nlm nrm nbm">Update Package</button>
+                        </div>
+                        <div id="packageupdatemsg">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="accordion-frame">
+            <a class="heading formSubmit popup-with-zoom-anim " href="#small-dialog" style="background-color: #00aff0; color: white;"><strong>Add Items to @Model.GroupName Collection</strong></a>
+            @using (Ajax.BeginForm("getitemlistByGruopId", "Collection", new { groupID = Model.GroupID }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "loadingSetView", LoadingElementId = "loader" }, new { enctype = "multipart/form-data", @style = "margin:0px", @id = "groupItemListForm" })) { }
+        </div>
+    }
+
+
+    @if (Model.GroupID == 0)
+    {
+        <div class="accordion-frame span100per newCollection">
+            <a class="heading" href="#" style="background-color: #00aff0; color: white;"><strong>Delete Package</strong> </a>
+            <div class="content" style="display: none; overflow: hidden">
+                @*<div class="span100per place-left">
+                        <div class=" text-left span2 place-left">
+                            <label>Package ID</label>
+                        </div>
+                        <div class=" margin10 nrm ntm span4 place-left">@Html.TextBox("PackageID", null, new { @class = "span4" })</div>
+                    </div>*@
+                @using (Ajax.BeginForm("DeletePackage", "Collection", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "DeletePackagePartial" }, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div id="DeletePackagePartial">
+                        @Html.Partial("../TCPViews/Partial/DeletePackagePartial")
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+</div>
+<div id="loadingMeter" class="hide">
+    <div id="xp_container">
+        <div id="xp_bar_container">
+            <div class="xp_bar_filler" style="width: 0%;">
+                <div id="xp_bar_text">
+                    <div id="user_xp">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close btnsec" style="border: none">@Resources.TCPResources.CloseText</button>
+    <button id="btnsecondclose" title="Close (Esc)" type="button" class="mfp-close btnsec" style="position: static; margin-top: -17px; float: left; margin-left: -29px; border: none">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView">
+    </div>
+</div>

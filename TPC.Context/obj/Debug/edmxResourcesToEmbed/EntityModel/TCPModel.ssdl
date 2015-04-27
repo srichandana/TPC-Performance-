@@ -1,0 +1,938 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PenworthyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PenworthyModelStoreContainer">
+    <EntitySet Name="AppUser" EntityType="PenworthyModel.Store.AppUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AppUserTypes" EntityType="PenworthyModel.Store.AppUserTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Author" EntityType="PenworthyModel.Store.Author" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CatalogInformation" EntityType="PenworthyModel.Store.CatalogInformation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CatalogSubject" EntityType="PenworthyModel.Store.CatalogSubject" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CatalogSubjectOptions" EntityType="PenworthyModel.Store.CatalogSubjectOptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CatalogSubjectOptionValues" EntityType="PenworthyModel.Store.CatalogSubjectOptionValues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customer" EntityType="PenworthyModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerCatalogInformation" EntityType="PenworthyModel.Store.CustomerCatalogInformation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerRepAssignment" EntityType="PenworthyModel.Store.CustomerRepAssignment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerSeriesCharacter" EntityType="PenworthyModel.Store.CustomerSeriesCharacter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerTag" EntityType="PenworthyModel.Store.CustomerTag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DWSelectionStatus" EntityType="PenworthyModel.Store.DWSelectionStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ELMAH_Error" EntityType="PenworthyModel.Store.ELMAH_Error" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Group" EntityType="PenworthyModel.Store.Group" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupParentage" EntityType="PenworthyModel.Store.GroupParentage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Item" EntityType="PenworthyModel.Store.Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemHistory" EntityType="PenworthyModel.Store.ItemHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemTag" EntityType="PenworthyModel.Store.ItemTag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Order" EntityType="PenworthyModel.Store.Order" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Publisher" EntityType="PenworthyModel.Store.Publisher" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Quote" EntityType="PenworthyModel.Store.Quote" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuoteDetail" EntityType="PenworthyModel.Store.QuoteDetail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuoteType" EntityType="PenworthyModel.Store.QuoteType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rep" EntityType="PenworthyModel.Store.Rep" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SeriesAndCharacter" EntityType="PenworthyModel.Store.SeriesAndCharacter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Status" EntityType="PenworthyModel.Store.Status" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tag" EntityType="PenworthyModel.Store.Tag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagType" EntityType="PenworthyModel.Store.TagType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="PenworthyModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserProfile" EntityType="PenworthyModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_Membership" EntityType="PenworthyModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="PenworthyModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_Roles" EntityType="PenworthyModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="PenworthyModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="View_1" EntityType="PenworthyModel.Store.View_1" store:Type="Views" store:Schema="dbo" store:Name="View_1">
+      <DefiningQuery>SELECT 
+      [View_1].[CustomerID] AS [CustomerID], 
+      [View_1].[TageID] AS [TageID]
+      FROM [dbo].[View_1] AS [View_1]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AppUser_AppUserTypes" Association="PenworthyModel.Store.FK_AppUser_AppUserTypes">
+      <End Role="AppUserTypes" EntitySet="AppUserTypes" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubject_CatalogInfoID" Association="PenworthyModel.Store.FK_CatalogSubject_CatalogInfoID">
+      <End Role="CatalogInformation" EntitySet="CatalogInformation" />
+      <End Role="CatalogSubject" EntitySet="CatalogSubject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectID" Association="PenworthyModel.Store.FK_CatalogSubjectID">
+      <End Role="CatalogSubject" EntitySet="CatalogSubject" />
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionID" Association="PenworthyModel.Store.FK_CatalogSubjectOptionID">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_CatalogInfoID" Association="PenworthyModel.Store.FK_CustomerCatalogInformation_CatalogInfoID">
+      <End Role="CatalogInformation" EntitySet="CatalogInformation" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_CatalogSubjectID" Association="PenworthyModel.Store.FK_CustomerCatalogInformation_CatalogSubjectID">
+      <End Role="CatalogSubject" EntitySet="CatalogSubject" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_CatalogSubjectOptionID" Association="PenworthyModel.Store.FK_CustomerCatalogInformation_CatalogSubjectOptionID">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_CatalogSubjectOptionValueID" Association="PenworthyModel.Store.FK_CustomerCatalogInformation_CatalogSubjectOptionValueID">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerSeriesCharacter_SeriesCharacter" Association="PenworthyModel.Store.FK_CustomerSeriesCharacter_SeriesCharacter">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacter" />
+      <End Role="CustomerSeriesCharacter" EntitySet="CustomerSeriesCharacter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerTag_Customer" Association="PenworthyModel.Store.FK_CustomerTag_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerTag" EntitySet="CustomerTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerTag_Tag" Association="PenworthyModel.Store.FK_CustomerTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="CustomerTag" EntitySet="CustomerTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupParentage_ChildGroup" Association="PenworthyModel.Store.FK_GroupParentage_ChildGroup">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="GroupParentage" EntitySet="GroupParentage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupParentage_Group" Association="PenworthyModel.Store.FK_GroupParentage_Group">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="GroupParentage" EntitySet="GroupParentage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Author" Association="PenworthyModel.Store.FK_Item_Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Character" Association="PenworthyModel.Store.FK_Item_Character">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacter" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_GroupParentage" Association="PenworthyModel.Store.FK_Item_GroupParentage">
+      <End Role="GroupParentage" EntitySet="GroupParentage" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_ItemHistory" Association="PenworthyModel.Store.FK_Item_ItemHistory">
+      <End Role="ItemHistory" EntitySet="ItemHistory" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Publisher" Association="PenworthyModel.Store.FK_Item_Publisher">
+      <End Role="Publisher" EntitySet="Publisher" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Series" Association="PenworthyModel.Store.FK_Item_Series">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacter" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemHistory_Customer" Association="PenworthyModel.Store.FK_ItemHistory_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="ItemHistory" EntitySet="ItemHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemTag_Tag" Association="PenworthyModel.Store.FK_ItemTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="ItemTag" EntitySet="ItemTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Publisher_Publisher" Association="PenworthyModel.Store.FK_Publisher_Publisher">
+      <End Role="Publisher" EntitySet="Publisher" />
+      <End Role="Publisher1" EntitySet="Publisher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quote_QuoteType" Association="PenworthyModel.Store.FK_Quote_QuoteType">
+      <End Role="QuoteType" EntitySet="QuoteType" />
+      <End Role="Quote" EntitySet="Quote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_DWSelectionStatus" Association="PenworthyModel.Store.FK_QuoteDetail_DWSelectionStatus">
+      <End Role="DWSelectionStatus" EntitySet="DWSelectionStatus" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_Item" Association="PenworthyModel.Store.FK_QuoteDetail_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_Quote" Association="PenworthyModel.Store.FK_QuoteDetail_Quote">
+      <End Role="Quote" EntitySet="Quote" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleId" Association="PenworthyModel.Store.fk_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tag_TagType" Association="PenworthyModel.Store.FK_Tag_TagType">
+      <End Role="TagType" EntitySet="TagType" />
+      <End Role="Tag" EntitySet="Tag" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserTypeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUserTypes">
+    <Key>
+      <PropertyRef Name="UserTypeID" />
+    </Key>
+    <Property Name="UserTypeID" Type="int" Nullable="false" />
+    <Property Name="UserType" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="varchar" MaxLength="30" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CatalogInformation">
+    <Key>
+      <PropertyRef Name="CatalogInfoID" />
+    </Key>
+    <Property Name="CatalogInfoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogInfoName" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CatalogSubject">
+    <Key>
+      <PropertyRef Name="CatalogSubjectID" />
+    </Key>
+    <Property Name="CatalogSubjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubject" Type="varchar" MaxLength="150" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CatalogInfoID" Type="int" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptions">
+    <Key>
+      <PropertyRef Name="CatalogSubjectOptionID" />
+    </Key>
+    <Property Name="CatalogSubjectOptionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectID" Type="int" Nullable="false" />
+    <Property Name="CatalogSubjectOption" Type="varchar" MaxLength="150" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="ColumnType" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptionValues">
+    <Key>
+      <PropertyRef Name="CatalogSubjectOptionValueID" />
+    </Key>
+    <Property Name="CatalogSubjectOptionValueID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectOptionID" Type="int" />
+    <Property Name="CatalogSubjectOptionValue" Type="varchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BillToID" Type="int" Nullable="false" />
+    <Property Name="ShipToID" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerCatalogInformation">
+    <Key>
+      <PropertyRef Name="CustomerCatID" />
+    </Key>
+    <Property Name="CustomerCatID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogInfoID" Type="int" />
+    <Property Name="CatalogSubjectID" Type="int" />
+    <Property Name="CatalogSubjectOptionID" Type="int" />
+    <Property Name="CatalogSubjectOptionValueID" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Comments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="CustomerRepAssignment">
+    <Key>
+      <PropertyRef Name="CustomerRepAssignmentID" />
+    </Key>
+    <Property Name="CustomerRepAssignmentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="varchar" MaxLength="50" />
+    <Property Name="RepID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerSeriesCharacter">
+    <Key>
+      <PropertyRef Name="CustomerSCID" />
+    </Key>
+    <Property Name="CustomerSCID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SCID" Type="int" />
+    <Property Name="SCType" Type="char" MaxLength="2" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerTag">
+    <Key>
+      <PropertyRef Name="CustomerTagID" />
+    </Key>
+    <Property Name="CustomerTagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="TageID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DWSelectionStatus">
+    <Key>
+      <PropertyRef Name="DWSelectionID" />
+    </Key>
+    <Property Name="DWSelectionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DWSelectionText" Type="varchar" MaxLength="30" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ELMAH_Error">
+    <Key>
+      <PropertyRef Name="ErrorId" />
+    </Key>
+    <Property Name="ErrorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Application" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="Host" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Source" Type="nvarchar" Nullable="false" MaxLength="60" />
+    <Property Name="Message" Type="nvarchar" Nullable="false" MaxLength="500" />
+    <Property Name="User" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="TimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="Sequence" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AllXml" Type="ntext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="varchar" MaxLength="100" />
+    <Property Name="GroupType" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupParentage">
+    <Key>
+      <PropertyRef Name="GroupParentageID" />
+    </Key>
+    <Property Name="GroupParentageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ParentGroupID" Type="int" />
+    <Property Name="ChildGroupID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="SetProfile" Type="char" MaxLength="1" />
+    <Property Name="SetName" Type="varchar" MaxLength="50" />
+    <Property Name="Copyright" Type="int" />
+    <Property Name="PublisherID" Type="int" />
+    <Property Name="AuthorID" Type="int" />
+    <Property Name="Illustrator" Type="varchar" MaxLength="50" />
+    <Property Name="Classification" Type="char" MaxLength="1" />
+    <Property Name="Format" Type="varchar" MaxLength="50" />
+    <Property Name="InterestGrade" Type="varchar" MaxLength="50" />
+    <Property Name="Subject" Type="varchar" MaxLength="50" />
+    <Property Name="ReviewSource" Type="varchar" MaxLength="50" />
+    <Property Name="Price" Type="money" />
+    <Property Name="ISBN" Type="varchar" MaxLength="50" />
+    <Property Name="OnListDate" Type="varchar" MaxLength="50" />
+    <Property Name="Pages" Type="int" Nullable="false" />
+    <Property Name="ARLevel" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="ARQuiz" Type="int" Nullable="false" />
+    <Property Name="RCLevel" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="RCQuiz" Type="int" Nullable="false" />
+    <Property Name="Lexile" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Series" Type="int" />
+    <Property Name="PrimeryCharacter" Type="int" />
+    <Property Name="SecondaryCharacter" Type="varchar" MaxLength="50" />
+    <Property Name="Size" Type="varchar" MaxLength="50" />
+    <Property Name="SetDescription" Type="varchar" MaxLength="50" />
+    <Property Name="SellingPoint1" Type="varchar" MaxLength="50" />
+    <Property Name="SellingPoint2" Type="varchar" MaxLength="50" />
+    <Property Name="SellingPoint3" Type="varchar" MaxLength="50" />
+    <Property Name="Package1" Type="varchar" MaxLength="50" />
+    <Property Name="Package2" Type="varchar" MaxLength="50" />
+    <Property Name="Package3" Type="varchar" MaxLength="50" />
+    <Property Name="Package4" Type="varchar" MaxLength="50" />
+    <Property Name="Package5" Type="varchar" MaxLength="50" />
+    <Property Name="Package6" Type="varchar" MaxLength="50" />
+    <Property Name="Package7" Type="varchar" MaxLength="50" />
+    <Property Name="Package8" Type="varchar" MaxLength="50" />
+    <Property Name="Package9" Type="varchar" MaxLength="50" />
+    <Property Name="Package10" Type="varchar" MaxLength="50" />
+    <Property Name="Barcode" Type="varchar" MaxLength="50" />
+    <Property Name="OffListDate" Type="varchar" MaxLength="50" />
+    <Property Name="OnhandQty" Type="int" Nullable="false" />
+    <Property Name="SetID" Type="int" />
+    <Property Name="SetOnly" Type="char" MaxLength="1" />
+    <Property Name="ItemHistoryID" Type="int" />
+    <Property Name="GroupParentageID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemHistory">
+    <Key>
+      <PropertyRef Name="ItemHistoryID" />
+    </Key>
+    <Property Name="ItemHistoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemTag">
+    <Key>
+      <PropertyRef Name="ItemTagID" />
+    </Key>
+    <Property Name="ItemTagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="TagID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Updatedate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderedQty" Type="int" />
+    <Property Name="ReceivedQty" Type="int" />
+    <Property Name="OnHandQty" Type="int" />
+    <Property Name="CommittedQty" Type="int" />
+    <Property Name="SoldQty" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="PublisherID" />
+    </Key>
+    <Property Name="PublisherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherName" Type="varchar" MaxLength="30" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Quote">
+    <Key>
+      <PropertyRef Name="QuoteID" />
+    </Key>
+    <Property Name="QuoteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteTitle" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="QuoteComments" Type="varchar(max)" />
+    <Property Name="QuoteTypeID" Type="int" />
+    <Property Name="PenworthyUpdatedDate" Type="datetime" />
+    <Property Name="CustomerUpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="QuoteDetail">
+    <Key>
+      <PropertyRef Name="QuoteDetailID" />
+    </Key>
+    <Property Name="QuoteDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteID" Type="int" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="DWSelectionID" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QuoteType">
+    <Key>
+      <PropertyRef Name="QuoteTypeID" />
+    </Key>
+    <Property Name="QuoteTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteTypeText" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rep">
+    <Key>
+      <PropertyRef Name="RepID" />
+    </Key>
+    <Property Name="RepID" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeriesAndCharacter">
+    <Key>
+      <PropertyRef Name="SCID" />
+    </Key>
+    <Property Name="SCID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SCText" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="SCType" Type="char" Nullable="false" MaxLength="2" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StatusFlag" Type="char" MaxLength="10" />
+    <Property Name="StatusDescription" Type="varchar" MaxLength="30" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TagTypeID" Type="int" Nullable="false" />
+    <Property Name="TagName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagType">
+    <Key>
+      <PropertyRef Name="TagTypeID" />
+    </Key>
+    <Property Name="TagTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TagTypeName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" StoreGeneratedPattern="Computed" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="RepCustID" Type="varchar" MaxLength="60" StoreGeneratedPattern="Computed" />
+    <Property Name="BillTO" Type="int" />
+    <Property Name="ShipTO" Type="int" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsConfirmed" Type="bit" />
+    <Property Name="LastPasswordFailureDate" Type="datetime" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordChangedDate" Type="datetime" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'Penworthy.dbo.View_1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="View_1">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="TageID" Type="int" />
+  </EntityType>
+  <Association Name="FK_AppUser_AppUserTypes">
+    <End Role="AppUserTypes" Type="PenworthyModel.Store.AppUserTypes" Multiplicity="1" />
+    <End Role="AppUser" Type="PenworthyModel.Store.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserTypes">
+        <PropertyRef Name="UserTypeID" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="UserTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubject_CatalogInfoID">
+    <End Role="CatalogInformation" Type="PenworthyModel.Store.CatalogInformation" Multiplicity="0..1" />
+    <End Role="CatalogSubject" Type="PenworthyModel.Store.CatalogSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogInformation">
+        <PropertyRef Name="CatalogInfoID" />
+      </Principal>
+      <Dependent Role="CatalogSubject">
+        <PropertyRef Name="CatalogInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectID">
+    <End Role="CatalogSubject" Type="PenworthyModel.Store.CatalogSubject" Multiplicity="1" />
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.Store.CatalogSubjectOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubject">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionID">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.Store.CatalogSubjectOptions" Multiplicity="0..1" />
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.Store.CatalogSubjectOptionValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_CatalogInfoID">
+    <End Role="CatalogInformation" Type="PenworthyModel.Store.CatalogInformation" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.Store.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogInformation">
+        <PropertyRef Name="CatalogInfoID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CatalogInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_CatalogSubjectID">
+    <End Role="CatalogSubject" Type="PenworthyModel.Store.CatalogSubject" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.Store.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubject">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_CatalogSubjectOptionID">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.Store.CatalogSubjectOptions" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.Store.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_CatalogSubjectOptionValueID">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.Store.CatalogSubjectOptionValues" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.Store.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerSeriesCharacter_SeriesCharacter">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.Store.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="CustomerSeriesCharacter" Type="PenworthyModel.Store.CustomerSeriesCharacter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="CustomerSeriesCharacter">
+        <PropertyRef Name="SCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerTag_Customer">
+    <End Role="Customer" Type="PenworthyModel.Store.Customer" Multiplicity="0..1" />
+    <End Role="CustomerTag" Type="PenworthyModel.Store.CustomerTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="CustomerTag">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerTag_Tag">
+    <End Role="Tag" Type="PenworthyModel.Store.Tag" Multiplicity="0..1" />
+    <End Role="CustomerTag" Type="PenworthyModel.Store.CustomerTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="CustomerTag">
+        <PropertyRef Name="TageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupParentage_ChildGroup">
+    <End Role="Group" Type="PenworthyModel.Store.Group" Multiplicity="0..1" />
+    <End Role="GroupParentage" Type="PenworthyModel.Store.GroupParentage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupParentage">
+        <PropertyRef Name="ChildGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupParentage_Group">
+    <End Role="Group" Type="PenworthyModel.Store.Group" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupParentage" Type="PenworthyModel.Store.GroupParentage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupParentage">
+        <PropertyRef Name="ParentGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Author">
+    <End Role="Author" Type="PenworthyModel.Store.Author" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Character">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.Store.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="PrimeryCharacter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_GroupParentage">
+    <End Role="GroupParentage" Type="PenworthyModel.Store.GroupParentage" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupParentage">
+        <PropertyRef Name="GroupParentageID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="GroupParentageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_ItemHistory">
+    <End Role="ItemHistory" Type="PenworthyModel.Store.ItemHistory" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemHistory">
+        <PropertyRef Name="ItemHistoryID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="ItemHistoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Publisher">
+    <End Role="Publisher" Type="PenworthyModel.Store.Publisher" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Series">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.Store.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="Series" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemHistory_Customer">
+    <End Role="Customer" Type="PenworthyModel.Store.Customer" Multiplicity="1" />
+    <End Role="ItemHistory" Type="PenworthyModel.Store.ItemHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="ItemHistory">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemTag_Tag">
+    <End Role="Tag" Type="PenworthyModel.Store.Tag" Multiplicity="0..1" />
+    <End Role="ItemTag" Type="PenworthyModel.Store.ItemTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="ItemTag">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Publisher_Publisher">
+    <End Role="Publisher" Type="PenworthyModel.Store.Publisher" Multiplicity="1" />
+    <End Role="Publisher1" Type="PenworthyModel.Store.Publisher" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="Publisher1">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quote_QuoteType">
+    <End Role="QuoteType" Type="PenworthyModel.Store.QuoteType" Multiplicity="0..1" />
+    <End Role="Quote" Type="PenworthyModel.Store.Quote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuoteType">
+        <PropertyRef Name="QuoteTypeID" />
+      </Principal>
+      <Dependent Role="Quote">
+        <PropertyRef Name="QuoteTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_DWSelectionStatus">
+    <End Role="DWSelectionStatus" Type="PenworthyModel.Store.DWSelectionStatus" Multiplicity="1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.Store.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DWSelectionStatus">
+        <PropertyRef Name="DWSelectionID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="DWSelectionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_Item">
+    <End Role="Item" Type="PenworthyModel.Store.Item" Multiplicity="1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.Store.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_Quote">
+    <End Role="Quote" Type="PenworthyModel.Store.Quote" Multiplicity="0..1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.Store.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleId">
+    <End Role="webpages_Roles" Type="PenworthyModel.Store.webpages_Roles" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="PenworthyModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tag_TagType">
+    <End Role="TagType" Type="PenworthyModel.Store.TagType" Multiplicity="1" />
+    <End Role="Tag" Type="PenworthyModel.Store.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagType">
+        <PropertyRef Name="TagTypeID" />
+      </Principal>
+      <Dependent Role="Tag">
+        <PropertyRef Name="TagTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ELMAH_GetErrorsXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Application" Type="nvarchar" Mode="In" />
+    <Parameter Name="PageIndex" Type="int" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="TotalCount" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="ELMAH_GetErrorXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Application" Type="nvarchar" Mode="In" />
+    <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="ELMAH_LogError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="Application" Type="nvarchar" Mode="In" />
+    <Parameter Name="Host" Type="nvarchar" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="Source" Type="nvarchar" Mode="In" />
+    <Parameter Name="Message" Type="nvarchar" Mode="In" />
+    <Parameter Name="User" Type="nvarchar" Mode="In" />
+    <Parameter Name="AllXml" Type="ntext" Mode="In" />
+    <Parameter Name="StatusCode" Type="int" Mode="In" />
+    <Parameter Name="TimeUtc" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="spgetCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+</Schema>

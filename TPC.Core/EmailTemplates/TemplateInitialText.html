@@ -1,0 +1,73 @@
+﻿<font face="arial" size="3">  
+     ##If--ContainsRepComments##
+    ##BlockBegin--RepComments##
+        ##RepComments## 
+    <br/> 
+    <br/>
+    ##BlockEnd--RepComments##
+   
+  ##EndIf--ContainsRepComments##
+    </font>
+
+<font face="arial" size="4">  
+<B>Your Decision Wizard selection list is waiting for your review! </B>
+</font>
+<br>
+
+
+<font face="arial" size="3">  
+ 
+Penworthy's Decision Wizard selection tool makes selecting children's 
+books easy and fun.  I put together this list of children's books based on 
+our conversation.  Click on the link below to decide which books to add to 
+your collection.  It's that easy!
+<br>
+<br>
+I'll follow up with you soon to discuss your selections. Enjoy!
+<br>
+<br>
+ 
+<font color="blue">
+<B>
+ 
+<U>##BlockBegin--DefaultDWLink##
+ <a href="##Url##"> Click Here to View Your ##DWName## Decision Wizard </a> 
+##BlockEnd--DefaultDWLink##
+</U></B>
+        <br />
+    <br />
+    ##If--IsMultipleRows##
+    <br />
+<font face="arial" size=2 color="black">  
+<B>Here are your other open Decision Wizards:</B>
+<font color="blue"><u>
+    <ul>
+        ##BlockBegin--Link##
+    <li><a href="##Url##">Click Here to View Your ##DWName## Decision Wizard</a></li>
+        ##BlockEnd--Link##
+    </ul></u>##EndIf--IsMultipleRows##
+    </font>
+     ##BlockBegin--RepDetails##
+     <table>
+        <tr>
+            <td>
+                Thanks,
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepName##
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                  800-262-2665
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepEmailAddress## 
+            </td>
+        </tr>
+         ##BlockEnd--RepDetails##
+        </table>

@@ -1,0 +1,40 @@
+﻿.wrap {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 200px;
+}
+
+    .logo img {
+        width: 350px;
+    }
+
+    .logo p {
+        color: #272727;
+        font-size: 32px;
+        margin-top: 1px;
+    }
+
+        .logo p span {
+            color: lightgreen;
+        }
+
+.span1 {
+    float: right;
+    margin-right: 308px;
+    width: 238px;
+}
+
+.imgClass {
+    width: 133px!important;
+    height: 35px;
+    float: right;
+}
+
+.underConsCenter {
+    margin-left:355px;
+    margin-top:100px;
+}

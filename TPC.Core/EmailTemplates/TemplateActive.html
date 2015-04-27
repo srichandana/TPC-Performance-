@@ -1,0 +1,66 @@
+<font face="arial" size="3">  
+Hello!  I see you've been reviewing your Decision Wizard selection list.  
+Please let me know if there are any titles we may have missed or if you 
+need assistance placing an order. I will follow up with you soon to help you
+finalize your selections and answer any questions.
+<br>
+<br>
+<U><B><font color="blue">
+##BlockBegin--DefaultDWLink##
+<a href="##Url##">Click Here to View Your ##DWName## Decision Wizard</a>
+##BlockEnd--DefaultDWLink##
+</U></B>
+<font color="black">
+<br>
+<br>
+ ##If--ContainsItems##
+<I>
+Here are some of the popular titles featured in your Decision Wizard...
+</I>
+<br>
+<br>
+<!--<! Insert 5 book images here with a few spaces in between each image)-->
+      ##BlockBegin--image##
+    <img src="cid:##imgpath##" />&nbsp;&nbsp;
+ ##BlockEnd--image##
+<br>
+<br>
+         ##EndIf--ContainsItems##
+</font>
+
+<! Include this section only for users with multiple DWs>
+##If--IsMultipleRows##
+
+<font face="arial" size=2 color="black">  
+<B>Here are your other open Decision Wizards:</B>
+<font color="blue"><u>
+<ul>
+        ##BlockBegin--Link##
+    <li><a href="##Url##">Click Here to View Your ##DWName## Decision Wizard</a></li>
+        ##BlockEnd--Link##
+    </ul>
+##EndIf--IsMultipleRows##
+     ##BlockBegin--RepDetails##
+     <table>
+        <tr>
+            <td>
+                Thanks,
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepName##
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                  800-262-2665
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepEmailAddress## 
+            </td>
+        </tr>
+         ##BlockEnd--RepDetails##
+        </table>

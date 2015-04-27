@@ -1,0 +1,52 @@
+﻿@model TPC.Core.Models.ItemListViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Interfaces;
+@using TPC.Common.Enumerations;
+@using TPC.Core;
+@{
+    
+    ViewBag.Title = "ItemListView";
+
+
+    // int NoOfPages = (int)Math.Ceiling((@Model.SelectionCount) / (double)Convert.ToInt32(Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemValue));
+    IItemListViewService _itemListServ = new ItemListViewService();
+    if (Model.QuoteTitle != null && Model.QuoteType != null)
+    {
+        // ViewData["QuoteTitle"] = Model.QuoteTitle;
+        // ViewData["QuoteType"] = Model.QuoteType;
+        ViewData["QuoteID"] = Model.QuoteID;
+        ViewData["Type"] = Model.KPLItemListVM != null && Model.KPLItemListVM.Count() > 0 ? Model.KPLItemListVM.FirstOrDefault().QuoteFlag: string.Empty;
+    }
+   
+}
+
+
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.QuoteID)
+    @Html.Hidden("hdnGroupID", @Model.GroupID)
+    @Html.Hidden("hdnCurrentPageIndex", Model.currentPageIndex)
+    @Html.Hidden("hdnSelectionCount", Model.SelectionCount)
+    @Html.Hidden("hdnYesCount", Model.noOfYesCount)
+    @Html.Hidden("hdnNoCount", Model.noOfNoCount)
+    @Html.Hidden("hdnMayBeCount", Model.noOfMaybeCount)
+    @Html.Hidden("hdnNewCount", Model.noOfNewCount)
+    <input type="hidden" id="hdnViewDataGroupID" value="@ViewData["GroupID"]"/>
+    <input type="hidden" id="hdnQuoteType" value="@ViewData["QuoteType"]"/>
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+    <input type="hidden" id="hdnPageType" value="@ViewData["Type"]" />
+</div>
+<div id="onScreen-dialog" class="zoom-anim-dialog mfp-hide">
+      <div>
+     <button title="Close (Esc)" type="button" class="mfp-close" style="position:static; margin-top: -26px;float: left;margin-left: -29px;">@Resources.TCPResources.CloseText</button>
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        </div>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+
+<div id="divMain" class="metro margin20 nlm nrm nbm">
+    @Html.Partial("../TCPViews/Partial/ItemListViewPartial", @Model)
+</div>
+
+

@@ -1,0 +1,124 @@
+﻿@using TPC.Common.Enumerations
+@model TPC.Core.Models.BaseViewModel
+@if (WebSecurity.IsAuthenticated)
+{
+    <text>
+
+    @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+    {
+       
+        <div class="span543 place-left">
+            <div class="span543" style="height: 48px">
+                @*                <div class="place-left padding2 nlp-New" style="width:63px;">
+                    @Resources.TCPResources.CustomerText
+          
+                </div>*@
+                <div class="span325 place-left padding2 nlp-New">
+                    @Model.UserVM.CRMModelProperties.CustParentName ( @Model.UserVM.CRMModelProperties.CustNO) @Model.UserVM.CRMModelProperties.CustFirstName @Model.UserVM.CRMModelProperties.CustLastName @Model.UserVM.CRMModelProperties.Persphone
+
+                </div>
+            </div>
+            <div class="place-left span6_12-new">
+                @*@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })*@
+                <div class="place-left span80">
+                </div>
+                @*    <div class="span4 place-phone">&nbsp&nbsp 040-44662288
+                    : @TPC.Core.Models.ViewModels.UserViewModel.RepresentativeInfoObj.PhoneNuber
+                </div>*@
+            </div>
+        </div>
+        <div class="place-left span6_12-new padding2 nlp-New">
+            @*  @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+                <div class="place-left span80" style="font-size:13px;;width:150px">
+                    @Resources.TCPResources.CustomerName
+                </div>
+                <div class="span4 place-left padding2 nlp-New" style="font-size:13px;padding:0px">
+                    : @Model.UserVM.RepresentativeInfoObj.Name  @Model.UserVM.RepresentativeInfoObj.PhoneNuber
+                </div>*@
+        </div>
+        <div class="span2 place-left">
+            <div class="place-right margin10 ntm hide">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                }
+            </div>
+            @*  <div class="place-right margin10 ntm">
+                <a href="@Url.Action("ReturnToCRM", "Account")">Return to CRM</a>
+            </div>*@
+        </div>
+    }
+    else if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+    {
+        <div class="span6_12" style="margin-left: 7px">
+            @Resources.TCPResources.WelcomeText @Model.UserVM.CRMModelProperties.CustFirstName  at  @Model.UserVM.CRMModelProperties.CustParentName
+        </div>
+        <div class="span6_12" style="height: 23px">
+        </div>
+        <div class="span2 place-left">
+            <div class="place-right margin10 ntm hide">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                }
+            </div>
+            <div class="place-right margin10 ntm">
+                @*<a href="@Url.Action("ReturnToCRM", "Account")">Return to CRM</a>*@
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="span6_12 place-left">
+            <div class="place-left span80">
+                @Resources.TCPResources.WelcomeText
+            </div>
+            <div class="span3 place-left">
+                : @Model.UserVM.CRMModelProperties.CustParentName
+            </div>
+        </div>
+        <div class="span2 place-left">
+            <div class="place-right margin10 ntm hide">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+                }
+            </div>
+            @*  <div class="place-right margin10 ntm">
+                <a href="@Url.Action("ReturnToCRM", "Account")">Return to CRM</a>
+            </div>*@
+        </div>
+    }
+
+
+
+
+    </text>
+}
+else
+{
+    <div class="span6_12" style="height: 55px">
+    </div>
+@*<ul id="ulLogin" class="text-right padding5 ntp" style="margin:0px">
+        <li><a id ="loginLink" href="#small-dialog"  class="popup-with-zoom-anim">@Resources.TCPResources.SignInText</a></li>
+    </ul>*@
+    
+@*<ul id="ulLogin" class="text-right padding5 ntp" style="margin:0px">
+          <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li><a id ="loginLink" href="#small-dialog"  class="popup-with-zoom-anim">@Resources.TCPResources.SignInText</a></li>
+    </ul>*@
+    <div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+        <button title="Close (Esc)" type="button" class="mfp-close btnsec" style="border: none">@Resources.TCPResources.CloseText</button>
+        <button id="btnsecondclose" title="Close (Esc)" type="button" class="mfp-close btnsec" style="position: static; margin-top: -17px; float: left; margin-left: -29px; border: none">@Resources.TCPResources.CloseText</button>
+        <div id="loadingSetView">
+          
+        </div>
+    </div>
+}
+
+<div id="beforeHRMenus" class="place-left span12 body-text">
+    @Html.Partial("../TCPViews/Partial/GroupMenuPartial")
+</div>

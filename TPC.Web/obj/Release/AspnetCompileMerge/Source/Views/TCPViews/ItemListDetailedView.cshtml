@@ -1,0 +1,68 @@
+﻿@model TPC.Core.Models.ViewModels.ItemListDetailedViewModel
+
+@using TPC.Core.Models.ViewModels;
+ <script>
+     //Google Analytics
+     (function (i, s, o, g, r, a, m) {
+         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+             (i[r].q = i[r].q || []).push(arguments)
+         }, i[r].l = 1 * new Date(); a = s.createElement(o),
+         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+     ga('create', 'UA-22899788-1', 'penworthy.com');
+     ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     
+     //Javascript for updating the DW and Cart Count in content Page
+     $('#SCItemCount sup').html('@Model.UserVM.CustomerInfoObj.DictCartDWItemsCount["SCItemsCount"]');
+     $('#DWItemCount sup').html('@Model.UserVM.CustomerInfoObj.DictCartDWItemsCount["DWItemsCount"]');
+ 
+
+     var AllCount=parseInt(@Model.noOfYesCount+@Model.noOfNoCount+@Model.noOfMaybeCount+@Model.noOfNewCount);
+   
+     var calcpercentage = String((parseInt(@Model.noOfYesCount) / parseInt(AllCount) * 100));
+    
+     var pb = $('#pb').progressbar();
+     pb.progressbar('value', parseInt(calcpercentage));
+    
+
+       
+        $('.button-set').click(function () {
+              location.reload(true);
+        });
+        $('#divMenusCustRole').removeClass('hide').addClass('visible');
+        $('#divMenusCustRole li').removeClass('navlihide active');
+        $('#liItemListView').addClass('navlihide')
+        $('#liItemDetailed').addClass('navlihide ');
+        $('.navlihide').show();
+        jQuery(document).ajaxStart(function () {
+
+            $('#ItemListDetailedView').css({ "pointer-events": "none" });
+
+
+
+        }).ajaxStop(function () {
+
+            $('#ItemListDetailedView').css({ "pointer-events": "initial" });
+        });
+  })
+ </script>
+<div id="ItemListDetailedView">
+<div id="pb" class="progress-bar span.caption" data-role="progress-bar" data-color="#99bfe6"></div>
+<div id="loadingSetView">
+   @{if(@Model.ItemDVM!=null)
+     {
+       Html.RenderPartial("../TCPViews/Partial/ItemDetailedPartial", new ViewDataDictionary(@Model.ItemDVM));
+     }
+     else{
+       <label>No Items to display</label>
+     }
+       }
+
+    </div>
+
+</div>

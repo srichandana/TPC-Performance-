@@ -1,0 +1,61 @@
+﻿@model TPC.Web.Models.LoginModel
+@{
+    ViewBag.Title = "Manage Account";
+    Layout = null;
+}
+
+@*<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Welcome to The Penworthy Company</title>
+       <link href="~/Content/Layout.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="width:385px;padding-top:5px">
+    <div style="height:45px">
+           @if (ViewBag.enableOldPassword==true)
+        {
+        @Resources.TCPResources.ChangepassowrdText
+           }
+           else
+           {
+       @Resources.TCPResources.ManagePasswordText
+           }
+    </div>
+    <div>
+
+        @*@if (ViewBag.HasLocalPassword)
+{                        ;margin:212px 0px 0px 500px">
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{ 
+    @Html.Partial("_SetPasswordPartial")
+}*@
+
+        @*<section id="externalLogins">
+    @Html.Action("RemoveExternalLogins")
+
+    <h3>Add an external login</h3>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+        <div class="hide">
+                @Html.HiddenFor(n => n.IsManageAccount)
+            </div>
+        @Html.Partial("../Account/_ChangePasswordPartial",Model)
+    </div>
+
+</div>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,364 @@
+﻿@using TPC.Web.Infrastructure
+@using System;
+@model TPC.Core.Models.OrderViewModel
+
+@{
+    double totalPrice = Model.CartListView.Sum(e => e.Price);
+    double taxPrice = 0;
+    if (Model.SalesTax > 0)
+    {
+        taxPrice = (totalPrice * (double)Model.SalesTax);
+    }
+}
+<div>
+
+
+
+
+       <table width="100%" cellpadding="1" cellspacing="0.5" widths="32;25;20;26">
+         <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+                 
+        <cell  horizontalalign="Center">
+             <image url='@Context.Server.MapPath("~/Images/PenWorthyLogo.JPG")' />
+        </cell>                    <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;" align="Center"> </chunk>
+        </cell>
+        
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"> </chunk>
+        </cell>
+                 <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+       
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> </chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"></chunk>
+        </cell>
+    </row>
+            <row>
+<cell horizontalalign="Center">
+            <chunk style="font-size:8;"> @Resources.TCPResources.CurrentDateText  @string.Format("{0:d}", DateTime.Today)</chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> 219 N. Milwaukee St.</chunk>
+        </cell>
+                  <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">Quote Number :</chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">@Model.QuoteID</chunk>
+        </cell>
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;">For questions contact:</chunk>
+        </cell>
+       
+       
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  Milwaukee, WI 53202</chunk>
+        </cell>
+                  <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">Customer Number :</chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">@Model.CustNumber</chunk>
+        </cell>
+    </row>
+        
+        <row>
+                     <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;">@Model.RepoAddress.RepName</chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Phone 800-262-2665 </chunk>
+        </cell>
+               <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">Customer Name:</chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">@Model.CustomerName</chunk>
+        </cell>  
+    </row>
+       <row>
+            <cell horizontalalign="Center">
+                @*@Model.RepoAddress.RepPhoneCustSrvc*@
+            <chunk style="font-size:8;font-weight:normal;"> @Model.RepoAddress.RepEmail</chunk>
+        </cell>
+        
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Fax: 414-287-4602</chunk>
+        </cell>
+                <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Contact:</chunk>
+        </cell>
+                <cell horizontalalign="left">
+            <chunk style="font-size:8;"> @Model.RepoAddress.CustFirstName @Model.RepoAddress.CustLastName</chunk>
+        </cell>
+</row>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  @*  <table width="100%" cellpadding="1" cellspacing="0.5" widths="32;25;20;26">
+         <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+                 
+        <cell  horizontalalign="Center">
+             <image url='@Context.Server.MapPath("~/Images/PenWorthyLogo.JPG")' />
+        </cell>                    <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;" align="Center"> </chunk>
+        </cell>
+        
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"> </chunk>
+        </cell>
+                 <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;"></chunk>
+        </cell>
+       
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> </chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"></chunk>
+        </cell>
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:bold;">For questions call:</chunk>
+        </cell>
+       
+       
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> 218 N. Milwaukee St.</chunk>
+        </cell>
+                  <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">Quote Number :</chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">@Model.QuoteID</chunk>
+        </cell>
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;">@Model.RepoAddress.RepName</chunk>
+        </cell>
+
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> Milwaukee, WI 53202</chunk>
+        </cell>
+                  <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">Customer Number :</chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">@Model.CustNumber</chunk>
+        </cell>
+       
+    </row>
+        <row>
+        <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;">@Model.RepoAddress.RepEmail </chunk>
+        </cell>
+        
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Phone 414/287-4600 </chunk>
+        </cell>
+                  <cell horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;">@Resources.TCPResources.CurrentDateText : </chunk>
+        </cell>
+        <cell  horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">
+             @string.Format("{0:d}", DateTime.Today)
+            </chunk>
+        </cell>
+       
+    </row>
+        <row>
+            <cell horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;">@Model.RepoAddress.RepPhoneCustSrvc </chunk>
+        </cell>
+        
+        <cell  horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Milwaukee, WI 53203-0202</chunk>
+        </cell>
+        <cell  horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"></chunk>
+        </cell>
+       
+    </row>
+    </table>*@
+
+</div>
+
+<div>
+    <table width="100%" cellpadding="0.5" cellspacing="0.1" bottom="false" widths="12;45;10;25;45;15;22" red="0" green="0" blue="0">
+        <row>
+                        <cell borderwidth="0.5" top="true" left="true" bottom="true"  right="true" horizontalalign="Center">
+            <chunk style="font-size:8;font-weight:normal;" padding="10">Quantity</chunk>
+        </cell>
+        <cell borderwidth="0.5" top="true" bottom="true" horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> Title</chunk>
+        </cell>
+                 <cell borderwidth="0.5" top="true" bottom="true" horizontalalign="left" >
+            <chunk style="font-size:8;font-weight:normal;" align="Center"></chunk>
+        </cell>
+                  <cell borderwidth="0.5"  top="true" bottom="true" right="true" horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> ISBN</chunk>
+        </cell>
+        <cell borderwidth="0.5" top="true" bottom="true" right="true" horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> Series</chunk>
+        </cell>
+      
+        <cell borderwidth="0.5" top="true" bottom="true" right="true" horizontalalign="center" >
+            <chunk style="font-size:8;font-weight:normal;" >Unit Price</chunk>
+        </cell>
+        <cell borderwidth="0.5"  top="true" bottom="true" right="true" horizontalalign="left" >
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  Total</chunk>
+        </cell>
+       
+    </row>
+
+        @foreach (var Cvm in Model.CartListView)
+        {
+            <row>
+            <cell right="true" horizontalalign="Center" left="true">
+                <chunk style="font-size:8;font-weight:normal;">@Html.DisplayFor(modelItem => Cvm.Quantity)</chunk>
+            </cell>
+            <cell >
+                <chunk style="font-size:8;"> @Cvm.Title</chunk>
+            </cell>
+                     <cell >
+                <chunk style="font-size:8;">@Cvm.AcRcLevelText </chunk>
+            </cell>
+                      <cell right="true" >
+                <chunk style="font-size:8;"> @Cvm.ISBN</chunk>
+            </cell>
+            <cell right="true" >
+                <chunk style="font-size:8;font-weight:normal;"> @Cvm.Series</chunk>
+            </cell>
+          
+            <cell  right="true" horizontalalign="Center">
+                <chunk style="font-size:8;font-weight:normal;">   @String.Format("{0:C}", Cvm.ItemPrice)  </chunk>
+            </cell>
+            <cell horizontalalign="right" right="true">
+                <chunk style="font-size:8;font-weight:normal;"> @String.Format("{0:C}", Cvm.Price)  </chunk>
+            </cell>
+           
+        </row>
+        }
+        @if (Model.CartListView != null && Model.CartListView.Count > 0)
+        {
+            <row>
+            <cell borderwidth="0.5" left="true" bottom="true"  right="true">
+               
+            </cell>
+            <cell  borderwidth="0.5" bottom="true">
+              
+            </cell>
+                     <cell  borderwidth="0.5" bottom="true">
+               
+            </cell>
+                      <cell borderwidth="0.5" bottom="true" right="true">
+              
+            </cell>
+            <cell borderwidth="0.5" bottom="true" right="true">
+              
+            </cell>
+          
+            <cell  borderwidth="0.5" bottom="true" right="true">
+               
+            </cell>
+            <cell  borderwidth="0.5" bottom="true"  right="true">
+              
+            </cell>
+           
+        </row>
+        }
+        <row>
+          <cell colspan="4"  horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> </chunk>
+        </cell>          <cell colspan="2" horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> Net Invoice:</chunk>
+        </cell>
+        <cell   horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> @String.Format("{0:C}", taxPrice + totalPrice)</chunk>
+        </cell>
+        
+       
+    </row>
+
+        <row>
+                  <cell colspan="4"  horizontalalign="center">
+           @* <chunk style="font-size:8;font-weight:bold; text-align:center;">  THANK YOU FOR YOUR ORDER</chunk>*@
+        </cell>      <cell colspan="2"  horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> Shipping @HttpUtility.HtmlDecode("&") Handling :</chunk>
+        </cell>
+        <cell   horizontalalign="right" >
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> @String.Format("{0:C}", Model.ShippingCharge)</chunk>
+        </cell>
+        
+       
+    </row>
+        <row>
+                  <cell colspan="4"  horizontalalign="center">
+        </cell>      <cell colspan="2"  horizontalalign="right">
+        </cell>
+        <cell   horizontalalign="right"  bottom="true">
+        </cell>
+        
+       
+    </row>
+        <row>
+                <cell  colspan="4" horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;"> 
+                @* <chunk style="font-size:7;font-weight:normal;">
+                
+ITEMS SENT AS ORDERED ARE NOT RETURNABLE WITHOUT PERMISSION
+
+                </chunk>*@
+            </chunk>
+        </cell>            <cell colspan="2" horizontalalign="right">
+            <chunk style="font-size:8;font-weight:bold; text-align:center;"> Invoice Total: </chunk>
+        </cell>
+        <cell  horizontalalign="right">
+            <chunk style="font-size:8;font-weight:normal; text-align:center;">  @String.Format("{0:C}", taxPrice + totalPrice)</chunk>
+        </cell>
+        
+       
+    </row>
+        <row>
+ <cell colspan="7">
+            <chunk style="font-size:8pt;"> 
+               @Resources.TCPResources.ShipmentText
+            </chunk>
+        </cell>      
+        </row>
+    </table>
+</div>
+

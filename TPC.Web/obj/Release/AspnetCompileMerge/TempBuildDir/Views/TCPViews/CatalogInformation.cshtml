@@ -1,0 +1,791 @@
+﻿@model TPC.Core.Models.ViewModels.CatalogInfoViewModel
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+@using TPC.Core.Models;
+@using TPC.Common.Enumerations;
+
+<script>
+    //Google Analytics
+    var mydate = new Date();
+    mydate = mydate.setFullYear(2020, mydate.getDate(), mydate.getMonth());
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = mydate; a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+@{
+    ViewBag.Title = "CatalogInformation";
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+    Type t = @Model.GetType();
+    PropertyInfo[] propertysArray = @Model.GetType().GetProperties();
+}
+
+<div class="hide">
+    <input id="hdnCatalogInsertStatus" type="hidden" value="@ViewBag.CatalogInsertStatus" />
+    @Html.Hidden("hdnCatalogMappingText", string.Join(";", Model.ValidationCatalogBasicProfileModel.Select(x => x.Key + "=" + x.Value).ToArray()));
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="cataloging" class="span12 body-text">
+    @using (Html.BeginForm("AddCatalogInfoData", "CatalogInfo", FormMethod.Post, new { custAutoID = Model.UserVM.CRMModelProperties.CustAutoID }))
+    {
+        @Html.Hidden("custAutoID", @Model.ThisUserID)
+        if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+        {
+        <div id="divBasicProfileInformation" class="place-left contentText">
+            @foreach (string catSubjKey in Model.CatalogOptions.Keys)
+            {
+                if (catSubjKey == "Cataloging Options")
+                {     <div class="place-left tdheadingText span12 ">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                <div class="place-left span12">
+                    <div class="place-left span12 padding5 nlp nrp nbp">
+                        <table id="tblCatalogInfo" class="span12 " border="1">
+                            <thead>
+                                <tr>
+                                    <th class=" div-MainHeight20 div-span2_5 controlpadding">Item Name
+                                    </th>
+                                    <th class="div-MainHeight20 div-span2_5 controlpadding">Item Price
+                                    </th>
+                                    <th class=" div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.ProtectorText
+                                    </th>
+                                    <th class="div-MainHeight20  controlpadding">Shelf Ready (All
+                                                <input type="checkbox" id="chkShelfReady" name="txtbox" />
+                                        )
+                                    </th>
+
+                                    <th class="div-MainHeight20 div-span2_5 controlpadding">Price
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                                {
+                                    foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                                    {
+                                        if (catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                        {
+                                    <tr id="@catalogBaseKeyModel.ID">
+                                        <td class="div-labelwidth controlpadding padding-left3">
+                                            @if (catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                @Html.CheckBox(catalogBaseKeyModel.ID.ToString(), catalogBaseKeyModel.IsSelected, new { itmPrice = catalogBaseKeyModel.Value, @class = "catalogPrice Item margin5 ntm nbm nlm" })@catalogBaseKeyModel.Text
+                                            }
+
+                                        </td>
+
+                                        @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                        {
+                                            int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                            string cssShelf = catalogBasevalueModel.CatalogType == "S" ? "chkStatus" : "";
+                                            if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                int index = Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel].IndexOf(catalogBasevalueModel);
+                                                if (index == 1 && catalogBasevalueModel.CatalogType == "S")
+                                                {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                                }
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center">
+
+                                                @for (int icheckBox = 0; icheckBox < checkboxCount; icheckBox++)
+                                                {
+                                                    
+                                                    @Html.CheckBox(@catalogBasevalueModel.CatalogType + icheckBox + "-" + catalogBasevalueModel.ID.ToString(), catalogBaseKeyModel.IsSelected ? catalogBasevalueModel.IsSelected : false, new { itmPrice = catalogBasevalueModel.Value, @class = "catalogPrice " + @cssShelf, @disabled = "disabled" })
+                                                }
+                                            </td>
+                                               
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.Label)
+                                            {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center">
+                                                @catalogBasevalueModel.Value
+                                            </td>
+                                                if (Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel].Count() == 1)
+                                                {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                                }
+                                            }
+                                        }
+                                        <td class="div-labelwidth controlpadding padding-left3 text-center itmperprice">@catalogBaseKeyModel.Value</td>
+                                    </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot style="border-color: white;" class="border-bottom">
+                                <tr>
+                                    <th class="text-right div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.CatalogingPriceperBookText :</th>
+                                    <th class="div-labelwidth controlpadding padding-left3 text-center" id="ttlprice"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="place-left span12 borderblack">
+
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                        foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                        {
+                            string maindivwdithCss = catalogBaseKeyModel.Text.Contains("Instructions") == true ? "span6_5" : "span6_8";
+                            string subdivcwidthcss = catalogBaseKeyModel.Text.Contains("Instructions") == true ? "span6" : "div-labelwidth";
+                            if (catalogBaseKeyModel.Type != (int)CatalogColumnTypeEnum.CheckBox)
+                            {
+                        <div class="place-left @maindivwdithCss div-MainHeight25 ">
+                            <div class="place-left div-MainHeight20 @subdivcwidthcss padding5">
+                                @Html.Label(catalogBaseKeyModel.Text)
+                            </div>
+                            <div class="place-left  div-MainHeight20 padding5  div-contentwidth controlpadding">
+                                @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                {
+                                    if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextBox)
+                                    {
+                                        if (!Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()) && catalogBaseKeyModel.Text.Contains("Charge"))
+                                        {
+                                    @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "validationInstructions", @readonly = "readonly" })
+                                        }
+                                        else
+                                        {
+                                    @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "validationInstructions" })
+                                        }
+                                    }
+                                    else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextArea)
+                                    {
+                                    @Html.TextArea(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "controlTextAreawidth controlheight" })
+                                    }
+                                }
+                            </div>
+                        </div>
+                            }
+                        }
+                    }
+                    <div class="place-left span12 div-MainHeight10"></div>
+                    <div class="place-left span12 text-right padding5">
+                        <div class="place-right span87">
+                            <input type="submit" value="Update" id="btnUpdateCatalogInfoDetail" class="CheckValidations" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" />
+                        </div>
+                        <div class="place-right">
+                            <label id="catalogInsertStatus"></label>
+                        </div>
+
+                    </div>
+                    <div class="place-left span12 div-MainHeight10"></div>
+                </div>
+                }
+                else if (catSubjKey == "Shelf Ready Specification Sheet")
+                {
+                <div class="place-left span12 padding5 nlp nrp  div-bgstyle">
+                    <div class="place-left div-mainHeadingText span12">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                        <div class="place-left span12 ">
+                            <b>@Html.Label(key)       </b>
+                        </div>
+                        <div class="place-left span12 padding5 ntp nlp">
+                            @foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                            {
+                                string clsMainHeight25 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight25";
+                                string clsMainHeight20 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight20";
+                                bool isKeyHasBotton = catalogBaseKeyModel.Text.Contains("Bottom");
+                                string bottomClass = isKeyHasBotton ? "span12" : "span6_5";
+                                <div class="place-left @bottomClass @clsMainHeight25">
+
+                                    <div class="place-left @clsMainHeight20 div-labelwidth padding5">
+                                        @Html.Label(catalogBaseKeyModel.Text)
+                                    </div>
+                                    @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                    {
+                                        int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                        string bottomAlign = isKeyHasBotton ? "place-left" : "place-right div-contentwidth";
+                      
+                                        <div class="@bottomAlign @clsMainHeight20  controlpadding">
+                                            @if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextArea)
+                                            {
+                                                @Html.TextArea(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, 3, 20, new { @class = "controlswidth " })
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.ComboBox)
+                                            {
+                                                @Html.DropDownList(catalogBaseKeyModel.ID.ToString(), new SelectList(catalogBasevalueModel.comboBase, "ItemId", "ItemValue", catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault() == null ? catalogBasevalueModel.comboBase.FirstOrDefault().ItemID : catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "controlswidth ddlShelf" })
+                                               
+                                            }
+                                        </div>
+                                            if (isKeyHasBotton)
+                                            {
+                                                string botomDisabledClass = isKeyHasBotton && catalogBasevalueModel.comboBase.Where(e => e.ItemValue.Trim() == "Other").FirstOrDefault().Selected == true ? string.Empty : "disabled=disabled";
+                                        <div class="place-left @clsMainHeight20 div-contentwidth controlpadding">
+                                            <input type="text" id="bottomLabel" name="@catalogBaseKeyModel.ID-B" value="@catalogBasevalueModel.Value"  class=" controlheight" @botomDisabledClass/>
+                                        </div>
+                                            }
+
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                
+                }
+                else
+                {        
+                <div class="place-left span6_5 padding5 nlp nrp div-bgstyle">
+                    @{bool isTruncatedSelected = false;
+                      bool isEmailorDownLoadSelected = false;
+                      string emailValue = "false";}
+                    <div class="place-left div-mainHeadingText">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                      
+                        <div class="place-left span6_5 ">
+                            <b>@Html.Label(key)       </b>
+                        </div>
+                        <div class="place-left span6_5 padding5 nlp ntp nbp ">
+                            @foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                            {
+                                string clsMainHeight25 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight25";
+                                string clsMainHeight20 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight20";
+                                string otherClass = catalogBaseKeyModel.Text == "Classification Comments" ? "comments" : "starDisplay";
+                                string hideclass = isEmailorDownLoadSelected && catalogBaseKeyModel.ID == 69 ? "" : "hide";
+                                
+                               
+                               
+                                <div class="place-left span6_5 @clsMainHeight25">
+
+                                    <div class="place-left @clsMainHeight20 div-labelwidth padding5">
+                                        @Html.Label(catalogBaseKeyModel.ID.ToString(), catalogBaseKeyModel.Text, new { @class = "place-left", data_ID = catalogBaseKeyModel.ID })<span class="redcolor @otherClass @hideclass place-left">*</span>
+                                    </div>
+                                    @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                    {
+                                        int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                       
+                                        <div class="place-right @clsMainHeight20 div-contentwidth controlpadding">
+                                            @if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                foreach (TPC.Core.Infrastructure.ComboBase checkboxValue in catalogBasevalueModel.comboBase)
+                                                {
+                                                <div class="place-left @clsMainHeight20 padding5">
+                                                    @Html.CheckBox(catalogBasevalueModel.ID.ToString() + "-" + checkboxValue.ItemID.ToString(), checkboxValue.Selected, new { itmPrice = catalogBaseKeyModel.Value, @class = "Subject" }) @checkboxValue.ItemValue
+                                                </div>
+                                                }
+
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.Label)
+                                            {
+                                                if (checkboxCount > 0)
+                                                {
+                                                @Html.Label(catalogBasevalueModel.Value, new { @class = "place-left div-MainHeight20 div-labelwidth padding5" })
+                                                }
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextBox)
+                                            {
+                                                string disabled = string.Empty;
+                                                if (catalogBasevalueModel.ID == 76 && isTruncatedSelected == false)//right places of decimal
+                                                {
+                                                @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "controlswidth controlheight validationInstructions", @data_name = @catalogBaseKeyModel.Text.ToString(), @disabled })
+                                                }
+                                                else if (catalogBasevalueModel.ID == 69)
+                                                {
+                                                    if (isEmailorDownLoadSelected)
+                                                    {
+                                                <input type="hidden" id="hdnEmailSelected" value="true" />
+                                                    }
+                                                @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "controlswidth controlheight emailValidation", @data_name = @catalogBaseKeyModel.Text.ToString(), })
+                                                }
+                                                else
+                                                {
+                                                    string cssforTruncated = isTruncatedSelected ? "validationInstructions" : "";
+                                                @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "controlswidth controlheight " + @cssforTruncated, @data_name = @catalogBaseKeyModel.Text.ToString() })
+                                                }
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextArea)
+                                            {
+                                                @Html.TextArea(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, 3, 20, new { @class = "controlswidth " })
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.ComboBox)
+                                            {
+
+                                                if (catalogBaseKeyModel.ID == 7)
+                                                {
+                                                    if (catalogBasevalueModel.comboBase.Where(e => e.ItemID == "24").FirstOrDefault().Selected == true)//Truncated Nof spaces id selected
+                                                    {
+                                                        isTruncatedSelected = true;
+                                                    }
+                                                }
+                                                if (catalogBaseKeyModel.ID == 13)
+                                                {
+                                                    if (catalogBasevalueModel.comboBase.Where(e => e.ItemID == "32").FirstOrDefault().Selected == true || catalogBasevalueModel.comboBase.Where(e => e.ItemID == "164").FirstOrDefault().Selected == true)//Email or Download Nof spaces id selected
+                                                    {
+                                                        isEmailorDownLoadSelected = true;
+                                                    }
+                                                }
+                                                @Html.DropDownList(catalogBaseKeyModel.ID.ToString(), new SelectList(catalogBasevalueModel.comboBase, "ItemId", "ItemValue", catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault() == null ? catalogBasevalueModel.comboBase.FirstOrDefault().ItemID : catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "controlswidth ddl catlogDDL", @data_text = @catalogBaseKeyModel.Text })
+                                            }
+                                        </div>
+                                    
+                                    }
+                                </div>
+                            }
+                        </div>
+                        
+                    }
+                </div>
+                }
+            }
+        </div>
+        }
+        else
+        {
+        <div id="divBasicProfileInformation_Customer" class="place-left contentText">
+            @foreach (string catSubjKey in Model.CatalogOptions.Keys)
+            {
+                if (catSubjKey == "Cataloging Options")
+                {     <div class="place-left tdheadingText span12 ">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                <div class="place-left span12">
+                    <div class="place-left span12 padding5 nlp nrp nbp">
+                        <table id="tblCatalogInfo" class="span12 " border="1">
+                            <thead>
+                                <tr>
+                                    <th class=" div-MainHeight20 div-span2_5 controlpadding">Item Name
+                                    </th>
+                                    <th class="div-MainHeight20 div-span2_5 controlpadding">Item Price
+                                    </th>
+                                    <th class=" div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.ProtectorText
+                                    </th>
+                                    <th class="div-MainHeight20  controlpadding">Shelf Ready (All
+                                                <input type="checkbox" id="chkShelfReady" name="txtbox" />
+                                        )
+                                    </th>
+
+                                    <th class="div-MainHeight20 div-span2_5 controlpadding">Price
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                                {
+                                    foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                                    {
+                                        if (catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                        {
+                                    <tr id="@catalogBaseKeyModel.ID">
+                                        <td class="div-labelwidth controlpadding padding-left3">
+                                            @if (catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                @Html.CheckBox(catalogBaseKeyModel.ID.ToString(), catalogBaseKeyModel.IsSelected, new { itmPrice = catalogBaseKeyModel.Value, @class = "catalogPrice Item margin5 ntm nbm nlm" })@catalogBaseKeyModel.Text
+                                            }
+
+                                        </td>
+
+                                        @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                        {
+                                            int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                            if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                int index = Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel].IndexOf(catalogBasevalueModel);
+                                                if (index == 1 && catalogBasevalueModel.CatalogType == "S")
+                                                {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                                }
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center">
+                                                @for (int icheckBox = 0; icheckBox < checkboxCount; icheckBox++)
+                                                {
+                                                    @Html.CheckBox(@catalogBasevalueModel.CatalogType + "-" + catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.IsSelected, new { itmPrice = catalogBasevalueModel.Value, @class = "catalogPrice", @disabled = "disabled" })
+                                                }
+                                            </td>
+                                               
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.Label)
+                                            {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center">
+                                                @catalogBasevalueModel.Value
+                                            </td>
+                                                if (Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel].Count() == 1)
+                                                {
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                            <td class="div-labelwidth controlpadding padding-left3 text-center"></td>
+                                                }
+                                            }
+                                        }
+                                        <td class="div-labelwidth controlpadding padding-left3 text-center itmperprice">@catalogBaseKeyModel.Value</td>
+                                    </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot style="border-color: white;" class="border-bottom">
+                                <tr>
+                                    <th class="text-right div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                    <th class="text-center div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.CatalogingPriceperBookText :</th>
+                                    <th class="div-labelwidth controlpadding padding-left3 text-center" id="ttlprice"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="place-left span12 borderblack">
+
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                        foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                        {
+                            string maindivwdithCss = catalogBaseKeyModel.Text.Contains("Instructions") == true ? "span6_5" : "span6_8";
+                            string subdivcwidthcss = catalogBaseKeyModel.Text.Contains("Instructions") == true ? "span6" : "div-labelwidth";
+                            if (catalogBaseKeyModel.Type != (int)CatalogColumnTypeEnum.CheckBox)
+                            {
+                        <div class="place-left @maindivwdithCss div-MainHeight25 ">
+                            <div class="place-left div-MainHeight20 @subdivcwidthcss padding5">
+                                @Html.Label(catalogBaseKeyModel.Text)
+                            </div>
+                            <div class="place-left  div-MainHeight20 padding5  div-contentwidth controlpadding">
+                                @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                {
+                                    if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextBox)
+                                    {
+                                        if (!Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()) && catalogBaseKeyModel.Text.Contains("Charge"))
+                                        {
+                                    @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "validationInstructions", @readonly = "readonly" })
+                                        }
+                                        else
+                                        {
+                                    @Html.TextBox(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "validationInstructions" })
+                                        }
+                                    }
+                                    else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.TextArea)
+                                    {
+                                    @Html.TextArea(catalogBasevalueModel.ID.ToString(), catalogBasevalueModel.Value, new { @class = "controlTextAreawidth controlheight" })
+                                    }
+                                }
+                            </div>
+                        </div>
+                            }
+                        }
+                    }
+                    <div class="place-left span12 div-MainHeight10"></div>
+                    <div class="place-left span12 text-right padding5">
+                        <div class="place-right span87">
+                            <input type="submit" value="Update" id="btnUpdateCatalogInfoDetail" class="CheckValidations" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" />
+                        </div>
+                        <div class="place-right">
+                            <label id="catalogInsertStatus"></label>
+                        </div>
+
+                    </div>
+                    <div class="place-left span12 div-MainHeight10"></div>
+                </div>
+                }
+                else if (catSubjKey == "Shelf Ready Specification Sheet")
+                {
+                <div class="place-left span12 padding5 nlp nrp  div-bgstyle">
+                    <div class="place-left div-mainHeadingText span12">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                        <div class="place-left span12 ">
+                            <b>@Html.Label(key)       </b>
+                        </div>
+                        <div class="place-left span12 padding5 ntp nlp">
+                            @foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                            {
+                                string clsMainHeight25 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight25";
+                                string clsMainHeight20 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight20";
+                                bool isKeyHasBotton = catalogBaseKeyModel.Text.Contains("Bottom");
+                                string bottomClass = isKeyHasBotton ? "span12" : "span6_5";
+                                <div class="place-left @bottomClass @clsMainHeight25">
+
+                                    <div class="place-left @clsMainHeight20 div-labelwidth padding5">
+                                        @Html.Label(catalogBaseKeyModel.Text)
+                                    </div>
+                                    @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                    {
+                                        int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                        string bottomAlign = isKeyHasBotton ? "place-left" : "place-right div-contentwidth";
+                                        <div class="@bottomAlign @clsMainHeight20  controlpadding">
+                                            @if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.ComboBox)
+                                            {
+                                                @Html.Label(catalogBaseKeyModel.ID.ToString(), catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault() == null ? string.Empty : catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault().ItemValue, new { @class = "controlswidth " })
+                                            }
+                                            else
+                                            {
+                                                @Html.Label(catalogBaseKeyModel.ID.ToString(), catalogBasevalueModel.Value)
+                                            }
+                                        </div>
+                                            if (isKeyHasBotton)
+                                            {
+                                                string botomDisabledClass = isKeyHasBotton && catalogBasevalueModel.comboBase.Where(e => e.ItemValue.Trim() == "Other").FirstOrDefault().Selected == true ? string.Empty : "disabled=disabled";
+                                        <div class="place-left @clsMainHeight20 div-contentwidth controlpadding">
+                                            <label id="bottomLabel" class=" controlheight" @botomDisabledClass>@catalogBasevalueModel.Value</label>
+                                        </div>
+                                            }
+
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                
+                }
+                else
+                {         @*  <div class="place-left tdheadingText span12 ">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>*@
+                <div class="place-left span6_5 padding5 nlp nrp div-bgstyle">
+                    <div class="place-left div-mainHeadingText">@Html.Label(catSubjKey, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                    @foreach (string key in Model.CatalogOptions[catSubjKey].Keys)
+                    {
+                        <div class="place-left span6_5 ">
+                            <b>@Html.Label(key)       </b>
+                        </div>
+                        <div class="place-left span6_5 padding5 nlp ntp nbp ">
+                            @foreach (CatalogBaseModel catalogBaseKeyModel in Model.CatalogOptions[catSubjKey][key].Keys)
+                            {
+                                string clsMainHeight25 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight25";
+                                string clsMainHeight20 = catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.CheckBox || catalogBaseKeyModel.Type == (int)CatalogColumnTypeEnum.TextArea ? "" : "div-MainHeight20";
+                                string otherClass = catalogBaseKeyModel.Text == "Classification Comments" ? "comments" : "";
+                                <div class="place-left span6_5 @clsMainHeight25">
+
+                                    <div class="place-left @clsMainHeight20 div-labelwidth padding5">
+                                        @Html.Label(catalogBaseKeyModel.Text, new { @class = "place-left" })<span class="redcolor @otherClass hide place-left">*</span>
+                                    </div>
+                                    @foreach (CatalogBaseModel catalogBasevalueModel in Model.CatalogOptions[catSubjKey][key][catalogBaseKeyModel])
+                                    {
+                                        int checkboxCount = Convert.ToInt32(catalogBasevalueModel.Text);
+                                       
+                                        <div class="place-right @clsMainHeight20 div-contentwidth controlpadding">
+                                            @if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.CheckBox)
+                                            {
+                                                foreach (TPC.Core.Infrastructure.ComboBase checkboxValue in catalogBasevalueModel.comboBase)
+                                                {
+                                                <div class="place-left @clsMainHeight20 padding5">
+                                                    @Html.CheckBox(catalogBaseKeyModel.ID.ToString(), checkboxValue.Selected, new { itmPrice = catalogBaseKeyModel.Value, @disabled = "disabled" }) @checkboxValue.ItemValue
+                                                </div>
+                                                }
+                                            }
+                                            else if (catalogBasevalueModel.Type == (int)CatalogColumnTypeEnum.ComboBox)
+                                            {
+                                                @Html.Label(catalogBaseKeyModel.ID.ToString(), catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault() == null ? string.Empty : catalogBasevalueModel.comboBase.Where(e => e.Selected == true).FirstOrDefault().ItemValue, new { @class = "controlswidth " })
+                                            }
+                                            else
+                                            {
+                                                @Html.Label(catalogBasevalueModel.Value, new { @class = "place-left div-MainHeight20 div-labelwidth padding5" })
+                                            }
+                                        </div>
+                                    
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                }
+            }
+        </div>
+        }
+        <div id="divShelfReadySpecificationSheet" class="place-left">
+            <div class="place-left span7 div-contentheight1"></div>
+            <div class="place-left span12">
+
+                <table>
+                    <tr>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.OutsideOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideFrontOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideBackOptionsText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.verticalTopDownText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.VerticalBottomUpText</td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                    </tr>
+                    <tr>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>E</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">F</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.BackText</td>
+                                    <td class="tdtextalignRight">I</td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">H</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>A</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">B</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FrontText</td>
+                                    <td class="tdtextalignRight"></td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">D</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>J</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">K</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>L</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">M</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>R</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">S</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>T</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">U</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>V</td>
+                                    <td colspan="2" class="tdtextalignRight">W</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>X</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Y</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid" style="height: 80px; width: 80px; border: 1px solid black;">
+                                <tr>
+                                    <td>N</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">O</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Q</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="padding10"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignTop padding10 nrp nbp ntp">
+                                        <tdverticaltext>@Resources.TCPResources.TopDownText</tdverticaltext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignBottom padding10 nrp nbp ntp">
+                                        <tdverticalbottomuptext>@Resources.TCPResources.BootomUpText</tdverticalbottomuptext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="tdvalignBottom">
+                            @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+                            {
+                                <input type="submit" value="Save" name="CatalogSaveStaus" id="btnSaveCatalogDetails" class="CheckValidations text-right" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" />
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+<div id="Delete-dialog" class="zoom-anim-dialog mfp-hide span5" style="background-color: white; margin-left: 35%">
+    <div class="validation-dialog">
+        <h3 class="center button-bg" style="color: white;" id="h3Title">Validation</h3>
+        <button title="Close (Esc)" type="button" class="mfp-close" style="color: white; padding-top: 7px; height: 31px; border: 0px;">@Resources.TCPResources.CloseText</button>
+        <div id="DivDeleteQuote" class="span5 div-contentheight contentText text-center">
+            It is ok to cover title or author with label?
+        </div>
+        <div class="span5 div-contentheight contentText text-center">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+</div>
+<div></div>
+

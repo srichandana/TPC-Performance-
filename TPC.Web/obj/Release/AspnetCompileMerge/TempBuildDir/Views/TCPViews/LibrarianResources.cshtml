@@ -1,0 +1,117 @@
+﻿@using TPC.Core.Models.ViewModels;
+@using System.Drawing;
+﻿@model TPC.Core.Models.ViewModels.LibrarianResourcesViewModel
+@{
+    ViewBag.Title = "LibrarianResources";
+   
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+
+<div id="hiddenFiledsDiv" class="hide">
+      <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+
+<br />
+<div class="span12 ">
+   <div class="place-left padding5 nlp nrb nbp">
+      @*   <div class="span8 singleItemHeight">
+            <div class=" place-left">@Resources.TCPResources.LibrarianIntroduction
+            </div>
+        </div>*@
+        <div class="span8">
+            @foreach (string folderName in Model.DictlibraryResource.Keys)
+            {
+                <div class="place-left libItemsHt">
+                    <a href="#" title="@folderName" class="aResCat" style="color: black;">
+                        <div class="span2-5 libItemImgHt border shadow text-center">
+                            @*<img src=@Url.Action("GetImage", "LibrarianResources", new { imgPath = @Model.DictlibraryResource[folderName].Keys.Select(e => @Model.DictlibraryResource[folderName][e] == "MainImage" ? e : string.Empty).FirstOrDefault() })  class="place-left"  alt="@folderName" style="height: inherit; width: inherit"/>*@
+                             <img  class="place-left"  alt="@folderName" style="height: inherit; width: inherit"
+                                  src="~/Image/Getimage?id=@Model.DictlibraryResource[folderName].Keys.Select(e => @Model.DictlibraryResource[folderName][e] == "MainImage" ? e : string.Empty).FirstOrDefault()">
+                        </div>
+                        <div class="span2-5 div-contentheight">
+                            <strong>@Html.Label(folderName)</strong>
+                        </div>
+                    </a>
+                </div>
+                <div class="place-left tdColonStyle"></div>
+            }
+        </div>
+        <div id="LibrarianItem1" class="span8 ">
+            @foreach (string folderName in Model.DictlibraryResource.Keys)
+            { 
+           
+                <div id="@folderName" class="span8 place-left CatItems hide">
+                    <strong>@Html.Label(folderName)</strong>
+                    <div class="span8">
+                        @foreach (string path in Model.DictlibraryResource[folderName].Keys)
+                        {
+                            bool  isLibrarianItemImgPath= Model.DictlibraryResource[folderName].FirstOrDefault().Key!=path?true:false;
+                            if (isLibrarianItemImgPath&&(path.Contains(".PNG") || path.Contains(".png")||path.Contains(".jpg")))
+                            {
+                            <div class="span2-5 itemheight place-left">
+                                <a class="popup-with-zoom-anim aResCatDetails" href="#small-dialog" title="@path">
+                                    <div class="span2 place-left libItemHt shadow text-center">
+                                        <img src="~/Image/Getimage?id=@HttpUtility.UrlEncode(@path)", 
+                                       class="place-left" style="height: inherit; width: inherit" />
+                                    </div>
+                                </a>
+                            </div>
+                            }
+                            
+                          @*  @Html.Partial("../TCPViews/Partial/LibrarianResourcePdf", path)*@
+                            @*if (path.Contains(".pdf")) //for Thumbnails
+                            {
+                                string pdfid = path.Replace(".pdf", ".PNG");
+                            <div class="hide">
+                                <div id="@pdfid">
+                                    <object data=@Url.Action("GetPdf", "LibrarianResources", new
+                                            {
+                                                pdfPath = path
+                                            }) style="height: 500px; width: 980px" type="application/pdf">
+                                    </object>
+                                </div>
+                            </div>
+                            }*@
+
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div id="small-dialog" class="zoom-anim-dialog mfp-hide" style="margin-left:16%">
+            @*dont remove style*@
+            <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+            <div id="loadingSetView">
+             
+            </div>
+
+        </div>
+    </div>
+    @*//Facebook LikeBox*@
+    <div id="fb" class="span4 place-right div-itemContainerHeight">
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="fb-like-box" data-href="http://www.facebook.com/penworthy" data-width="300" data-height="600" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
+    </div>
+</div>
+

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B354259D-DC9B-4D13-93BA-E7E3AADE430D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TPC.Core</RootNamespace>
+    <AssemblyName>TPC.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveQuoteService.cs" />
+    <Compile Include="CatalogInfoService.cs" />
+    <Compile Include="ContactService.cs" />
+    <Compile Include="EmailBodyGeneratorService.cs" />
+    <Compile Include="EmailService.cs" />
+    <Compile Include="FAQService.cs" />
+    <Compile Include="FileCreationService.cs" />
+    <Compile Include="HTMLParserService.cs" />
+    <Compile Include="HtmlTagsModificators.cs" />
+    <Compile Include="Infrastructure\ComboBase.cs" />
+    <Compile Include="Interfaces\IActiveQuoteModel.cs" />
+    <Compile Include="Interfaces\IActiveQuoteService.cs" />
+    <Compile Include="Interfaces\ICatalogInfoModel.cs" />
+    <Compile Include="Interfaces\ICatalogInfoService.cs" />
+    <Compile Include="Interfaces\IContactModel.cs" />
+    <Compile Include="Interfaces\IContactService.cs" />
+    <Compile Include="Interfaces\ICreateQuoteModel.cs" />
+    <Compile Include="Interfaces\IEmailModel.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
+    <Compile Include="Interfaces\IEmailTemplateModel.cs" />
+    <Compile Include="Interfaces\IFAQModel.cs" />
+    <Compile Include="Interfaces\IFAQService.cs" />
+    <Compile Include="Interfaces\IFileCreationService.cs" />
+    <Compile Include="Interfaces\IItemContainerModel.cs" />
+    <Compile Include="Interfaces\IItemDetailedPartialModel.cs" />
+    <Compile Include="Interfaces\IItemDetailedPartialService.cs" />
+    <Compile Include="Interfaces\IItemGroupingModel.cs" />
+    <Compile Include="Interfaces\IItemGroupingService.cs" />
+    <Compile Include="Interfaces\IItemGroupModel.cs" />
+    <Compile Include="Interfaces\IItemListViewModel.cs" />
+    <Compile Include="Interfaces\IItemListViewService.cs" />
+    <Compile Include="Interfaces\IItemModel.cs" />
+    <Compile Include="Interfaces\IItemParentModel.cs" />
+    <Compile Include="Interfaces\IItemService.cs" />
+    <Compile Include="Interfaces\ILibrarianResources.cs" />
+    <Compile Include="Interfaces\IUserViewModel.cs" />
+    <Compile Include="Interfaces\ILoginService.cs" />
+    <Compile Include="Interfaces\IOrderModel.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IQuoteViewModel.cs" />
+    <Compile Include="Interfaces\IQuoteViewService.cs" />
+    <Compile Include="Interfaces\ISearchModel.cs" />
+    <Compile Include="Interfaces\ISearchService.cs" />
+    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\IShoppingCartModel.cs" />
+    <Compile Include="Interfaces\IShoppingCartService.cs" />
+    <Compile Include="Interfaces\IItemContainerService.cs" />
+    <Compile Include="Interfaces\ItemGroupingService.cs" />
+    <Compile Include="Interfaces\IUserPreferenceModel.cs" />
+    <Compile Include="Interfaces\IUserPreferenceService.cs" />
+    <Compile Include="ItemContainerService.cs" />
+    <Compile Include="ItemListViewService.cs" />
+    <Compile Include="ItemService.cs" />
+    <Compile Include="LibrarianResourcesService.cs" />
+    <Compile Include="LoginService.cs" />
+    <Compile Include="Mapping\TPCMapper.cs" />
+    <Compile Include="Models\AuthorViewModel.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\CartViewModel.cs" />
+    <Compile Include="Models\CatalogBaseModel.cs" />
+    <Compile Include="Models\FAQCategoriesViewModel.cs" />
+    <Compile Include="Models\FAQDetailsViewModel.cs" />
+    <Compile Include="Models\FAQuestionsViewModel.cs" />
+    <Compile Include="Models\FAQViewModel.cs" />
+    <Compile Include="Models\KPLItemConatinerViewModel.cs" />
+    <Compile Include="Models\ItemDetailedPartialViewModel.cs" />
+    <Compile Include="Models\ItemContainerViewModel.cs" />
+    <Compile Include="Models\ItemGroupViewModel.cs" />
+    <Compile Include="Models\ItemListViewModel.cs" />
+    <Compile Include="Models\ItemParentViewModel.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
+    <Compile Include="Models\KPLBasedCommonViewModel.cs" />
+    <Compile Include="Models\Models\AddressBaseModel.cs" />
+    <Compile Include="Models\Models\CatalogFlatFileModel.cs" />
+    <Compile Include="Models\Models\CustomerCatalogProtectorInfoModel.cs" />
+    <Compile Include="Models\Models\CustomerCatalogShelfReadyInfoModel.cs" />
+    <Compile Include="Models\Models\EmailLinkedResourceModel.cs" />
+    <Compile Include="Models\Models\EmailTemplateModel.cs" />
+    <Compile Include="Models\Models\PackageModel.cs" />
+    <Compile Include="Models\RapidentryModel.cs" />
+    <Compile Include="Models\ViewModels\CallTagFileModel.cs" />
+    <Compile Include="Models\Models\CatalogItemPrice.cs" />
+    <Compile Include="Models\Models\CategoriesPartialViewModel.cs" />
+    <Compile Include="Models\Models\CRMModel.cs" />
+    <Compile Include="Models\Models\CustomerAccountSCDWModel.cs" />
+    <Compile Include="Models\Models\CartWhizardInfoModel.cs" />
+    <Compile Include="Models\Models\CreateCatalogInfoModel.cs" />
+    <Compile Include="Models\Models\CustomerAddressesModel.cs" />
+    <Compile Include="Models\Models\CustomerCartDWModel.cs" />
+    <Compile Include="Models\Models\FilterModel.cs" />
+    <Compile Include="Models\Models\FlatFileDetailModel.cs" />
+    <Compile Include="Models\Models\FlatFileHeaderModel.cs" />
+    <Compile Include="Models\Models\InvoiceModel.cs" />
+    <Compile Include="Models\Models\QuoteModel.cs" />
+    <Compile Include="Models\Models\ShipToAddressModel.cs" />
+    <Compile Include="Models\Models\UserBaseModel.cs" />
+    <Compile Include="Models\Models\UserPreferenceModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\QuoteViewModel.cs" />
+    <Compile Include="Models\SearchItemViewModel.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
+    <Compile Include="Models\ShoppingCartViewModel.cs" />
+    <Compile Include="Models\ViewModels\ActiveQuoteViewModel.cs" />
+    <Compile Include="Models\ViewModels\CalTagViewModel.cs" />
+    <Compile Include="Models\ViewModels\CartAndDWInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\CartDWPdfModel.cs" />
+    <Compile Include="Models\ViewModels\CatalogInfoViewModel.cs" />
+    <Compile Include="Models\Models\CategoryItemGroupModel.cs" />
+    <Compile Include="Models\ViewModels\CategoriesItemContainerViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContactViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateDecisionWizardViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateQuoteViewModel.cs" />
+    <Compile Include="Models\ViewModels\EmailTemplateViewModel.cs" />
+    <Compile Include="Models\ViewModels\FlatFileViewModel.cs" />
+    <Compile Include="Models\ViewModels\ItemGroupingViewModel.cs" />
+    <Compile Include="Models\ViewModels\ItemListDetailedViewModel.cs" />
+    <Compile Include="Models\LibrarianResourcesViewModel.cs" />
+    <Compile Include="Models\ViewModels\SingleItemDetailedModel.cs" />
+    <Compile Include="Models\ViewModels\ItemDetailedViewModel.cs" />
+    <Compile Include="Models\ViewModels\SubmitQuoteViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserViewModel.cs" />
+    <Compile Include="OrderService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuoteViewService.cs" />
+    <Compile Include="SearchService.cs" />
+    <Compile Include="ServiceBase.cs" />
+    <Compile Include="ShoppingCartService.cs" />
+    <Compile Include="UserPreferenceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPC.Common\TPC.Common.csproj">
+      <Project>{2c1b2a43-236f-4709-b50a-16bb790f2469}</Project>
+      <Name>TPC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TPC.Context\TPC.Context.csproj">
+      <Project>{f65d8d01-fbb8-426d-9667-168c994c63b3}</Project>
+      <Name>TPC.Context</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EmailTemplates\Template1.html" />
+    <Content Include="EmailTemplates\TemplateActive.html" />
+    <Content Include="EmailTemplates\TemplateIdle.html" />
+    <Content Include="EmailTemplates\TemplateInitalNewUser.html" />
+    <Content Include="EmailTemplates\TemplateInitial.html" />
+    <Content Include="EmailTemplates\TemplateInitialText.html" />
+    <Content Include="EmailTemplates\TemplateOutstanding.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

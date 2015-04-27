@@ -1,0 +1,132 @@
+F:\MyFolder\Office\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\log4net.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\log4net.xml
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+F:\MyFolder\Office\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+G:\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\log4net.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+G:\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+G:\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+G:\GitHub\TPC\TPC.Core\bin\Debug\log4net.xml
+G:\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+G:\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+G:\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+G:\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\log4net.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\log4net.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+G:\GITHUB_TPC\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+G:\GITHUB_TPC\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+G:\GITHUB_TPC\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+G:\GITHUB_TPC\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+F:\Srikanth\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+F:\Srikanth\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+F:\Srikanth\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+F:\Srikanth\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+D:\ntc_workspace\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+D:\ntc_workspace\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+D:\ntc_workspace\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+D:\ntc_workspace\TPC\TPC.Core\obj\Debug\TPC.Core.pdb
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Core.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Core.pdb
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.Net4.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Common.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Context.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\EntityFramework.dll
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Common.pdb
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\TPC.Context.pdb
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\AutoMapper.xml
+G:\My Projects\TPC\TPC\TPC.Core\bin\Debug\EntityFramework.xml
+G:\My Projects\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.csprojResolveAssemblyReference.cache
+G:\My Projects\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.dll
+G:\My Projects\TPC\TPC\TPC.Core\obj\Debug\TPC.Core.pdb

@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "KPL";
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+}
+
+@model TPC.Core.Models.KPLItemConatinerViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+</script>
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.KPLBasedVM.FirstOrDefault().QuoteID)
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+    @Html.Hidden("hdnDeleteQuotePath", @Url.Action("DeleteItemFromQuote", "ItemContainerPartial"))
+    @Html.Hidden("hdnAddQuotePath", @Url.Content("~/ItemListView/UpdateKPLBuilderQuote"))
+    @Html.Hidden("hdnSelectColumnsPath", @Url.Content("~/ItemListView/UpdateKPLBuilderQuote"))
+</div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView">
+    </div>
+</div>
+
+<div id="barcode-dialog" class="zoom-anim-dialog mfp-hide">
+    <div class="small-dialog">
+        <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div id="BarcodeloadingSetView">
+        </div>
+    </div>
+</div>
+
+<div id="ViewEditQuote" class="body-text span12">
+
+    <div id="ViewLinks" class="place-left span12 div-MainHeight3 text-left ">
+        <a id="ViewTabular" class="Tabular hide"><i class="icon-grid ItemPointer"></i></a>
+        <a id="ViewList" class="List hide"><i class="icon-list ItemPointer"></i></a>
+    </div>
+
+    <div id="divViewContent" class="place-left span12 body-text">
+
+        <div id="divTabularView" class="place-left span12 margin20 nbm nlm nrm padding10 nlp nbp ntp">
+            <div class="place-left span12 text-right">
+                <div class="text wd180 place-left" style="height: 23px; text-align: center">
+                    @* <input id="SearchBoxKpl" type="text" placeholder="Filter" class="place-left" />
+                    <a id="ClearSearchBox" href="#" class="place-left SearchClose">X</a>*@
+                </div>
+                <div id="divquicksearch" class="divquicksearch span3 place-left"></div>
+                <div class="place-left div-contentheight divspanWidth1">
+                </div>
+                <div class="place-left">
+                    <a id="RemoveFilter" href="#" class=""><i class="icon-cycle button-fg"></i></a>
+                </div>
+                <div class="place-left div-contentheight divspanWidth1">
+                </div>
+                @*<div class="place-right span2 text-left">
+                    @if (Roles.IsUserInRole("Repo"))
+                    {
+                        <div class="place-left">
+                            <button class="buttonBackgroundColor AddKPL">Add</button>
+                        </div>
+                    }
+                </div>*@
+                <div class="place-left span1">
+                    @Resources.TCPResources.NoofItemsText
+                </div>
+                <div class="place-left div-contentheight divspanWidth1">
+                </div>
+                <div id="itemcount" class="place-left sapn2 ">
+                    @*  :   @ViewData["#Items"]*@
+                </div>
+                <div class="place-left text-right span1">
+                    @Resources.TCPResources.PriceText
+                </div>
+               @* <div class="place-left div-contentheight divspanWidth1">
+                </div>*@
+                <div id="totalprice" class="place-left span90 margin10 nlm nbm ntm">
+                    @*:   @ViewData["Price"]*@
+                </div>
+                @if (ViewData["QuoteType"].ToString() == Resources.TCPResources.PreviewText)
+                {
+                    <div class="place-left text-right margin20 nlm ntm nbm">
+                        @Html.CheckBox("Show All") <a>@Resources.TCPResources.ShowAll</a>
+                    </div>
+                }
+                <div class="place-left span2">
+                    <input id="Barcode" type="text" placeholder="Barcode" maxlength="13" class="place-left" />
+                </div>
+                <a id="ExcelExport" href="@Url.Action("ExportItemListToExcel", "ItemContainerPartial")" title=""><i class="icon-file-excel fg-green"></i></a>
+                <div class="place-left div-contentheight divspanWidth1">
+                </div>
+                <div class="place-left div-contentheight span30">
+                </div>
+                @*<div class="place-left divFilterTextWidth text-right">*@
+                @*<a id="BtnDelete" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog" title=""><i class="icon-minus fg-red"></i></a>*@
+                <a href="#Columns-dialog" class="popup-with-zoom-anim MoveLeft margin20 nrm nbm ntm"><i class="icon-cog button-fg"></i></a>
+                @*</div>*@
+            </div>
+            <div id="divKplTable" class="place-left span12">
+                @Html.Partial("../TCPViews/Partial/TabularItemPartial", Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

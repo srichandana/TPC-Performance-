@@ -1,0 +1,72 @@
+﻿@model TPC.Web.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+<hgroup class="title">
+    @*  <h1>@ViewBag.Title.</h1>*@
+</hgroup>
+
+<div id="divLoginForm" class="popup-with-zoom-anim">
+    <section id="loginForm">
+        @*<h2>Use a local account to log in.</h2>*@
+        @using (Html.BeginForm("Login", "Account",FormMethod.Post, new { @id="loginform"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="hide">
+                @Html.HiddenFor(n=>n.CustAutoID)
+            </div>
+            <fieldset id="loginfieldset">
+                <legend class="span3">@Resources.TCPResources.SignInRecommendationText</legend>
+                <ol>
+                    <li>
+                        @Html.LabelFor(m => m.UserEmail)
+                        @Html.TextBoxFor(m => m.UserEmail, new { @class = "span3" })
+                        @Html.ValidationMessageFor(m => m.UserEmail)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "span3" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </li>
+                    <li>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "place-left margin5 nlm" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                    </li>
+                </ol>
+                  
+                <ol>
+                    <li>
+                        @*<input type="submit" value="Log in" style="font-size:13pt" class="div-MainHeight25"/>*@
+                        <a id="login" href="#" style="font-size:13pt" class="div-MainHeight25">Log in</a>
+                    </li>
+                </ol>
+            </fieldset>
+              <div id="loginCustomerDetails" class="hide text-center margin10">
+                  Please Select Customer      
+
+                  <select id="ddl" class="padding5">
+                        </select><br/>
+                  <div class="margin10">
+                  <a id="customerSelectionConfirmation" href="#" style="font-size:13pt" class="div-MainHeight25 border">&nbsp OK &nbsp</a>
+                      </div>
+        </div>
+
+            @*
+    <p>
+        @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>*@
+        }
+    </section>
+</div>
+
+      
+@*<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

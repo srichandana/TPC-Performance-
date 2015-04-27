@@ -1,0 +1,390 @@
+﻿@model List<TPC.Core.Models.ItemGroupViewModel>
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+@using System.Configuration;
+@{
+    int slidecount = 6;
+    string width = "810px";
+    string height = "150px";
+    string divgroupwidth = "960px";
+    string divtextWidth = "960px";
+    string divadjustwidth = "90px";
+
+    string constantText = "...";
+    string formatTitleText = string.Empty;
+
+    string imagePath;
+    if (ViewBag.Title == "Categories" || ViewBag.Title == "Products")
+    {
+        slidecount = 5;
+        width = "635px";
+        height = "auto";
+        divgroupwidth = "776px";
+        divtextWidth = "740px";
+        divadjustwidth = "0px";
+        imagePath = ConfigurationManager.AppSettings["ImagesH80"];
+    }
+    else
+    {
+        imagePath = ConfigurationManager.AppSettings["ImagesH135"];
+    }
+
+
+    string currentDisplaytext = Model.Count > 0 ? Model.FirstOrDefault().ItemPVM.ListItemVM[0].QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+        (Model.FirstOrDefault().ItemPVM.ListItemVM[0].QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 || Model.FirstOrDefault().ItemPVM.ListItemVM[0].QuoteTypeText == "" ? "Cart" : "Quote") : "Cart";
+
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;   
+}
+@if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+{
+    currentDisplaytext = "Cart";
+}
+<div id="hiddendiv" class="hide">
+    @Html.Hidden("hdnGroupViewModel", @Html.Raw(serializer.Serialize(Model)))
+    @Html.Hidden("hdncurrentDisplayText", currentDisplaytext)
+    @Html.Hidden("hdnSlideCount", @slidecount)
+    @Html.Hidden("hdnWidth", @width)
+    @Html.Hidden("hdnColumnText", Resources.TCPResources.columnfilterText)
+    @Html.Hidden("hdnRowText", Resources.TCPResources.RowFilterText)
+    @Html.Hidden("hdnGroupPurchasingID", (int)PackageEnums.PurchasingHistory)
+    @*@Html.Hidden("hdnGroupPackageID", (int)PackageEnums.Packages)*@
+    @Html.Hidden("hdnImgPath", @Url.Content(imagePath))
+
+
+    <input type="hidden" id="hdnPageTitle" name="hdnPageTitle" value="@ViewBag.title" />
+</div>
+<div id="kplItemParent" class="place-left " data-role="" style="display: block;">
+
+
+    @foreach (ItemGroupViewModel igvm in Model)
+    {
+        int result = 0; int quotent = Math.DivRem(igvm.ItemPVM.ListItemVM.Count(), slidecount, out result); int startIndex = 0; int endIndex = slidecount; int extraCount = 0;
+        if (result > 0)
+        {
+            extraCount = 1;
+        }
+        if (igvm.lstChildItemGVM != null && igvm.lstChildItemGVM.Count() > 0)
+        {
+            foreach (ItemGroupViewModel childigvm in igvm.lstChildItemGVM)
+            {
+        <div id="CategoryText-@childigvm.GroupID"></div>
+        <div id="@childigvm.GroupID" data-groupid="@igvm.GroupID" class="place-left packageGroup padding10 nlp nrp slide packagegrp-@childigvm.GroupID" style="width:@divgroupwidth;">
+
+            <div class="place-left padding5 ntp nrp nlp " style="width:@divtextWidth;">
+                <div class="groupName place-left span3 div-MainHeight20">
+                    <div class="span3 ">
+                        @* @if (Request.IsAuthenticated)
+                        {
+
+                            <a title="@igvm.GroupName"  href="@Url.Action("GetItemListView", "ItemListView", new
+                                                         {
+                                                             iD = @igvm.GroupID >= 0 ? @igvm.GroupID : UserViewModel.CurrentQuoteID,
+                                                             type = @igvm.GroupID >= 0 ? "Group" : @ViewData["QuoteType"]
+                                                         })" class="GroupView" ><strong>@igvm.GroupName</strong></a>
+                        }
+                        else
+                        {
+                            <a class="popup-with-zoom-anim ItemDetailSeries GroupView" title="@igvm.GroupName" href="#small-dialog">*@
+                        <div class="GroupView" data-title="@childigvm.GroupName"><b>@childigvm.GroupName</b></div>@*</a>
+                        }*@
+                    </div>
+                </div>
+                <div class="place-right div-MainHeight20 " style="width:@divadjustwidth;"></div>
+                <div class="place-right  div-MainHeight20">
+                    <div class="seeAllText place-right text-right div-MainHeight20">
+                        @if (Request.IsAuthenticated)
+                        { 
+                            <a id="showAll" href="@Url.Action("GetCustomerDWView", "ItemListView", new
+                                             {
+                                                 iD = @childigvm.GroupID >= 0 ? @childigvm.GroupID : @Model[0].UserVM.CurrentQuoteID,
+                                                 type = @childigvm.GroupID >= 0 ? "Group" : @ViewData["QuoteType"]
+                                             })" ><strong>
+                                                 <div class="place-right text-bold">&nbsp;@igvm.GroupName @Resources.TCPResources.TitlesText&nbsp;</div>
+                                                 <div class="place-right text-bold" id="GrpItemCount-@childigvm.GroupID">&nbsp;@igvm.GroupItemCount&nbsp;</div>
+                                                 <div class="place-right text-bold">@Resources.TCPResources.SeeAllText&nbsp;</div>
+                                             </strong></a>
+                        }
+                        else
+                        {
+                            <a class="popup-with-zoom-anim login" href="#small-dialog"><strong>
+                                <div class="place-right text-bold">&nbsp;@igvm.GroupName @Resources.TCPResources.TitlesText&nbsp;</div>
+                                <div class="place-right text-bold" id="GrpItemCount-@childigvm.GroupID">&nbsp;@igvm.GroupItemCount&nbsp;</div>
+                                <div class="place-right text-bold">@Resources.TCPResources.SeeAllText&nbsp;</div>
+                            </strong></a>
+                        }
+                    </div>
+
+                    @*<div id="GrpItemCount-@igvm.GroupID" class="place-left span1 div-MainHeight20">
+                        @igvm.GroupItemCount
+                    </div>*@
+                </div>
+
+            </div>
+            <div class="place-left slideleftDiv padding10 nrp nlp" style="width: 40px">
+                <button id="@childigvm.GroupID" class="slideBtnShadow carouselClick carouselLeft hide" style="border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border:3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+                    <img class="slideRightImg" src="~/Images/Left-Arrow.png" /></button>
+            </div>
+            <div id="slide-@childigvm.GroupID" class="place-left paddin5 nbp ntp" style="width:@width">
+
+                @for (int i = 0; i < @slidecount; i++)
+                {
+                    ItemViewModel obj = igvm.ItemPVM.ListItemVM[i];
+                
+                    <div id="Item" class="body-text">
+                        @{
+                    string classname = @obj.IsInCustomerTitles == true ? "div-bgopacity" : "";
+                    string disableStatus = @obj.IsPreviewItem == false ? "div-disable" : "";
+                    string starPositionStatus = ViewBag.Title == "HomePage" ? "style=margin-left:-4px" : "";
+                        }
+                        <div id="ViewDetailItem-@childigvm.GroupID-@i" data-Title="@obj.IsInCustomerTitles"  class="@classname @disableStatus singleImgWidth  margin20  nlm ntm nbm place-left">
+                            <div id="@obj.ItemID" class="place-left singleImgWidth text-center">
+                                <div id="divCartStatus-@childigvm.GroupID-@i" class="divCartStatus-@childigvm.GroupID">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        if (@obj.IsInSCDWQuote == true)
+                                        {
+                                        <div id="carttext-@obj.ItemID" class="carttext-@obj.ItemID">In @currentDisplaytext</div>
+                                        <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID hide">
+                                            <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+                                            @* @if (obj.SeriesBroughtBefore == true && obj.CharecterBroughtBefore == false)
+                                            {
+                                                <i id="staricon-@igvm.GroupID" class="icon-star-3 fg-yellow itemTextSize"></i>
+                                            }
+                                            else if (obj.CharecterBroughtBefore == true && obj.SeriesBroughtBefore == false)
+                                            {
+                                                <i id="staricon-@igvm.GroupID" class="icon-star-3 button-fg itemTextSize"></i>
+                                            }
+                                            *@
+
+                                        </div>
+                                        }
+                                        else
+                                        {
+                                        <div id="carttext-@obj.ItemID" class="hide carttext-@obj.ItemID">In @currentDisplaytext</div>
+                                        <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID">
+                                            <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+
+                                        </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a class="popup-with-zoom-anim ItemDetailSeries carouselCartText" href="#small-dialog">Add To Cart</a>
+                                    }
+                                </div>
+                            </div>
+                            <div id="divImg-@childigvm.GroupID-@i" class="singleImgWidth place-left text-center divImg-@childigvm.GroupID">
+
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (obj.SeriesBroughtBefore == true && obj.CharecterBroughtBefore == false)
+                                    {
+                                    <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar" style="margin-left: -10px"></i>
+                                    }
+                                    else if (obj.CharecterBroughtBefore == true && obj.SeriesBroughtBefore == false)
+                                    {
+                                    <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar" style="margin-left: -10px"></i>
+                                    }
+                                    
+                                }<a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >
+                                    @*<img id="@obj.ItemID" class="imgTest-@childigvm.GroupID-@i shadow" src="@Url.Content(@imagePath + obj.ISBN + ".jpg")">*@
+                                     <img id="@obj.ItemID" class="imgTest-@childigvm.GroupID-@i shadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @obj.ISBN, imagePath,"\\",".jpg")">
+                                </a>
+
+
+                            </div>
+                            <div class="place-left itemTextWidth ItemTitleheight itemTextSize hide">
+                                @{
+                                //formatTitleText = obj.Title.Length < 20 ? obj.Title : obj.Title.Substring(0, 19) + constantText;
+                                //formatTitleText = formatTitleText.Insert(17, "\n");
+                                //  formatTitleText = ;
+                                formatTitleText = obj.Title.Length > 11 ? obj.Title.ToString().Insert(11, "\n") : obj.Title.ToString();
+                                formatTitleText = formatTitleText.Length > 15 ? formatTitleText.Substring(0, 15) + constantText : formatTitleText;
+                                }
+                                <div id="divtitle-@childigvm.GroupID-@i" class="text-center divtitle-@childigvm.GroupID  padding5 lnhtin">
+                                    <a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >@formatTitleText</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="place-left padding40 nlp nbp">
+                <button id="@childigvm.GroupID" class="slideBtnShadow carouselClick carouselRight" style="border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border:3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+                    <img class="slideRightImg" src="~/Images/Right-Arrow.png" />
+                </button>
+            </div>
+        </div>
+            }
+        }
+        else
+        {
+        <div id="CategoryText-@igvm.GroupID"></div>
+        <div id="@igvm.GroupID" data-groupid="@igvm.GroupID" class="place-left packageGroup padding10 nlp nrp slide packagegrp-@igvm.GroupID" style="width:@divgroupwidth;">
+
+            <div class="place-left padding5 ntp nrp nlp " style="width:@divtextWidth;">
+                <div class="groupName place-left span4 div-MainHeight20">
+                    <div class="span4 ">
+                        @* @if (Request.IsAuthenticated)
+                        {
+
+                            <a title="@igvm.GroupName"  href="@Url.Action("GetItemListView", "ItemListView", new
+                                                         {
+                                                             iD = @igvm.GroupID >= 0 ? @igvm.GroupID : UserViewModel.CurrentQuoteID,
+                                                             type = @igvm.GroupID >= 0 ? "Group" : @ViewData["QuoteType"]
+                                                         })" class="GroupView" ><strong>@igvm.GroupName</strong></a>
+                        }
+                        else
+                        {
+                            <a class="popup-with-zoom-anim ItemDetailSeries GroupView" title="@igvm.GroupName" href="#small-dialog">*@
+                        <div class="GroupView" data-title="@igvm.GroupName"><b>@igvm.GroupName</b></div>@*</a>
+                        }*@
+                    </div>
+                </div>
+                <div class="place-right div-MainHeight20 " style="width:@divadjustwidth;"></div>
+                <div class="place-right  div-MainHeight20">
+                    <div class="seeAllText place-right text-right div-MainHeight20">
+                        @if (Request.IsAuthenticated)
+                        { 
+                            <a id="showAll" href="@Url.Action("GetCustomerDWView", "ItemListView", new
+                                             {
+                                                 iD = @igvm.GroupID >= 0 ? @igvm.GroupID : @Model[0].UserVM.CurrentQuoteID,
+                                                 type = @igvm.GroupID >= 0 ? "Group" : @ViewData["QuoteType"]
+                                             })" ><strong>
+                                                 <div class="place-right text-bold">&nbsp;@igvm.GroupName @Resources.TCPResources.TitlesText&nbsp;</div>
+                                                 <div class="place-right text-bold" id="GrpItemCount-@igvm.GroupID">&nbsp;@igvm.GroupItemCount&nbsp;</div>
+                                                 <div class="place-right text-bold">@Resources.TCPResources.SeeAllText&nbsp;</div>
+                                             </strong></a>
+                        }
+                        else
+                        {
+                            <a class="popup-with-zoom-anim login" href="#small-dialog"><strong>
+                                <div class="place-right text-bold">&nbsp;@igvm.GroupName @Resources.TCPResources.TitlesText&nbsp;</div>
+                                <div class="place-right text-bold" id="GrpItemCount-@igvm.GroupID">&nbsp;@igvm.GroupItemCount&nbsp;</div>
+                                <div class="place-right text-bold">@Resources.TCPResources.SeeAllText&nbsp;</div>
+                            </strong></a>
+                        }
+                    </div>
+
+                    @*<div id="GrpItemCount-@igvm.GroupID" class="place-left span1 div-MainHeight20">
+                        @igvm.GroupItemCount
+                    </div>*@
+                </div>
+
+            </div>
+            <div class="place-left slideleftDiv padding10 nrp nlp" style="width: 40px">
+                <button id="@igvm.GroupID" class="slideBtnShadow carouselClick carouselLeft hide" style="border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border:3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+                    <img class="slideRightImg" src="~/Images/Left-Arrow.png" /></button>
+            </div>
+
+            <div id="slide-@igvm.GroupID" class="place-left paddin5 nbp ntp" style="height:@height;width:@width">
+                @{int resultloop = igvm.ItemPVM.ListItemVM.Count < slidecount ? igvm.ItemPVM.ListItemVM.Count : slidecount;
+                  string slideClass = igvm.ItemPVM.ListItemVM.Count <= slidecount ? "slideBtnShadow carouselClick carouselRight hide" : "slideBtnShadow carouselClick carouselRight"; }
+                @for (int i = 0; i < resultloop; i++)
+                {
+                     ItemViewModel obj = igvm.ItemPVM.ListItemVM[i];
+                    <div id="Item" class="body-text">
+                        @{
+                        string classname = @obj.IsInCustomerTitles == true ? "div-bgopacity" : "";
+                        string disableStatus = @obj.IsPreviewItem == false ? "div-disable" : "";
+                        string starPositionStatus = ViewBag.Title == "HomePage" ? "style=margin-left:-4px" : "";
+                        }
+                        <div id="ViewDetailItem-@igvm.GroupID-@i" data-Title="@obj.IsInCustomerTitles"  class="@classname @disableStatus singleImgWidth  margin20  nlm ntm nbm place-left">
+                            <div id="@obj.ItemID" class="place-left singleImgWidth text-center">
+                                <div id="divCartStatus-@igvm.GroupID-@i" class="divCartStatus-@igvm.GroupID">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        if (@obj.IsInSCDWQuote == true)
+                                        {
+                                        <div id="carttext-@obj.ItemID" class="carttext-@obj.ItemID">In @currentDisplaytext</div>
+                                        <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID hide">
+                                            <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+                                            @* @if (obj.SeriesBroughtBefore == true && obj.CharecterBroughtBefore == false)
+                                            {
+                                                <i id="staricon-@igvm.GroupID" class="icon-star-3 fg-yellow itemTextSize"></i>
+                                            }
+                                            else if (obj.CharecterBroughtBefore == true && obj.SeriesBroughtBefore == false)
+                                            {
+                                                <i id="staricon-@igvm.GroupID" class="icon-star-3 button-fg itemTextSize"></i>
+                                            }
+                                            *@
+
+                                        </div>
+                                        }
+                                        else
+                                        {
+                                        <div id="carttext-@obj.ItemID" class="hide carttext-@obj.ItemID">In @currentDisplaytext</div>
+                                        <div id="carttextlink-@obj.ItemID" class="carttextlink-@obj.ItemID">
+                                            <button id="1" name="1" value="1" data-itemid="@obj.ItemID" class="AddCart itemTextSize" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+
+                                        </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a class="popup-with-zoom-anim ItemDetailSeries carouselCartText" href="#small-dialog">Add To Cart</a>
+                                    }
+                                </div>
+                            </div>
+                            <div id="divImg-@igvm.GroupID-@i" class="singleImgWidth place-left text-center divImg-@igvm.GroupID">
+
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (obj.SeriesBroughtBefore == true && obj.CharecterBroughtBefore == false)
+                                    {
+                                    <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar" style="margin-left: -10px"></i>
+                                    }
+                                    else if (obj.CharecterBroughtBefore == true && obj.SeriesBroughtBefore == false)
+                                    {
+                                    <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar" style="margin-left: -10px"></i>
+                                    }
+                                    
+                                }<a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >
+                                    @*<img id="@obj.ItemID" class="imgTest-@igvm.GroupID-@i titleShadow" src="@Url.Content(@imagePath + obj.ISBN + ".jpg")">*@
+                                     <img id="@obj.ItemID" class="imgTest-@igvm.GroupID-@i titleShadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @obj.ISBN, imagePath,"\\",".jpg")">
+                                </a>
+                            </div>
+                            <div class="place-left itemTextWidth ItemTitleheight itemTextSize hide ">
+                                @{
+                                //formatTitleText = obj.Title.Length < 20 ? obj.Title : obj.Title.Substring(0, 19) + constantText;
+                                //formatTitleText = formatTitleText.Insert(17, "\n");
+                                //  formatTitleText = ;
+                                formatTitleText = obj.Title.Length > 11 ? obj.Title.ToString().Insert(11, "\n") : obj.Title.ToString();
+                                formatTitleText = formatTitleText.Length > 15 ? formatTitleText.Substring(0, 15) + constantText : formatTitleText;
+                                }
+                                <div id="divtitle-@igvm.GroupID-@i" class="text-center divtitle-@igvm.GroupID padding5 lnhtin">
+
+                                    <a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >@formatTitleText</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="place-left padding40 nlp nbp nrp">
+
+                <button id="@igvm.GroupID" class="@slideClass" style="border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border:3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+                    <img class="slideRightImg" src="~/Images/Right-Arrow.png" />
+                </button>
+            </div>
+        </div>
+        }
+
+    }
+
+</div>
+
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    @*dont remove style*@
+    <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">X</button>
+    <div id="loadingSetView">
+
+        @*PartialView Will Load Here*@
+    </div>
+    <div id="ItemListView">
+    </div>
+</div>

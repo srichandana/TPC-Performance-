@@ -1,0 +1,251 @@
+﻿@model List<TPC.Core.Models.KPLBasedCommonViewModel>
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+<script src="~/Scripts/js/metro/metro-dropdown.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var datatable;
+        $(".colcItemsOverflow").on('scroll', function () {
+            var delta = $(this).offset().top - $(this).find('table thead').offset().top;
+            $(this).find('table thead').children().children().css({
+                "transform": "translate(0px," + (delta > 0 ? delta : 0) + "px)"
+            });
+            $(this).find('table thead tr:nth-child(2) td').css({
+                "background": "#eee",
+            });
+            return false;
+        });
+        $.tablesorter.addParser({
+            id: 'checkbox',
+            is: function (s) {
+                return false;
+            },
+            format: function (s, table, cell, cellIndex) {
+                var $c = $(cell);
+                // return 1 for true, 2 for false, so true sorts before false
+                if (!$c.hasClass('updateCheckbox')) {
+                    $c
+                    .addClass('updateCheckbox')
+                    .bind('change', function () {
+                        $(table).trigger('updateCell', [cell]);
+                    });
+                }
+                return ($c.find('input[type=checkbox]')[0].checked) ? 1 : 2;
+            },
+            type: 'numeric'
+        });
+
+        $("#itemlist").tablesorter({
+            stickyHeaders: 'tablesorter-stickyHeader', widthFixed: false, widgets: ['zebra', 'filter'],
+            headers: {
+                0: {
+                    sorter: 'checkbox'
+                }
+            },
+            widgetOptions: {
+                zebra: [
+                    "ui-widget-content even",
+                    "ui-state-default odd"
+                ],
+                uitheme: 'jui',
+                columns: [
+                    "primary",
+                    "secondary",
+                    "tertiary"
+                ],
+                columns_tfoot: false, columns_thead: true, filter_childRows: false, filter_columnFilters: true,
+                filter_cssFilter: "tablesorter-filter", filter_functions: null, filter_hideFilters: false, filter_ignoreCase: true,
+                filter_reset: null, filter_searchDelay: 300, filter_startsWith: false, filter_useParsedData: false,
+                resizable: true, saveSort: true
+            }
+        }).bind('filterStart filterEnd', function (e, filter) {
+            if (e.type === 'filterStart') {
+                $('#recordsCount').html('Filtering...');
+            }
+             else {
+                $('#recordsCount').html($('#itemlist >tbody > tr:visible').length + ' Items');
+            }
+        });
+        ;
+
+        $('.tablesorter-header').css('background-color', '#00aff0');
+
+        $('#itemlist_filter').hide();
+        var columnId = null;
+        var checkAllBox = $('#selectall');
+
+        var statusCheck = true;
+        checkAllBox.click(function () {
+            toggleChecked(statusCheck);
+            statusCheck = statusCheck == true ? false : true;
+        });
+        function toggleChecked(status) {
+            $("#itemlist input:checkbox").each(function () {
+                if (status) {
+                    if (!$(this).closest('tr').hasClass('filtered')) {
+                        $(this).attr('checked', 'checked');
+                    }
+                }
+                else {
+                    $(this).removeAttr('checked');
+                }
+            });
+        }
+        //$('.clearFilter').click(function () {
+        //    $('#filter,#columnFilterText').val('');
+        //    datatable.search('').columns().search('').draw();
+        //});
+
+        $(".collectionItemsUpdate").click(function () {
+            var checkedItemIds = [];
+            var UnCheckedItemIds = [];
+            var groupids = [];
+            $('.itemsChk').each(function () {
+                if (!$(this).closest('tr').hasClass('filtered')) {
+                    var checked = $(this).is(':checked');
+                    var id = $(this).attr('value');
+                    if (checked == true) {
+                        checkedItemIds.push(id);
+                    }
+                    else {
+                        UnCheckedItemIds.push(id);
+                    }
+                }
+            });
+            $('.GroupNames').each(function () {
+                var checked = $(this).is(':checked');
+                var id = $(this).attr('value');
+                if (checked == true) {
+                    groupids.push(id);
+                }
+            });
+            $.ajax({
+                url: "@Url.Content("~/Collection/updateCollectionItems")",
+                type: "POST",
+                data: { lstGroupids: groupids.toString(), checkedItemids: checkedItemIds.toString(), unchekedItemids: UnCheckedItemIds.toString(), groupID: "@ViewBag.grpID" },
+                success: function (data) {
+                    var groupIDs = eval(data);
+                    for (var key in groupIDs) {
+                        if (groupIDs.hasOwnProperty(key)) {
+                            var groupid = key;
+                            var itemcount = eval(groupIDs[key]);
+                            $('#titlesCount').html(itemcount);
+                             $('#groupPackageItems-' + groupid).html(itemcount);
+                        }
+                    }
+                }
+            });
+        });
+        $('#recordsCount').html($('#itemlist >tbody >tr').length + ' Items');
+
+        $('.tablesorter-filter').each(function () {
+            var dataColumn = $(this).attr('data-column');
+            var width;
+            var width1 = ['1', '4','7','11', '16','17','18', '20', '21', '22', '23', '24', '25', '26', '28', '29', '30'];
+            var width2 = ['3', '10', '17', '30'];
+            var width3 = ['6', '8', '27', '28'];
+            if ($.inArray(dataColumn, width1) != -1) {
+                width = '45px';
+            }
+            if ($.inArray(dataColumn, width2) != -1) {
+                width = '65px';
+            }
+            if ($.inArray(dataColumn, width3) != -1) {
+                width = '70px';
+            }
+            $(this).css('width',width);
+        });
+    });
+</script>
+<div class="margin5 nlm nrm nbm">
+    <div id="titlesCount" class="place-left">@Model.FirstOrDefault().ItemCount</div>
+    <div class="place-left span6">
+        <label>&nbsp;Titles In @ViewBag.GroupName Collection</label>
+    </div>
+    <div class="place-left">
+        <nav class="horizontal-menu">
+            <ul class="ntm nbm">
+                <li>
+                    <a href="#" class="dropdown-toggle" style="padding: 3px; color: rgb(255, 255, 255); background-color: rgb(0, 175, 240); line-height: 20pt">@ViewBag.GroupName Collection <i class="icon-arrow-down-5"></i></a>
+                    <ul class="dropdown-menu div-containerheight" data-role="dropdown" style="overflow-y: scroll; display: none;">
+                        @foreach (FilterModel filterModel in @Model.FirstOrDefault().lstFilterModel)
+                        {
+                            <li>
+                                @if (filterModel.GroupID == ViewBag.grpID)
+                                {
+                                    @Html.CheckBox("cbSelect", new { @value = filterModel.GroupID, @checked = "checked", @class = "GroupNames" }) @filterModel.GroupName
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("cbSelect", new { @value = filterModel.GroupID, @class = "GroupNames" }) @filterModel.GroupName
+                                }
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="text-center place-left">
+        <button class="primary collectionItemsUpdate">Update</button>
+    </div>
+    <div class="colcItemsOverflow">
+        @using (Ajax.BeginForm("updateCollectionItems", "Collection", new { groupID = ViewBag.grpID }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "titlesCount" }, new { @style = "margin-bottom:0px", enctype = "multipart/form-data" }))
+        {
+            var grid = new WebGrid(Model, canPage: false, canSort: false);
+            @grid.Table(
+    headerStyle: "webgridHeader",
+    tableStyle: "webgrid scroll",
+        htmlAttributes: new { id = "itemlist" },
+        columns: grid.Columns(
+        grid.Column(format: (item) =>
+        {
+            if (item.IsInQuoteType == true)
+            {
+                return Html.CheckBox("ItemID", new { value = item.ItemID, @checked = "checked", @class = "itemsChk" });
+            }
+            else
+            {
+                return Html.CheckBox("ItemID", new { value = item.ItemID, @class = "itemsChk" });
+            }
+        }),
+        grid.Column("ItemID", "ItemID"),
+        grid.Column("Title", "Title"),
+        grid.Column("ProductLine", "ProductLine"),
+        grid.Column("Status", "Status"),
+        grid.Column("OnListDate", "OnListDate"),
+        grid.Column("Classification", "Classification"),
+        grid.Column("Format", "Format"),
+        grid.Column("InterestGrade", "InterestGrade"),
+        grid.Column("SetName", "SetName"),
+        grid.Column("CopyRight", "CopyRight"),
+        //grid.Column("Price", "Price"),
+        grid.Column(
+        "Price", "Price",
+        format: (item) => string.Format("{0:c}", item.Price)
+        ),
+        grid.Column("Series", "Series"),
+        grid.Column("Primarycharacter", "Primarycharacter"),
+        grid.Column("SecondCharacter", "SecondCharacter"),
+        grid.Column("Author", "Author"),
+         grid.Column("Pages", "Pages"),
+         grid.Column("Size", "Size"),
+         grid.Column("Subject", "Subject"),
+         grid.Column("Publisher", "Publisher"),
+         grid.Column("ARLevel", "ARLevel"),
+         grid.Column("RCLevel", "RCLevel"),
+         grid.Column("Lexile", "Lexile"),            
+          grid.Column("Dewery", "Dewery"),
+                       grid.Column("BookList", "BookList"),
+                       grid.Column("Horn", "Horn"),
+                       grid.Column("Kirkus", "Kirkus"),
+                       grid.Column("Lj", "Lj"),
+                       grid.Column("Pw", "Pw"),
+                       grid.Column("Slj", "Slj"),
+                       grid.Column("SetProfile", "SetProfile")                           
+        ))
+        }
+    </div>
+    <div id="recordsCount" class="span4">
+    </div>
+</div>

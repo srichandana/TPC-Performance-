@@ -1,0 +1,17 @@
+﻿Uninstalling assembly 'C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+   logfile = C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.InstallLog
+Removing EventLog source TPCCallTagService.
+Service TPCCallTagService is being removed from the system...
+Service TPCCallTagService was successfully removed from the system.
+Attempt to stop service TPCCallTagService.
+Uninstalling assembly 'G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+   logfile = G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.InstallLog
+Removing EventLog source TPCLocalCallTagService.
+Service TPCLocalCallTagService is being removed from the system...
+Service TPCLocalCallTagService was successfully removed from the system.

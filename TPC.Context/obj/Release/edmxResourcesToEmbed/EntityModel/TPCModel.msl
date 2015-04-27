@@ -1,0 +1,895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PenworthyModelStoreContainer" CdmEntityContainer="PenworthyEntities">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="PenworthyModel.AppUser">
+        <MappingFragment StoreEntitySet="AppUser">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUserTypes">
+      <EntityTypeMapping TypeName="PenworthyModel.AppUserType">
+        <MappingFragment StoreEntitySet="AppUserTypes">
+          <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="PenworthyModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalTagInfoes">
+      <EntityTypeMapping TypeName="PenworthyModel.CalTagInfo">
+        <MappingFragment StoreEntitySet="CalTagInfo">
+          <ScalarProperty Name="CalTagInfoID" ColumnName="CalTagInfoID" />
+          <ScalarProperty Name="CalTagInfoText" ColumnName="CalTagInfoText" />
+          <ScalarProperty Name="CalTagInfoType" ColumnName="CalTagInfoType" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogColumnTypes">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogColumnType">
+        <MappingFragment StoreEntitySet="CatalogColumnType">
+          <ScalarProperty Name="CatalogColumnTypeID" ColumnName="CatalogColumnTypeID" />
+          <ScalarProperty Name="CatalogColumnText" ColumnName="CatalogColumnText" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogInformations">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogInformation">
+        <MappingFragment StoreEntitySet="CatalogInformation">
+          <ScalarProperty Name="CatalogInfoID" ColumnName="CatalogInfoID" />
+          <ScalarProperty Name="CatalogInfoName" ColumnName="CatalogInfoName" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogProfileValidations">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogProfileValidation">
+        <MappingFragment StoreEntitySet="CatalogProfileValidation">
+          <ScalarProperty Name="CatalogProfileValidationID" ColumnName="CatalogProfileValidationID" />
+          <ScalarProperty Name="CatalogSubjectOptionID" ColumnName="CatalogSubjectOptionID" />
+          <ScalarProperty Name="CatalogSubjectOptionRequiredID" ColumnName="CatalogSubjectOptionRequiredID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSoftwareVersionMappings">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSoftwareVersionMapping">
+        <MappingFragment StoreEntitySet="CatalogSoftwareVersionMapping">
+          <ScalarProperty Name="CSVMapID" ColumnName="CSVMapID" />
+          <ScalarProperty Name="CatSubOptSoftwareValID" ColumnName="CatSubOptSoftwareValID" />
+          <ScalarProperty Name="CatSubOptVersionValID" ColumnName="CatSubOptVersionValID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjects">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubject">
+        <MappingFragment StoreEntitySet="CatalogSubject">
+          <ScalarProperty Name="CatalogSubjectID" ColumnName="CatalogSubjectID" />
+          <ScalarProperty Name="CatalogSubject1" ColumnName="CatalogSubject" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CatalogInfoID" ColumnName="CatalogInfoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectOptionProtectors">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectOptionProtector">
+        <MappingFragment StoreEntitySet="CatalogSubjectOptionProtector">
+          <ScalarProperty Name="CSOProtectorID" ColumnName="CSOProtectorID" />
+          <ScalarProperty Name="CSOID" ColumnName="CSOID" />
+          <ScalarProperty Name="ProtectorCount" ColumnName="ProtectorCount" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectOptionProtectorValues">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectOptionProtectorValue">
+        <MappingFragment StoreEntitySet="CatalogSubjectOptionProtectorValue">
+          <ScalarProperty Name="CSOProtectorvalueID" ColumnName="CSOProtectorvalueID" />
+          <ScalarProperty Name="CSOValueID" ColumnName="CSOValueID" />
+          <ScalarProperty Name="CSOProtectorID" ColumnName="CSOProtectorID" />
+          <ScalarProperty Name="CSOProtectorValue" ColumnName="CSOProtectorValue" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updateddate" ColumnName="Updateddate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectOptions">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectOption">
+        <MappingFragment StoreEntitySet="CatalogSubjectOptions">
+          <ScalarProperty Name="CatalogSubjectOptionID" ColumnName="CatalogSubjectOptionID" />
+          <ScalarProperty Name="CatalogSubjectID" ColumnName="CatalogSubjectID" />
+          <ScalarProperty Name="CatalogSubjectOption1" ColumnName="CatalogSubjectOption" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ColumnType" ColumnName="ColumnType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectoptionShelfReadies">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectoptionShelfReady">
+        <MappingFragment StoreEntitySet="CatalogSubjectoptionShelfReady">
+          <ScalarProperty Name="CSOShelfReadyID" ColumnName="CSOShelfReadyID" />
+          <ScalarProperty Name="CSOID" ColumnName="CSOID" />
+          <ScalarProperty Name="ShelfReadyCount" ColumnName="ShelfReadyCount" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectOptionShelfReadyValues">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectOptionShelfReadyValue">
+        <MappingFragment StoreEntitySet="CatalogSubjectOptionShelfReadyValue">
+          <ScalarProperty Name="CSOShelfReadyvalueID" ColumnName="CSOShelfReadyvalueID" />
+          <ScalarProperty Name="CSOValueID" ColumnName="CSOValueID" />
+          <ScalarProperty Name="CSOShelfReadyID" ColumnName="CSOShelfReadyID" />
+          <ScalarProperty Name="CSOShelfReadyValue" ColumnName="CSOShelfReadyValue" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updateddate" ColumnName="Updateddate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatalogSubjectOptionValues">
+      <EntityTypeMapping TypeName="PenworthyModel.CatalogSubjectOptionValue">
+        <MappingFragment StoreEntitySet="CatalogSubjectOptionValues">
+          <ScalarProperty Name="CatalogSubjectOptionValueID" ColumnName="CatalogSubjectOptionValueID" />
+          <ScalarProperty Name="CatalogSubjectOptionID" ColumnName="CatalogSubjectOptionID" />
+          <ScalarProperty Name="CatalogSubjectOptionValue1" ColumnName="CatalogSubjectOptionValue" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CollectionsDisplayPages">
+      <EntityTypeMapping TypeName="PenworthyModel.CollectionsDisplayPage">
+        <MappingFragment StoreEntitySet="CollectionsDisplayPage">
+          <ScalarProperty Name="PageToDisplayID" ColumnName="PageToDisplayID" />
+          <ScalarProperty Name="PageToDisplayCode" ColumnName="PageToDisplayCode" />
+          <ScalarProperty Name="PageToDisplayName" ColumnName="PageToDisplayName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="PenworthyModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="CustomerNO" ColumnName="CustomerNO" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
+          <ScalarProperty Name="DivisionNo" ColumnName="DivisionNo" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comp_PORequirements" ColumnName="Comp_PORequirements" />
+          <ScalarProperty Name="AgingCategories2" ColumnName="AgingCategories2" />
+          <ScalarProperty Name="AgingCategories3" ColumnName="AgingCategories3" />
+          <ScalarProperty Name="AgingCategories4" ColumnName="AgingCategories4" />
+          <ScalarProperty Name="Comp_stickratecy" ColumnName="Comp_stickratecy" />
+          <ScalarProperty Name="Comp_stickratepy" ColumnName="Comp_stickratepy" />
+          <ScalarProperty Name="TaxScheduleID" ColumnName="TaxScheduleID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerAddresses">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerAddress">
+        <MappingFragment StoreEntitySet="CustomerAddress">
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
+          <ScalarProperty Name="TelephoneExt" ColumnName="TelephoneExt" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerCatalogInformations">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerCatalogInformation">
+        <MappingFragment StoreEntitySet="CustomerCatalogInformation">
+          <ScalarProperty Name="CustomerCatID" ColumnName="CustomerCatID" />
+          <ScalarProperty Name="CatalogSubjectOptionValueID" ColumnName="CatalogSubjectOptionValueID" />
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerCatalogProtectorInformations">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerCatalogProtectorInformation">
+        <MappingFragment StoreEntitySet="CustomerCatalogProtectorInformation">
+          <ScalarProperty Name="CCProtectorInformationID" ColumnName="CCProtectorInformationID" />
+          <ScalarProperty Name="CCatID" ColumnName="CCatID" />
+          <ScalarProperty Name="CCProtectorValueID" ColumnName="CCProtectorValueID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerCatalogShelfReadyInformations">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerCatalogShelfReadyInformation">
+        <MappingFragment StoreEntitySet="CustomerCatalogShelfReadyInformation">
+          <ScalarProperty Name="CCShelfReadyInformationID" ColumnName="CCShelfReadyInformationID" />
+          <ScalarProperty Name="CCatID" ColumnName="CCatID" />
+          <ScalarProperty Name="CCShelfReadyValueID" ColumnName="CCShelfReadyValueID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerReps">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerRep">
+        <MappingFragment StoreEntitySet="CustomerRep">
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="RepUserID" ColumnName="RepUserID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerRepAssignments">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerRepAssignment">
+        <MappingFragment StoreEntitySet="CustomerRepAssignment">
+          <ScalarProperty Name="CustomerRepAssignmentID" ColumnName="CustomerRepAssignmentID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="RepID" ColumnName="RepID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerSeriesCharacters">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerSeriesCharacter">
+        <MappingFragment StoreEntitySet="CustomerSeriesCharacter">
+          <ScalarProperty Name="CustomerSCID" ColumnName="CustomerSCID" />
+          <ScalarProperty Name="CusAutoID" ColumnName="CusAutoID" />
+          <ScalarProperty Name="SCID" ColumnName="SCID" />
+          <ScalarProperty Name="SCType" ColumnName="SCType" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerShipToAddresses">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerShipToAddress">
+        <MappingFragment StoreEntitySet="CustomerShipToAddress">
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="ShipToCode" ColumnName="ShipToCode" />
+          <ScalarProperty Name="ShipToName" ColumnName="ShipToName" />
+          <ScalarProperty Name="ShipToAddress1" ColumnName="ShipToAddress1" />
+          <ScalarProperty Name="ShipToAddress2" ColumnName="ShipToAddress2" />
+          <ScalarProperty Name="ShipToAddress3" ColumnName="ShipToAddress3" />
+          <ScalarProperty Name="ShipToCity" ColumnName="ShipToCity" />
+          <ScalarProperty Name="ShipToState" ColumnName="ShipToState" />
+          <ScalarProperty Name="ShipToZipCode" ColumnName="ShipToZipCode" />
+          <ScalarProperty Name="ShipToCountryCode" ColumnName="ShipToCountryCode" />
+          <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
+          <ScalarProperty Name="TelephoneExt" ColumnName="TelephoneExt" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerTags">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerTag">
+        <MappingFragment StoreEntitySet="CustomerTag">
+          <ScalarProperty Name="CustomerTagID" ColumnName="CustomerTagID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="TageID" ColumnName="TageID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerTitles">
+      <EntityTypeMapping TypeName="PenworthyModel.CustomerTitle">
+        <MappingFragment StoreEntitySet="CustomerTitles">
+          <ScalarProperty Name="CustomerTitleID" ColumnName="CustomerTitleID" />
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DWSelectionStatus">
+      <EntityTypeMapping TypeName="PenworthyModel.DWSelectionStatu">
+        <MappingFragment StoreEntitySet="DWSelectionStatus">
+          <ScalarProperty Name="DWSelectionID" ColumnName="DWSelectionID" />
+          <ScalarProperty Name="DWSelectionText" ColumnName="DWSelectionText" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ELMAH_Error">
+      <EntityTypeMapping TypeName="PenworthyModel.ELMAH_Error">
+        <MappingFragment StoreEntitySet="ELMAH_Error">
+          <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+          <ScalarProperty Name="Application" ColumnName="Application" />
+          <ScalarProperty Name="Host" ColumnName="Host" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="TimeUtc" ColumnName="TimeUtc" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          <ScalarProperty Name="AllXml" ColumnName="AllXml" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FAQs">
+      <EntityTypeMapping TypeName="PenworthyModel.FAQ">
+        <MappingFragment StoreEntitySet="FAQ">
+          <ScalarProperty Name="FAQId" ColumnName="FAQId" />
+          <ScalarProperty Name="FAQQuestion" ColumnName="FAQQuestion" />
+          <ScalarProperty Name="FAQCategoryID" ColumnName="FAQCategoryID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpadatedDate" ColumnName="UpadatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FAQCategories">
+      <EntityTypeMapping TypeName="PenworthyModel.FAQCategory">
+        <MappingFragment StoreEntitySet="FAQCategories">
+          <ScalarProperty Name="FAQCategoryID" ColumnName="FAQCategoryID" />
+          <ScalarProperty Name="Categories" ColumnName="Categories" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FAQDetails">
+      <EntityTypeMapping TypeName="PenworthyModel.FAQDetail">
+        <MappingFragment StoreEntitySet="FAQDetails">
+          <ScalarProperty Name="FAQDetailsID" ColumnName="FAQDetailsID" />
+          <ScalarProperty Name="FAQId" ColumnName="FAQId" />
+          <ScalarProperty Name="FAQDetailedText" ColumnName="FAQDetailedText" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="PenworthyModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+          <ScalarProperty Name="PageToDisplay" ColumnName="PageToDisplay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupPackages">
+      <EntityTypeMapping TypeName="PenworthyModel.GroupPackage">
+        <MappingFragment StoreEntitySet="GroupPackage">
+          <ScalarProperty Name="GroupPackageID" ColumnName="GroupPackageID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupPackageItems">
+      <EntityTypeMapping TypeName="PenworthyModel.GroupPackageItem">
+        <MappingFragment StoreEntitySet="GroupPackageItem">
+          <ScalarProperty Name="GroupPackageItemID" ColumnName="GroupPackageItemID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="PackageSubID" ColumnName="PackageSubID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceHistories">
+      <EntityTypeMapping TypeName="PenworthyModel.InvoiceHistory">
+        <MappingFragment StoreEntitySet="InvoiceHistory">
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+          <ScalarProperty Name="QuoteId" ColumnName="QuoteId" />
+          <ScalarProperty Name="CustomerPurchaseOrderNo" ColumnName="CustomerPurchaseOrderNo" />
+          <ScalarProperty Name="CustAutoId" ColumnName="CustAutoId" />
+          <ScalarProperty Name="TermsCode" ColumnName="TermsCode" />
+          <ScalarProperty Name="ShipVia" ColumnName="ShipVia" />
+          <ScalarProperty Name="ShipTo" ColumnName="ShipTo" />
+          <ScalarProperty Name="FederalId" ColumnName="FederalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="PenworthyModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
+          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Previewable" ColumnName="Previewable" />
+          <ScalarProperty Name="SetProfile" ColumnName="SetProfile" />
+          <ScalarProperty Name="SetName" ColumnName="SetName" />
+          <ScalarProperty Name="Copyright" ColumnName="Copyright" />
+          <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="Illustrator" ColumnName="Illustrator" />
+          <ScalarProperty Name="Classification" ColumnName="Classification" />
+          <ScalarProperty Name="Format" ColumnName="Format" />
+          <ScalarProperty Name="InterestGrade" ColumnName="InterestGrade" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="ReviewSource" ColumnName="ReviewSource" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="OnListDate" ColumnName="OnListDate" />
+          <ScalarProperty Name="Pages" ColumnName="Pages" />
+          <ScalarProperty Name="ARLevel" ColumnName="ARLevel" />
+          <ScalarProperty Name="ARQuiz" ColumnName="ARQuiz" />
+          <ScalarProperty Name="LJ" ColumnName="LJ" />
+          <ScalarProperty Name="Horn" ColumnName="Horn" />
+          <ScalarProperty Name="SLJ" ColumnName="SLJ" />
+          <ScalarProperty Name="PW" ColumnName="PW" />
+          <ScalarProperty Name="Kirkus" ColumnName="Kirkus" />
+          <ScalarProperty Name="Booklst" ColumnName="Booklst" />
+          <ScalarProperty Name="Dewery" ColumnName="Dewery" />
+          <ScalarProperty Name="RCLevel" ColumnName="RCLevel" />
+          <ScalarProperty Name="RCQuiz" ColumnName="RCQuiz" />
+          <ScalarProperty Name="Lexile" ColumnName="Lexile" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Series" ColumnName="Series" />
+          <ScalarProperty Name="PrimeryCharacter" ColumnName="PrimeryCharacter" />
+          <ScalarProperty Name="SecondaryCharacter" ColumnName="SecondaryCharacter" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="SellingPoint1" ColumnName="SellingPoint1" />
+          <ScalarProperty Name="SellingPoint2" ColumnName="SellingPoint2" />
+          <ScalarProperty Name="SellingPoint3" ColumnName="SellingPoint3" />
+          <ScalarProperty Name="Package1" ColumnName="Package1" />
+          <ScalarProperty Name="Package2" ColumnName="Package2" />
+          <ScalarProperty Name="Package3" ColumnName="Package3" />
+          <ScalarProperty Name="Package4" ColumnName="Package4" />
+          <ScalarProperty Name="Package5" ColumnName="Package5" />
+          <ScalarProperty Name="Package6" ColumnName="Package6" />
+          <ScalarProperty Name="Package7" ColumnName="Package7" />
+          <ScalarProperty Name="Package8" ColumnName="Package8" />
+          <ScalarProperty Name="Package9" ColumnName="Package9" />
+          <ScalarProperty Name="Package10" ColumnName="Package10" />
+          <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="OffListDate" ColumnName="OffListDate" />
+          <ScalarProperty Name="OnhandQty" ColumnName="OnhandQty" />
+          <ScalarProperty Name="SetID" ColumnName="SetID" />
+          <ScalarProperty Name="SetOnly" ColumnName="SetOnly" />
+          <ScalarProperty Name="ItemHistoryID" ColumnName="ItemHistoryID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemHistories">
+      <EntityTypeMapping TypeName="PenworthyModel.ItemHistory">
+        <MappingFragment StoreEntitySet="ItemHistory">
+          <ScalarProperty Name="ItemHistoryID" ColumnName="ItemHistoryID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemTags">
+      <EntityTypeMapping TypeName="PenworthyModel.ItemTag">
+        <MappingFragment StoreEntitySet="ItemTag">
+          <ScalarProperty Name="ItemTagID" ColumnName="ItemTagID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Updatedate" ColumnName="Updatedate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailHistories">
+      <EntityTypeMapping TypeName="PenworthyModel.MailHistory">
+        <MappingFragment StoreEntitySet="MailHistory">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+          <ScalarProperty Name="To" ColumnName="To" />
+          <ScalarProperty Name="CC" ColumnName="CC" />
+          <ScalarProperty Name="BCC" ColumnName="BCC" />
+          <ScalarProperty Name="MailBody" ColumnName="MailBody" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="quoteId" ColumnName="quoteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="PenworthyModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderedQty" ColumnName="OrderedQty" />
+          <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+          <ScalarProperty Name="OnHandQty" ColumnName="OnHandQty" />
+          <ScalarProperty Name="CommittedQty" ColumnName="CommittedQty" />
+          <ScalarProperty Name="SoldQty" ColumnName="SoldQty" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Packages">
+      <EntityTypeMapping TypeName="PenworthyModel.Package">
+        <MappingFragment StoreEntitySet="Package">
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageSubPackages">
+      <EntityTypeMapping TypeName="PenworthyModel.PackageSubPackage">
+        <MappingFragment StoreEntitySet="PackageSubPackage">
+          <ScalarProperty Name="PackageSubID" ColumnName="PackageSubID" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+          <ScalarProperty Name="SubPackageID" ColumnName="SubPackageID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Publishers">
+      <EntityTypeMapping TypeName="PenworthyModel.Publisher">
+        <MappingFragment StoreEntitySet="Publisher">
+          <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
+          <ScalarProperty Name="PublisherName" ColumnName="PublisherName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quotes">
+      <EntityTypeMapping TypeName="PenworthyModel.Quote">
+        <MappingFragment StoreEntitySet="Quote">
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="QuoteTitle" ColumnName="QuoteTitle" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="QuoteTypeID" ColumnName="QuoteTypeID" />
+          <ScalarProperty Name="IncludeCatalogStatus" ColumnName="IncludeCatalogStatus" />
+          <ScalarProperty Name="PenworthyUpdatedDate" ColumnName="PenworthyUpdatedDate" />
+          <ScalarProperty Name="CustomerUpdatedDate" ColumnName="CustomerUpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuoteCallTags">
+      <EntityTypeMapping TypeName="PenworthyModel.QuoteCallTag">
+        <MappingFragment StoreEntitySet="QuoteCallTag">
+          <ScalarProperty Name="QuoteCalTagInfoID" ColumnName="QuoteCalTagInfoID" />
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="CalTagInfoID" ColumnName="CalTagInfoID" />
+          <ScalarProperty Name="CalTagInfoValue" ColumnName="CalTagInfoValue" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuoteDetails">
+      <EntityTypeMapping TypeName="PenworthyModel.QuoteDetail">
+        <MappingFragment StoreEntitySet="QuoteDetail">
+          <ScalarProperty Name="QuoteDetailID" ColumnName="QuoteDetailID" />
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="DWSelectionID" ColumnName="DWSelectionID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuoteSubmitSaveInfoes">
+      <EntityTypeMapping TypeName="PenworthyModel.QuoteSubmitSaveInfo">
+        <MappingFragment StoreEntitySet="QuoteSubmitSaveInfo">
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="SourceTypeID" ColumnName="SourceTypeID" />
+          <ScalarProperty Name="QuoteTypeID" ColumnName="QuoteTypeID" />
+          <ScalarProperty Name="InvoiceRecipientID" ColumnName="InvoiceRecipientID" />
+          <ScalarProperty Name="PoNo" ColumnName="PoNo" />
+          <ScalarProperty Name="FutureBillDate" ColumnName="FutureBillDate" />
+          <ScalarProperty Name="QuoteSubmitComments" ColumnName="QuoteSubmitComments" />
+          <ScalarProperty Name="QuoteBillReference" ColumnName="QuoteBillReference" />
+          <ScalarProperty Name="PayerID" ColumnName="PayerID" />
+          <ScalarProperty Name="ShipItemsToID" ColumnName="ShipItemsToID" />
+          <ScalarProperty Name="AdditionalInvoiceRecipientId" ColumnName="AdditionalInvoiceRecipientId" />
+          <ScalarProperty Name="DBPrice" ColumnName="DBPrice" />
+          <ScalarProperty Name="IsRepoHold" ColumnName="IsRepoHold" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuoteTypes">
+      <EntityTypeMapping TypeName="PenworthyModel.QuoteType">
+        <MappingFragment StoreEntitySet="QuoteType">
+          <ScalarProperty Name="QuoteTypeID" ColumnName="QuoteTypeID" />
+          <ScalarProperty Name="QuoteTypeText" ColumnName="QuoteTypeText" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RepUsers">
+      <EntityTypeMapping TypeName="PenworthyModel.RepUser">
+        <MappingFragment StoreEntitySet="RepUser">
+          <ScalarProperty Name="RepUserID" ColumnName="RepUserID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RepID" ColumnName="RepID" />
+          <ScalarProperty Name="ARDivision" ColumnName="ARDivision" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SalesCoordinator" ColumnName="SalesCoordinator" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PhoneCustomerService" ColumnName="PhoneCustomerService" />
+          <ScalarProperty Name="PhoneDirect" ColumnName="PhoneDirect" />
+          <ScalarProperty Name="Biodata" ColumnName="Biodata" />
+          <ScalarProperty Name="AuditFlag" ColumnName="AuditFlag" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeriesAndCharacters">
+      <EntityTypeMapping TypeName="PenworthyModel.SeriesAndCharacter">
+        <MappingFragment StoreEntitySet="SeriesAndCharacter">
+          <ScalarProperty Name="SCID" ColumnName="SCID" />
+          <ScalarProperty Name="SCText" ColumnName="SCText" />
+          <ScalarProperty Name="SCType" ColumnName="SCType" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SourceTypes">
+      <EntityTypeMapping TypeName="PenworthyModel.SourceType">
+        <MappingFragment StoreEntitySet="SourceType">
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="PenworthyModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="StatusFlag" ColumnName="StatusFlag" />
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="PenworthyModel.Tag">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="TagTypeID" ColumnName="TagTypeID" />
+          <ScalarProperty Name="TagName" ColumnName="TagName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagTypes">
+      <EntityTypeMapping TypeName="PenworthyModel.TagType">
+        <MappingFragment StoreEntitySet="TagType">
+          <ScalarProperty Name="TagTypeID" ColumnName="TagTypeID" />
+          <ScalarProperty Name="TagTypeName" ColumnName="TagTypeName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaxSchedules">
+      <EntityTypeMapping TypeName="PenworthyModel.TaxSchedule">
+        <MappingFragment StoreEntitySet="TaxSchedule">
+          <ScalarProperty Name="TaxScheduleID" ColumnName="TaxScheduleID" />
+          <ScalarProperty Name="TaxRate" ColumnName="TaxRate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PenworthyModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CommunicationEmail" ColumnName="CommunicationEmail" />
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="IsPrimaryUser" ColumnName="IsPrimaryUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPreferences">
+      <EntityTypeMapping TypeName="PenworthyModel.UserPreference">
+        <MappingFragment StoreEntitySet="UserPreferences">
+          <ScalarProperty Name="UserPreferenceID" ColumnName="UserPreferenceID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PreferredType" ColumnName="PreferredType" />
+          <ScalarProperty Name="Preferred" ColumnName="Preferred" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Membership">
+      <EntityTypeMapping TypeName="PenworthyModel.webpages_Membership">
+        <MappingFragment StoreEntitySet="webpages_Membership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_OAuthMembership">
+      <EntityTypeMapping TypeName="PenworthyModel.webpages_OAuthMembership">
+        <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Roles">
+      <EntityTypeMapping TypeName="PenworthyModel.webpages_Roles">
+        <MappingFragment StoreEntitySet="webpages_Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDWstats">
+      <EntityTypeMapping TypeName="PenworthyModel.vDWstat">
+        <MappingFragment StoreEntitySet="vDWstats">
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="DivisionNo" ColumnName="DivisionNo" />
+          <ScalarProperty Name="CustomerNO" ColumnName="CustomerNO" />
+          <ScalarProperty Name="QuoteTitle" ColumnName="QuoteTitle" />
+          <ScalarProperty Name="PenworthyUpdatedDate" ColumnName="PenworthyUpdatedDate" />
+          <ScalarProperty Name="CustomerUpdatedDate" ColumnName="CustomerUpdatedDate" />
+          <ScalarProperty Name="DaysSinceRepUpd" ColumnName="DaysSinceRepUpd" />
+          <ScalarProperty Name="DaysSinceCustUpd" ColumnName="DaysSinceCustUpd" />
+          <ScalarProperty Name="Yes" ColumnName="Yes" />
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="Maybe" ColumnName="Maybe" />
+          <ScalarProperty Name="New" ColumnName="New" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vQuotes">
+      <EntityTypeMapping TypeName="PenworthyModel.vQuote">
+        <MappingFragment StoreEntitySet="vQuotes">
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="QuoteTitle" ColumnName="QuoteTitle" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="QuoteTypeID" ColumnName="QuoteTypeID" />
+          <ScalarProperty Name="IncludeCatalogStatus" ColumnName="IncludeCatalogStatus" />
+          <ScalarProperty Name="PenworthyUpdatedDate" ColumnName="PenworthyUpdatedDate" />
+          <ScalarProperty Name="CustomerUpdatedDate" ColumnName="CustomerUpdatedDate" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="CustomerNO" ColumnName="CustomerNO" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="DivisionNo" ColumnName="DivisionNo" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="PenworthyModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+      <EndProperty Name="webpages_Roles">
+        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="ELMAH_GetErrorsXml" FunctionName="PenworthyModel.Store.ELMAH_GetErrorsXml" />
+    <FunctionImportMapping FunctionImportName="ELMAH_GetErrorXml" FunctionName="PenworthyModel.Store.ELMAH_GetErrorXml" />
+    <FunctionImportMapping FunctionImportName="ELMAH_LogError" FunctionName="PenworthyModel.Store.ELMAH_LogError" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateCustomerRelated" FunctionName="PenworthyModel.Store.SP_InsertUpdateCustomerRelated" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateCustomerUsersData" FunctionName="PenworthyModel.Store.SP_InsertUpdateCustomerUsersData" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdatePrimaryUser" FunctionName="PenworthyModel.Store.SP_InsertUpdatePrimaryUser" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateQuote" FunctionName="PenworthyModel.Store.SP_InsertUpdateQuote" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateRepUsers" FunctionName="PenworthyModel.Store.SP_InsertUpdateRepUsers" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateRepUsersData" FunctionName="PenworthyModel.Store.SP_InsertUpdateRepUsersData" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateUserCustomersRelated" FunctionName="PenworthyModel.Store.SP_InsertUpdateUserCustomersRelated" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateUserRepRelated" FunctionName="PenworthyModel.Store.SP_InsertUpdateUserRepRelated" />
+    <FunctionImportMapping FunctionImportName="SP_InsertUpdateUsers" FunctionName="PenworthyModel.Store.SP_InsertUpdateUsers" />
+    <FunctionImportMapping FunctionImportName="SP_UpdateCustomerPORequirementByCustAutoId" FunctionName="PenworthyModel.Store.SP_UpdateCustomerPORequirementByCustAutoId" />
+    <FunctionImportMapping FunctionImportName="spgetCustomers" FunctionName="PenworthyModel.Store.spgetCustomers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PenworthyModel.spgetCustomers_Result">
+          <ScalarProperty Name="CustAutoID" ColumnName="CustAutoID" />
+          <ScalarProperty Name="CustomerNO" ColumnName="CustomerNO" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
+          <ScalarProperty Name="DivisionNo" ColumnName="DivisionNo" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Comp_PORequirements" ColumnName="Comp_PORequirements" />
+          <ScalarProperty Name="AgingCategories2" ColumnName="AgingCategories2" />
+          <ScalarProperty Name="AgingCategories3" ColumnName="AgingCategories3" />
+          <ScalarProperty Name="AgingCategories4" ColumnName="AgingCategories4" />
+          <ScalarProperty Name="Comp_stickratecy" ColumnName="Comp_stickratecy" />
+          <ScalarProperty Name="Comp_stickratepy" ColumnName="Comp_stickratepy" />
+          <ScalarProperty Name="TaxScheduleID" ColumnName="TaxScheduleID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

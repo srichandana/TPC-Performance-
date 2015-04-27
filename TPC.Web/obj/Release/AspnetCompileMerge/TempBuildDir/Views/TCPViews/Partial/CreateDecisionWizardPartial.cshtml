@@ -1,0 +1,149 @@
+﻿@model TPC.Core.Models.ViewModels.CreateDecisionWizardViewModel
+@{
+    DateTime dateNow = DateTime.Now;
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#QuoteTypes").width(183);
+        $('#txtDWNameText').focus(function () {
+            $('#txtDWNameText').removeClass('redBorder');
+        });
+        $('#btnSubmitDW').unbind().on('click', function () {
+            var DWName = $('#txtDWNameText').val();
+            var CustomerUserID = $('#lstCustomers').val();
+            if ($.trim(DWName) != '' && $.trim(DWName).toLowerCase() != 'penworthy') {
+                $.ajax({
+                    url: "@Url.Content("~/ActiveQuote/CreateDW")",
+                    type: "POST",
+                    data: { dwName: DWName, customerID: CustomerUserID },
+                    datatype: 'html',
+                    success: function (data) {
+                        $(".tblDW").each(function (j) {
+                            if (this.title == CustomerUserID) {
+                                var tblcount = $(this).find(' tbody tr').length;
+                                if (tblcount == "1") {
+                                    $(this).find('tbody').find('tr:first-child').find('td:last').find('#DW').attr('href', "#Delete-dialog");
+                                }
+                                $('.tabledw-' + j).each(function () {
+
+                                    $(this).find('tbody').find('tr').find('td').find('#assignDWChkBx').attr('checked', false)//.each(function () {
+                                });
+
+                                var $trow = $(this).find('tbody tr:last').clone();
+                                $trow.find('td').each(function (i) {
+                                    if (this.id == "dwchkInfo") {
+                                        $(this).children('input[type=checkbox]').attr('data-quoteid', data["QuoteID"]);
+                                        $(this).children('input[type=checkbox]').attr('data-QuoteTypeText', data["QuoteText"]);
+                                        $(this).children('input[type=checkbox]').attr('value', (data["QuoteID"] + '%' + $("#hdnDecisionWizardliText").val() + "%0%$0"));
+                                        $(this).children('input[type=checkbox]').attr('checked', 'checked');
+                                    }
+                                    else if (this.id == "dwcreateDate") {
+                                        $(this).text('@dateNow.ToString("g")');
+                                    }
+                                    else if (this.id == "dwUpdatedate") {
+                                        $(this).text('@dateNow.ToString("g")');
+                                    }
+                                    else if (this.id == "dwname") {
+                                        $(this).text(data["QuoteText"]);
+                                    }
+                                    else
+                                        if (this.id == "dwDialog") {
+                                            if ($(this).children('a').children('i').hasClass("fg-orange")) {
+                                                $(this).children('a').children('i').removeClass("fg-orange").addClass('fg-red');
+                                                $(this).children('a').attr('data-dwname',DWName);
+                                            }
+                                            $(this).children('a').attr('data-quoteid', data["QuoteID"]);
+                                            $(this).children('a').attr('data-id', j);
+                                        }
+                                        else {
+                                            $(this).text("0");
+                                        }
+
+                                });
+                                var trow1 = "<tr id='dw-" + data["QuoteID"] + "'>" + $trow.html() + "</tr>";
+                                $("#tblDW-" + j + ' tbody:last').append(trow1);
+                            }
+                        });
+                        $('.popup-with-zoom-anim').magnificPopup({
+                            type: 'inline',
+                            fixedContentPos: false,
+                            fixedBgPos: true,
+                            overflowY: 'auto',
+                            closeBtnInside: true,
+                            preloader: false,
+                            midClick: true,
+                            removalDelay: 300,
+                            mainClass: 'my-mfp-zoom-in',
+                        });
+                        $('.tablesorter').trigger('update');
+                    }
+                });
+                $.magnificPopup.close();
+            }
+            else {
+                $('#txtDWNameText').addClass('redBorder');
+                $('#txtDWNameText').attr('placeholder', 'Enter Decision Wizard Name');
+                $('#txtDWNameText').val('');
+            }
+        });
+    });
+</script>
+
+
+<h3 class="center button-bg" style="color: white;">Create Decision Wizard</h3>
+
+<div id="CreateQuotePartial" class="span5 padding5 contentText">
+    <div id="CreateQuoteType">
+        <div class="place-left span5 ">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm div-contentheight">
+                @Html.Label(@Resources.TCPResources.DWNameText)
+            </div>
+
+            <div class="place-left span2 div-contentheight">
+                @Html.TextBox("txtDWNameText", "", new { @class = "span3" })
+            </div>
+
+        </div>
+        <div class="place-left span5 div-MainHeight5" />
+        <div class="place-left span5">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm  div-contentheight">
+                @Html.LabelFor(e => e.lstCustomers)
+            </div>
+
+            <div class="place-left span2  div-contentheight">
+                @Html.DropDownListFor(e => e.lstCustomers, new SelectList(Model.lstCustomers, "ItemID", "ItemValue"), new { @class = "span3" })
+            </div>
+
+        </div>
+        <div class="place-left span5 div-MainHeight5" />
+        <div class="place-left span5 ">
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span100 margin15 ntm nbm div-contentheight">
+            </div>
+
+            <div class="place-right span2 div-contentheight"  style="padding-right:20px;">
+                <a id="btnSubmitDW" class="button place-right" href="#">Submit</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>

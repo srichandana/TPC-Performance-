@@ -1,0 +1,20 @@
+﻿@model TPC.Core.Models.Models.CategoryItemGroupModel
+@using TPC.Core.Models.Models;
+@{
+    ViewBag.Title = Resources.TCPResources.UpdateCollectionText;
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+}
+<input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+<div id="Collection" class="border span5 place-left place-left">
+     @Html.Partial("../TCPViews/Partial/UpdateCollectionPartial",Model.lstFilterModel)
+</div>
+
+
+
+}
+<div id="UpdateSelectedCollection" class="border span575 place-left text-center place-left" style="">
+    @Html.Partial("../TCPViews/Partial/UpdateExistingCollectionPartial",new FilterModel())
+</div>
+@*<div class="border span575 place-left text-right place-left" style="height:500px;">
+    
+</div>*@

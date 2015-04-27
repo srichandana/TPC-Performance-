@@ -1,0 +1,542 @@
+﻿@{
+    ViewBag.Title = "ShoppingCart";
+    string imagePath = ConfigurationManager.AppSettings["ImagesH135"];
+    string orderDisableMode = Model != null ? Model.CartListView.Where(e => e.Type != "Catalog").Count() > 0 ? "" : "disabled" : "disabled";
+    string pointernone = Model != null ? Model.CartListView.Where(e => e.Type != "Catalog").Count() > 0 ? "" : "div-disable" : "div-disable";
+    double totalPrice = 0;
+    double taxtPrice = 0;
+    string statusenumD = Convert.ToString((char)ItemStatusEnum.OnListButNotPreViewable);
+    string statusenumB = Convert.ToString((char)ItemStatusEnum.OnListAndPreViewable);
+}
+@model  TPC.Core.Models.ShoppingCartViewModel
+@using TPC.Common.Enumerations;
+@using TPC.Core.Models.ViewModels;
+@using System.Configuration;
+
+<div id="divHiddenFields" class="hide">
+    @Html.Hidden("hdnQuoteID", Model.QuoteID)
+    @Html.Hidden("hdnQuoteTypeID", Model.QuoteTypeID)
+    @Html.Hidden("hdnTotalPrice", String.Format("{0:c}", (@Model.CartListView != null && @Model.CartListView.Count() != 0) ? @Model.IncludeCatalogStatus == true ? @Model.CartListView.Sum(e => e.Price) : @Model.CartListView.Where(e => !e.Type.Contains("Catalog")).Sum(e => e.Price) : 0))
+    @Html.Hidden("hdnTotalItems", @Model.CartListView != null && @Model.CartListView.Count() != 0 ? Model.CartListView.Where(e => (e.ItemStatus == statusenumB || e.ItemStatus == statusenumD )&& e.Type !="Catalog").Select(e => e.Title).Count() : 0)
+    @Html.Hidden("hdnIncludeCatalogStatus", Model.IncludeCatalogStatus)
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="shoppingcart" class="body-text span12">
+    @if (Roles.IsUserInRole("CustomerShipTo"))
+    {
+        <div class="place-left div-MainHeight20 padding10 nlp nrp margin20 nlm nrm nbm">
+            <b>@Resources.TCPResources.CatalogInfoText :&nbsp;</b>
+        </div>
+        <div class="place-left div-MainHeight20 padding10 nlp nrp  margin20 nlm nrm nbm">
+            <a href="@Url.Action("ViewCatalogInfo", "CatalogInfo", new { custAutoID = @Model.UserVM.CRMModelProperties.CustAutoID, quoteid = Model.QuoteID })">@ViewBag.CatalogStatus</a>
+        </div> 
+    }
+    <div class="place-right padding10 nlp nrp  margin20 nlm nrm nbm">
+        <div class="place-left  ">
+            <label class="place-left">Create File</label>
+        </div>
+        <div class="place-left  margin5 ntm nrm nbm">
+            <a href="@Url.Action("CartDWPdfGeneration", "ShoppingCart", new { cartDWID = Model.QuoteID })" title="" target="_blank"><i class="icon-file-pdf link"></i></a>
+            <label class="pos-abs letterSize7pt">PDF</label>
+        </div>
+        <div class="place-left margin5 ntm nrm nbm">
+             <a id="Excel" title="" href="@Url.Action("Export", "ShoppingCart", new { QuoteID = Model.QuoteID})"><i class="icon-file-excel  fg-green"></i></a>
+            <label class="pos-abs letterSize7pt">EXL</label>
+        </div>
+    </div>
+    <div class="place-left span12 text-right margin20 nlm nrm nbm">
+        <div class="place-left text-right span11">
+            <div class="place-left text-left span1">
+                #Titles
+            </div>
+            @*<div class="place-left div-contentheight divspanWidth1">
+            </div>*@
+            <div class="place-left">
+                :  <a id="lblTotalTitles"></a>
+            </div>
+            <div class="place-left span1">
+                #Books
+            </div>
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left">
+                :   <a id="lblTotalBooks"></a>
+            </div>
+            <div class="place-left text-right span1">
+                @Resources.TCPResources.PriceText
+            </div>
+            <div class="place-left div-contentheight divspanWidth1">
+            </div>
+            <div class="place-left span2 text-left">
+                :   <a id="lblTotalPrice"></a>
+            </div>
+            <div class="place-left text-right margin20 nlm ntm nbm">
+                @Html.CheckBox("ShowImages") <a>@Resources.TCPResources.ShowImages</a>
+            </div>
+            <div class="place-left text-right">
+                @Html.CheckBox(Resources.TCPResources.IncludeCatalogText, @Model.IncludeCatalogStatus, new { @class = "includeCatalog margin5 ntm nlm nbm" })<a href="@Url.Action("ViewCatalogInfo", "CatalogInfo", new { custAutoID = @Model.UserVM.CRMModelProperties.CustAutoID, quoteid = Model.QuoteID })">@Resources.TCPResources.IncludeCatalogText</a>
+            </div>
+
+            @*<a href="@Url.Action("CartDWPdfGeneration", "ShoppingCart", new { cartDWID = Model.QuoteID })" title="" target="_blank"><i class="icon-file-pdf link"></i></a>
+            <a id="Excel" title=""><i class="icon-file-excel  fg-green"></i></a>*@
+            <div class="place-right div104 text-center padding5 nlp nbp ntp margin-right22">
+
+                <a id="DecreaseAll" class="NumericUpDownBtns plusminusbtns ChangeAllQuantity contentText ItemPointer" title="AllNegative"><i class="icon-minus fg-blue"></i></a>
+                <input type="text" value=" All" disabled="disabled" class="NumericUpDownTxt" />
+                <a id="IncreaseAll" class="NumericUpDownBtns ChangeAllQuantity contentText ItemPointer" title="AllPositive"><i class="icon-plus fg-blue"></i></a>
+            </div>
+        </div>
+        <div class="place-left text-right padding2" style="width: 100px">
+            @{string deleteAllDisable = Model != null ? Model.CartListView.Where(e => e.Type != "Catalog").Count() > 0 ? " href=#Delete-dialog" : "" : "";}
+            <a id="DeleteAllItems" @deleteAllDisable class="text-left popup-with-zoom-anim confirmDialog" style="font-size:9pt" title="DeleteAll">@Resources.TCPResources.DeleteAllText</a>
+        </div>
+    </div>
+    <div id="tblHeader" class="hide">
+        <table>
+            <tr style="height: 80px">
+                <td></td>
+                <td></td>
+                <td>
+                    <img src="@ConfigurationManager.AppSettings["imgLogoPath"]/Images/excelpenworthylogo.jpg" />
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr style="height: 80px">
+                <td></td>
+                <td>Current Date: @string.Format("{0:d}", DateTime.Today)</td>
+
+                <td>219 N. Milwaukee St </td>
+                <td>Quote Number :   </td>
+                <td style="text-align: left">@Model.QuoteID </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>For Questions Contact:</td>
+
+                <td>Milwaukee, WI 53202 </td>
+                <td>Customer Number :</td>
+                <td style="text-align: left">@Model.UserVM.CRMModelProperties.CustNO</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Model.UserVM.CRMModelProperties.RepName</td>
+
+                <td>Phone 800-262-2665 
+                </td>
+                <td>Customer Name:</td>
+                <td>@Model.CustomerName</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Model.UserVM.CRMModelProperties.RepEmail</td>
+                <td>Fax: 414-287-4602                </td>
+                <td>Contact :</td>
+                <td>@Model.UserVM.CRMModelProperties.CustFirstName @Model.UserVM.CRMModelProperties.CustLastName</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>@*Phone:  @Model.UserVM.CRMModelProperties.RepPhoneCustSrvc,ext. @Model.UserVM.CRMModelProperties.RepPhoneDirect*@ </td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        </table>
+    </div>
+    <div id="divSCtable" class="place-left span12 ">
+        @if (@Model.CartListView != null)
+        {
+            <table id="grid" class="table striped hovered span12 tablesorter marginbottom0">
+                <thead class="gridfixedHeader">
+                    <tr>
+                        <th class="text-left">
+
+                            @Html.LabelFor(e => e.CartListView[0].Title)
+                        </th>
+                         <th class="text-left hide">
+
+                            @Html.LabelFor(e => e.CartListView[0].ItemId)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Series)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Author)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].ISBN)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].AR)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Lexile)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].ItemPrice)
+                        </th>
+                        <th class="text-left">
+                            @Html.LabelFor(e => e.CartListView[0].Quantity)
+                        </th>
+                        <th class="text-right" style="padding-right: 0px">
+                            @Html.LabelFor(e => e.CartListView[0].Price)
+                        </th>
+                       
+                        <th class="text-left">
+                            @Html.Label("Delete", new { @class = "DeleteHead" })
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="gridscrollContent">
+                    @foreach (TPC.Core.Models.CartViewModel Cvm in Model.CartListView.Where(e => e.Type != "Catalog" && (e.ItemStatus == statusenumB || e.ItemStatus == statusenumD)))
+                    {
+                        <tr id="-@Cvm.ItemId" data-catalog="@Cvm.IncludeCatalog" >
+                            <td class="text-left wrapword" id="Title">
+                                @if (@Cvm.Type != "Catalog")
+                                {
+                                    <div>
+                                        @*<img src="@Url.Content(ConfigurationManager.AppSettings["ImagesH135"] + Cvm.ISBN + ".jpg")" class="hide shadow margin10 nlm nrm ntm">*@
+                                        <img class="hide shadow margin10 nlm nrm ntm" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", Cvm.ISBN, imagePath, "\\", ".jpg")">
+                                    </div>
+                                    <div class="place-left ">
+                                        <a title="@Cvm.ItemId" class="popup-with-zoom-anim ItemDetailSeries lnht9" href="#small-dialog" >
+                                            @Cvm.Title</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div id="divTitle" class="place-left lnht9">
+                                        @Cvm.Title
+                                    </div>
+                                }
+                            </td>
+                            <td class="text-left wrapword hide" id="ItemID">
+                                <div class="lnht9">@Cvm.ItemId</div>
+                            </td>
+                            <td class="text-left wrapword" id="Series">
+                                <div class="lnht9">@Cvm.Series</div>
+                            </td>
+                            <td class="text-left wrapword lnht9" id="Author">
+                                <div class="lnht9">@Cvm.Author</div>
+                            </td>
+                            <td class="text-left" id="ISBN">
+                                @Cvm.ISBN &nbsp;
+                            </td>
+                            <td class="text-left" id="AR"  data-RC="@Cvm.RC">
+                                @Cvm.AR
+                            </td>
+                            <td class="text-left" id="Lexile">
+                                @Cvm.Lexile
+                            </td>
+                            <td class="text-right" id="ItemPrice">
+                                @String.Format("{0:C}", @Cvm.ItemPrice)
+                            </td>
+                           
+                            <td class="text-left" id="Quantity">
+                                <div class="place-right NumericUpDownStyle span87">
+                                    @{
+                                string strclassHide = Cvm.Type == "Catalog" ? "hide" : "";
+                                string textboxDisabled = Cvm.Type == "Catalog" ? "txtDisabled" : "";
+                                    }
+                                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                                        <a class="NumericUpDownBtns plusminusbtns ItemPointer @strclassHide" id="minus" data-ItemPrice="@Cvm.ItemPrice" title="@Cvm.ItemId" data-productline = "@Cvm.ProductLine.Trim()"><i class="icon-minus fg-blue"></i></a>
+                                    </div>
+                                    <div class="place-left" id="Quantity" data-title="@Cvm.Title">
+                                        @Html.TextBoxFor(e => Cvm.Quantity, new { id = @Cvm.ItemId, min = "1", max = "10", value = @Cvm.Quantity, step = "1", @class = "Quantity NumericUpDownTxt " + @textboxDisabled, @data_currentValue = @Cvm.Quantity ,@data_productline =@Cvm.ProductLine.Trim()})
+                                        @Html.HiddenFor(e => Cvm.ItemId, new { id = @Cvm.QuoteDetailID, value = @Cvm.ItemId })
+                                    </div>
+                                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                                        <a class="NumericUpDownBtns ItemPointer @strclassHide" id="plus" data-ItemPrice="@Cvm.ItemPrice" title="@Cvm.ItemId"><i class="icon-plus fg-blue"></i></a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-right" id="TtlPrice">
+                                <div id="@Cvm.ItemId" class="calculatePrice">
+                                    @String.Format("{0:C}", @Cvm.Price)
+                                </div>
+                            </td>
+
+                            <td class="text-center" id="Del">
+                                <a id="DeleteItem" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog @strclassHide"  data-Title="@Cvm.Title" title="@Cvm.ItemId">@Resources.TCPResources.DeleteText</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="gridfixedFooter">
+                    @foreach (TPC.Core.Models.CartViewModel Cvm in Model.CartListView.Where(e => e.Type == "Catalog" ))
+                    {
+                        if (@Cvm.Price != 0.0)
+                        {
+                        <tr id="-@Cvm.Type" data-catalog="@Cvm.IncludeCatalog" >
+                            <th class="text-left wrapword" id="Title">
+                                <div id="divTitle" class="place-left lnht9">
+                                    @Cvm.Title
+                                </div>
+                            </th>
+                            <th class="text-left hide" id="ItemID">
+                                <div class="lnht9">@Cvm.ItemId</div>
+                            </th>
+                            <th class="text-left " id="Series">
+                                <div class="lnht9">@Cvm.Series</div>
+                            </th>
+                            <th class="text-left  lnht9" id="Author">
+                                <div class="lnht9">@Cvm.Author</div>
+                            </th>
+                            <th class="text-left" id="ISBN">
+                                @Cvm.ISBN &nbsp;
+                            </th>
+                            <th class="text-left" id="AR">
+                                @Cvm.AR
+                            </th>
+                            <th class="text-left" id="Lexile">
+                                @Cvm.Lexile
+                            </th>
+                            <th class="text-left" id="ItemPrice" style="padding-right: 26px;">
+                                @String.Format("{0:C}", @Cvm.ItemPrice)
+                            </th>
+                            <th class="text-left" id="Quantity">
+                                <div class="place-right NumericUpDownStyle span87">
+                                    @{
+                            string strclassHide = Cvm.Type == "Catalog" ? "hide" : "";
+                            string textboxDisabled = Cvm.Type == "Catalog" ? "txtDisabled" : "";
+                                    }
+                                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                                    </div>
+                                    <div class="place-left marginLeft16" id="Quantity"  data-title="@Cvm.Title" data-productline ="@Cvm.ProductLine" data-LevelType ="@Cvm.LevelType">
+                                        @Html.TextBoxFor(e => Cvm.Quantity, new { id = @Cvm.Type, min = "1", max = "10", value = @Cvm.Quantity, step = "1", @class = "Quantity NumericUpDownTxt " + @textboxDisabled, @data_currentValue = @Cvm.Quantity })
+                                        @Html.HiddenFor(e => Cvm.ItemId, new { id = @Cvm.QuoteDetailID, value = @Cvm.ItemId })
+                                    </div>
+                                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="text-right" id="TtlPrice">
+                                <div id="@Cvm.Type" class="calculatePrice">
+                                    @String.Format("{0:C}", @Cvm.Price)
+                                </div>
+                            </th>
+
+                            <th class="text-center" id="Del">
+                                <a id="DeleteItem" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog @strclassHide"  data-Title="@Cvm.Title" title="@Cvm.ItemId"><i class="icon-minus fg-red"></i></a>
+                            </th>
+                        </tr>
+                        }
+                    }
+                    <tr>
+                        <th class="text-left" style="width: 280px">Sales Tax :
+                        </th>
+                         <th class="hide"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-left" style="padding-left: 75px;">
+                            @{
+                              
+                    totalPrice = Model.CartListView.Sum(e => e.Price);
+                    taxtPrice = 0;
+                    if (Model.SalesTax > 0)
+                    {
+                        taxtPrice = (totalPrice * (double)Model.SalesTax);
+                    }
+                            }
+                            <label id="SalesTax" data-tx="@Model.SalesTax">@String.Format("{0:c}", taxtPrice)</label>
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th class="text-left" style="width: 280px">Total Price :
+                        </th>
+                         <th class="hide"></th>
+                         <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-left" style="padding-left: 75px;">
+                            <label id="totalPrice">@String.Format("{0:c}", totalPrice + taxtPrice)</label>
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr><td colspan="11" class="hide place-left text-left" style="font-size:8pt;"> @Resources.TCPResources.ShipmentText</td></tr>
+                </tfoot>
+            </table>
+           
+        }
+        <table class="hide"><tbody> </tbody></table>
+    </div>
+    <table class="hide" id="tblrowclone" >
+        <tr id="" data-catalog="">
+            <td class="text-left wrapword" id="Title">
+
+                <div>
+                    <img class="hide shadow margin10 nlm nrm ntm" src="" />
+                </div>
+                <div class="place-left ">
+                    <a title="" class="popup-with-zoom-anim ItemDetailSeries lnht9" href="#small-dialog"></a>
+                </div>
+            </td>
+            <td class="text-left wrapword hide" id="ItemID"></td>
+            <td class="text-left wrapword" id="Series">
+                <div class="lnht9"></div>
+            </td>
+            <td class="text-left wrapword lnht9" id="Author">
+                <div class="lnht9"></div>
+            </td>
+            <td class="text-left" id="ISBN"></td>
+            <td class="text-left" id="AR"  data-RC=""></td>
+            <td class="text-left" id="Lexile"></td>
+            <td class="text-right" id="ItemPrice"></td>
+            <td class="text-left" id="Quantity">
+                <div class="place-right NumericUpDownStyle span87">
+                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                        <a class="NumericUpDownBtns plusminusbtns ItemPointer " id="minus" data-itemprice="" title=""><i class="icon-minus fg-blue"></i></a>
+                    </div>
+                    <div class="place-left" id="Quantity" data-title="">
+                        <input class="Quantity NumericUpDownTxt " data-currentvalue="1" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required." id="1" max="10" min="1" name="Cvm.Quantity" step="1" type="text" value="0" data-productline="">
+                        <input id="1" name="Cvm.ItemId" type="hidden" value="0">
+                        @* @Html.TextBox("Quantity", new { id =1 , min = "1", max = "10", value ="1" , step = "1", @class = "Quantity NumericUpDownTxt ", @data_currentValue ="" })
+                            @Html.Hidden("ItemId", new { id = 1, value = "" })*@
+                    </div>
+                    <div class="place-left NumericUpDownBtns numericUpDownButtonsWidth">
+                        <a class="NumericUpDownBtns ItemPointer" id="plus" data-itemprice="" title=""><i class="icon-plus fg-blue"></i></a>
+                    </div>
+                </div>
+            </td>
+            <td class="text-right" id="TtlPrice">
+                <div id="" class="calculatePrice">
+                    0
+                </div>
+            </td>
+            <td class="text-center" id="Del">
+                <a id="DeleteItem" href="#Delete-dialog" class="text-left popup-with-zoom-anim confirmDialog" data-title="" title="">@Resources.TCPResources.DeleteText</a>
+            </td>
+        </tr>
+    </table>
+    <div class="span12 place-right text-right">
+        <div id="countprice" class="place-left span835 itemMargin nlm nrm nbm">@Model.UserVM.SCCount    items @String.Format("{0:C}", totalPrice + taxtPrice)</div>
+        <div id="divordernow" class="divordernow place-left" style="width: 105px">
+            <a href="#order-dialog" class="popup-with-zoom-anim ordernow">
+                <img src="~/Images/YesNoMaybe/OrderNow.jpg" /></a>
+        </div>
+    </div>
+    <div class="place-right " style="width: 155px">
+        <label class="place-left">Create File</label>
+        <div class="place-left  margin5 nrm ntm nbm">
+            <a href="@Url.Action("CartDWPdfGeneration", "ShoppingCart", new { cartDWID = Model.QuoteID })" title="" target="_blank"><i class="icon-file-pdf link"></i></a>
+            <label class="pos-abs letterSize7pt">PDF</label>
+        </div>
+        <div class="place-left margin5 nrm ntm nbm">
+            <a id="Excel" title="" href="@Url.Action("Export", "ShoppingCart", new { QuoteID = Model.QuoteID})"><i class="icon-file-excel  fg-green"></i></a>
+            <label class="pos-abs letterSize7pt">EXL</label>
+        </div>
+    </div>
+    <div id="divTableData" class="hide"></div>
+    <div class="place-left text-right span12 margin20">
+        <a href="@Url.Action("GetProductDetails", "Default", new { quoteID = Model.QuoteID, quoteType = "Products" })" class="button">Continue Shopping</a>
+    </div>
+</div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    @*dont remove style*@
+    <div>
+        <button title="Close (Esc)" type="button" class="mfp-close" style="position: static; margin-top: -18px; float: left; margin-left: -29px;">@Resources.TCPResources.CloseText</button>
+        <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    </div>
+    <div id="loadingSetView">
+        @*PartialView Will Load Here*@
+    </div>
+    <div id="ItemListView">
+    </div>
+</div>
+<div id="Delete-dialog" class="zoom-anim-dialog mfp-hide span5" style="background-color: white; margin-left: 40%">
+    <h3 class="center button-bg" style="color: white;">Delete</h3>
+    <div class="padding5">
+        <label id="lbldeleteID"></label>
+    </div>
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="DivDeleteQuote" class="span5 div-contentheight contentText text-center">
+        <button id="btnDeleteCart">OK</button>
+        <button class="BtnDeleteCancel">Cancel</button>
+    </div>
+</div>
+
+ @*<div id="Thankyou-dialog" class="zoom-anim-dialog mfp-hide span5" style="background-color: white">
+    <div class="button-bg" style="height: 50px; width: 325px; margin-left: 40%">
+        <h3 class="place-left margin10" style="color: white;">Thank you for your order.</h3>
+        @*<button id="orderOk" type="button" class="button-bg margin10 place-left" style="color: white; padding-top: 7px; height: 31px;">OK</button>
+        <a href="@Url.Action("ItemContainerDetails", "ItemContainerPartial", new { quoteID = Model.QuoteID, quoteType = ViewData["QuoteType"], type = "Category" })" type="button" class="button-bg margin10 padding5 border place-left" style="color: white; padding-top: 4px; height: 31px;">OK</a>
+    </div>
+</div>*@
+@*<div id="order-dialog" class="zoom-anim-dialog mfp-hide span12 orderdialog">
+    <h3 class="center button-bg" style="color: white;">Order-Confirmation</h3>
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="" class="span12 contentText margin10">
+        <div class="padding10 nlp nrp">
+            <label class="span63 place-left">PO#</label>: @Html.TextBox("PoText", null, new { @class = "span2-5" })
+        </div>
+        <div class="span5 place-left margin10 nlm nrm">
+            <label class="place-left">Company Name</label>
+            : <strong>@Model.UserVM.CRMModelProperties.CustParentName</strong>
+        </div>
+        <div class="span3 place-left margin10 nlm nrm">
+            <label class="place-left">Account Manager</label>
+            : <strong>@Model.UserVM.CRMModelProperties.RepName</strong>
+        </div>
+        <div class="span3 place-left margin10 nlm nrm">
+            <label class="place-left">Rank</label>
+            : <strong>-----</strong>
+        </div>
+        <div class="span5 place-left margin10 nlm nrm">
+            <label class="place-left">Address</label>
+            : <strong>@Model.ShippingAddress</strong>
+        </div>
+        <div class="span3 place-left margin10 nlm nrm">
+            <label class="place-left">City</label>
+            : <strong>@Model.ShipToCity</strong>
+        </div>
+        <div class="span2 place-left margin10 nlm nrm">
+            <label class="place-left">State</label>
+            : <strong>@Model.State</strong>
+        </div>
+        <div class="span3 place-left margin10 nlm nrm">
+            <label class="place-left">Zip Code</label>
+            : <strong>@Model.ZipCode</strong>
+        </div>
+        <br />
+        <div class="padding10 nlp nrp  margintop60 nlm nrm">
+            <label class="place-left">Comments</label>: @Html.TextArea("Comments", new { @class = "span2-5", maxlength = 250 })
+        </div>
+        <div class="div-contentheight span6"></div>
+        <div class="span8">
+            <div class="div-contentheight place-left span4"></div>
+
+            <a href="@Url.Action("CartDWPdfGeneration", "ShoppingCart")" id="pdfgeneration" target="_blank"></a>
+            <button id="btnOrder" class="padding10 button-bg span22per margin10 nrm nbm ntm @pointernone" @orderDisableMode><strong>Order Now</strong></button>
+            <button class="padding10 BtnDeleteCancel span22per margin10 nrm nbm ntm"><strong>Cancel Order</strong></button>
+        </div>
+    </div>
+</div>*@
+
+@*<div id="order-pdfdialog" class="zoom-anim-dialog mfp-hide">
+    <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close" style="margin-right: 370px; color: red; width: 142px; border: none;">@Resources.TCPResources.Closethiswindow</button>
+    <div id="order-pdf">
+    </div>
+</div>*@

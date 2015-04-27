@@ -1,0 +1,60 @@
+﻿@model TPC.Core.Models.ItemParentViewModel
+@using TPC.Core.Models;
+
+
+
+@{
+    int slidecount = 5;
+   
+    string slideClass = Model.ListItemVM.Count <= slidecount ? "controls right slideBtnShadow carouselRight place-left hide" : "controls right slideBtnShadow carouselRight place-left";
+    int result = 0; int quotent = Math.DivRem(Model.ListItemVM.Count, slidecount, out result); int startIndex = 0; int endIndex = slidecount; int extraCount = 0;}
+@if (result > 0)
+{
+    extraCount = 1;
+}
+
+<script src="~/Scripts/js/metro/metro-carousel.js"></script>
+
+<div class="place-left wd45 whiteBorder">
+      <button class="controls left slideBtnShadow carouselLeft hide place-left" style="margin-top: 30px; border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border: 3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+        <img class="slideRightImg" src="~/Images/Left-Arrow.png" /></button>
+    </div>
+<div id="kplItemParent" class="carousel place-left" data-role="carousel" style="height: 140px; width: auto; display: block;">
+    @for (int i = 0; i < @quotent + extraCount; i++)
+    {
+        <div class="slide">
+            @{ endIndex = (i + 1) * slidecount;}
+            @if (endIndex > Model.ListItemVM.Count)
+            {
+                endIndex = startIndex + result;
+            }
+            @for (; startIndex < endIndex; startIndex++)
+            {
+                ItemViewModel obj = Model.ListItemVM[startIndex];
+                <div class="place-left">
+                    @Html.Partial("../TCPViews/Partial/KPLItemPartial", Model.ListItemVM[startIndex])
+                </div>
+            }
+            @*<div class="place-left itemBeforeAfterSpace">
+
+        </div>*@
+        </div>
+       
+    }
+    @* <button class="controls left carouselLeft buttonbg" disabled="disabled">
+        <img src="~/Images/Left-Arrow.png" /></button>*@
+  
+    @*  <button class="controls right carouselRight buttonbg">
+        <img src="~/Images/Right-Arrow.png" /></button>*@
+ 
+</div>
+
+<div class="place-left wd45 whiteBorder">
+    @if(ViewBag.Title != "ItemListView")
+    {
+    <button   id="uncheckall"  data-itemid="@Model.ListItemVM.FirstOrDefault().ItemID"  class="uncheck" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif;margin-right:14px;margin-left: -29px;width: 95px;">Uncheck all</button>
+    }
+  <button class="@slideClass" style="margin-top: 25px; border-radius: 60%; height: 40px; width: 40px; background-color: rgba(0, 0, 0, 0.06); border: 3px white solid; text-align: center; font-size: 12px; font-weight: bold;">
+        <img class="slideRightImg" src="~/Images/Right-Arrow.png" />
+    </button>
+    </div>

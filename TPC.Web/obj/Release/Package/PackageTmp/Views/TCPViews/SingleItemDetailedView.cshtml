@@ -1,0 +1,502 @@
+﻿@model TPC.Core.Models.ViewModels.SingleItemDetailedModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+       
+        $('#HRMenus').addClass('hide');
+      
+        $('#divMenusCustRole').removeClass('hide').addClass('visible');
+        $('#divMenusCustRole li').removeClass('navlihide active');
+        
+        $('#liItemListView a').html(String("@ViewData["QuoteTitle"]")+ " Decision Wizard");
+        $('#liItemListView').addClass('navlihide');
+        $('#liItemName').addClass('navlihide in-active');
+        $('#liItemName a').html(String("@Model.KPLViewModel.Title"));
+        $('#liItemDetailed').addClass('hide');
+        $('#liItemName').addClass('active');
+
+        $('.navlihide').show();
+        $('#divMenusCustRole').removeClass('hide').addClass('visible');
+
+        //Javascript for updating the DW and Cart Count in content Page
+        var SCItemsCount = parseInt(@Model.UserVM.SCCount);
+      
+        $('#SCItemCount sup').html(SCItemsCount);
+     
+
+  
+   
+        var AllCount=String(parseInt(@Model.noOfYesCount)+parseInt(@Model.noOfNoCount)+parseInt(@Model.noOfMaybeCount)+parseInt(@Model.noOfNewCount));
+        var calcpercentage = ((parseInt(AllCount)-parseInt(@Model.noOfNewCount)) / (parseInt(AllCount))) * 100;
+    
+        var pb = $('#pb').progressbar();
+        pb.progressbar('value', parseInt(calcpercentage));
+
+        $('.btnSet').click(function () {
+            var currentdwid= this.name;
+            var AllCount=String(parseInt(@Model.noOfYesCount)+parseInt(@Model.noOfNoCount)+parseInt(@Model.noOfMaybeCount)+parseInt(@Model.noOfNewCount));
+            var noCount=String(@Model.noOfNoCount)
+                ,yesCount=String(@Model.noOfYesCount)
+                ,maybeCount=String(@Model.noOfMaybeCount)
+                ,newCount=String(@Model.noOfNewCount);
+            var dwid = this.value;
+            var itemid = this.id;
+            var qdid = @Model.KPLViewModel.QuoteID;
+            $.ajax({
+                url: "@Url.Content("~/ItemListView/UpdateDWSelectionStatus")",
+                type: "POST",
+                data: { DWID: dwid, Qdid: qdid, Itemid: itemid,selectionStatus:"",ddlSelectedValue:"0",pgno:"0"},
+
+                datatype: 'html',
+                success: function (data) {
+                    if(currentdwid=="5") newCount=  parseInt(newCount)-1;
+                    if(currentdwid=="1") yesCount=  parseInt(yesCount)-1;
+                    if(currentdwid=="2") noCount=  parseInt(noCount)-1;
+                    if(currentdwid=="3") maybeCount=  parseInt(maybeCount)-1;
+                    $('.'+ itemid + '').each(function(){
+                        if(this.value == dwid && this.id== itemid)
+                        {
+                            if(this.value==1)
+                            {
+                                yesCount=parseInt(yesCount)+1;
+                                $(this).attr('style','font-size:13px;border:solid;font-weight:bold;text-align:center;background-color:#F1FDDE;border-radius:100%;height:60px;width:60px;');
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="InCart+'+itemid+'"]').removeClass('hide').show();
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="AddtoCart+'+itemid+'"]').hide();
+                            }
+                            if(this.value==2)
+                            {
+                                noCount=parseInt(noCount)+1;
+                                $(this).attr('style','font-size:13px;border:solid;font-weight:bold;text-align:center;background-color:#FC562A;border-radius:100%;height:60px;width:60px;');
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="InCart+'+itemid+'"]').hide();
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="AddtoCart+'+itemid+'"]').removeClass('hide').show();
+                            }
+                            if(this.value==3)
+                            {
+                                maybeCount = parseInt(maybeCount)+1;
+                                $(this).attr('style','font-size:13px;border:solid;font-weight:bold;text-align:left;background-color:#FFFFBB;border-radius:100%;height:60px;width:60px;padding-left:5px');
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="InCart+'+itemid+'"]').hide();
+                                $('div:[id="'+itemid+'"]').children('div').children('div').find('div:[id="AddtoCart+'+itemid+'"]').removeClass('hide').show();
+                            }
+                        }
+                        else
+                        {
+                            if(this.value== 2 || this.value== 1)
+                            {
+                                $(this).attr('style','font-size:13px;border:solid;background-color:white;font-weight:bold;border-radius:100%;height:60px;width:60px;text-align:center');
+                            }
+                            else
+                            {
+                                $(this).attr('style','font-size:13px;border:solid;background-color:white;font-weight:bold;border-radius:100%;height:60px;width:60px;text-align:left;padding-left:5px');
+                            }
+                        }
+                    });
+
+                    var calcpercentage = ((parseInt(AllCount)-parseInt(newCount)) /( parseInt(AllCount))) * 100;
+                    var pb = $('#pb').progressbar();
+                    pb.progressbar('value', parseInt(calcpercentage));
+                }
+            });
+        });
+        $('.AddCart').one('click', function (e) {
+            $(this).off(e);
+            var itemIdsList = [];
+            var btnid = this.id;
+         
+            if (btnid == "5") {
+                $(".group1").each(function () {
+                    $(this)[0].checked = true;
+                });
+                $(".group1:checked").each(function () {
+                    itemIdsList.push(this.value);
+                });
+            }
+            else
+            {
+                itemIdsList.push(this.name);
+            }
+         
+            $.ajax({
+
+                url: "@Url.Content("~/ItemListView/SelectedItem")",
+                type: "POST",
+                data: { selectbtnid: this.id, itemID: itemIdsList.toString(), quoteID:String(@Model.KPLViewModel.QuoteID),ViewName:"SingleView" },
+                datatype: 'html',
+                success: function (data) {
+                    var result = $('<div />').append(data).find('#SingleItemView').html();
+                    $('#SingleItemView').html(result);
+                 
+                }
+
+
+            });
+
+        });
+      
+        $('.ItemDetailSeries').unbind().click(function () {
+          
+            $.ajax({
+                url: "@Url.Content("~/ItemListView/ViewSingleDetailedParialView")",
+                type: "POST",
+                data: { itemID: this.title, QuoteID: String(@Model.KPLViewModel.QuoteID),groupID:String("@ViewData["GroupID"]") },
+                datatype: 'html',
+                success: function (data) {
+                   
+                    $('#loadingSetView').html(data);
+                 
+                }
+            });
+         
+        });
+
+       
+
+        $('.btnSelect').click(function () {
+      
+            var btnid = this.id;
+            if (btnid == "5") {
+                $(".group1").each(function () {
+                    $(this)[0].checked = true;
+                });
+            }
+         
+          
+
+            var itemIdsList = [];
+            $(".group1:checked").each(function () {
+                itemIdsList.push(this.value);
+            });
+           
+          
+            $.ajax({
+                url: "@Url.Content("~/ItemListView/SelectedItem")",
+                type: "POST",
+                data: { selectbtnid: this.name, itemID: itemIdsList.toString(), quoteID:@Model.KPLViewModel.QuoteID },
+                datatype: 'html',
+                success: function (data) {
+          
+                }
+            });
+
+        });
+
+        $(".OpenBook").on('click', function () {
+            $.Dialog({
+                shadow: true,
+                overlay: true,
+                flat:true,
+                icon: '',
+                title: 'Look Inside',
+                padding: 10,
+                content: '<form>' +
+                            '<div id="LookInside"  class=""> '+
+                            ' <div class="place-left div-MainHeight20"></div> '+
+                            ' <div class="place-left OpenInsideImage">'+
+                            @*'  <img src="@Url.Content(@Resources.TCPResources.ItemInsideImagePath + @Model.KPLViewModel.ISBN + ".jpg")" style="height:612px;width:750px;"    />'+*@
+                            '   <img  style="height:612px;width:750px;" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}",@Model.KPLViewModel.ISBN, @Resources.TCPResources.ItemInsideImagePath,"\\",".jpg")">'+
+                            '</div>'+
+                            ' </div>'+
+                            '</form>',
+                onShow: function (_dialog) {
+                    $.Dialog.content(content);
+                },
+             
+            });
+        });
+  
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in',
+            height: 400,
+        });
+        
+        jQuery(document).ajaxStart(function(){
+
+            $('#SingleItemView').css({"pointer-events":"none"});
+           
+         
+         
+        }).ajaxStop(function(){
+           
+            $('#SingleItemView').css({"pointer-events":"initial"});
+        });
+
+     
+    });
+   
+
+
+
+
+</script>
+<div id="onScreen-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView" class="">
+    </div>
+
+</div>
+
+<div id="SingleItemView" class="body-text span12" style="margin-bottom: 15px">
+    <div id="pb" class="progress-bar span.caption" data-role="progress-bar" data-color="#99bfe6"></div>
+    <div class="place-left" style="margin-bottom: 7px">
+        @if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+        {
+            <a href="@Url.Action("GetItemListByGroupID", "ItemListView", new { groupID = @ViewData["GroupID"], quoteID = @Model.KPLViewModel.QuoteID })">Show All</a>
+   
+        }
+        else
+        {
+@*<a href="@Url.Action("GetItemList","ItemListView")">Show All</a>*@
+        }
+    </div>
+
+
+    <div>
+        <b></b>
+    </div>
+    <table class=" span12  contentTextSmall" style="height: 300px">
+        <tr class="trBottomLineTable">
+            <td style="vertical-align: top">
+                <div>
+                    <div class="place-left  text-left span3">
+                        <a title="@Model.KPLViewModel.ItemID"  class="singleItem " href="#" >
+                            @*<img class="imgSize"   src="@Url.Content(@Resources.TCPResources.ItemImagePath + @Model.KPLViewModel.ISBN + ".jpg")"    />*@
+                            <img  class="imgSize" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}",@Model.KPLViewModel.ISBN, @Resources.TCPResources.ItemImagePath,"\\",".jpg")">
+                        </a>
+                        <div class="span3 text-center">
+                            <a href="#" class="OpenBook text-center">Look Inside</a>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+
+            <td class="place-right">
+
+                <div id="description" class="span8 place-right contentTextSmall">
+
+                    <table class="span8 contentTextSmall">
+                        <tr>
+                            <td class="SingleViewtdcolhdStyle">Type </td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Type</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Title, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Title</td>
+                        </tr>
+                        <tr>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.SetName, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.SetName</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.CopyRight, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.CopyRight</td>
+                        </tr>
+                        <tr>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Author, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Author</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.ReviewSource, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.ReviewSource</td>
+                        </tr>
+                        <tr>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Series, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Series</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Pages, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Pages</td>
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.ARLevel, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.ARLevel</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.ARQuiz, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.ARQuiz</td>
+
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.RCLevel, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.RCLevel</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.RCQuiz, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.RCQuiz</td>
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">SellingPoint</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.SellingPoint</td>
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Price, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Price</td>
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Primarycharacter, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Primarycharacter</td>
+
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.SecondCharacter, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.SecondCharacter</td>
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">Size</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Size</td>
+                            <td class="SingleViewtdcolhdStyle">Package</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Package</td>
+                        </tr>
+                        <tr class="trRowHeight">
+                            <td class="SingleViewtdcolhdStyle">@Html.LabelFor(e => e.KPLViewModel.Description, new { @class = "labelHeight" })</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.Description</td>
+                            <td class="SingleViewtdcolhdStyle">SetDescription</td>
+                            <td class="SingleViewtdcolValueStyle">@Model.KPLViewModel.SetDescription</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+            <td style="vertical-align: top">
+
+                <div class="place-right span1">
+                    @{
+                        if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+                        {
+                         
+                        <div class="place-left" style="width: 100px;">
+                            <button class="buttonBackgroundColor AddCart " id="@Model.KPLViewModel.ItemID" style="color:white">Add</button>
+
+                        </div>
+                        }
+                        else
+                        {
+                            if (@Model.KPLViewModel.DWSelectionStatus == "1")
+                            {
+                        <div class="place-left span1" style="margin-bottom: 5px">
+
+                            <button class="@Model.KPLViewModel.ItemID btnSet"  value="1" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style=" font-size:13px;border:solid;font-weight:bold;text-align:center;background-color:#F1FDDE;border-radius:100%;height:60px;width:60px;" >Yes</button>
+
+                        </div>
+                              
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button  class="@Model.KPLViewModel.ItemID btnSet" value="3" name="@Model.KPLViewModel.DWSelectionStatus" id=@Model.KPLViewModel.ItemID style="font-size:13px;border:solid;background-color:white;font-weight:bold;border-radius:100%;height:60px;width:60px;text-align:left;padding-left:5px" >Maybe</button>
+
+                        </div>
+                              
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button  class="@Model.KPLViewModel.ItemID btnSet"value="2" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;border:solid;background-color:white;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;" >No</button>
+
+
+                        </div>
+                                    
+                            }
+                            else if (@Model.KPLViewModel.DWSelectionStatus == "2")
+                            {
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="1"  name="@Model.KPLViewModel.DWSelectionStatus" id=@Model.KPLViewModel.ItemID style=" font-size:13px;border:solid;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button  class="@Model.KPLViewModel.ItemID btnSet" value="3" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;border:solid;font-weight:bold;border-radius:100%;height:60px;width:60px;padding-left:5px;background-color:white;text-align:left" >Maybe</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="2" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;border:solid;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;background-color:#FC562A;" >No</button>
+
+                        </div>
+                                     
+                            }
+                            else if (@Model.KPLViewModel.DWSelectionStatus == "3")
+                            {
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="1" name="@Model.KPLViewModel.DWSelectionStatus" id=@Model.KPLViewModel.ItemID style=" font-size:13px;font-weight:bold;border:solid;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="3" name="@Model.KPLViewModel.DWSelectionStatus" id=@Model.KPLViewModel.ItemID style="background-color:#FFFFBB;font-size:13px;border:solid;font-weight:bold;border-radius:100%;height:60px;width:60px;padding-left:5px;text-align:left" >Maybe</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="2" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;font-weight:bold;text-align:center;border:solid;border-radius:100%;height:60px;width:60px;background-color:white;" >No</button>
+
+                        </div>
+                                    
+                            }
+                            else if (@Model.KPLViewModel.DWSelectionStatus == "5")
+                            {
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button class="@Model.KPLViewModel.ItemID btnSet" value="1" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style=" font-size:13px;font-weight:bold;text-align:center;border:solid;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button  class="@Model.KPLViewModel.ItemID btnSet" value="3" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;font-weight:bold;border:solid;border-radius:100%;height:60px;width:60px;padding-left:5px;background-color:white;text-align:left" >Maybe</button>
+
+                        </div>
+                        <div class="place-left span1" style="margin-bottom: 5px">
+                            <button  class="@Model.KPLViewModel.ItemID btnSet" value="2" name="@Model.KPLViewModel.DWSelectionStatus"  id=@Model.KPLViewModel.ItemID style="font-size:13px;font-weight:bold;border:solid;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >No</button>
+
+                        </div>
+                                     
+                            }
+
+                        }
+                    }
+
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 20px"></td>
+        </tr>
+
+
+
+    </table>
+
+
+
+
+    <div class="place-left span11_5 parentPartial contentText">
+        <div class="place-left span11_5">
+            <div class="place-left span10 groupText ">
+                <a class="border">@Model.ItemGroupVm.GroupName</a>
+            </div>
+            <div class="place-left span1">
+                <b>@Model.ItemGroupVm.GroupItemCount</b>
+            </div>
+        </div>
+        <div class="place-left span11_5 ">
+            @Html.Partial("../TCPViews/Partial/KPLItemParentPartial", @Model.ItemGroupVm.ItemPVM)
+        </div>
+    </div>
+    <div>
+
+
+        <div class="place-left span1" style="height: 100px">
+            <div class="place-left span1"></div>
+            <div class="place-right span1" style="height: 50px;">
+                @if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+                {
+
+                    <button id="5" name="@Model.KPLViewModel.ItemID" value="5" class="AddCart" style="border-radius: 60%; height: 60px; width: 60px; background-color: white; border: solid; text-align: center; font-size: 12px; font-weight: bold;">Yes To Set</button>
+                }
+                else
+                {
+
+                    <button id="5" name="1" value="5" class="btnSelect" style="border-radius: 60%; height: 60px; width: 60px; background-color: white; border: solid; text-align: center; font-size: 12px; font-weight: bold;">Yes To All</button>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

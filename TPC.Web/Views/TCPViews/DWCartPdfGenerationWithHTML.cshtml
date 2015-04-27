@@ -1,0 +1,309 @@
+﻿@using TPC.Web.Infrastructure
+@model TPC.Core.Models.ViewModels.CartDWPdfModel
+@using System.Configuration;
+@{                        
+    Layout = null;
+    string quoteTableWidths = string.Empty;
+    string dafaultcolSpan = "5";
+    string colSpan = "6";
+    bool isShoppingCart = Model.QuoteTypeID == 13;
+    bool isDW = Model.QuoteTypeID == 2;
+    bool isQuote = !isShoppingCart && !isDW ? true : false;
+    if (isShoppingCart)
+    {
+        quoteTableWidths = "30;10;30;26;20;9;12;14;11;15";
+    }
+    else if (isDW)
+    {
+        quoteTableWidths = "40;40;35;10;15;10;16";
+        dafaultcolSpan = "3";
+    }
+    else
+    {
+        quoteTableWidths = "40;10;36;20;10;13;12;13;20";
+    }
+    double totalPrice = Model.CartListView.Sum(e => e.Price);
+    double taxPrice = 0;
+    if (Model.SalesTax > 0)
+    {
+        taxPrice = (totalPrice * (double)Model.SalesTax);
+    }
+   
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <table style="padding: 1px; word-spacing: 0.5px">
+            <tr>
+                <td style="font-size: 14px; color: red; font-family: Arial">Thank you for your order!</td>
+            </tr>
+            <tr>
+                <td style="font-size: 10px; font-family: Arial;"><p>Penworthy ships immediately with no backorders, so you will have your books in days and always get exactly<br />what you expected.Here is a PDF of your order if you would like to print or save a copy.
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <img src="@Server.MapPath("~/Images/PenWorthyLogo.jpg")" id="logopen" style="width: 200px;display: block;  margin-left: auto;  margin-right: auto;"/>
+        </p>
+        @if (Model.QuoteTypeID == 22 && Model.UserVM.SearchCategory == Resources.TCPResources.ShoppingCartliText)
+        {
+            
+            <table style="width: 100%;">
+                <tr>
+                    <td style="font-size: 8px; font-weight: bold;"></td>
+                    <td style="font-size: 8px; font-weight: bold;"></td>
+                    @*<td style="font-size: 8px; font-weight: bold; text-align: Center"></td>*@
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8px; font-weight: bold;"></td>
+                    <td style="font-size: 8px; font-weight: bold;"></td>
+                    @*<td style="font-size: 8px; font-weight: normal; text-align: Center"></td>*@
+                    <td style="font-size: 8px; font-weight: normal; text-align: Center"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;">@Resources.TCPResources.CurrentDateText: @string.Format("{0:d}", DateTime.Today)</td>
+                    <td style="font-size: 8px; font-weight: normal; font-family: Calibri">@Model.CustomerAddress.AddressLine1&nbsp;&nbsp;@Model.CustomerAddress.AddressLine2</td>
+                    @*  <td style="font-size: 8px; font-weight: normal; font-family: Calibri"></td>*@
+                    <td style="font-size: 8px;">Quote Number :@Model.QuoteID</td>
+
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;"><strong>for questions contact:</strong></td>
+                    <td style="font-size: 8px;">@Model.CustomerAddress.City,&nbsp;&nbsp;@Model.CustomerAddress.State</td>
+                    @*  <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;">CustomerNumber:@Model.CustomerAddress.CustomerNo</td>
+
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;">@Model.RepoAddress.RepName </td>
+                    <td style="font-size: 8px;">@Model.CustomerAddress.ZipCode</td>
+                    @*  <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;">CustomerName:@Model.CustomerAddress.CustomerName</td>
+
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;">@Model.RepoAddress.RepEmail  </td>
+                    @*@Model.RepoAddress.RepPhoneCustSrvc *@
+                    <td style="font-size: 8px;">Phone Number: @Model.CustomerAddress.TelephoneNo</td>
+                    @*   <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;">Contact :@Model.UserVM.CRMModelProperties.CustFirstName @Model.UserVM.CRMModelProperties.CustLastName</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8px; font-weight: normal;"></td>
+                    @*@Model.RepoAddress.RepPhoneCustSrvc *@
+                    <td style="font-size: 8px;">Fax: 414-287-4602</td>
+                    @*  <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;"></td>
+                </tr>
+            </table>
+            
+        }
+        else
+        {
+            <table style="width: 100%;">
+                <tr>
+                    <td></td>
+                    <td></td>
+
+                    @* <td></td>*@
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td style="font-size: 8px;"></td>
+                    <td style="font-size: 8px;"></td>
+                    @*  <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;">@Resources.TCPResources.CurrentDateText  @string.Format("{0:d}", DateTime.Today)</td>
+
+                    <td style="font-size: 8px; text-align: center;">219 N. Milwaukee St.</td>
+                    @*    <td style="font-size: 8px;"></td>*@
+                    <td style="font-size: 8px;">Quote Number:@Model.QuoteID</td>
+
+                </tr>
+                <tr>
+                    <td style="">For questions contact:</td>
+
+                    <td style="">Milwaukee, WI 53202</td>
+                    @*    <td style=""></td>*@
+                    <td style="">Customer Number :@Model.CustomerAddress.CustomerNo</td>
+
+                </tr>
+                <tr>
+                    <td style="font-size: 8px;">@Model.RepoAddress.RepName</td>
+
+                    <td style="font-size: 8px;">Phone 800-262-2665 </td>
+                    <td style="font-size: 8px;">Customer Name:@Model.CustomerAddress.CustomerName</td>
+                    @* <td style="font-size: 8px;"></td>*@
+                </tr>
+                @if (Model.QuoteTypeID == 22 || Model.QuoteTypeID == 24)
+                {
+                    <tr>
+                        <td style="font-size: 8px;"></td>
+                        <td style="font-size: 8px;">Fax: 414-287-4602</td>
+                        @*   <td style="font-size: 8px;"></td>*@
+                        <td style="font-size: 8px;">Contact :@Model.UserVM.CRMModelProperties.CustFirstName @Model.UserVM.CRMModelProperties.CustLastName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 8px;"></td>
+                        <td style="font-size: 8px;"></td>
+                        @*  <td style="font-size: 8px;"></td>*@
+                        <td style="font-size: 8px;">PONO :@Model.PONo</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 8px;"></td>
+                        <td style="font-size: 8px;"></td>
+                        @*   <td style="font-size: 8px;"></td>*@
+                        <td style="font-size: 8px;">Comments :@Model.Comments</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        @*@Model.RepoAddress.RepPhoneCustSrvc*@
+                        <td style="font-size: 8px;">@Model.RepoAddress.RepEmail</td>
+                        <td style="font-size: 8px;">Fax: 414-287-4602</td>
+                        @*<td style="font-size: 8px;"></td>*@
+                        <td style="font-size: 8px;">Contact :@Model.UserVM.CRMModelProperties.CustFirstName @Model.UserVM.CRMModelProperties.CustLastName</td>
+
+                    </tr>
+                }
+            </table>
+
+        }
+
+        <table id="shpngcartpdf" class="" border="1" style="border-collapse: collapse; width: 100%;">
+            <tr class="">
+                <td style="font-size: 8px;" colspan="3">Title</td>
+                @if (isQuote || isShoppingCart)
+                { <td style="font-size: 8px;">ItemID</td>}
+                @if (isShoppingCart || isDW)
+                { <td>Series</td>  }
+                <td style="font-size: 8px;" colspan="2">Author</td>
+                @if (isDW == false)
+                {    <td style="font-size: 8px;" colspan="2">ISBN</td>   }
+                <td style="font-size: 8px;">AR</td>
+                <td style="font-size: 8px;">Lexile</td>
+                @if (isDW == false)
+                {  
+                    <td style="font-size: 8px;">Item Price</td>
+                    <td style="font-size: 8px;">Quantity</td>
+                }
+                else
+                {
+                    <td style="font-size: 8px;">Sts</td>
+                }
+                <td style="font-size: 8px;">Total</td>
+            </tr>
+            @foreach (var Cvm in Model.CartListView)
+            {
+                if (Cvm.ItemPrice > 0)
+                {
+                <tr class="">
+                    <td style="font-size: 8px;" colspan="3">@if (Cvm.Type != "Catalog"){<a href="@ConfigurationManager.AppSettings["serverUrl"]@Url.Action("GetProducts", "ItemContainerPartial", new { groupID = 1, currentPageIndex = 1, noofItemsPerPage = 60, quoteID = Model.UserVM.CurrentQuoteID, fromPdf = true, itemId = @Cvm.ItemId })" target="_blank" style="font-size:8px;text-decoration:underline;color:black">@Cvm.Title</a>}else{<a style="font-size: 8px;" >@Cvm.Title</a> }</td>
+                    @if (isQuote || isShoppingCart)
+                    { <td style="font-size: 8px;">@Cvm.ItemId</td>  }
+                    @if (isShoppingCart || isDW)
+                    {   <td style="font-size: 8px;">@Cvm.Series</td> }
+                    <td style="font-size: 8px;" colspan="2">@Cvm.Author</td>
+                    @if (isDW == false)
+                    { <td style="font-size: 8px;" colspan="2">@Cvm.ISBN</td>  }
+                    <td style="font-size: 8px;">@Cvm.AR </td>
+                    <td style="font-size: 8px;">@Cvm.Lexile </td>
+                    @if (isDW == false)
+                    {    
+                        <td style="font-size: 8px;">@String.Format("{0:C}", Cvm.ItemPrice)</td>
+                        <td style="font-size: 8px;">@Cvm.Quantity</td>
+                    }
+                    else
+                    {
+                        <td style="font-size: 8px;">@Html.ConvertEnumToDWStatus(Cvm.DwstatusID)  </td>
+                    }
+                    <td style="font-size: 8px;">@String.Format("{0:C}", Cvm.Price)  </td>
+                </tr>
+                }
+            }
+
+            <tr>
+                <td style="font-size: 8px; font-weight: bold" colspan="12">SalesTax</td>
+                @*@if (isQuote || isShoppingCart)
+                {
+                    <td></td> 
+                }*@
+                @*  <td style="font-size: 14px;"  colspan="@dafaultcolSpan"></td>*@
+                @if (isShoppingCart || isDW)
+                {  <td></td> }
+                @if (isDW == false)
+                {
+                    colSpan = "6";
+                }
+                else
+                {
+                    colSpan = "5";
+                }
+                @*<td></td>*@
+                <td style="font-size: 8px; font-weight: bold;">@String.Format("{0:C}", taxPrice)</td>
+            </tr>
+            <tr>
+                <td style="font-size: 8px; font-weight: bold;" colspan="12">TotalPrice</td>
+                @* @if (isShoppingCart || isQuote)
+                {
+                    <td></td>
+                }*@
+
+                @* <td style="font-size: 14px;" colspan="@dafaultcolSpan"></td>*@
+                @if (isShoppingCart || isDW)
+                {
+                    <td></td> 
+                }
+                @if (isDW == false)
+                {
+                    colSpan = "6";
+                }
+                else
+                {
+                    colSpan = "5";
+                }
+
+                @*  <td></td>*@
+                <td style="font-size: 8px; font-weight: bold;">@String.Format("{0:C}", (totalPrice + taxPrice))</td>
+            </tr>
+            @*<tr>
+                <td></td>
+                @if (isShoppingCart || isQuote)
+                {
+                    <td></td>
+                }
+                <td colspan="@colSpan"></td>
+                @if (isDW == false)
+                {
+                    <td></td>
+                }
+                @if (isShoppingCart || isDW)
+                { 
+                    <td></td>
+                }
+            </tr>*@
+
+
+        </table>
+
+        <table>
+            <tr><td style="font-size: 9px" colspan="10">@Resources.TCPResources.ShipmentText</td></tr>
+        </table>
+
+    </div>
+</body>
+</html>

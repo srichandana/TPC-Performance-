@@ -1,0 +1,129 @@
+﻿@model TPC.Core.Models.ViewModels.CalTagViewModel
+@using TPC.Context.EntityModel;
+@{
+}
+<script src="~/Scripts/js/metro/metro-date-format.js"></script>
+<script src="~/Scripts/js/metro/metro-calendar.js"></script>
+<script src="~/Scripts/js/metro/metro-datepicker.js"></script>
+<script>
+    $("input[name='LstSendOptions']").change(function () {
+        if (this.value == "2") {
+            $("#txtEmail").removeAttr("disabled");
+        }
+        else {
+            $("#txtEmail").attr("disabled", "disabled");
+        }
+    });
+    $('#btnCancel').on("click", function () {
+        $.magnificPopup.close();
+    });
+</script>
+
+<div class="hide">
+</div>
+<div id="CalTag" class="span11  padding5 contentText">
+    @using (Html.BeginForm("CalTagInfo", "ActiveQuote", FormMethod.Post))
+    {
+        @Html.Hidden("quoteId",Model.QuoteID)
+        <table cellpadding="2" class="margin10 callTagInfo">
+            <tr>
+                <td style="vertical-align: top">
+                    <div><strong class="redcolor">*</strong>@Resources.TCPResources.CalTagSendText</div>
+                </td>
+                <td colspan="3" class="place-left">
+                   <table cellspacing="10">
+                        @foreach (CalTagInfo calTagInfo in Model.CalTagInfo.Where(e => e.CalTagInfoType == "Radio").ToList())
+                        {
+                            <tr>
+                                @if (calTagInfo.CalTagInfoText.Contains("Email") && calTagInfo.CalTagInfoType == "Radio")
+                                {
+                                    <td>
+                                        @Html.RadioButton("LstSendOptions", calTagInfo.CalTagInfoID)@calTagInfo.CalTagInfoText
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtEmail", "", new { @style = "width:515px", @placeholder = "Email", @disabled = "disabled" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td colspan="2">
+                                        @Html.RadioButton("LstSendOptions", calTagInfo.CalTagInfoID, calTagInfo.CalTagInfoText.Contains("Call Tag"))@calTagInfo.CalTagInfoText
+                                    </td>
+                                     
+                                }
+                            </tr>
+                        }
+                    </table>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="place-left margin5 ntm nbm nlm ">
+                    <div>
+                        <strong class="redcolor">*</strong>@Resources.TCPResources.CalTagInvoiceToText
+
+                    </div>
+                </td>
+                <td colspan="3">
+                    @Html.DropDownList("ddlInvoiceTo", new SelectList(Model.LstInvoiceTo, "ItemID", "ItemValue"), new { @class = "span625" })
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">Include (Optional)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <table cellpadding="2" class="margin-left50">
+                        @foreach (CalTagInfo calTagInfo in Model.CalTagInfo.Where(e => e.CalTagInfoType != "Radio" && e.CalTagInfoType != "Dropdown" && e.CalTagInfoText != "Email").ToList())
+                        {
+                            <tr>
+                                <td></td>
+                                <td style="vertical-align: initial">
+                                    @calTagInfo.CalTagInfoText
+                                </td>
+                                <td>@if (calTagInfo.CalTagInfoType == "Date")
+                                    {
+                                    <div class="place-left span2 input-control text" data-role="datepicker" data-format="m/d/yy">
+                                        <input id="FutureDate" name="FutureDate" type="text" class="span2" />
+                                        <button type="button" class="btn-date"></button>
+                                    </div>
+                                    }
+                                    else
+                                    {
+                                        if (calTagInfo.CalTagInfoType == "CheckBox")
+                                        {
+                                                    
+                                    @Html.CheckBoxFor(e => e.IsCataloging, new { @data_quoteID = Model.QuoteID, @class = "includeCatalog " })
+                                        }
+                                        else
+                                        {
+                                    @Html.TextBox("txtPoNo", @Model.PONo, new { @class = "span2" })
+                                        }
+                                    }
+                                </td>
+                                <td></td>
+                            </tr>  }
+
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <div class="place-right span75">
+                        <button id="btnCancel" type="button" class="button-bg">@Resources.TCPResources.CancelText</button>
+                    </div>
+                    <div class="place-right span8_0">
+                        <input type="submit" id="btnSaveQuote" style="background-color: #99bfe6; color: black; height: 25px; width: 70px; font-size: 14px; padding-left: 10px;" class="button-bg text-center" value="Submit" />
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+
+    }
+</div>

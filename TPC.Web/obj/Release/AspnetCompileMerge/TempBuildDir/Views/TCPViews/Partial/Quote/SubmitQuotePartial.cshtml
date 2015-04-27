@@ -1,0 +1,273 @@
+﻿@model TPC.Core.Models.ViewModels.SubmitQuoteViewModel
+@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Models.Models;
+@using TPC.Common.Constants;
+
+@{
+    ViewBag.Title = "SubmitQuotePartial";
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<script src="~/Scripts/js/metro/metro-date-format.js"></script>
+<script src="~/Scripts/js/metro/metro-calendar.js"></script>
+<script src="~/Scripts/js/metro/metro-datepicker.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#RefreshRepoHoldStatus").on('click', function () {
+            var quoteId = $(this).attr('data-quoteID');
+            $.ajax({
+                url: "../ActiveQuote/RefreshValidationStatus",
+                type: "POST",
+                async: false,
+                data: { quoteID: quoteId },
+                datatype: 'html',
+                success: function (data) {
+                    $("#RepoHoldStatus").attr('checked', !data['@QuoteValidationConstants.Hold_Representative']);
+                    $("#spnCatalogText").text(data['@QuoteValidationConstants.Hold_Profile_Incomplete'] == false ? '@Resources.TCPResources.CatalogInCompleteText' : '');
+                    $("#spnCatalogText").hasClass('redcolor') == false ? $("#spnCatalogText").addClass(data['@QuoteValidationConstants.Hold_Profile_Incomplete'] == false ? 'redcolor' : '') : "";
+                    data['@QuoteValidationConstants.Hold_PO'] == false ? $("#divRequired").removeClass('hide') : $("#divRequired").addClass('hide');
+                    ValidateQuote(data);
+                }
+            });
+        });
+        $("#RepoHoldStatus").on('click', function () {
+            var quoteId = $(this).attr('data-quoteID');
+            var isRepoHold = $(this).attr('checked') == "checked" ? true : false;
+
+            $.ajax({
+                url: "../ActiveQuote/UpdateRepoHoldStatus",
+                type: "POST",
+                data: { quoteID: quoteId, isRepoHold: isRepoHold },
+                datatype: 'html',
+                success: function (data) {
+                    ValidateQuote(data);
+                }
+            });
+        });
+        $('#btnSubmitQuote').on("click", function () {
+            $.magnificPopup.close();
+
+        });
+        function ValidateQuote(data) {
+
+            @*var isSubmitQuote = data['@QuoteValidationConstants.Hold_PO'] == true && data['@QuoteValidationConstants.Hold_stick_rate'] == true && data['@QuoteValidationConstants.Hold_Representative'] == true && data['@QuoteValidationConstants.Hold_Profile_Incomplete'] == true && data['@QuoteValidationConstants.Hold_Credit'] == true && data['@QuoteValidationConstants.Hold_Audit'] == true && data['@QuoteValidationConstants.Hold_2_previews'] == true;*@
+            var isSubmitQuote = data['@QuoteValidationConstants.Hold_PO'] == true &&  data['@QuoteValidationConstants.Hold_Representative'] == true && data['@QuoteValidationConstants.Hold_Profile_Incomplete'] == true && data['@QuoteValidationConstants.Hold_Credit'] == true && data['@QuoteValidationConstants.Hold_Audit'] == true && data['@QuoteValidationConstants.Hold_2_previews'] == true;
+            if (isSubmitQuote) {
+                // $("#btnSubmitQuote").removeAttr('disabled');
+                $("#spnCatalogText").text('@Resources.TCPResources.CatalogNoneText');
+                $("#spnCatalogText").removeClass('redcolor');
+            }
+            else {
+                if ($("#spnCatalogText").text() == '@Resources.TCPResources.CatalogNoneText') {
+                    $("#spnCatalogText").text('');
+                }
+                //   $("#btnSubmitQuote").attr('disabled', 'disabled');
+            }
+        }
+        $('#btnCancel').on("click", function () {
+            $.magnificPopup.close();
+        });
+        // disablebuttons();
+        //disabling the buttons of calendar
+        function disablebuttons() {
+            $('a.btn-previous-year').addClass('hide');
+            $('a.btn-next-year').addClass('hide');
+            $('a.btn-previous-month').addClass('hide');
+        }
+    });
+
+</script>
+<div id="SubmitQuotePartial" class="span11  padding5 contentText">
+    @using (Html.BeginForm("SubmitQuote", "ActiveQuote", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="place-left span11 padding20 nbp">
+            <div id="Division" class="place-left margin5 ntm nbm nlm ">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.Division)
+                </div>
+                <div class="place-left span1">
+                    @Html.TextBoxFor(e => e.Division, new { @class = "span1", @disabled = "disabled" })
+                </div>
+            </div>
+            <div id="CustomerNo" class="place-left  margin5 ntm nbm nlm  span127">
+                <div class="place-left span1 textplace">
+                    @Html.LabelFor(e => e.CustomerNo)
+                </div>
+                <div class="place-left span1">
+                    @Html.TextBoxFor(e => e.CustomerNo, new { @class = "span67", @disabled = "disabled" })
+                </div>
+            </div>
+            <div id="Source" class="place-left  margin5 ntm nbm nlm span222">
+                <div class="place-left span72 textplace">
+                    @Html.LabelFor(e => e.LstSource)
+                </div>
+                <div class="place-left span2">
+                    @Html.DropDownList("ddlSource", new SelectList(Model.LstSource, "ItemID", "ItemValue", Model.LstSource.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstSource.FirstOrDefault().ItemID : Model.LstSource.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span2" })
+                </div>
+            </div>
+            <div id="Type" class="place-left span2-5">
+                <div class="place-left span1 textplace">
+                    @Html.LabelFor(e => e.LstType)
+                </div>
+                <div class="place-left span2">
+                    @Html.TextBox("ddlType", Model.Type, new { @class = "span67", @readonly = "true", })
+                    @*@Html.DropDownList("ddlType", new SelectList(Model.LstType, "ItemID", "ItemValue", Model.LstType.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstType.FirstOrDefault().ItemID : Model.LstType.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span2",@readonly = "true" })*@
+                </div>
+            </div>
+        </div>
+        <div class="place-left span11 padding20 nbp">
+            <div id="FutureBillingdate" class="place-left span270">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.FutureBillingDate)
+                </div>
+
+                <div class="place-left span2 input-control text" data-role="datepicker" data-format="m/d/yy">
+                    <input id="FutureBillingDate" name="FutureBillingDate" type="text" class="span2" />
+                    @* @Html.TextBoxFor(e => e.FutureBillingDate, new { @class = "span2", value = "" })*@
+                    <button type="button" class="btn-date"></button>
+                </div>
+            </div>
+            <div id="InvoiceRecipient" class="place-left  margin5 ntm nbm nlm  span270">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.LstInvoiceRecipient)
+                </div>
+                <div class="place-left span2">
+                    @Html.DropDownList("ddlInvoiceRecipient", new SelectList(Model.LstInvoiceRecipient, "ItemID", "ItemValue", Model.LstInvoiceRecipient.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstInvoiceRecipient.FirstOrDefault().ItemID : Model.LstInvoiceRecipient.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span2" })
+                </div>
+            </div>
+            <div id="PONo" class="place-left ">
+                <div class="place-left span1 textplace">
+                    @{ string poNoRequiredClass = Model.ValidationStatus[QuoteValidationConstants.Hold_PO] != null ? !Model.ValidationStatus[QuoteValidationConstants.Hold_PO] ? "" : "hide" : "hide";
+                    }
+                    <div class="place-right"><strong id="divRequired" class="redcolor  @poNoRequiredClass">*</strong></div>
+                    <div class="place-right">@Html.LabelFor(e => e.PONo) </div>
+                </div>
+                <div class="place-left span2">
+                    @Html.TextBoxFor(e => e.PONo, new { @class = "span2" })
+                </div>
+            </div>
+        </div>
+        <div class="place-left span11 padding20 nbp">
+            <div id="Comments" class="place-left padding10 nlp nrp  span11">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.Comments)
+                </div>
+                <div class="place-left span7">
+                    @Html.TextAreaFor(e => e.Comments, new { @class = "span625" })
+                </div>
+            </div>
+            <div id="BillerReference" class="place-left padding10 nlp nrp  span11">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.BillingReference)
+                </div>
+                <div class="place-left span7">
+                    @Html.TextAreaFor(e => e.BillingReference, new { @class = "span625" })
+                </div>
+            </div>
+            <div id="payer" class="place-left padding10 nlp nrp  span11">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.LstPayer)
+                </div>
+                <div class="place-left span7">
+                    @Html.DropDownList("ddlPayer", new SelectList(Model.LstPayer, "ItemID", "ItemValue", Model.LstPayer.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstPayer.FirstOrDefault().ItemID : Model.LstPayer.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span625" })
+                </div>
+            </div>
+            <div id="ShipItemsTo" class="place-left padding10 nlp nrp  span11">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.LstShipItemsTo)
+                </div>
+                <div class="place-left span7">
+                    @Html.DropDownList("ddlShipItemsTo", new SelectList(Model.LstShipItemsTo, "ItemID", "ItemValue", Model.LstShipItemsTo.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstShipItemsTo.FirstOrDefault().ItemID : Model.LstShipItemsTo.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span625" })
+                </div>
+            </div>
+            <div id="AddInvRecipient" class="place-left padding10 nlp nrp  span11">
+                <div class="place-left span120 textplace">
+                    @Html.LabelFor(e => e.LstAddInvRecipent)
+                </div>
+                <div class="place-left span7">
+                    @Html.DropDownList("ddlAddInvRecipent", new SelectList(Model.LstAddInvRecipent, "ItemID", "ItemValue", Model.LstAddInvRecipent.Where(e => e.Selected == true).FirstOrDefault() == null ? Model.LstAddInvRecipent.FirstOrDefault().ItemID : Model.LstAddInvRecipent.Where(e => e.Selected == true).FirstOrDefault().ItemID), new { @class = "span625" })
+                </div>
+            </div>
+        </div>
+        <div class="place-left span11 padding20 nbp">
+            <div id="Catalog" class="place-left span341">
+
+                <div class="place-left span120 textplace">
+
+                    <a data-quoteID="@Model.QuoteID" href="#"><i id="RefreshRepoHoldStatus" data-quoteID="@Model.QuoteID" class="icon-cycle button-fg"></i></a><span>@Html.DisplayName(Resources.TCPResources.CatalogDisplayText)   </span>
+                </div>
+                <div class="place-left span145">
+                    @{string catalogCompleteText = Model.ValidationStatus[QuoteValidationConstants.Hold_Profile_Incomplete] != null ? !Model.ValidationStatus[QuoteValidationConstants.Hold_Profile_Incomplete] ? Resources.TCPResources.CatalogInCompleteText : "" : Resources.TCPResources.CatalogInCompleteText;
+                      string catalogCompleteColor = !string.IsNullOrEmpty(catalogCompleteText) ? "redcolor" : "";
+                      if (!Model.ValidationStatus.ContainsValue(false))
+                      {
+                          catalogCompleteText = Resources.TCPResources.CatalogNoneText;
+                      }
+                    }
+                    <a  href="@Url.Action("ViewCatalogInfo", "CatalogInfo", new { custUserID = Model.UserVM.CRMModelProperties.LoggedINCustomerUserID })">
+
+                        <span class="@catalogCompleteColor" id="spnCatalogText" >@catalogCompleteText</span></a>
+                    <input type="text" name="QuoteID" class="hide" value="@Model.QuoteID" />
+                </div>
+            </div>
+            <div id="Price" class="place-left span8_0">
+                <div class="place-left textplace">
+                    @Html.CheckBox("RepoHoldStatus", Model.ValidationStatus[QuoteValidationConstants.Hold_Representative] != null ? !Model.ValidationStatus[QuoteValidationConstants.Hold_Representative] : true, new { @data_quoteID = Model.QuoteID })
+                </div>
+                <div class="place-left span1">
+                    @Html.Label("Rep Hold", new { @class = "padding3" })
+                </div>
+
+            </div>
+            <div id="Price" class="place-left span100">
+                <div class="place-left textplace">
+                    @Html.LabelFor(e => e.DBValue, new { @class = "padding3" })
+                </div>
+                <div class="place-left span1">
+                    @Html.TextBox("DBValue", String.Format("{0:C}", Model.DBValue).Replace("$", ""), new { @class = "span1 div-MainHeight25" })
+                </div>
+            </div>
+
+            <div id="submit" class="place-left ">
+
+                <div id="DivSubmitQuote" class=" place-left contentText text-right span290">
+                    <div class="place-left textplace" style="width: 72px">
+
+                        @if (Roles.IsUserInRole("AdminRep"))
+                        {
+                            <input type="submit" id="btnMgrSubmitQuote" name="SubmitOrSave" data-quoteID="@Model.QuoteID"  style="background-color:#99bfe6;color:black;height:25px;width:115px;font-size:14px;padding-left:5px;" name="SubmitQuote"  class="button-bg text-center"   value="Manager Submit" /> 
+                        }
+                        else
+                        {
+                            <input type="submit" id="btnSubmitQuote" name="SubmitOrSave" data-quoteID="@Model.QuoteID"  style="background-color:#99bfe6;color:black;height:25px;width:70px;font-size:14px;padding-left:10px;" name="SubmitQuote"  class="button-bg text-center"   value="Submit" />
+                        }
+
+                    </div>
+                    <div class="place-right" style="width: 147px!important">
+                        <div class="place-left textplace">
+                            <input type="submit" id="btnSaveQuote" name="SubmitOrSave" data-quoteID="@Model.QuoteID" style="background-color:#99bfe6;color:black;height:25px;width:70px;font-size:14px;padding-left:10px;" name="SubmitQuote"  class="button-bg text-center" value="Save" />
+                        </div>
+                        <div class="place-left span1">
+                            <button id="btnCancel" type="button" data-quoteID="@Model.QuoteID" class="button-bg">@Resources.TCPResources.CancelText</button>
+                        </div>
+                    </div>
+                    @*<button id="btnSubmitQuote" data-quoteID="@Model.QuoteID" class="button-bg">@Resources.TCPResources.SubmitText</button>*@
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,73 @@
+﻿@using TPC.Common.Enumerations;
+@model TPC.Core.Models.ViewModels.CategoriesItemContainerViewModel
+@{
+    string SCItemsCount = "";
+    if (@Model.UserVM != null)
+    {
+        SCItemsCount = Model.UserVM.SCCount.ToString();
+      
+    }
+
+    if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()) || !WebSecurity.IsAuthenticated)
+    {
+        ViewBag.Title = "Products";
+    }
+    else
+    {
+        if (Model.CategoriesPVM.ItemGroupVM.GroupID == 0)
+        {
+            ViewBag.Title = "Search";
+        }
+        else
+        {
+            ViewBag.Title = "Categories";
+        }
+    }
+    Layout = "~/Views/Shared/PenworthyLayout.cshtml";
+}
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+@{
+    List<ItemViewModel> lstItemVM = new List<ItemViewModel>();
+    ItemParentViewModel itemPVM = new ItemParentViewModel();
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+<div id="loading-div-background" class="hide">
+    <div id="dvLoading">
+        @*  <img style="height:80px;margin:30px;" src="images/loading.gif" alt="Loading.."/>*@
+        <span style="color: black; font-weight: bold; font-size: 10px">Please wait....</span>
+    </div>
+</div>
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.CategoriesPVM.QuoteID)
+    @Html.Hidden("hdnPkgID", @Model.CategoriesPVM.SelectedGroupID)
+    @Html.Hidden("hdnPageCount", @Model.CategoriesPVM.SelectedTitlesCount)
+    @Html.Hidden("hdnCollectionPath", @Url.Action("AddCollectionsToQuotDWCartbyGroupID", "ItemListView"))
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+</div>
+<div id="ViewItemConatiner" class="place-left body-text span12">
+    @Html.Partial("../TCPViews/Partial/CategoriesItemViewPartial", Model.CategoriesPVM)
+</div>
+
+
+
+

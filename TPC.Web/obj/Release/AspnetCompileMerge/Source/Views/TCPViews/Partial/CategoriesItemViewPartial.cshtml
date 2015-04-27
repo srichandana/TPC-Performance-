@@ -1,0 +1,332 @@
+﻿@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Models;
+@using TPC.Core.Models.Models;
+@using TPC.Common.Enumerations;
+@model TPC.Core.Models.Models.CategoriesPartialViewModel
+@{
+    //int noofRowsPerPage = 15;
+    //int noofColumns = 4;
+    string searchText = "";
+    string classWhite = "color: white;margin-left: 716px;";
+    string classFilter = ViewBag.Title != "Search" ?"margintop45":"";
+    string classSoftFilter = "margintop70";
+    int pageDenomation = Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID == "All" ? Model.SelectedTitlesCount : Convert.ToInt32(Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID);
+    int NoOfPages = (int)Math.Ceiling(@Model.SelectedTitlesCount / (double)pageDenomation);
+    int noofItemsPerPage = Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID == "All" ? NoOfPages : Convert.ToInt32(Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID);
+    if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()))
+    {
+        ViewBag.Title = Model.SelectedGroupID == 0 ? "Search" : "Products";
+        searchText = Model.UserVM.SearchCategory;
+    }
+    else if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+    {
+        ViewBag.Title = Model.SelectedGroupID == 0 ? "Search" : "Categories";
+        searchText = Model.UserVM.SearchCategory;
+        classWhite = "color: #2e92cf;margin-left: 40px;";
+        classFilter = "margintop80";
+        classSoftFilter = "margintop110";
+    }
+    if (!WebSecurity.IsAuthenticated)
+    {
+        ViewBag.Title = "Products";
+    }
+    string currentDisplaytext = Model.ItemGroupVM.ItemPVM != null && Model.ItemGroupVM.ItemPVM.ListItemVM.Count() > 0 ? Model.ItemGroupVM.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+    (Model.ItemGroupVM.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 || Model.ItemGroupVM.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == "" ? "Cart" : "Quote") : "Cart";
+
+}
+<div id="hiddenfieldsdiv" class="hide">
+    @Html.Hidden("hdnQuoteID", @Model.QuoteID)
+    @Html.Hidden("hdnPkgID", @Model.SelectedGroupID)
+    @Html.Hidden("hdnPageCount", @Model.SelectedTitlesCount)
+    @Html.Hidden("hdnCollectionPath", @Url.Action("AddCollectionsToQuotDWCartbyGroupID", "ItemListView"))
+    @Html.Hidden("hdnCollectionTitleText", @Model.SelectedTitleText)
+    <input type="hidden" id="hdnPageTitle" value="@ViewBag.Title" />
+    <a id="lnkData"></a>
+</div>
+<div id="ViewItemConatiner" class="body-text span12 margin10 nlm nrm nbm">
+    <div class="pos-fix buttonbg">
+        @if (ViewBag.Title != "Search")
+        {
+            if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()))
+            {
+            <div class="place-left span12 div-MainHeight35 buttonbg">
+                <div class="place-left span6">
+                    <h3 id="headerbartext" style=""></h3>
+                </div>
+                 @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()))
+                {
+                <div id="TitlesPrice" class="text-right place-right margin5 nlm nbm ntm padding2 nrp nbp btp divPriceText color-white" style="@classWhite">@string.Format("{0:C2}", @Model.SelectedTitlePrice) </div>
+                }
+                    <div id="TitlesNo" class="place-right text-right divPriceText padding5 nlp nbp ntp margin-top2 color-white" style="@classWhite">@Model.SelectedTitlesCount @Resources.TCPResources.TitlesCollectionText</div>
+                 <div class="place-right">
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        if (Model.SelectedTitlesCount > 0)
+                        {
+                        <button id="5" name="1" value="Add this Collection" class="AddCollection pos-fix" style="background-color: transparent;border:0px; font-size:12px; font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif;color:#2e92cf">
+                            Add 
+                        </button>
+                        }
+                    }
+                    else
+                    {
+                        <a class="popup-with-zoom-anim login" style="@classWhite;margin-right:2px;" href="#small-dialog">Add</a>
+                    }
+                </div>
+            </div>
+            }
+            else
+            {
+                ViewBag.SelectedTitlesCount = Model.SelectedTitlesCount;
+            }            
+        <div class="margin20 nlm nrm nbm span12 buttonbg contentTextSmall">@Resources.TCPResources.CollectionDescription</div>
+            
+        }
+
+        <div class="place-left span12 buttonbg pos-fix" style="z-index: 1;">
+            <div id="PositivieFilters_Pagination" class="place_left span12 margin10 nlm nrm nbm div-MainHeight20">
+                <div class="place-left div-MainHeight20 margin10 nlm ntm nrm divPriceText" style="font-size: 11px;">
+                    <div id="goldStarText" class="place-left margin5 ntm nbm ">
+                        <i id="staricon-yellow" class="icon-star-3 margin5 ntm nbm nlm fg-yellow itemTextSize"></i>@Resources.TCPResources.goldStarText
+                    </div>
+                    <div class="place-left margin5 ntm nbm ">
+                        <i id="staricon-blue" class="icon-star-3 margin5 ntm nbm nlm button-fg itemTextSize"></i>@Resources.TCPResources.BlueStarText
+                    </div>
+
+                </div>
+                @if (Roles.IsUserInRole(UserRolesEnum.Repo.ToString()) || Roles.IsUserInRole(UserRolesEnum.AdminRep.ToString()))
+                {
+                    <div class=" span4 div-MainHeight20">
+                        <input id="Barcode" type="text" placeholder="Barcode" maxlength="13" class="place-left" />
+                    </div>
+                }
+                <div class="place-right span3_5 div-MainHeight20" id="gotoPageDiv">
+                    <ul class="place-right text-right navPagination span4 nlm nrm ntm nbm">
+                        @if (NoOfPages <= 4)
+                        {
+
+                            if ((NoOfPages == 1) || (NoOfPages == 0))
+                            {
+                            <li class="paginationDisplay " title="p">Previous</li>
+                                                       
+                            <li class="paginationDisplay ">1</li>
+                                                       
+                            <li class="paginationDisplay " title="n">Next</li>
+                            }
+                            else
+                            {
+                                if (@Model.currentPageIndex == 1)
+                                {
+                                                            
+                            <li class="paginationDisplay ">Previous</li>
+                                }
+                                else
+                                {
+                            <li class="paginationDisplay "><a class="gotoPage first" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id="perviousPage" title="p">Previous</a></li>
+                                }
+                                for (int i = 0; i < NoOfPages; i++)
+                                {
+                                    if (@Model.currentPageIndex == (i + 1))
+                                    {
+                            <li class="paginationDisplay ">@(i + 1)</li>
+                                    }
+
+                                    else
+                                    {
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = @i + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(i + 1)>@(i + 1)</a></li>
+                                    }
+                                }
+                                if (@Model.currentPageIndex == NoOfPages)
+                                {
+                            <li class="paginationDisplay ">Next</li>
+                                }
+                                else
+                                {
+                            <li class="paginationDisplay "><a class="gotoPage last" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id="nextPage" title="n">Next</a></li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (@Model.currentPageIndex == 1)
+                            {
+                            <li class="paginationDisplay ">Previous</li>
+                            <li class="paginationDisplay ">1</li>
+                            }
+                            else
+                            {
+                            <li class="paginationDisplay "><a class="gotoPage first" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id="perviousPage" title="p">Previous</a></li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"] })" id="1" title="1">1</a></li>
+                            }
+
+                            if (@Model.currentPageIndex == 1)
+                            {
+                            <li class="paginationDisplay "><a  class ="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id=@(Model.currentPageIndex + 1)  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                            <li class="paginationDisplay "><a  class ="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 2, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                                if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages || (@Model.currentPageIndex + 3) != NoOfPages)
+                                {
+                            <li class="paginationDisplay ">...</li>
+                                }
+                            }
+                            else if ((@Model.currentPageIndex - 1 == 1))
+                            {
+@*<li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex })"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>*@
+                                for (int i = 0; i < NoOfPages; i++)
+                                {
+                                    if (@Model.currentPageIndex == (i + 1))
+                                    {
+                            <li class="paginationDisplay ">@(i + 1)</li>
+                                    }
+                                }
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                            <li class="paginationDisplay "><a  class ="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 2, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                            <li class="paginationDisplay ">...</li>
+                            }
+                            else if ((@Model.currentPageIndex - 1 == 2))
+                            {
+                            <li class="paginationDisplay "><a  class ="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id=@(Model.currentPageIndex - 1)  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+@*<li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex })"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>*@
+                                for (int i = 0; i < NoOfPages; i++)
+                                {
+                                    if (@Model.currentPageIndex == (i + 1))
+                                    {
+                            <li class="paginationDisplay ">@(i + 1)</li>
+                                    }
+                                }
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                if (NoOfPages != 5)
+                                {
+                            <li class="paginationDisplay ">...</li>
+                                }
+
+                            }
+                            else if (@Model.currentPageIndex == NoOfPages)
+                            {
+                            <li class="paginationDisplay ">...</li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                            }
+                            else if (@Model.currentPageIndex + 1 == NoOfPages)
+                            {
+                            <li class="paginationDisplay ">...</li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                            <li class="paginationDisplay ">@Model.currentPageIndex</li>
+@*<a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title="@Model.currentPageIndex" id=@Model.currentPageIndex>@(Model.currentPageIndex)</a>*@
+                            }
+                            else if (@Model.currentPageIndex + 2 == NoOfPages)
+                            {
+                            <li class="paginationDisplay ">...</li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title="@(Model.currentPageIndex - 1)" id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                            <li class="paginationDisplay ">@Model.currentPageIndex</li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title="@(Model.currentPageIndex + 1)" id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                            }
+                            else
+                            {
+                            <li class="paginationDisplay">...</li>
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex - 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>        
+@*<li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex })"  title="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>*@
+                                for (int i = 0; i < NoOfPages; i++)
+                                {
+                                    if (@Model.currentPageIndex == (i + 1))
+                                    {
+                            <li class="paginationDisplay ">@(i + 1)</li>
+                                    }
+                                }
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                            <li class="paginationDisplay ">...</li> 
+                            }
+                            if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages)
+                            {
+                            <li class="paginationDisplay "><a class="gotoPage" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = NoOfPages, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })"   title="@NoOfPages">@NoOfPages</a></li>
+                            }
+                            if (@Model.currentPageIndex == NoOfPages)
+                            {
+                            <li class="paginationDisplay ">Next</li>
+                            }
+                            else
+                            {
+                            <li class="paginationDisplay "><a class="gotoPage last" href="@Url.Action("GetSelectedCollectionItem", "ItemContainerPartial", new { groupID = Model.SelectedGroupID, currentPageIndex = Model.currentPageIndex + 1, noofItemsPerPage = noofItemsPerPage, selectedPackageIdsList = ViewData["grpIds"], searchText = searchText })" id="nextPage" title="n">Next</a></li>
+                            }
+                        }
+                    </ul>
+
+                </div>
+                @*<div class="place-right text-right span4 ntm nbm margin15 div-MainHeight20 " style="margin-bottom: 4px">
+                @Html.DropDownList("ddlPageCount", new SelectList(Model.pageDenomination, "ItemID", "ItemValue", @Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID), "----Select----")
+            </div>*@
+                @if (ViewBag.Title == "Search")
+                {
+            
+                    <div class="place-left padding5 nlp nrb nbp">
+                        <a href="@Url.Action("GetProductDetails", "Default", new { quoteID = @Model.QuoteID, quoteType = "Products" })" id="BackToProduct">@Resources.TCPResources.BackToProduct</a>
+                    </div>
+                }
+            </div>
+            <div class="place-right text-right span12 border-bottom-grey">
+
+                <div class="place-right">
+                    <div class="place-right span2">
+                        @Html.DropDownList("ddlPageCount", new SelectList(Model.pageDenomination, "ItemID", "ItemValue", @Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID), "----Select----")
+
+                    </div>
+                </div>
+                @* <div class="place-right text-center pos-fix" style="width: 900px;">
+                @if (ViewBag.Title == "Products" || ViewBag.Title == "Categories")
+                {
+                    <div class="place-left text-left span1">
+                        #Titles
+                    </div>
+                    <div class="place-left div-contentheight divspanWidth1">
+                    </div>
+                    <div class="place-left">
+                        :  <a id="lblTotalItemTitles">@Model.SelectedQuoteItemCount</a>
+                    </div>
+                    <div class="place-left span1">
+                        Price
+                    </div>
+                    <div class="place-left div-contentheight divspanWidth1">
+                    </div>
+                    <div class="place-left">
+                        :   <a id="lblTotalItemPrice">@string.Format("{0:C2}", Model.SelectedQuoteItemPrice)</a>
+                    </div>
+                }
+            </div>*@
+            </div>
+
+
+        </div>
+    </div>
+    @if (ViewBag.Title != "Search")
+    {
+        <div id="divSoftfilterPartial" class="place-left span3 div-itemContainerHeight @classSoftFilter">
+
+            @Html.Partial("../TCPViews/Partial/FilterPartial", Model.LstFilterModel)
+        </div>
+    }
+    <div id="divViewContent" class="place-left span9_35 body-text div-itemContainerHeight @classFilter">
+        <div id="divFilterKPLList" class="place-left span9_35 ">
+            <div id="divListView" class="place-left span9_15">
+                <div id="GroupList" class="span9_35 itemheight " style="padding-top: 96px;">
+                    @*<div class="place-left span9_35 div-MainHeight35 padding2 marginLeftMinus6" id="TitleHeader">
+                        <div class="place-left span9_35 div-MainHeight35">
+                            <div id="TitleText" class="place-left span6 margin20 nrm nbm ntm padding5 nlp nrp nbp" style="font-size: large"><strong>@Model.SelectedTitleText</strong></></div>
+                           
+                        </div>
+                    </div>*@
+                    @Html.Partial("../TCPViews/Partial/CollectionsItemsPartial", Model.ItemGroupVM)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+<div id="barcode-dialog" class="zoom-anim-dialog mfp-hide">
+    <div class="small-dialog">
+        <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        <div id="BarcodeloadingSetView">
+        </div>
+    </div>
+</div>

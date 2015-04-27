@@ -1,0 +1,319 @@
+﻿@model TPC.Core.Models.ViewModels.ItemDetailedViewModel
+
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using System.Configuration;
+@using TPC.Web.Infrastructure;
+@*@Scripts.Render("~/bundles/metro")*@
+@{
+    string currentDisplaytext = Model.QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+        (Model.QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 ? "Cart" : "Quote");
+    int value = 0;
+    string stremptypoint = "-";
+    int scCount = Model.UserVM == null ? 0 : Model.UserVM.SCCount;
+    decimal? scPrice = Model.UserVM == null ? 0 : Model.UserVM.SCPrice;
+    string checkLogin = WebSecurity.IsAuthenticated == true ? "AddCart" : "login";
+    string nonPreview = string.Empty;
+}
+@if (Model.QuoteTypeText == "Preview")
+{
+    nonPreview = Model.LstItemParentVM.Count() > 0 ? Model.LstItemParentVM[0].ListItemVM[0].IsPreviewItem == true ? "" : "div-disable" : string.Empty;
+}
+<script>
+    //Google Analytics
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-22899788-1', 'penworthy.com');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Javascript for updating the DW and Cart Count in content Page
+        $('#SCItemCount sup').html('@scCount');
+
+        var itemNo = String(@Model.ItemID);
+        var quoteid = String(@Model.QuoteID);
+        var querystring = location.search.replace('?', '').split('&');
+
+        for (var i = 0; i < querystring.length; i++) {
+            // get name and value
+            var name = querystring[0].split('=')[0];
+            var value = querystring[0].split('=')[1];
+            // populate object
+            var QuoteID = value;
+        }
+
+        $('.btnSelect').click(function () {
+            var thisId = this.id;
+            $(".ScItemDetailSeries").each(function () {
+                var title = this.title;
+                if (thisId == title) {
+                    $('#DivNotice').removeClass('hide');
+                }
+            });
+            var itemIdsList = [];
+            var btnid = this.id;
+            if (btnid == "5") {
+                $('div.' + itemid + '').find('.group1').each(function () {
+                    itemIdsList.push(this.value);
+                });
+            }
+
+
+            $.ajax({
+                url: "@Url.Content("~/ItemListView/SelectedItem")",
+                type: "POST",
+                data: { selectbtnid: this.value, itemID: itemIdsList.toString(), quoteID: quoteid },
+                datatype: 'html',
+                success: function (data) {
+                    for (var i in itemIdsList) {
+                        var itemvalue = itemIdsList[i];
+                        $('div:[id="' + itemvalue + '"]').children('div').children('div').find('div:[id="InCart+' + itemvalue + '"]').removeClass('hide').show();
+                        $('div:[id="' + itemvalue + '"]').children('div').children('div').find('div:[id="AddtoCart+' + itemvalue + '"]').hide();
+                    }
+
+                    //var result = $('<div />').append(data).find('#ItemListDetailedView').html();
+                    //$('#ItemListDetailedView').html(result);
+                }
+
+            });
+            $('#SCItemCount sup').html('@scCount');
+
+        });
+
+        $('.makemefirst').unbind('click').click(function () {
+            $.ajax({
+                url: "@Url.Content("~/ItemListView/ViewSingleItem")",
+                type: "POST",
+                data: { itemID: this.title, QuoteID: String(@Model.QuoteID) },
+                datatype: 'html',
+                success: function (data) {
+                    $('#loadingSetView').html('');
+                    $('#loadingSetView').html(data);
+                }
+            });
+        });
+
+        $('.group2').removeClass('hide');
+        $('.AddCart').removeClass('hide');
+
+        $(".OpenBook").on('click', function () {
+
+            var insidepath = $('#hdnInsideImagePath').val();
+            var imgpath = insidepath + "\\" + @Model.ISBN + ".jpg";
+            $.Dialog({
+                shadow: true,
+                overlay: true,
+                flat: true,
+                icon: '',
+                title: 'Look Inside',
+                padding: 10,
+                content: '<form>' +
+                            '<div id="LookInside"  class=""> ' +
+                            ' <div class="place-left div-MainHeight20"></div> ' +
+                            ' <div class="place-left OpenInsideImage">' +
+                            @*'  <img src="@Url.Content(ConfigurationManager.AppSettings["ItemInsideImagePath"] + @Model.ISBN + ".jpg")" style="height:612px;width:750px;"    />' +*@
+                            '  <img src="@Url.Content("~/Image/Getimage?id=" + HttpUtility.UrlEncode(ConfigurationManager.AppSettings["ItemInsideImagePath"]) + "\\" + @Model.ISBN + ".jpg")" style="height:612px;width:750px;"    />' +
+                            '</div>' +
+                            ' </div>' +
+                            '</form>',
+                onShow: function (_dialog) {
+                    $.Dialog.content(content);
+                },
+
+            });
+        });
+
+    });
+
+
+
+</script>
+<div id="SingleItem" class="">
+    <div class="place-left span12 div-MainHeight15"></div>
+    <div class="span12 contentNormalText div-containerheight place-left">
+        <div id="ViewNextItem" class="span12 place-left ">
+            <div class="place-left  text-left">
+                <div id="divImg" class="place-left text-left margin-left1">
+                    @*<img id="@Model.ItemID" src="@Url.Content(ConfigurationManager.AppSettings["ImagesH280"] + @Model.ISBN + ".jpg")" class="shadow" />*@
+                    <img id="@Model.ItemID" class="shadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @Model.ISBN, ConfigurationManager.AppSettings["ImagesH280"], "\\", ".jpg")" style="max-width:324px;min-height:280px;">
+                </div>
+                <div class="span3 text-center">
+                    <input type="button" id="@Model.ISBN" class="OpenBook text-center" value="Look Inside" style="background-color:transparent" />
+                </div>
+            </div>
+            <div id="divitemDetails" class="place-left span7 text-left margin-left3 ">
+                <div id="title" class="segoe">
+                    <h2><strong>@Model.Title</strong></h2>
+                </div>
+                <div>
+                    <strong id="author">@Model.Author</strong>
+                </div>
+                <div>
+                    <strong>
+                        @Html.ConvertEnumToBindType(Model.Type)</strong>
+                </div>
+                <div>@Model.Description</div>
+                <div class="div-MainHeight35"><strong id="price">@string.Format("{0:C}", Model.Price)</strong></div>
+                <div class="place-left">
+
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageSeries, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string series = Model.Series == string.Empty ? stremptypoint : Model.Series;}@series</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageARLevel, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong id="ar">@Model.ARLevel</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageCharacter, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string primaryChracter = Model.Primarycharacter == string.Empty ? stremptypoint : Model.Primarycharacter;}@primaryChracter</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageRCLevel, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@Model.RCLevel</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageInterestGrade, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string interestGrade = Model.InterestGrade == string.Empty ? stremptypoint : Model.InterestGrade;}@interestGrade</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageLexile, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong id="lexile">@{string lexile = Model.Lexile == string.Empty ? stremptypoint : Model.Lexile;}@lexile</strong></label></div>
+                    <div class="place-left span3_5">@Html.Label(Resources.TCPResources.SetPageCopyRight, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@Model.CopyRight</strong></label></div>
+                    <div class="place-left span3_5">
+                        @Html.LabelFor(e => e.Dewey, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string dewey = Model.Dewey == string.Empty ? stremptypoint : Model.Dewey;}@dewey</strong></label>
+                    </div>
+                    <div class="place-left span3_5">@Html.LabelFor(e => e.Size, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string size = Model.Size == string.Empty ? stremptypoint : Model.Size;}@size</strong></label></div>
+                    <div class="place-left span3_5">@Html.LabelFor(e => e.ISBN, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left">@Model.ISBN</label></div>
+                    <div class="place-left span3_5">@Html.LabelFor(e => e.Pages, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@Model.Pages</strong></label></div>
+                   @* <div class="place-left span3_5">@Html.LabelFor(e => e.ReviewSource, new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left"><strong>@{string reviewSource = Model.ReviewSource == string.Empty ? stremptypoint : Model.ReviewSource;}@reviewSource</strong></label></div>*@
+                    <div class="place-left span3_5">@Html.Label("Item #", new { @class = "place-left" })<label class="place-left">:</label><label class="margin-left1 place-left">@Model.ItemID</label></div>
+                </div>
+            </div>
+
+            <div id="divDWoptional" class="place-right span1 ">
+                @{
+                    if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+                    {
+                        if (@Model.IsInSCDWQuote == true)
+                        {
+                    <div id="carttext-@Model.ItemID" class="place-left center border">
+                        <button class="singleImgWidth " disabled="disabled">In @currentDisplaytext</button>
+                    </div>
+                    <div id="carttextlink-@Model.ItemID" class="place-left hide carttextlink-@Model.ItemID" >
+                        <button class="buttonBackgroundColor AddCart bgcolor @nonPreview quotestatus" data-price="@Model.Price" style="color:white;width: 115px;" data-itemid="@Model.ItemID" >Add To @currentDisplaytext</button>
+                    </div>
+                        }
+                        else
+                        {  
+                    <div id="carttextlink-@Model.ItemID" class="place-left carttextlink-@Model.ItemID" >
+                        <button class="buttonBackgroundColor AddCart bgcolor @nonPreview quotestatus" data-price="@Model.Price" style="color:white;width: 115px;" data-itemid="@Model.ItemID" >Add To @currentDisplaytext</button>
+                    </div>
+                    <div id="carttext-@Model.ItemID" class="place-left center border hide carttext-@Model.ItemID">
+                        <button class="singleImgWidth " disabled="disabled">In @currentDisplaytext</button>
+                    </div>
+                        }
+                    }
+                    else
+                    {
+                        if (currentDisplaytext == "Cart")
+                        {
+                            if (@Model.IsInSCDWQuote == true)
+                            {
+                    <div class="place-left center border">
+                        <button class="singleImgWidth " disabled="disabled">In Cart</button>
+                    </div>
+                            }
+                            else
+                            {
+                    <div id="carttextlink-@Model.ItemID" class="place-left carttextlink-@Model.ItemID" style="width: 100px;">
+                        <button class="buttonBackgroundColor AddCart bgcolor" style="color:white" data-itemid="@Model.ItemID" >Add To Cart</button>
+                    </div>
+                    <div id="carttext-@Model.ItemID" class="place-left center border hide carttext-@Model.ItemID">
+                        <button class="singleImgWidth " disabled="disabled">In Cart</button>
+                    </div>
+                            }
+                        }
+                        else if (@Model.DWSelectionStatus == "1")
+                        {
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect"  value="1"  id=@Model.ItemID style=" font-size:13px;border:solid;font-weight:bold;text-align:center;background-color:#F1FDDE;border-radius:100%;height:60px;width:60px;" >Yes</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button  class="btnSelect" value="3" id=@Model.ItemID style="font-size:13px;border:solid;background-color:white;font-weight:bold;border-radius:100%;height:60px;width:60px;text-align:left;padding-left:5px" >Maybe</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button  class="btnSelect"value="2"  id=@Model.ItemID style="font-size:13px;border:solid;background-color:white;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;" >No</button>
+                    </div>
+                        }
+                        else if (@Model.DWSelectionStatus == "2")
+                        {
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="1"  id=@Model.ItemID style=" font-size:13px;border:solid;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button  class="btnSelect" value="3"  id=@Model.ItemID style="font-size:13px;border:solid;font-weight:bold;border-radius:100%;height:60px;width:60px;padding-left:5px;background-color:white;text-align:left" >Maybe</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="2"  id=@Model.ItemID style="font-size:13px;border:solid;font-weight:bold;text-align:center;border-radius:100%;height:60px;width:60px;background-color:#FFDAD8;" >No</button>
+                    </div>
+                        }
+                        else if (@Model.DWSelectionStatus == "3")
+                        {
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="1"  id=@Model.ItemID style=" font-size:13px;font-weight:bold;border:solid;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="3" id=@Model.ItemID style="background-color:#FFF9CB;font-size:13px;border:solid;font-weight:bold;border-radius:100%;height:60px;width:60px;padding-left:5px;text-align:left" >Maybe</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="2"  id=@Model.ItemID style="font-size:13px;font-weight:bold;text-align:center;border:solid;border-radius:100%;height:60px;width:60px;background-color:white;" >No</button>
+                    </div>
+                        }
+                        else if (@Model.DWSelectionStatus == "5")
+                        {
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button class="btnSelect" value="1"  id=@Model.ItemID style=" font-size:13px;font-weight:bold;text-align:center;border:solid;border-radius:100%;height:60px;width:60px;background-color:white;" >Yes</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button  class="btnSelect" value="3"  id=@Model.ItemID style="font-size:13px;font-weight:bold;border:solid;border-radius:100%;height:60px;width:60px;padding-left:5px;background-color:white;text-align:left" >Maybe</button>
+                    </div>
+                    <div class="place-left span1" style="margin-bottom: 5px">
+                        <button  class="btnSelect" value="2"  id=@Model.ItemID style="font-size:13px;font-weight:bold;border:solid;text-align:center;border-radius:100%;height:60px;width:60px;background-color:white;" >No</button>
+                    </div>
+                        }
+                        else
+                        {
+                    <div class="place-left" style="width: 100px;">
+                        <button class="buttonBackgroundColor @checkLogin bgcolor"  style="color:white"  data-itemid="@Model.ItemID">Add</button>
+                    </div>
+                        }
+                    }
+                }
+            </div>
+            <div class=" span1000 place-left border-top  margin5 nlm nrm nbm "></div>
+            <div class="span12 place-left  margin10 ntm nlm nrm">
+                <div class="span12 place-left text-bold padding10 nlp nrp">
+                   <strong style="font-size:15px;"> @Model.SetTitle</strong>
+                </div>
+                <div class="span12 place-left">
+                    @Model.SetDescription
+                </div>
+            </div>
+            <div class=" span1000 place-left border-bottom margin5 nlm nrm ntm "></div>
+            @if (Model.LstItemParentVM.Count() > 0)
+            {
+                <div id="dvSet-@Model.ItemID" class="place-left span900 parentPartial @Model.ItemID">
+                    @Html.Partial("../TCPViews/Partial/KPLItemParentPartial", @Model.LstItemParentVM[0])
+                </div>
+                <div class="place-right span1">
+                    @{value = Roles.IsUserInRole("Repo") == true || Roles.IsUserInRole("AdminRep") == true ? 5 : 1;}
+                    <div class="span2">
+                        <div class="span2 place-left text-center">
+                            <button id="5" name="1" value="@value" class="@checkLogin" data-itemid="@Model.ItemID" style="border-radius: 60%; height: 60px; width: 60px; background-color: white; border: solid; text-align: center; font-size: 12px; font-weight: bold;">Add Set</button>
+                        </div>
+                        <div class="span2 place-left text-center">
+                            <div class="span2 place-left">@Model.SetItemCount Titles in the</div>
+                            <div class="span2 place-left">@Model.SetTitle</div>
+                            <div class="span2 place-left">set for @String.Format("{0:C2}", Model.SetItemsTotalPrice)</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="place-left span12 div-MainHeight15 "></div>
+</div>

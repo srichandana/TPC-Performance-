@@ -1,0 +1,14 @@
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Core.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Core.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\AutoMapper.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\AutoMapper.Net4.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Context.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\EntityFramework.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\TPC.Context.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\AutoMapper.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\bin\Release\EntityFramework.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Release\TPC.Core.csprojResolveAssemblyReference.cache
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Release\TPC.Core.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Core\obj\Release\TPC.Core.pdb

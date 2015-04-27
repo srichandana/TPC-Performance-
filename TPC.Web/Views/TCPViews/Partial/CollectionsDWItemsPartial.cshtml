@@ -1,0 +1,217 @@
+﻿@model TPC.Core.Models.ItemGroupViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Common.Enumerations;
+@using TPC.Web.Infrastructure;
+@using System.Configuration;
+@{
+    int noofRowsPerpage;
+    int noofColumns = 4;
+    int noofRecords = Model.ItemPVM != null && Model.ItemPVM.ListItemVM.Count() > 0 ? Model.ItemPVM.ListItemVM.Count() : 60;
+    noofRowsPerpage = (int)Math.Ceiling(noofRecords / (double)noofColumns);
+    string currentDisplaytext = Model.ItemPVM != null && Model.ItemPVM.ListItemVM.Count() > 0 ? Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+       (Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 || Model.ItemPVM.ListItemVM.FirstOrDefault().QuoteTypeText == "" ? "Cart" : "Quote") : "Cart";
+    string imagePath = ConfigurationManager.AppSettings["ImagesH135"];
+    string divgroupwidth = "960px";
+    int columnCount = 3;
+    int itemCount = 4;
+    string ARlevel = string.Empty;
+    string RCLevel = string.Empty;
+    string hrefattr = WebSecurity.IsAuthenticated == true ? "#" : "#small-dialog";
+    string checkLogin = WebSecurity.IsAuthenticated == true ? "btnSet" : "popup-with-zoom-anim login";
+    string enditemsClass = Model.ItemPVM != null && Model.ItemPVM.ListItemVM.Count() > 0 ? "hide" : "";
+}
+
+<div id="dvSet-1" class="place-left span12" style="margin-top: 16px;">
+    @{
+        ItemGroupViewModel itemGVM = Model;
+        int columnsCount = 0;
+    }
+    @if (Model.ItemPVM != null)
+    {
+        for (int irows = 0; irows < @noofRowsPerpage; irows++)
+        {
+        <div id="@irows" class="place-left margin5 nlm nrm" style="width:@divgroupwidth">
+            @for (int icolumns = 0; icolumns < @noofColumns; icolumns++)
+            {
+                if ((columnsCount + icolumns) >= itemGVM.ItemPVM.ListItemVM.Count())
+                {
+                    columnsCount = itemGVM.ItemPVM.ListItemVM.Count() - 1;
+                    irows = noofRowsPerpage;
+                    icolumns = itemCount;
+                    break;
+                }
+                ItemViewModel obj = Model.ItemPVM.ListItemVM[columnsCount + icolumns];
+                <div id="Item" class="body-text ntm nbm place-left">
+                    <div id="ViewDetailItem-@itemGVM.GroupID-@icolumns"  class=" DWItemImgWidth  margin10  nlm ntm nbm place-left">
+                         <div id="divStarStatus-@obj.ItemID" class="divStarStatus-@obj.ItemID DWItemImgWidth place-left text-center">
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (@obj.IsInSCDWQuote == true)
+                                {
+
+                                    if (obj.IsInCustomerTitles == true)
+                                    {
+                                <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                    }
+                                    else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                    {
+                                <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                    }
+                                    else
+                                    {
+                                        <div class="DWItemImgWidth place-left text-center margin10">
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+
+                                    if (obj.IsInCustomerTitles == true)
+                                    {
+                                <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                    }
+                                    else if ((obj.SeriesBroughtBefore == true || obj.CharecterBroughtBefore == true))
+                                    {
+                                <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                    }
+                                     else
+                                    {
+                                        <div class="DWItemImgWidth place-left text-center margin10">
+                                        </div>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <a class="popup-with-zoom-anim login carouselCartText" href="#small-dialog">Add To Cart</a>
+                            }
+                        </div>
+                        <div id="divImg-@itemGVM.GroupID-@icolumns" class="DWItemImgWidth place-left text-center divImg-@itemGVM.GroupID">
+                            <a title="@obj.ItemID" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog" >
+                                <img id="@obj.ItemID" class="imgTest-@obj.ItemID-@icolumns titleShadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @obj.ISBN, imagePath, "\\", ".jpg")" >
+                            </a>
+
+                        </div>
+                        <div id="@obj.ItemID" class="place-left DWItemImgWidth text-center margin5 nlm nrm ">
+                            <div id="divCartStatus-@obj.ItemID" class="divCartStatus-@obj.ItemID margin5 nlm nrm">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (@obj.DWSelectionStatus == "1")
+                                    {
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;"  value="1" id="@obj.ItemID">
+                                            <img class="YesButton listview" data-value="Yes" src="~/Images/YesNoMaybe/Yes.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;"  value="3" id="@obj.ItemID">
+                                            <img class="MayBeButton listview" data-value="Null" src="~/Images/YesNoMaybe/MaybeNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="2" id="@obj.ItemID">
+                                            <img class="NoButton listview" data-value="Null" src="~/Images/YesNoMaybe/NoNew.jpg" /></a>
+                                    </div>
+                                    }
+                                    else if (@obj.DWSelectionStatus == "2")
+                                    {
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="1" id="@obj.ItemID">
+                                            <img class="YesButton listview" data-value="Null" src="~/Images/YesNoMaybe/YesNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="3" id="@obj.ItemID">
+                                            <img class="MayBeButton listview" data-value="Null" src="~/Images/YesNoMaybe/MayBeNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="2" id="@obj.ItemID">
+                                            <img class="NoButton listview" data-value="No" src="~/Images/YesNoMaybe/No.jpg" /></a>
+                                    </div>
+                                    }
+                                    else if (@obj.DWSelectionStatus == "3")
+                                    {
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="1" id="@obj.ItemID">
+                                            <img class="YesButton listview" data-value="Null" src="~/Images/YesNoMaybe/YesNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="3" id="@obj.ItemID">
+                                            <img class="MayBeButton listview" data-value="MayBe" src="~/Images/YesNoMaybe/MayBe.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="2" id="@obj.ItemID">
+                                            <img class="NoButton listview" data-value="Null" src="~/Images/YesNoMaybe/NoNew.jpg" /></a>
+                                    </div>
+                                    }
+                                    else if (@obj.DWSelectionStatus == "5")
+                                    {
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="1" id="@obj.ItemID">
+                                            <img class="YesButton listview" src="~/Images/YesNoMaybe/YesNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="3" id="@obj.ItemID">
+                                            <img class="MayBeButton listview" src="~/Images/YesNoMaybe/MayBeNew.jpg" /></a>
+                                    </div>
+                                    <div class="place-left margin2 nlm ntm nbm">
+                                        <a href="@hrefattr" class="@obj.ItemID @checkLogin" name="@obj.DWSelectionStatus" onclick="return false;" value="2" id="@obj.ItemID">
+                                            <img class="NoButton listview" src="~/Images/YesNoMaybe/NoNew.jpg" /></a>
+                                    </div>
+                                    }
+                                    else
+                                    {
+                                        if (@obj.IsInSCDWQuote == true)
+                                        {
+                                    <div class="DWItemImgWidth text-center">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                        }
+                                        else
+                                        {
+                                    <div id="carttextlink-@obj.ItemID" class="place-left DWItemImgWidth text-center">
+                                        <button class="buttonBackgroundColor AddCart bgcolor" name="1"  style="color:white" data-itemid="@obj.ItemID" >Add To Cart</button>
+                                    </div>
+                                    <div id="carttext-@obj.ItemID" class="place-left DWItemImgWidth text-center hide">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <a class="popup-with-zoom-anim login carouselCartText" href="#small-dialog">Add To Cart</a>
+                                }
+                            </div>
+                        </div>
+                        <div class="DWItemImgWidth itemTextSize place-left text-center">
+                            @obj.Title
+                        </div>
+                        <div class="DWItemImgWidth itemTextSize place-left text-center">
+                            @Html.ConvertEnumToBindType(obj.ProductLine)
+                        </div>
+                        <div class="DWItemImgWidth itemTextSize place-left text-center">
+                            @{string displayPriceText = string.Empty;
+                              displayPriceText = obj.ClassificationType != string.Empty ? "," + string.Format("{0:C2}", obj.IPrice) + "," : string.Format("{0:C2}", obj.IPrice + ",");}
+                            @obj.ClassificationType@displayPriceText&copy @obj.strCopyRight
+                        </div>
+                        <div id="divGradePrice-@itemGVM.GroupID-@icolumns" class="DWItemImgWidth itemTextSize place-left text-center divImg-@itemGVM.GroupID">
+
+                            @{ARlevel = obj.ARLevel != string.Empty ? obj.ARLevel : string.Empty;
+                              RCLevel = obj.RCLevel != string.Empty ? @obj.RCLevel : string.Empty;}
+
+                            @ARlevel @RCLevel
+
+                            <input type="checkbox" id="chkItem" class="group1 hide" data-price="@obj.IPrice" value="@obj.ItemID" checked="@obj.IsSelected"/>
+                        </div>
+                    </div>
+                </div>
+                              if (icolumns == columnCount)
+                              {
+                                  columnsCount += (@icolumns + 1);
+                              }
+            }
+
+        </div>
+        }
+    }
+    <div class="itemsEnd @enditemsClass margin5 nlm nrm nbm"><strong>@Html.Raw(Resources.TCPResources.DWEndItemsText)</strong></div>
+</div>

@@ -1,0 +1,364 @@
+﻿@model List<TPC.Core.Models.KPLBasedCommonViewModel>
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using TPC.Core.Interfaces;
+@using TPC.Core;
+@using System.Configuration;
+@using TPC.Web.Infrastructure;
+@using TPC.Common.Enumerations;
+@{
+    string stremptypoint = "-";
+    string imagePath = ConfigurationManager.AppSettings["ImagesW220"];
+    string checkLogin = WebSecurity.IsAuthenticated == true ? "btnSet" : "popup-with-zoom-anim login";
+    string checkLoginAll = WebSecurity.IsAuthenticated == true ? "AddCart" : "popup-with-zoom-anim login";
+    string hrefattr = WebSecurity.IsAuthenticated == true ? "#" : "#small-dialog";
+    string isVisible=string.Empty;
+    string enditemsClass = Model.Count > 0 ? "hide" : "";
+    
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ("@Model.Count" == 0) {
+            $('#Loading').addClass('hide');
+        }
+        else {
+            setTimeout(function () {
+                $('#Loading').addClass('hide');
+            }, 2000);
+        }
+    });
+ </script>
+<div class="hide">
+    <input type="hidden" id="hdnViewType" value="SingleView" />
+</div>
+<div id="onScreen-dialog" class="zoom-anim-dialog mfp-hide">
+      <div>
+     <button title="Close (Esc)" type="button" class="mfp-close" style="position:static; margin-top: -26px;float: left;margin-left: -29px;">@Resources.TCPResources.CloseText</button>
+    <button title="Close (Esc)" type="button" class="mfp-close">@Resources.TCPResources.CloseText</button>
+        </div>
+    <div id="loadingSetView" class="">
+    </div>
+</div>
+
+<table id="tblItemDetails" class=" span12  contentTextSmall">
+    <tr>
+        <td class="span12">
+        
+            @foreach (KPLBasedCommonViewModel itemVM in Model)
+            {
+                if (!itemVM.IsListView)
+                {
+                    isVisible = "hide";
+                    if (Model.IndexOf(itemVM) == 0)
+                    {
+                        isVisible = string.Empty;
+                    }
+                }
+                    
+                <table class="@itemVM.ItemID span12 itemDetails @isVisible contentTextSmall">
+
+                    <tr>
+                        <td style="vertical-align: top">
+                            <div>
+                                <div class="place-left  text-left">
+                                     <div id="divCartStatus-@itemVM.ItemID" class="divCartStatus-@itemVM.ItemID DWItemImgWidth place-left text-center">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            if (@itemVM.IsInSCDWQuote == true)
+                                            {
+
+                                                if (itemVM.IsInCustomerTitles == true)
+                                                {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                                }
+                                                else if ((itemVM.SeriesBroughtBefore == true || itemVM.CharecterBroughtBefore == true))
+                                                {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                                }
+                                                else
+                                                {
+                                            <div class="DWItemImgWidth place-left text-center margin10">
+                                            </div>
+                                                }
+                                            }
+                                            else
+                                            {
+
+                                                if (itemVM.IsInCustomerTitles == true)
+                                                {
+                                            <i class="icon-star-3 fg-yellow itemTextSize imgstar yellowstar3 z-index"></i>
+                                                }
+                                                else if ((itemVM.SeriesBroughtBefore == true || itemVM.CharecterBroughtBefore == true))
+                                                {
+                                            <i class="icon-star-3 button-fg itemTextSize imgstar yellowstar3 z-index"></i>
+                                                }
+                                                else
+                                                {
+                                            <div class="DWItemImgWidth place-left text-center margin10">
+                                            </div>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a class="popup-with-zoom-anim login carouselCartText" href="#small-dialog">Add To Cart</a>
+                                        }
+                                    </div>
+                                    <a title="@itemVM.ItemID" href="#" class="singleItemView" data-quoteid="@ViewData["QuoteID"]" data-itemID="@itemVM.ItemID" data-title="@itemVM.Title"  data-groupID = "@ViewData["GroupID"]" >
+                                        @*<img class="imgSize shadow"   src="@Url.Content(ConfigurationManager.AppSettings["ImagesW220"] + @itemVM.ISBN + ".jpg")"  />*@
+                                        <img class="imgSize shadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", @itemVM.ISBN, imagePath, "\\", ".jpg")">
+                                    </a>
+                                    <div class="span3 text-center">
+                                        <input type="button" id="@itemVM.ISBN" class="OpenBook text-center" value="Look Inside" style="background-color:transparent" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="place-left margin10 nrm nbm ntm span80per">
+
+                            <div id="description" class="place-right contentTextSmall">
+                                <div class="segoe">
+                                    <h2><strong>@itemVM.Title</strong></h2>
+                                </div>
+                                <div>
+                                    <strong>@itemVM.Author</strong>
+                                </div>
+                                <div>
+                                    <strong>
+                                        @Html.ConvertEnumToBindType(itemVM.Type)</strong>
+                                </div>
+                                <div>@itemVM.Description</div>
+                                <div class="div-MainHeight35"><strong>@string.Format("{0:C}", itemVM.Price)</strong></div>
+                                <div class="place-left">
+                                    <div class="place-left span3">
+                                        <label class="place-left">Series</label><label class="place-left">&nbsp;:</label><label id="series-@itemVM.ItemID" class="margin-left1 place-left"><strong>@{string series = string.IsNullOrEmpty(itemVM.Series) ? stremptypoint : itemVM.Series;}@series</strong></label>
+                                    </div>
+                                      <div class="place-left span3">
+                                        <label class="place-left">AR level</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string arlevel = string.IsNullOrEmpty(itemVM.ARLevel) ? stremptypoint : itemVM.ARLevel;}@arlevel</strong></label>
+                                    </div>
+                                    <div class="place-left span3">
+                                        <label class="place-left">Character</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string primaryChracter = string.IsNullOrEmpty(itemVM.Primarycharacter) ? stremptypoint : itemVM.Primarycharacter;}@primaryChracter</strong></label>
+                                    </div>
+                                     <div class="place-left span3">
+                                        <label class="place-left">RC level</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string rclevel = string.IsNullOrEmpty(itemVM.RCLevel) ? stremptypoint : itemVM.RCLevel;}@rclevel</strong></label>
+                                    </div>
+                                    <div class="place-left span3">
+                                        <label class="place-left">Interest grade</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string interestGrade = string.IsNullOrEmpty(itemVM.InterestGrade) ? stremptypoint : itemVM.InterestGrade;}@interestGrade</strong></label>
+                                    </div>
+                                  
+                                    <div class="place-left span3">
+                                        <label class="place-left">Lexile level</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string lexile = string.IsNullOrEmpty(itemVM.Lexile) ? stremptypoint : itemVM.Lexile;}@lexile</strong></label>
+                                    </div>
+                                    <div class="place-left span3">
+                                        <label class="place-left">Copyright</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@itemVM.CopyRight</strong></label>
+                                    </div>
+                                    <div class="place-left span3">
+                                        <label class="place-left">Dewey</label>
+                                        <label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string dewey = string.IsNullOrEmpty(itemVM.Dewery) ? stremptypoint : itemVM.Dewery;}@dewey</strong></label>
+                                    </div>
+                                     <div class="place-left span3">
+                                        <label class="place-left">Size</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string size = string.IsNullOrEmpty(itemVM.Size) ? stremptypoint : itemVM.Size;}@size</strong></label>
+                                    </div>
+                                     <div class="place-left span3">
+                                        <label class="place-left">ISBN</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string isbn = string.IsNullOrEmpty(itemVM.ISBN) ? stremptypoint : itemVM.ISBN;}@isbn</strong></label>
+                                    </div>
+                                    <div class="place-left span3">
+                                        <label class="place-left">Pages</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@itemVM.Pages</strong></label>
+                                    </div>
+                                   @* <div class="place-left span4">
+                                        <label class="place-left">ReviewSource</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string reviewSource = string.IsNullOrEmpty(itemVM.ReviewSource) ? stremptypoint : itemVM.ReviewSource;}@reviewSource</strong></label>
+                                    </div>*@
+                                    <div class="place-left span3">
+                                        <label class="place-left">item #</label><label class="place-left">&nbsp;:</label><label class="margin-left1 place-left"><strong>@{string itemID = string.IsNullOrEmpty(itemVM.ItemID) ? stremptypoint : itemVM.ItemID;}@itemID</strong></label>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </td>
+                        <td class="place-left margin10 nrm nbm ntm" style="vertical-align: top">
+
+                            <div class="place-right span8_0">
+                                @{
+                                                                                                                                                                        if (@itemVM.DWSelectionStatus == "1")
+                                                                                                                                                                        {
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;"  value="1" id="@itemVM.ItemID">
+                                            <img class="YesButton" data-value="Yes" src="~/Images/YesNoMaybe/Yes_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;"  value="3" id="@itemVM.ItemID">
+                                            <img class="MayBeButton" data-value="Null" src="~/Images/YesNoMaybe/MaybeNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="2" id="@itemVM.ItemID">
+                                            <img class="NoButton" data-value="Null" src="~/Images/YesNoMaybe/NoNew_Round.jpg" /></a>
+                                    </div>
+                                                                                                                                                                        }
+                                                                                                                                                                        else if (@itemVM.DWSelectionStatus == "2")
+                                                                                                                                                                        {
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="1" id="@itemVM.ItemID">
+                                            <img class="YesButton" data-value="Null" src="~/Images/YesNoMaybe/YesNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="3" id="@itemVM.ItemID">
+                                            <img class="MayBeButton" data-value="Null" src="~/Images/YesNoMaybe/MayBeNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="2" id="@itemVM.ItemID">
+                                            <img class="NoButton" data-value="No" src="~/Images/YesNoMaybe/NO_Round.jpg" /></a>
+                                    </div>
+                                                                                                                                                                        }
+                                                                                                                                                                        else if (@itemVM.DWSelectionStatus == "3")
+                                                                                                                                                                        {
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="1" id="@itemVM.ItemID">
+                                            <img class="YesButton" data-value="Null" src="~/Images/YesNoMaybe/YesNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="3" id="@itemVM.ItemID">
+                                            <img class="MayBeButton" data-value="MayBe" src="~/Images/YesNoMaybe/MayBe_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="2" id="@itemVM.ItemID">
+                                            <img class="NoButton" data-value="Null" src="~/Images/YesNoMaybe/NoNew_Round.jpg" /></a>
+                                    </div>
+                                                                                                                                                                        }
+                                                                                                                                                                        else if (@itemVM.DWSelectionStatus == "5")
+                                                                                                                                                                        {
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="1" id="@itemVM.ItemID">
+                                            <img class="YesButton" src="~/Images/YesNoMaybe/YesNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="3" id="@itemVM.ItemID">
+                                            <img class="MayBeButton" src="~/Images/YesNoMaybe/MayBeNew_Round.jpg" /></a>
+                                    </div>
+                                    <div class="place-left">
+                                        <a href="@hrefattr" class="@itemVM.ItemID @checkLogin popup" name="@itemVM.DWSelectionStatus" onclick="return false;" value="2" id="@itemVM.ItemID">
+                                            <img class="NoButton"  src="~/Images/YesNoMaybe/NoNew_Round.jpg" /></a>
+                                    </div>
+                                                                                                                                                                        }
+                                                                                                                                                                        if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+                                                                                                                                                                        {
+                                                                                                                                                                            if (@itemVM.DWSelectionStatus == null)
+                                                                                                                                                                            {
+                                                                                                                                                                                if (@itemVM.ItemListGVM.ItemPVM.ListItemVM.Where(e => e.ItemID == @itemVM.ItemID).FirstOrDefault().IsInSCDWQuote == true)
+                                                                                                                                                                                {
+                                    <div class="text-right carttext-@itemVM.ItemID" style="width: 100px;">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                                                                                                                                                                }
+                                                                                                                                                                                else
+                                                                                                                                                                                {
+                                    <div id="carttextlink-@itemVM.ItemID" class="text-right carttextlink-@itemVM.ItemID" style="width: 100px;">
+                                        <button class="buttonBackgroundColor AddCart bgcolor" style="color:white" data-itemid="@itemVM.ItemID" >Add</button>
+                                    </div>
+                                    <div id="carttext-@itemVM.ItemID" class="place-left hide" style="width: 100px;">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                                                                                                                                                                }
+                                                                                                                                                                            }
+
+
+                                                                                                                                                                        }
+                                                                                                                                                                        else
+                                                                                                                                                                        {
+
+                                                                                                                                                                            if (@itemVM.DWSelectionStatus == null)
+                                                                                                                                                                            {
+                                                                                                                                                                                if (@itemVM.IsInSCDWQuote== true)
+                                                                                                                                                                                {
+                                    <div class="text-right" style="width: 100px;">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                                                                                                                                                                }
+                                                                                                                                                                                else
+                                                                                                                                                                                {
+                       
+                                    <div id="carttextlink-@itemVM.ItemID" class="place-left" style="width: 100px;">
+                                        <button class="buttonBackgroundColor AddCart bgcolor" name="1"  style="color:white" data-itemid="@itemVM.ItemID" >Add To Cart</button>
+                                    </div>
+                                    <div id="carttext-@itemVM.ItemID" class="place-left hide" style="width: 100px;">
+                                        <button class="buttonsWidth " disabled="disabled">In Cart</button>
+                                    </div>
+                                                                                                                                                                                }
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+                                }
+
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="height: 10px"></td>
+                    </tr>
+                    <tr class="trBottomLineTable">
+                        <td colspan="3">
+                            @if (itemVM.ItemListGVM != null)
+                            {
+                                <div class="place-left span12 border-top  margin5 nlm nrm nbm ">
+                                </div>
+                                <div class="place-left span12">
+                                    <strong>@itemVM.ItemListGVM.GroupName</strong>
+                                </div>
+                                <div class="span12 place-left">
+                                    @itemVM.ItemListGVM.SetDescription
+                                </div>
+                                 <div class="place-left span12 border-top  margin5 nlm nrm ">
+                                </div>
+                                if (itemVM.ItemListGVM.GroupItemCount > 0)
+                                {
+                                <div id="dvSet-@itemVM.ItemID" class="@itemVM.ItemID place-left span11_5">
+
+                                    @Html.Partial("../TCPViews/Partial/KPLItemParentPartial", itemVM.ItemListGVM.ItemPVM)
+                                </div>
+                            
+                                <div class="place-left span1">
+
+                                    @if (@itemVM.DWSelectionStatus == null)
+                                    {
+                                        <div class="span2" style="margin-left: -45px;">
+                                            <div class="span2 place-left text-center">
+                                                <button id="5" name="1" value="5" class="AddCart" data-itemid="@itemVM.ItemID" style="border-radius: 60%; height: 60px; width: 60px; background-color: white; border: solid; text-align: center; font-size: 12px; font-weight: bold;">Add Set</button>
+                                            </div>
+                                            <div class="span2 place-left text-center">
+                                                <div class="span2 place-left">@itemVM.ItemListGVM.ItemPVM.ListItemVM.Count Titles in the</div>
+                                                <div class="span2 place-left">@itemVM.Series</div>
+                                                <div class="span2 place-left">set for @String.Format("{0:C2}", itemVM.ItemListGVM.ItemPVM.ListItemVM.Sum(e => e.IPrice))</div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="span2" style="margin-left: -45px;">
+                                            <div class="span8_0 place-center nbm ntm">
+                                                <a href="@hrefattr" class="@itemVM.ItemID @checkLogin" name="@itemVM.DWSelectionStatus" data-itemid="@itemVM.ItemID" onclick="return false;" value="6" id="@itemVM.ItemID">
+                                                    <img class="YesToAllButton" src="~/Images/YesNoMaybe/YesToAllNew.jpg" /></a>
+                                            </div>
+                                            <div class="span2 place-left text-center">
+                                                <div class="span2 place-left">@itemVM.ItemListGVM.ItemPVM.ListItemVM.Count Titles in the</div>
+                                                <div class=" place-left" style="margin-left: 15px; width: 108px">@itemVM.Series</div>
+                                                <div class="span2 place-left">set for @String.Format("{0:C2}", itemVM.ItemListGVM.ItemPVM.ListItemVM.Sum(e => e.IPrice))</div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="height: 20px"></td>
+                    </tr>
+                </table>
+            }
+         <div class="itemsEnd @enditemsClass margin5 nlm nrm nbm"><strong>@Html.Raw(Resources.TCPResources.DWEndItemsText)</strong></div>
+
+        </td>
+    </tr>
+</table>

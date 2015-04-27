@@ -1,0 +1,83 @@
+<font face="arial" size="3">  
+     ##If--ContainsRepComments##
+    ##BlockBegin--RepComments##
+        ##RepComments## 
+    <br/> 
+    <br/>
+    ##BlockEnd--RepComments##
+   
+  ##EndIf--ContainsRepComments##
+    </font>
+<font face="arial" size=4>  
+<B>Your Decision Wizard selection list is waiting for your review! </B>
+</font>
+<br>
+<font face="arial" size=3>  
+Just a friendly reminder that the customized list of titles I put together specifically
+for you are waiting at the below link.
+<br>
+<br>
+<U><B><font color="blue">
+     ##BlockBegin--DefaultDWLink##
+<a href="##Url##">Click Here to View Your ##DWName## Decision Wizard</a>
+    ##BlockEnd--DefaultDWLink##
+</U></B>
+<font color="black">
+<br>
+<br>
+##If--ContainsItems##
+<I>
+   
+Here are some of the popular titles featured in your Decision Wizard...
+   
+</I>
+<br>
+<br>
+<!--<! Insert 5 book images here with a few spaces in between each image)-->
+     ##BlockBegin--image##
+    <img src="cid:##imgpath##" width="100" height="100"/>&nbsp;&nbsp;
+     ##BlockEnd--image##
+<br>
+<br>
+##EndIf--ContainsItems##
+</font>
+##If--IsMultipleRows##
+
+<br />
+<font face="arial" size=2 color="black">  
+<B>Here are your other open Decision Wizards:</B>
+<font color="blue"><u>
+    <ul>
+        ##BlockBegin--Link##
+    <li><a href="##Url##">Click Here to View Your ##DWName## Decision Wizard</a></li>
+        ##BlockEnd--Link##
+    </ul></u>
+ ##EndIf--IsMultipleRows##
+    </font>
+     ##BlockBegin--RepDetails##
+     <table>
+        <tr>
+            <td>
+                Thanks,
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepName##
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                  800-262-2665
+            </td>
+        </tr>
+         <tr>
+            <td colspan="2">
+                 ##RepEmailAddress## 
+            </td>
+        </tr>
+         ##BlockEnd--RepDetails##
+        </table>
+<!--<br>Click Here to View Your <!DW Name> Decision Wizard
+<br>Click Here to View Your <!DW Name> Decision Wizard
+<br>Click Here to View Your <!DW Name> Decision Wizard=-->

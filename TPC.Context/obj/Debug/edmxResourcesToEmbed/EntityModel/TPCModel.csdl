@@ -1,0 +1,2421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PenworthyModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PenworthyEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="PenworthyModel.AppUser" />
+    <EntitySet Name="AppUserTypes" EntityType="PenworthyModel.AppUserType" />
+    <EntitySet Name="Authors" EntityType="PenworthyModel.Author" />
+    <EntitySet Name="CalTagInfoes" EntityType="PenworthyModel.CalTagInfo" />
+    <EntitySet Name="CatalogColumnTypes" EntityType="PenworthyModel.CatalogColumnType" />
+    <EntitySet Name="CatalogInformations" EntityType="PenworthyModel.CatalogInformation" />
+    <EntitySet Name="CatalogProfileValidations" EntityType="PenworthyModel.CatalogProfileValidation" />
+    <EntitySet Name="CatalogSoftwareVersionMappings" EntityType="PenworthyModel.CatalogSoftwareVersionMapping" />
+    <EntitySet Name="CatalogSubjects" EntityType="PenworthyModel.CatalogSubject" />
+    <EntitySet Name="CatalogSubjectItemIDMappings" EntityType="PenworthyModel.CatalogSubjectItemIDMapping" />
+    <EntitySet Name="CatalogSubjectOptionProtectors" EntityType="PenworthyModel.CatalogSubjectOptionProtector" />
+    <EntitySet Name="CatalogSubjectOptionProtectorValues" EntityType="PenworthyModel.CatalogSubjectOptionProtectorValue" />
+    <EntitySet Name="CatalogSubjectOptions" EntityType="PenworthyModel.CatalogSubjectOption" />
+    <EntitySet Name="CatalogSubjectoptionShelfReadies" EntityType="PenworthyModel.CatalogSubjectoptionShelfReady" />
+    <EntitySet Name="CatalogSubjectOptionShelfReadyValues" EntityType="PenworthyModel.CatalogSubjectOptionShelfReadyValue" />
+    <EntitySet Name="CatalogSubjectOptionValues" EntityType="PenworthyModel.CatalogSubjectOptionValue" />
+    <EntitySet Name="CollectionsDisplayPages" EntityType="PenworthyModel.CollectionsDisplayPage" />
+    <EntitySet Name="Customers" EntityType="PenworthyModel.Customer" />
+    <EntitySet Name="CustomerAddresses" EntityType="PenworthyModel.CustomerAddress" />
+    <EntitySet Name="CustomerCatalogInformations" EntityType="PenworthyModel.CustomerCatalogInformation" />
+    <EntitySet Name="CustomerCatalogProtectorInformations" EntityType="PenworthyModel.CustomerCatalogProtectorInformation" />
+    <EntitySet Name="CustomerCatalogShelfReadyInformations" EntityType="PenworthyModel.CustomerCatalogShelfReadyInformation" />
+    <EntitySet Name="CustomerReps" EntityType="PenworthyModel.CustomerRep" />
+    <EntitySet Name="CustomerRepAssignments" EntityType="PenworthyModel.CustomerRepAssignment" />
+    <EntitySet Name="CustomerSeriesCharacters" EntityType="PenworthyModel.CustomerSeriesCharacter" />
+    <EntitySet Name="CustomerShipToAddresses" EntityType="PenworthyModel.CustomerShipToAddress" />
+    <EntitySet Name="CustomerTags" EntityType="PenworthyModel.CustomerTag" />
+    <EntitySet Name="CustomerTitles" EntityType="PenworthyModel.CustomerTitle" />
+    <EntitySet Name="DWSelectionStatus" EntityType="PenworthyModel.DWSelectionStatu" />
+    <EntitySet Name="ELMAH_Error" EntityType="PenworthyModel.ELMAH_Error" />
+    <EntitySet Name="FAQs" EntityType="PenworthyModel.FAQ" />
+    <EntitySet Name="FAQCategories" EntityType="PenworthyModel.FAQCategory" />
+    <EntitySet Name="FAQDetails" EntityType="PenworthyModel.FAQDetail" />
+    <EntitySet Name="Groups" EntityType="PenworthyModel.Group" />
+    <EntitySet Name="GroupPackages" EntityType="PenworthyModel.GroupPackage" />
+    <EntitySet Name="GroupPackageItems" EntityType="PenworthyModel.GroupPackageItem" />
+    <EntitySet Name="GroupStyles" EntityType="PenworthyModel.GroupStyle" />
+    <EntitySet Name="InvoiceHistories" EntityType="PenworthyModel.InvoiceHistory" />
+    <EntitySet Name="Items" EntityType="PenworthyModel.Item" />
+    <EntitySet Name="ItemHistories" EntityType="PenworthyModel.ItemHistory" />
+    <EntitySet Name="ItemTags" EntityType="PenworthyModel.ItemTag" />
+    <EntitySet Name="MailHistories" EntityType="PenworthyModel.MailHistory" />
+    <EntitySet Name="Orders" EntityType="PenworthyModel.Order" />
+    <EntitySet Name="Packages" EntityType="PenworthyModel.Package" />
+    <EntitySet Name="PackageSubPackages" EntityType="PenworthyModel.PackageSubPackage" />
+    <EntitySet Name="Publishers" EntityType="PenworthyModel.Publisher" />
+    <EntitySet Name="Quotes" EntityType="PenworthyModel.Quote" />
+    <EntitySet Name="QuoteCallTags" EntityType="PenworthyModel.QuoteCallTag" />
+    <EntitySet Name="QuoteDetails" EntityType="PenworthyModel.QuoteDetail" />
+    <EntitySet Name="QuoteSubmitSaveInfoes" EntityType="PenworthyModel.QuoteSubmitSaveInfo" />
+    <EntitySet Name="QuoteTypes" EntityType="PenworthyModel.QuoteType" />
+    <EntitySet Name="RepUsers" EntityType="PenworthyModel.RepUser" />
+    <EntitySet Name="SeriesAndCharacters" EntityType="PenworthyModel.SeriesAndCharacter" />
+    <EntitySet Name="SourceTypes" EntityType="PenworthyModel.SourceType" />
+    <EntitySet Name="Status" EntityType="PenworthyModel.Status" />
+    <EntitySet Name="Tags" EntityType="PenworthyModel.Tag" />
+    <EntitySet Name="TagTypes" EntityType="PenworthyModel.TagType" />
+    <EntitySet Name="TaxSchedules" EntityType="PenworthyModel.TaxSchedule" />
+    <EntitySet Name="Users" EntityType="PenworthyModel.User" />
+    <EntitySet Name="UserPreferences" EntityType="PenworthyModel.UserPreference" />
+    <EntitySet Name="webpages_Membership" EntityType="PenworthyModel.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="PenworthyModel.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="PenworthyModel.webpages_Roles" />
+    <EntitySet Name="vDWCRMComms" EntityType="PenworthyModel.vDWCRMComm" />
+    <EntitySet Name="vDWMailHistories" EntityType="PenworthyModel.vDWMailHistory" />
+    <EntitySet Name="vDWstats" EntityType="PenworthyModel.vDWstat" />
+    <EntitySet Name="vQuotes" EntityType="PenworthyModel.vQuote" />
+    <EntitySet Name="vWebUsers" EntityType="PenworthyModel.vWebUser" />
+    <AssociationSet Name="FK_AppUser_AppUserTypes" Association="PenworthyModel.FK_AppUser_AppUserTypes">
+      <End Role="AppUserTypes" EntitySet="AppUserTypes" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Author" Association="PenworthyModel.FK_Item_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteCatalog_CalTagInfo" Association="PenworthyModel.FK_QuoteCatalog_CalTagInfo">
+      <End Role="CalTagInfo" EntitySet="CalTagInfoes" />
+      <End Role="QuoteCallTag" EntitySet="QuoteCallTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptions_CatalogColumnType_ColumnType" Association="PenworthyModel.FK_CatalogSubjectOptions_CatalogColumnType_ColumnType">
+      <End Role="CatalogColumnType" EntitySet="CatalogColumnTypes" />
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubject_CatalogInfoID" Association="PenworthyModel.FK_CatalogSubject_CatalogInfoID">
+      <End Role="CatalogInformation" EntitySet="CatalogInformations" />
+      <End Role="CatalogSubject" EntitySet="CatalogSubjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogProfileValidation_CatalogSubjectOptions" Association="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogProfileValidation" EntitySet="CatalogProfileValidations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogProfileValidation_CatalogSubjectOptions1" Association="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions1">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogProfileValidation" EntitySet="CatalogProfileValidations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues" Association="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CatalogSoftwareVersionMapping" EntitySet="CatalogSoftwareVersionMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1" Association="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CatalogSoftwareVersionMapping" EntitySet="CatalogSoftwareVersionMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectID" Association="PenworthyModel.FK_CatalogSubjectID">
+      <End Role="CatalogSubject" EntitySet="CatalogSubjects" />
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID" Association="PenworthyModel.FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogSubjectItemIDMapping" EntitySet="CatalogSubjectItemIDMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectItemIDMapping_ItemID" Association="PenworthyModel.FK_CatalogSubjectItemIDMapping_ItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="CatalogSubjectItemIDMapping" EntitySet="CatalogSubjectItemIDMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectoptionProtector_CatalogSubjectoption" Association="PenworthyModel.FK_CatalogSubjectoptionProtector_CatalogSubjectoption">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogSubjectOptionProtector" EntitySet="CatalogSubjectOptionProtectors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector" Association="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector">
+      <End Role="CatalogSubjectOptionProtector" EntitySet="CatalogSubjectOptionProtectors" />
+      <End Role="CatalogSubjectOptionProtectorValue" EntitySet="CatalogSubjectOptionProtectorValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue" Association="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CatalogSubjectOptionProtectorValue" EntitySet="CatalogSubjectOptionProtectorValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue" Association="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue">
+      <End Role="CatalogSubjectOptionProtectorValue" EntitySet="CatalogSubjectOptionProtectorValues" />
+      <End Role="CustomerCatalogProtectorInformation" EntitySet="CustomerCatalogProtectorInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionID" Association="PenworthyModel.FK_CatalogSubjectOptionID">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptions_Item_ItemID" Association="PenworthyModel.FK_CatalogSubjectOptions_Item_ItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption" Association="PenworthyModel.FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption">
+      <End Role="CatalogSubjectOptions" EntitySet="CatalogSubjectOptions" />
+      <End Role="CatalogSubjectoptionShelfReady" EntitySet="CatalogSubjectoptionShelfReadies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady" Association="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady">
+      <End Role="CatalogSubjectoptionShelfReady" EntitySet="CatalogSubjectoptionShelfReadies" />
+      <End Role="CatalogSubjectOptionShelfReadyValue" EntitySet="CatalogSubjectOptionShelfReadyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue" Association="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CatalogSubjectOptionShelfReadyValue" EntitySet="CatalogSubjectOptionShelfReadyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue" Association="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue">
+      <End Role="CatalogSubjectOptionShelfReadyValue" EntitySet="CatalogSubjectOptionShelfReadyValues" />
+      <End Role="CustomerCatalogShelfReadyInformation" EntitySet="CustomerCatalogShelfReadyInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_CatalogSubjectOptionValueID" Association="PenworthyModel.FK_CustomerCatalogInformation_CatalogSubjectOptionValueID">
+      <End Role="CatalogSubjectOptionValues" EntitySet="CatalogSubjectOptionValues" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Group_PageToDisplay" Association="PenworthyModel.FK_Group_PageToDisplay">
+      <End Role="CollectionsDisplayPage" EntitySet="CollectionsDisplayPages" />
+      <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAddress_Customer" Association="PenworthyModel.FK_CustomerAddress_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogInformation_Customer" Association="PenworthyModel.FK_CustomerCatalogInformation_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerRep_Customer" Association="PenworthyModel.FK_CustomerRep_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerRep" EntitySet="CustomerReps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerSeriesCharacter_Customer" Association="PenworthyModel.FK_CustomerSeriesCharacter_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerSeriesCharacter" EntitySet="CustomerSeriesCharacters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerShipToAddress_Customer" Association="PenworthyModel.FK_CustomerShipToAddress_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerShipToAddress" EntitySet="CustomerShipToAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerTitles_Customer" Association="PenworthyModel.FK_CustomerTitles_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerTitles" EntitySet="CustomerTitles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Customer" Association="PenworthyModel.FK_User_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation" Association="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation">
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformations" />
+      <End Role="CustomerCatalogProtectorInformation" EntitySet="CustomerCatalogProtectorInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation" Association="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation">
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformations" />
+      <End Role="CustomerCatalogShelfReadyInformation" EntitySet="CustomerCatalogShelfReadyInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_CustomerCatalogInformation" Association="PenworthyModel.FK_User_CustomerCatalogInformation">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CustomerCatalogInformation" EntitySet="CustomerCatalogInformations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerRep_RepUser" Association="PenworthyModel.FK_CustomerRep_RepUser">
+      <End Role="RepUser" EntitySet="RepUsers" />
+      <End Role="CustomerRep" EntitySet="CustomerReps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerSeriesCharacter_SeriesCharacter" Association="PenworthyModel.FK_CustomerSeriesCharacter_SeriesCharacter">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacters" />
+      <End Role="CustomerSeriesCharacter" EntitySet="CustomerSeriesCharacters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerTag_Tag" Association="PenworthyModel.FK_CustomerTag_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="CustomerTag" EntitySet="CustomerTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_DWSelectionID" Association="PenworthyModel.FK_QuoteDetail_DWSelectionID">
+      <End Role="DWSelectionStatus" EntitySet="DWSelectionStatus" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAQ_FAQCategoriesID" Association="PenworthyModel.FK_FAQ_FAQCategoriesID">
+      <End Role="FAQCategories" EntitySet="FAQCategories" />
+      <End Role="FAQ" EntitySet="FAQs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAQDetails_FAQID" Association="PenworthyModel.FK_FAQDetails_FAQID">
+      <End Role="FAQ" EntitySet="FAQs" />
+      <End Role="FAQDetails" EntitySet="FAQDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Group_RoleId" Association="PenworthyModel.FK_Group_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="Group" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupPackage_GroupID" Association="PenworthyModel.FK_GroupPackage_GroupID">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="GroupPackage" EntitySet="GroupPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupStyle_GroupID" Association="PenworthyModel.FK_GroupStyle_GroupID">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="GroupStyle" EntitySet="GroupStyles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageItem_GroupID" Association="PenworthyModel.FK_PackageItem_GroupID">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="GroupPackageItem" EntitySet="GroupPackageItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupPackage_PackageID" Association="PenworthyModel.FK_GroupPackage_PackageID">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="GroupPackage" EntitySet="GroupPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupPackageItem_Item_ItemID" Association="PenworthyModel.FK_GroupPackageItem_Item_ItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="GroupPackageItem" EntitySet="GroupPackageItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupPackageItem_Package" Association="PenworthyModel.FK_GroupPackageItem_Package">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="GroupPackageItem" EntitySet="GroupPackageItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupPackageItem_PackageSub" Association="PenworthyModel.FK_GroupPackageItem_PackageSub">
+      <End Role="PackageSubPackage" EntitySet="PackageSubPackages" />
+      <End Role="GroupPackageItem" EntitySet="GroupPackageItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Character" Association="PenworthyModel.FK_Item_Character">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacters" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_ItemHistory" Association="PenworthyModel.FK_Item_ItemHistory">
+      <End Role="ItemHistory" EntitySet="ItemHistories" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Publisher" Association="PenworthyModel.FK_Item_Publisher">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Series" Association="PenworthyModel.FK_Item_Series">
+      <End Role="SeriesAndCharacter" EntitySet="SeriesAndCharacters" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_ItemID" Association="PenworthyModel.FK_QuoteDetail_ItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItemTag_Tag" Association="PenworthyModel.FK_ItemTag_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="ItemTag" EntitySet="ItemTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Package_RoleId" Association="PenworthyModel.FK_Package_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="Package" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageSubPackage_PackageID" Association="PenworthyModel.FK_PackageSubPackage_PackageID">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="PackageSubPackage" EntitySet="PackageSubPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PackageSubPackage_SubPackageID" Association="PenworthyModel.FK_PackageSubPackage_SubPackageID">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="PackageSubPackage" EntitySet="PackageSubPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Publisher_Publisher" Association="PenworthyModel.FK_Publisher_Publisher">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Publisher1" EntitySet="Publishers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quote_QuoteType" Association="PenworthyModel.FK_Quote_QuoteType">
+      <End Role="QuoteType" EntitySet="QuoteTypes" />
+      <End Role="Quote" EntitySet="Quotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quote_Status" Association="PenworthyModel.FK_Quote_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Quote" EntitySet="Quotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quote_User" Association="PenworthyModel.FK_Quote_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Quote" EntitySet="Quotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteCatalog_Quote" Association="PenworthyModel.FK_QuoteCatalog_Quote">
+      <End Role="Quote" EntitySet="Quotes" />
+      <End Role="QuoteCallTag" EntitySet="QuoteCallTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteDetail_Quote" Association="PenworthyModel.FK_QuoteDetail_Quote">
+      <End Role="Quote" EntitySet="Quotes" />
+      <End Role="QuoteDetail" EntitySet="QuoteDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteSubmitSaveInfo_Quote" Association="PenworthyModel.FK_QuoteSubmitSaveInfo_Quote">
+      <End Role="Quote" EntitySet="Quotes" />
+      <End Role="QuoteSubmitSaveInfo" EntitySet="QuoteSubmitSaveInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteSubmitSaveInfo_QuoteType" Association="PenworthyModel.FK_QuoteSubmitSaveInfo_QuoteType">
+      <End Role="QuoteType" EntitySet="QuoteTypes" />
+      <End Role="QuoteSubmitSaveInfo" EntitySet="QuoteSubmitSaveInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteSubmitSaveInfo_SourceType" Association="PenworthyModel.FK_QuoteSubmitSaveInfo_SourceType">
+      <End Role="SourceType" EntitySet="SourceTypes" />
+      <End Role="QuoteSubmitSaveInfo" EntitySet="QuoteSubmitSaveInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RepUser_User" Association="PenworthyModel.FK_RepUser_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RepUser" EntitySet="RepUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tag_TagType" Association="PenworthyModel.FK_Tag_TagType">
+      <End Role="TagType" EntitySet="TagTypes" />
+      <End Role="Tag" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPreferences_User" Association="PenworthyModel.FK_UserPreferences_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserPreferences" EntitySet="UserPreferences" />
+    </AssociationSet>
+    <AssociationSet Name="webpages_UsersInRoles" Association="PenworthyModel.webpages_UsersInRoles">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <FunctionImport Name="FnGetCatalogPrice" ReturnType="Collection(PenworthyModel.FnGetCatalogPrice_Result)" IsComposable="true">
+      <Parameter Name="custautoID" Type="Int32" />
+      <Parameter Name="quantity" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELMAH_GetErrorsXml" ReturnType="Collection(String)">
+      <Parameter Name="Application" Mode="In" Type="String" />
+      <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+      <Parameter Name="PageSize" Mode="In" Type="Int32" />
+      <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELMAH_GetErrorXml" ReturnType="Collection(String)">
+      <Parameter Name="Application" Mode="In" Type="String" />
+      <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="ELMAH_LogError">
+      <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+      <Parameter Name="Application" Mode="In" Type="String" />
+      <Parameter Name="Host" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+      <Parameter Name="Source" Mode="In" Type="String" />
+      <Parameter Name="Message" Mode="In" Type="String" />
+      <Parameter Name="User" Mode="In" Type="String" />
+      <Parameter Name="AllXml" Mode="In" Type="String" />
+      <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+      <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CalculateQuoteTotalPrice">
+      <Parameter Name="TrgQuoteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_DeleteDWOfflistItems" />
+    <FunctionImport Name="SP_DuplicateUsersList">
+      <Parameter Name="CustomerNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetCustomerDivNo">
+      <Parameter Name="CustomerNo" Mode="In" Type="String" />
+      <Parameter Name="DivNo" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetInvoiceHisoryFileName">
+      <Parameter Name="invoiceNo" Mode="In" Type="String" />
+      <Parameter Name="fileName" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_getitemlistByQuoteID">
+      <Parameter Name="quoteid" Mode="In" Type="Int32" />
+      <Parameter Name="custAutoId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertAuthors">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertCharacter">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertProspectiveCustomers" />
+    <FunctionImport Name="SP_InsertPublisher">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertSeconDaryCharacter">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertSeries">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateCustomerChildShipTOAddressBYCustAutoID">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateCustomerParentChildAddressBYCustAutoID">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateCustomerRelated">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateCustomerUsersData">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="EmailAddress" Mode="In" Type="String" />
+      <Parameter Name="CompCustomerNo" Mode="In" Type="String" />
+      <Parameter Name="CompDivisionNo" Mode="In" Type="String" />
+      <Parameter Name="salesPersonNo" Mode="In" Type="String" />
+      <Parameter Name="PersonID" Mode="In" Type="Int32" />
+      <Parameter Name="P_FirstName" Mode="In" Type="String" />
+      <Parameter Name="P_LastName" Mode="In" Type="String" />
+      <Parameter Name="P_EmailAddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateInvoiceHistory">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateInvoiceHistoryDetail" />
+    <FunctionImport Name="SP_InsertUpdatePenworthtyMasters">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdatePrimaryUser" />
+    <FunctionImport Name="SP_InsertUpdateQuote">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateRepUsers" />
+    <FunctionImport Name="SP_InsertUpdateRepUsersData">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="EmailAddress" Mode="In" Type="String" />
+      <Parameter Name="SalesPersonNo" Mode="In" Type="String" />
+      <Parameter Name="SalesARDivNo" Mode="In" Type="String" />
+      <Parameter Name="AddressLine1" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="Zipcode" Mode="In" Type="String" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+      <Parameter Name="PhoneNo" Mode="In" Type="String" />
+      <Parameter Name="PhoneDirectNo" Mode="In" Type="String" />
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="P_FirstName" Mode="In" Type="String" />
+      <Parameter Name="P_LastName" Mode="In" Type="String" />
+      <Parameter Name="P_EmailAddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateUserCustomerParentAndChild">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateUserCustomersRelated">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateUserRepRelated">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InsertUpdateUsers" />
+    <FunctionImport Name="sp_InserUpdateUserByPersonId">
+      <Parameter Name="personId" Mode="In" Type="Int32" />
+      <Parameter Name="repId" Mode="In" Type="Int32" />
+      <Parameter Name="customerNo" Mode="In" Type="String" />
+      <Parameter Name="ardivisionNO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_MergePerson">
+      <Parameter Name="CustomerNo" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="TargetPersonID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_RemoveItemFromQuotesandItembyItemID">
+      <Parameter Name="ItemID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateAuthors">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateCharacter">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateCustomerAgingcategories">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateCustomerPORequirement">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateCustomerPORequirementByCustAutoId">
+      <Parameter Name="CustumerAutoId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateItemMaster">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdatePublisher">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateQuoteStatusByInvoiceHistory">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateRepUserAuditFlag">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateSecondaryCharacter">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateSeries">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_UpdateSeriesCharacter">
+      <Parameter Name="DatabaseName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spgetCustomers" ReturnType="Collection(PenworthyModel.spgetCustomers_Result)" />
+  </EntityContainer>
+  <ComplexType Name="FnGetCatalogPrice_Result">
+    <Property Name="CatalogPrice" Type="Decimal" Precision="19" Scale="4" />
+  </ComplexType>
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
+    <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AppUserType" Relationship="PenworthyModel.FK_AppUser_AppUserTypes" FromRole="AppUser" ToRole="AppUserTypes" />
+  </EntityType>
+  <EntityType Name="AppUserType">
+    <Key>
+      <PropertyRef Name="UserTypeID" />
+    </Key>
+    <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+    <Property Name="UserType" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="AppUsers" Relationship="PenworthyModel.FK_AppUser_AppUserTypes" FromRole="AppUserTypes" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Items" Relationship="PenworthyModel.FK_Item_Author" FromRole="Author" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="CalTagInfo">
+    <Key>
+      <PropertyRef Name="CalTagInfoID" />
+    </Key>
+    <Property Name="CalTagInfoID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CalTagInfoText" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CalTagInfoType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="QuoteCallTags" Relationship="PenworthyModel.FK_QuoteCatalog_CalTagInfo" FromRole="CalTagInfo" ToRole="QuoteCallTag" />
+  </EntityType>
+  <EntityType Name="CatalogColumnType">
+    <Key>
+      <PropertyRef Name="CatalogColumnTypeID" />
+    </Key>
+    <Property Name="CatalogColumnTypeID" Type="Int32" Nullable="false" />
+    <Property Name="CatalogColumnText" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectOptions" Relationship="PenworthyModel.FK_CatalogSubjectOptions_CatalogColumnType_ColumnType" FromRole="CatalogColumnType" ToRole="CatalogSubjectOptions" />
+  </EntityType>
+  <EntityType Name="CatalogInformation">
+    <Key>
+      <PropertyRef Name="CatalogInfoID" />
+    </Key>
+    <Property Name="CatalogInfoID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogInfoName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CatalogSubjects" Relationship="PenworthyModel.FK_CatalogSubject_CatalogInfoID" FromRole="CatalogInformation" ToRole="CatalogSubject" />
+  </EntityType>
+  <EntityType Name="CatalogProfileValidation">
+    <Key>
+      <PropertyRef Name="CatalogProfileValidationID" />
+    </Key>
+    <Property Name="CatalogProfileValidationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectOptionID" Type="Int32" />
+    <Property Name="CatalogSubjectOptionRequiredID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectOption" Relationship="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions" FromRole="CatalogProfileValidation" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="CatalogSubjectOption1" Relationship="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions1" FromRole="CatalogProfileValidation" ToRole="CatalogSubjectOptions" />
+  </EntityType>
+  <EntityType Name="CatalogSoftwareVersionMapping">
+    <Key>
+      <PropertyRef Name="CSVMapID" />
+    </Key>
+    <Property Name="CSVMapID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatSubOptSoftwareValID" Type="Int32" Nullable="false" />
+    <Property Name="CatSubOptVersionValID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CatalogSubjectOptionValue" Relationship="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues" FromRole="CatalogSoftwareVersionMapping" ToRole="CatalogSubjectOptionValues" />
+    <NavigationProperty Name="CatalogSubjectOptionValue1" Relationship="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1" FromRole="CatalogSoftwareVersionMapping" ToRole="CatalogSubjectOptionValues" />
+  </EntityType>
+  <EntityType Name="CatalogSubject">
+    <Key>
+      <PropertyRef Name="CatalogSubjectID" />
+    </Key>
+    <Property Name="CatalogSubjectID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubject1" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CatalogInfoID" Type="Int32" />
+    <NavigationProperty Name="CatalogInformation" Relationship="PenworthyModel.FK_CatalogSubject_CatalogInfoID" FromRole="CatalogSubject" ToRole="CatalogInformation" />
+    <NavigationProperty Name="CatalogSubjectOptions" Relationship="PenworthyModel.FK_CatalogSubjectID" FromRole="CatalogSubject" ToRole="CatalogSubjectOptions" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectItemIDMapping">
+    <Key>
+      <PropertyRef Name="CatalogSubjectItemMapID" />
+      <PropertyRef Name="CatalogSubjectOptionID" />
+    </Key>
+    <Property Name="CatalogSubjectItemMapID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectOptionID" Type="Int32" Nullable="false" />
+    <Property Name="IsCLabelChecked" Type="Boolean" />
+    <Property Name="ISCSubjProtectorChecked" Type="Boolean" />
+    <Property Name="IsCSubjSRChecked" Type="Boolean" />
+    <Property Name="IsCExtraProtectorChecked" Type="Boolean" />
+    <Property Name="ItemID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CatalogSubjectOption" Relationship="PenworthyModel.FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID" FromRole="CatalogSubjectItemIDMapping" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="Item" Relationship="PenworthyModel.FK_CatalogSubjectItemIDMapping_ItemID" FromRole="CatalogSubjectItemIDMapping" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptionProtector">
+    <Key>
+      <PropertyRef Name="CSOProtectorID" />
+    </Key>
+    <Property Name="CSOProtectorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CSOID" Type="Int32" Nullable="false" />
+    <Property Name="ProtectorCount" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectOption" Relationship="PenworthyModel.FK_CatalogSubjectoptionProtector_CatalogSubjectoption" FromRole="CatalogSubjectOptionProtector" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="CatalogSubjectOptionProtectorValues" Relationship="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector" FromRole="CatalogSubjectOptionProtector" ToRole="CatalogSubjectOptionProtectorValue" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptionProtectorValue">
+    <Key>
+      <PropertyRef Name="CSOProtectorvalueID" />
+    </Key>
+    <Property Name="CSOProtectorvalueID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CSOValueID" Type="Int32" Nullable="false" />
+    <Property Name="CSOProtectorID" Type="Int32" Nullable="false" />
+    <Property Name="CSOProtectorValue" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updateddate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectOptionProtector" Relationship="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector" FromRole="CatalogSubjectOptionProtectorValue" ToRole="CatalogSubjectOptionProtector" />
+    <NavigationProperty Name="CatalogSubjectOptionValue" Relationship="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue" FromRole="CatalogSubjectOptionProtectorValue" ToRole="CatalogSubjectOptionValues" />
+    <NavigationProperty Name="CustomerCatalogProtectorInformations" Relationship="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue" FromRole="CatalogSubjectOptionProtectorValue" ToRole="CustomerCatalogProtectorInformation" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOption">
+    <Key>
+      <PropertyRef Name="CatalogSubjectOptionID" />
+    </Key>
+    <Property Name="CatalogSubjectOptionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectID" Type="Int32" Nullable="false" />
+    <Property Name="CatalogSubjectOption1" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="ItemID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ColumnType" Type="Int32" />
+    <NavigationProperty Name="CatalogColumnType" Relationship="PenworthyModel.FK_CatalogSubjectOptions_CatalogColumnType_ColumnType" FromRole="CatalogSubjectOptions" ToRole="CatalogColumnType" />
+    <NavigationProperty Name="CatalogProfileValidations" Relationship="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions" FromRole="CatalogSubjectOptions" ToRole="CatalogProfileValidation" />
+    <NavigationProperty Name="CatalogProfileValidations1" Relationship="PenworthyModel.FK_CatalogProfileValidation_CatalogSubjectOptions1" FromRole="CatalogSubjectOptions" ToRole="CatalogProfileValidation" />
+    <NavigationProperty Name="CatalogSubject" Relationship="PenworthyModel.FK_CatalogSubjectID" FromRole="CatalogSubjectOptions" ToRole="CatalogSubject" />
+    <NavigationProperty Name="CatalogSubjectItemIDMappings" Relationship="PenworthyModel.FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID" FromRole="CatalogSubjectOptions" ToRole="CatalogSubjectItemIDMapping" />
+    <NavigationProperty Name="CatalogSubjectOptionProtectors" Relationship="PenworthyModel.FK_CatalogSubjectoptionProtector_CatalogSubjectoption" FromRole="CatalogSubjectOptions" ToRole="CatalogSubjectOptionProtector" />
+    <NavigationProperty Name="CatalogSubjectOptionValues" Relationship="PenworthyModel.FK_CatalogSubjectOptionID" FromRole="CatalogSubjectOptions" ToRole="CatalogSubjectOptionValues" />
+    <NavigationProperty Name="Item" Relationship="PenworthyModel.FK_CatalogSubjectOptions_Item_ItemID" FromRole="CatalogSubjectOptions" ToRole="Item" />
+    <NavigationProperty Name="CatalogSubjectoptionShelfReadies" Relationship="PenworthyModel.FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption" FromRole="CatalogSubjectOptions" ToRole="CatalogSubjectoptionShelfReady" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectoptionShelfReady">
+    <Key>
+      <PropertyRef Name="CSOShelfReadyID" />
+    </Key>
+    <Property Name="CSOShelfReadyID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CSOID" Type="Int32" Nullable="false" />
+    <Property Name="ShelfReadyCount" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectOption" Relationship="PenworthyModel.FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption" FromRole="CatalogSubjectoptionShelfReady" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="CatalogSubjectOptionShelfReadyValues" Relationship="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady" FromRole="CatalogSubjectoptionShelfReady" ToRole="CatalogSubjectOptionShelfReadyValue" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptionShelfReadyValue">
+    <Key>
+      <PropertyRef Name="CSOShelfReadyvalueID" />
+    </Key>
+    <Property Name="CSOShelfReadyvalueID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CSOValueID" Type="Int32" Nullable="false" />
+    <Property Name="CSOShelfReadyID" Type="Int32" Nullable="false" />
+    <Property Name="CSOShelfReadyValue" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updateddate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CatalogSubjectoptionShelfReady" Relationship="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady" FromRole="CatalogSubjectOptionShelfReadyValue" ToRole="CatalogSubjectoptionShelfReady" />
+    <NavigationProperty Name="CatalogSubjectOptionValue" Relationship="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue" FromRole="CatalogSubjectOptionShelfReadyValue" ToRole="CatalogSubjectOptionValues" />
+    <NavigationProperty Name="CustomerCatalogShelfReadyInformations" Relationship="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue" FromRole="CatalogSubjectOptionShelfReadyValue" ToRole="CustomerCatalogShelfReadyInformation" />
+  </EntityType>
+  <EntityType Name="CatalogSubjectOptionValue">
+    <Key>
+      <PropertyRef Name="CatalogSubjectOptionValueID" />
+    </Key>
+    <Property Name="CatalogSubjectOptionValueID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectOptionID" Type="Int32" />
+    <Property Name="CatalogSubjectOptionValue1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CatalogSoftwareVersionMappings" Relationship="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues" FromRole="CatalogSubjectOptionValues" ToRole="CatalogSoftwareVersionMapping" />
+    <NavigationProperty Name="CatalogSoftwareVersionMappings1" Relationship="PenworthyModel.FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1" FromRole="CatalogSubjectOptionValues" ToRole="CatalogSoftwareVersionMapping" />
+    <NavigationProperty Name="CatalogSubjectOptionProtectorValues" Relationship="PenworthyModel.FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue" FromRole="CatalogSubjectOptionValues" ToRole="CatalogSubjectOptionProtectorValue" />
+    <NavigationProperty Name="CatalogSubjectOption" Relationship="PenworthyModel.FK_CatalogSubjectOptionID" FromRole="CatalogSubjectOptionValues" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="CatalogSubjectOptionShelfReadyValues" Relationship="PenworthyModel.FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue" FromRole="CatalogSubjectOptionValues" ToRole="CatalogSubjectOptionShelfReadyValue" />
+    <NavigationProperty Name="CustomerCatalogInformations" Relationship="PenworthyModel.FK_CustomerCatalogInformation_CatalogSubjectOptionValueID" FromRole="CatalogSubjectOptionValues" ToRole="CustomerCatalogInformation" />
+  </EntityType>
+  <EntityType Name="CollectionsDisplayPage">
+    <Key>
+      <PropertyRef Name="PageToDisplayID" />
+    </Key>
+    <Property Name="PageToDisplayID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PageToDisplayCode" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+    <Property Name="PageToDisplayName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Groups" Relationship="PenworthyModel.FK_Group_PageToDisplay" FromRole="CollectionsDisplayPage" ToRole="Group" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustAutoID" />
+    </Key>
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerNO" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerStatus" Type="Boolean" Nullable="false" />
+    <Property Name="DivisionNo" Type="Int32" />
+    <Property Name="PID" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Comp_PORequirements" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="AgingCategories2" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="AgingCategories3" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="AgingCategories4" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Comp_stickratecy" Type="Decimal" Precision="24" Scale="6" />
+    <Property Name="Comp_stickratepy" Type="Decimal" Precision="24" Scale="6" />
+    <Property Name="TaxScheduleID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerAddress" Relationship="PenworthyModel.FK_CustomerAddress_Customer" FromRole="Customer" ToRole="CustomerAddress" />
+    <NavigationProperty Name="CustomerCatalogInformations" Relationship="PenworthyModel.FK_CustomerCatalogInformation_Customer" FromRole="Customer" ToRole="CustomerCatalogInformation" />
+    <NavigationProperty Name="CustomerRep" Relationship="PenworthyModel.FK_CustomerRep_Customer" FromRole="Customer" ToRole="CustomerRep" />
+    <NavigationProperty Name="CustomerSeriesCharacters" Relationship="PenworthyModel.FK_CustomerSeriesCharacter_Customer" FromRole="Customer" ToRole="CustomerSeriesCharacter" />
+    <NavigationProperty Name="CustomerShipToAddress" Relationship="PenworthyModel.FK_CustomerShipToAddress_Customer" FromRole="Customer" ToRole="CustomerShipToAddress" />
+    <NavigationProperty Name="CustomerTitles" Relationship="PenworthyModel.FK_CustomerTitles_Customer" FromRole="Customer" ToRole="CustomerTitles" />
+    <NavigationProperty Name="Users" Relationship="PenworthyModel.FK_User_Customer" FromRole="Customer" ToRole="User" />
+  </EntityType>
+  <EntityType Name="CustomerAddress">
+    <Key>
+      <PropertyRef Name="CustAutoID" />
+    </Key>
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AddressLine2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AddressLine3" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="ZipCode" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CountryCode" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+    <Property Name="TelephoneNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="TelephoneExt" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FaxNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerAddress_Customer" FromRole="CustomerAddress" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="CustomerCatalogInformation">
+    <Key>
+      <PropertyRef Name="CustomerCatID" />
+    </Key>
+    <Property Name="CustomerCatID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatalogSubjectOptionValueID" Type="Int32" />
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LoggedInUserID" Type="Int32" />
+    <NavigationProperty Name="CatalogSubjectOptionValue" Relationship="PenworthyModel.FK_CustomerCatalogInformation_CatalogSubjectOptionValueID" FromRole="CustomerCatalogInformation" ToRole="CatalogSubjectOptionValues" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerCatalogInformation_Customer" FromRole="CustomerCatalogInformation" ToRole="Customer" />
+    <NavigationProperty Name="CustomerCatalogProtectorInformations" Relationship="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation" FromRole="CustomerCatalogInformation" ToRole="CustomerCatalogProtectorInformation" />
+    <NavigationProperty Name="CustomerCatalogShelfReadyInformations" Relationship="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation" FromRole="CustomerCatalogInformation" ToRole="CustomerCatalogShelfReadyInformation" />
+    <NavigationProperty Name="User" Relationship="PenworthyModel.FK_User_CustomerCatalogInformation" FromRole="CustomerCatalogInformation" ToRole="User" />
+  </EntityType>
+  <EntityType Name="CustomerCatalogProtectorInformation">
+    <Key>
+      <PropertyRef Name="CCProtectorInformationID" />
+    </Key>
+    <Property Name="CCProtectorInformationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CCatID" Type="Int32" />
+    <Property Name="CCProtectorValueID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="CatalogSubjectOptionProtectorValue" Relationship="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue" FromRole="CustomerCatalogProtectorInformation" ToRole="CatalogSubjectOptionProtectorValue" />
+    <NavigationProperty Name="CustomerCatalogInformation" Relationship="PenworthyModel.FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation" FromRole="CustomerCatalogProtectorInformation" ToRole="CustomerCatalogInformation" />
+  </EntityType>
+  <EntityType Name="CustomerCatalogShelfReadyInformation">
+    <Key>
+      <PropertyRef Name="CCShelfReadyInformationID" />
+    </Key>
+    <Property Name="CCShelfReadyInformationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CCatID" Type="Int32" />
+    <Property Name="CCShelfReadyValueID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="CatalogSubjectOptionShelfReadyValue" Relationship="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue" FromRole="CustomerCatalogShelfReadyInformation" ToRole="CatalogSubjectOptionShelfReadyValue" />
+    <NavigationProperty Name="CustomerCatalogInformation" Relationship="PenworthyModel.FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation" FromRole="CustomerCatalogShelfReadyInformation" ToRole="CustomerCatalogInformation" />
+  </EntityType>
+  <EntityType Name="CustomerRep">
+    <Key>
+      <PropertyRef Name="CustAutoID" />
+    </Key>
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" />
+    <Property Name="RepUserID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerRep_Customer" FromRole="CustomerRep" ToRole="Customer" />
+    <NavigationProperty Name="RepUser" Relationship="PenworthyModel.FK_CustomerRep_RepUser" FromRole="CustomerRep" ToRole="RepUser" />
+  </EntityType>
+  <EntityType Name="CustomerRepAssignment">
+    <Key>
+      <PropertyRef Name="CustomerRepAssignmentID" />
+    </Key>
+    <Property Name="CustomerRepAssignmentID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="RepID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="CustomerSeriesCharacter">
+    <Key>
+      <PropertyRef Name="CustomerSCID" />
+    </Key>
+    <Property Name="CustomerSCID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CusAutoID" Type="Int32" Nullable="false" />
+    <Property Name="SCID" Type="Int32" />
+    <Property Name="SCType" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerSeriesCharacter_Customer" FromRole="CustomerSeriesCharacter" ToRole="Customer" />
+    <NavigationProperty Name="SeriesAndCharacter" Relationship="PenworthyModel.FK_CustomerSeriesCharacter_SeriesCharacter" FromRole="CustomerSeriesCharacter" ToRole="SeriesAndCharacter" />
+  </EntityType>
+  <EntityType Name="CustomerShipToAddress">
+    <Key>
+      <PropertyRef Name="CustAutoID" />
+    </Key>
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" />
+    <Property Name="ShipToCode" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="true" />
+    <Property Name="ShipToName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToAddress1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToAddress2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToAddress3" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToCity" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToState" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="ShipToZipCode" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ShipToCountryCode" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+    <Property Name="TelephoneNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="TelephoneExt" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="FaxNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerShipToAddress_Customer" FromRole="CustomerShipToAddress" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="CustomerTag">
+    <Key>
+      <PropertyRef Name="CustomerTagID" />
+    </Key>
+    <Property Name="CustomerTagID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="TageID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Tag" Relationship="PenworthyModel.FK_CustomerTag_Tag" FromRole="CustomerTag" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="CustomerTitle">
+    <Key>
+      <PropertyRef Name="CustomerTitleID" />
+    </Key>
+    <Property Name="CustomerTitleID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CustAutoID" Type="Int32" Nullable="false" />
+    <Property Name="ItemID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_CustomerTitles_Customer" FromRole="CustomerTitles" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="DWSelectionStatu">
+    <Key>
+      <PropertyRef Name="DWSelectionID" />
+    </Key>
+    <Property Name="DWSelectionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DWSelectionText" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="QuoteDetails" Relationship="PenworthyModel.FK_QuoteDetail_DWSelectionID" FromRole="DWSelectionStatus" ToRole="QuoteDetail" />
+  </EntityType>
+  <EntityType Name="ELMAH_Error">
+    <Key>
+      <PropertyRef Name="ErrorId" />
+    </Key>
+    <Property Name="ErrorId" Type="Guid" Nullable="false" />
+    <Property Name="Application" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+    <Property Name="Host" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Source" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="User" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="StatusCode" Type="Int32" Nullable="false" />
+    <Property Name="TimeUtc" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sequence" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="AllXml" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="FAQ">
+    <Key>
+      <PropertyRef Name="FAQId" />
+    </Key>
+    <Property Name="FAQId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FAQQuestion" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="FAQCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpadatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="FAQCategory" Relationship="PenworthyModel.FK_FAQ_FAQCategoriesID" FromRole="FAQ" ToRole="FAQCategories" />
+    <NavigationProperty Name="FAQDetails" Relationship="PenworthyModel.FK_FAQDetails_FAQID" FromRole="FAQ" ToRole="FAQDetails" />
+  </EntityType>
+  <EntityType Name="FAQCategory">
+    <Key>
+      <PropertyRef Name="FAQCategoryID" />
+    </Key>
+    <Property Name="FAQCategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Categories" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="FAQs" Relationship="PenworthyModel.FK_FAQ_FAQCategoriesID" FromRole="FAQCategories" ToRole="FAQ" />
+  </EntityType>
+  <EntityType Name="FAQDetail">
+    <Key>
+      <PropertyRef Name="FAQDetailsID" />
+    </Key>
+    <Property Name="FAQDetailsID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FAQId" Type="Int32" Nullable="false" />
+    <Property Name="FAQDetailedText" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="FAQ" Relationship="PenworthyModel.FK_FAQDetails_FAQID" FromRole="FAQDetails" ToRole="FAQ" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="GroupType" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="UserRoleId" Type="Int32" />
+    <Property Name="PageToDisplay" Type="Int32" />
+    <NavigationProperty Name="CollectionsDisplayPage" Relationship="PenworthyModel.FK_Group_PageToDisplay" FromRole="Group" ToRole="CollectionsDisplayPage" />
+    <NavigationProperty Name="webpages_Roles" Relationship="PenworthyModel.FK_Group_RoleId" FromRole="Group" ToRole="webpages_Roles" />
+    <NavigationProperty Name="GroupPackages" Relationship="PenworthyModel.FK_GroupPackage_GroupID" FromRole="Group" ToRole="GroupPackage" />
+    <NavigationProperty Name="GroupStyles" Relationship="PenworthyModel.FK_GroupStyle_GroupID" FromRole="Group" ToRole="GroupStyle" />
+    <NavigationProperty Name="GroupPackageItems" Relationship="PenworthyModel.FK_PackageItem_GroupID" FromRole="Group" ToRole="GroupPackageItem" />
+  </EntityType>
+  <EntityType Name="GroupPackage">
+    <Key>
+      <PropertyRef Name="GroupPackageID" />
+    </Key>
+    <Property Name="GroupPackageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageID" Type="Int32" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Group" Relationship="PenworthyModel.FK_GroupPackage_GroupID" FromRole="GroupPackage" ToRole="Group" />
+    <NavigationProperty Name="Package" Relationship="PenworthyModel.FK_GroupPackage_PackageID" FromRole="GroupPackage" ToRole="Package" />
+  </EntityType>
+  <EntityType Name="GroupPackageItem">
+    <Key>
+      <PropertyRef Name="GroupPackageItemID" />
+    </Key>
+    <Property Name="GroupPackageItemID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupID" Type="Int32" />
+    <Property Name="PackageID" Type="Int32" />
+    <Property Name="PackageSubID" Type="Int32" />
+    <Property Name="ItemID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Group" Relationship="PenworthyModel.FK_PackageItem_GroupID" FromRole="GroupPackageItem" ToRole="Group" />
+    <NavigationProperty Name="Item" Relationship="PenworthyModel.FK_GroupPackageItem_Item_ItemID" FromRole="GroupPackageItem" ToRole="Item" />
+    <NavigationProperty Name="Package" Relationship="PenworthyModel.FK_GroupPackageItem_Package" FromRole="GroupPackageItem" ToRole="Package" />
+    <NavigationProperty Name="PackageSubPackage" Relationship="PenworthyModel.FK_GroupPackageItem_PackageSub" FromRole="GroupPackageItem" ToRole="PackageSubPackage" />
+  </EntityType>
+  <EntityType Name="GroupStyle">
+    <Key>
+      <PropertyRef Name="StyleID" />
+    </Key>
+    <Property Name="StyleID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupID" Type="Int32" Nullable="false" />
+    <Property Name="StyleHtml" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Group" Relationship="PenworthyModel.FK_GroupStyle_GroupID" FromRole="GroupStyle" ToRole="Group" />
+  </EntityType>
+  <EntityType Name="InvoiceHistory">
+    <Key>
+      <PropertyRef Name="InvoiceNo" />
+    </Key>
+    <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+    <Property Name="OrderNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerPurchaseOrderNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustAutoId" Type="Int32" />
+    <Property Name="TermsCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipVia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ShipTo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FederalId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="ItemsSold" Type="Int32" />
+    <Property Name="ItemsPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="QuoteType" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="InvoiceType" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="ProductLine" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+    <Property Name="ProductType" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="Title" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Previewable" Type="Boolean" />
+    <Property Name="SetProfile" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="SetName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Copyright" Type="Int32" />
+    <Property Name="PublisherID" Type="Int32" />
+    <Property Name="AuthorID" Type="Int32" />
+    <Property Name="Illustrator" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Classification" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="Format" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="InterestGrade" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Subject" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ReviewSource" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ISBN" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OnListDate" Type="DateTime" Precision="0" />
+    <Property Name="Pages" Type="Int32" Nullable="false" />
+    <Property Name="ARLevel" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="ARQuiz" Type="Int32" Nullable="false" />
+    <Property Name="LJ" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="Horn" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="SLJ" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="PW" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="Kirkus" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="Booklst" Type="Boolean" />
+    <Property Name="Dewery" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="RCLevel" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="RCQuiz" Type="Int32" Nullable="false" />
+    <Property Name="Lexile" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Series" Type="Int32" />
+    <Property Name="PrimeryCharacter" Type="Int32" />
+    <Property Name="SecondaryCharacter" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Size" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="SellingPoint1" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="SellingPoint2" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="SellingPoint3" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Package1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package3" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package4" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package5" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package6" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package7" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package8" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package9" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Package10" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Barcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OffListDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OnhandQty" Type="Int32" Nullable="false" />
+    <Property Name="SetID" Type="Int32" />
+    <Property Name="SetOnly" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="ItemHistoryID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsInMas" Type="Boolean" />
+    <NavigationProperty Name="Author" Relationship="PenworthyModel.FK_Item_Author" FromRole="Item" ToRole="Author" />
+    <NavigationProperty Name="CatalogSubjectItemIDMappings" Relationship="PenworthyModel.FK_CatalogSubjectItemIDMapping_ItemID" FromRole="Item" ToRole="CatalogSubjectItemIDMapping" />
+    <NavigationProperty Name="CatalogSubjectOptions" Relationship="PenworthyModel.FK_CatalogSubjectOptions_Item_ItemID" FromRole="Item" ToRole="CatalogSubjectOptions" />
+    <NavigationProperty Name="GroupPackageItems" Relationship="PenworthyModel.FK_GroupPackageItem_Item_ItemID" FromRole="Item" ToRole="GroupPackageItem" />
+    <NavigationProperty Name="SeriesAndCharacter" Relationship="PenworthyModel.FK_Item_Character" FromRole="Item" ToRole="SeriesAndCharacter" />
+    <NavigationProperty Name="ItemHistory" Relationship="PenworthyModel.FK_Item_ItemHistory" FromRole="Item" ToRole="ItemHistory" />
+    <NavigationProperty Name="Publisher" Relationship="PenworthyModel.FK_Item_Publisher" FromRole="Item" ToRole="Publisher" />
+    <NavigationProperty Name="SeriesAndCharacter1" Relationship="PenworthyModel.FK_Item_Series" FromRole="Item" ToRole="SeriesAndCharacter" />
+    <NavigationProperty Name="QuoteDetails" Relationship="PenworthyModel.FK_QuoteDetail_ItemID" FromRole="Item" ToRole="QuoteDetail" />
+  </EntityType>
+  <EntityType Name="ItemHistory">
+    <Key>
+      <PropertyRef Name="ItemHistoryID" />
+    </Key>
+    <Property Name="ItemHistoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Items" Relationship="PenworthyModel.FK_Item_ItemHistory" FromRole="ItemHistory" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="ItemTag">
+    <Key>
+      <PropertyRef Name="ItemTagID" />
+    </Key>
+    <Property Name="ItemTagID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="Int32" Nullable="false" />
+    <Property Name="TagID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Updatedate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Tag" Relationship="PenworthyModel.FK_ItemTag_Tag" FromRole="ItemTag" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="MailHistory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FromEmail" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CC" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="BCC" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MailBody" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="type" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="quoteId" Type="Int32" />
+    <Property Name="PersonId" Type="Int32" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderedQty" Type="Int32" />
+    <Property Name="ReceivedQty" Type="Int32" />
+    <Property Name="OnHandQty" Type="Int32" />
+    <Property Name="CommittedQty" Type="Int32" />
+    <Property Name="SoldQty" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="PackageID" />
+    </Key>
+    <Property Name="PackageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="UserRoleId" Type="Int32" />
+    <NavigationProperty Name="GroupPackages" Relationship="PenworthyModel.FK_GroupPackage_PackageID" FromRole="Package" ToRole="GroupPackage" />
+    <NavigationProperty Name="GroupPackageItems" Relationship="PenworthyModel.FK_GroupPackageItem_Package" FromRole="Package" ToRole="GroupPackageItem" />
+    <NavigationProperty Name="webpages_Roles" Relationship="PenworthyModel.FK_Package_RoleId" FromRole="Package" ToRole="webpages_Roles" />
+    <NavigationProperty Name="PackageSubPackages" Relationship="PenworthyModel.FK_PackageSubPackage_PackageID" FromRole="Package" ToRole="PackageSubPackage" />
+    <NavigationProperty Name="PackageSubPackages1" Relationship="PenworthyModel.FK_PackageSubPackage_SubPackageID" FromRole="Package" ToRole="PackageSubPackage" />
+  </EntityType>
+  <EntityType Name="PackageSubPackage">
+    <Key>
+      <PropertyRef Name="PackageSubID" />
+    </Key>
+    <Property Name="PackageSubID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageID" Type="Int32" Nullable="false" />
+    <Property Name="SubPackageID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="GroupPackageItems" Relationship="PenworthyModel.FK_GroupPackageItem_PackageSub" FromRole="PackageSubPackage" ToRole="GroupPackageItem" />
+    <NavigationProperty Name="Package" Relationship="PenworthyModel.FK_PackageSubPackage_PackageID" FromRole="PackageSubPackage" ToRole="Package" />
+    <NavigationProperty Name="Package1" Relationship="PenworthyModel.FK_PackageSubPackage_SubPackageID" FromRole="PackageSubPackage" ToRole="Package" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="PublisherID" />
+    </Key>
+    <Property Name="PublisherID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PublisherName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Items" Relationship="PenworthyModel.FK_Item_Publisher" FromRole="Publisher" ToRole="Item" />
+    <NavigationProperty Name="Publisher1" Relationship="PenworthyModel.FK_Publisher_Publisher" FromRole="Publisher" ToRole="Publisher1" />
+    <NavigationProperty Name="Publisher2" Relationship="PenworthyModel.FK_Publisher_Publisher" FromRole="Publisher1" ToRole="Publisher" />
+  </EntityType>
+  <EntityType Name="Quote">
+    <Key>
+      <PropertyRef Name="QuoteID" />
+    </Key>
+    <Property Name="QuoteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="POText" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Comments" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="IncludeCatalogStatus" Type="Boolean" />
+    <Property Name="PenworthyUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="QuoteTotalPrice" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="QuoteType" Relationship="PenworthyModel.FK_Quote_QuoteType" FromRole="Quote" ToRole="QuoteType" />
+    <NavigationProperty Name="Status" Relationship="PenworthyModel.FK_Quote_Status" FromRole="Quote" ToRole="Status" />
+    <NavigationProperty Name="User" Relationship="PenworthyModel.FK_Quote_User" FromRole="Quote" ToRole="User" />
+    <NavigationProperty Name="QuoteCallTags" Relationship="PenworthyModel.FK_QuoteCatalog_Quote" FromRole="Quote" ToRole="QuoteCallTag" />
+    <NavigationProperty Name="QuoteDetails" Relationship="PenworthyModel.FK_QuoteDetail_Quote" FromRole="Quote" ToRole="QuoteDetail" />
+    <NavigationProperty Name="QuoteSubmitSaveInfo" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_Quote" FromRole="Quote" ToRole="QuoteSubmitSaveInfo" />
+  </EntityType>
+  <EntityType Name="QuoteCallTag">
+    <Key>
+      <PropertyRef Name="QuoteCalTagInfoID" />
+    </Key>
+    <Property Name="QuoteCalTagInfoID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="CalTagInfoID" Type="Int32" />
+    <Property Name="CalTagInfoValue" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CalTagInfo" Relationship="PenworthyModel.FK_QuoteCatalog_CalTagInfo" FromRole="QuoteCallTag" ToRole="CalTagInfo" />
+    <NavigationProperty Name="Quote" Relationship="PenworthyModel.FK_QuoteCatalog_Quote" FromRole="QuoteCallTag" ToRole="Quote" />
+  </EntityType>
+  <EntityType Name="QuoteDetail">
+    <Key>
+      <PropertyRef Name="QuoteDetailID" />
+    </Key>
+    <Property Name="QuoteDetailID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="ItemID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="DWSelectionID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DWSelectionStatu" Relationship="PenworthyModel.FK_QuoteDetail_DWSelectionID" FromRole="QuoteDetail" ToRole="DWSelectionStatus" />
+    <NavigationProperty Name="Item" Relationship="PenworthyModel.FK_QuoteDetail_ItemID" FromRole="QuoteDetail" ToRole="Item" />
+    <NavigationProperty Name="Quote" Relationship="PenworthyModel.FK_QuoteDetail_Quote" FromRole="QuoteDetail" ToRole="Quote" />
+  </EntityType>
+  <EntityType Name="QuoteSubmitSaveInfo">
+    <Key>
+      <PropertyRef Name="QuoteID" />
+    </Key>
+    <Property Name="QuoteID" Type="Int32" Nullable="false" />
+    <Property Name="SourceTypeID" Type="Int32" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="InvoiceRecipientID" Type="Int32" />
+    <Property Name="PoNo" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="FutureBillDate" Type="DateTime" Precision="0" />
+    <Property Name="QuoteSubmitComments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteBillReference" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="PayerID" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ShipItemsToID" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="AdditionalInvoiceRecipientId" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="DBPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsRepoHold" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Quote" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_Quote" FromRole="QuoteSubmitSaveInfo" ToRole="Quote" />
+    <NavigationProperty Name="QuoteType" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_QuoteType" FromRole="QuoteSubmitSaveInfo" ToRole="QuoteType" />
+    <NavigationProperty Name="SourceType" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_SourceType" FromRole="QuoteSubmitSaveInfo" ToRole="SourceType" />
+  </EntityType>
+  <EntityType Name="QuoteType">
+    <Key>
+      <PropertyRef Name="QuoteTypeID" />
+    </Key>
+    <Property Name="QuoteTypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuoteTypeText" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Quotes" Relationship="PenworthyModel.FK_Quote_QuoteType" FromRole="QuoteType" ToRole="Quote" />
+    <NavigationProperty Name="QuoteSubmitSaveInfoes" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_QuoteType" FromRole="QuoteType" ToRole="QuoteSubmitSaveInfo" />
+  </EntityType>
+  <EntityType Name="RepUser">
+    <Key>
+      <PropertyRef Name="RepUserID" />
+    </Key>
+    <Property Name="RepUserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="RepID" Type="Int32" Nullable="false" />
+    <Property Name="ARDivision" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="SalesCoordinator" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="ZipCode" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="PhoneCustomerService" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneDirect" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Biodata" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="AuditFlag" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerReps" Relationship="PenworthyModel.FK_CustomerRep_RepUser" FromRole="RepUser" ToRole="CustomerRep" />
+    <NavigationProperty Name="User" Relationship="PenworthyModel.FK_RepUser_User" FromRole="RepUser" ToRole="User" />
+  </EntityType>
+  <EntityType Name="SeriesAndCharacter">
+    <Key>
+      <PropertyRef Name="SCID" />
+    </Key>
+    <Property Name="SCID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SCText" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="SCType" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerSeriesCharacters" Relationship="PenworthyModel.FK_CustomerSeriesCharacter_SeriesCharacter" FromRole="SeriesAndCharacter" ToRole="CustomerSeriesCharacter" />
+    <NavigationProperty Name="Items" Relationship="PenworthyModel.FK_Item_Character" FromRole="SeriesAndCharacter" ToRole="Item" />
+    <NavigationProperty Name="Items1" Relationship="PenworthyModel.FK_Item_Series" FromRole="SeriesAndCharacter" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="SourceType">
+    <Key>
+      <PropertyRef Name="SourceID" />
+    </Key>
+    <Property Name="SourceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SourceName" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="QuoteSubmitSaveInfoes" Relationship="PenworthyModel.FK_QuoteSubmitSaveInfo_SourceType" FromRole="SourceType" ToRole="QuoteSubmitSaveInfo" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusFlag" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+    <Property Name="StatusDescription" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Quotes" Relationship="PenworthyModel.FK_Quote_Status" FromRole="Status" ToRole="Quote" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="TagTypeID" Type="Int32" Nullable="false" />
+    <Property Name="TagName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerTags" Relationship="PenworthyModel.FK_CustomerTag_Tag" FromRole="Tag" ToRole="CustomerTag" />
+    <NavigationProperty Name="ItemTags" Relationship="PenworthyModel.FK_ItemTag_Tag" FromRole="Tag" ToRole="ItemTag" />
+    <NavigationProperty Name="TagType" Relationship="PenworthyModel.FK_Tag_TagType" FromRole="Tag" ToRole="TagType" />
+  </EntityType>
+  <EntityType Name="TagType">
+    <Key>
+      <PropertyRef Name="TagTypeID" />
+    </Key>
+    <Property Name="TagTypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="TagTypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Tags" Relationship="PenworthyModel.FK_Tag_TagType" FromRole="TagType" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="TaxSchedule">
+    <Key>
+      <PropertyRef Name="TaxScheduleID" />
+    </Key>
+    <Property Name="TaxScheduleID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="TaxRate" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" p1:StoreGeneratedPattern="Computed" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CommunicationEmail" Type="String" MaxLength="50" Unicode="true" FixedLength="false" p1:StoreGeneratedPattern="Computed" />
+    <Property Name="CustAutoID" Type="Int32" />
+    <Property Name="IsPrimaryUser" Type="Boolean" />
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="ISActive" Type="Boolean" />
+    <NavigationProperty Name="Customer" Relationship="PenworthyModel.FK_User_Customer" FromRole="User" ToRole="Customer" />
+    <NavigationProperty Name="CustomerCatalogInformations" Relationship="PenworthyModel.FK_User_CustomerCatalogInformation" FromRole="User" ToRole="CustomerCatalogInformation" />
+    <NavigationProperty Name="Quotes" Relationship="PenworthyModel.FK_Quote_User" FromRole="User" ToRole="Quote" />
+    <NavigationProperty Name="RepUsers" Relationship="PenworthyModel.FK_RepUser_User" FromRole="User" ToRole="RepUser" />
+    <NavigationProperty Name="UserPreferences" Relationship="PenworthyModel.FK_UserPreferences_User" FromRole="User" ToRole="UserPreferences" />
+    <NavigationProperty Name="webpages_Roles" Relationship="PenworthyModel.webpages_UsersInRoles" FromRole="User" ToRole="webpages_Roles" />
+  </EntityType>
+  <EntityType Name="UserPreference">
+    <Key>
+      <PropertyRef Name="UserPreferenceID" />
+    </Key>
+    <Property Name="UserPreferenceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="PreferredType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Preferred" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="PenworthyModel.FK_UserPreferences_User" FromRole="UserPreferences" ToRole="User" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Groups" Relationship="PenworthyModel.FK_Group_RoleId" FromRole="webpages_Roles" ToRole="Group" />
+    <NavigationProperty Name="Packages" Relationship="PenworthyModel.FK_Package_RoleId" FromRole="webpages_Roles" ToRole="Package" />
+    <NavigationProperty Name="Users" Relationship="PenworthyModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="User" />
+  </EntityType>
+  <EntityType Name="vDWCRMComm">
+    <Key>
+      <PropertyRef Name="MailHistoryID" />
+      <PropertyRef Name="SendDate" />
+      <PropertyRef Name="To" />
+      <PropertyRef Name="FromEmail" />
+    </Key>
+    <Property Name="MailHistoryID" Type="Int32" Nullable="false" />
+    <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="type" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="quoteId" Type="Int32" />
+    <Property Name="PersonId" Type="Int32" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CustomerNO" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustAutoID" Type="Int32" />
+    <Property Name="FromEmail" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="QuoteTotalPrice" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="vDWMailHistory">
+    <Key>
+      <PropertyRef Name="MailHistoryID" />
+      <PropertyRef Name="SendDate" />
+      <PropertyRef Name="To" />
+      <PropertyRef Name="FromEmail" />
+    </Key>
+    <Property Name="MailHistoryID" Type="Int32" Nullable="false" />
+    <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="type" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="quoteId" Type="Int32" />
+    <Property Name="PersonId" Type="Int32" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CustomerNO" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustAutoID" Type="Int32" />
+    <Property Name="FromEmail" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="QuoteTotalPrice" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="vDWstat">
+    <Key>
+      <PropertyRef Name="CustomerNO" />
+    </Key>
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="DivisionNo" Type="Int32" />
+    <Property Name="CustomerNO" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PenworthyUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="DaysSinceRepUpd" Type="Int32" />
+    <Property Name="DaysSinceCustUpd" Type="Int32" />
+    <Property Name="Yes" Type="Int32" />
+    <Property Name="No" Type="Int32" />
+    <Property Name="Maybe" Type="Int32" />
+    <Property Name="New" Type="Int32" />
+    <Property Name="QuoteTypeText" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="StatusDescription" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="QuoteTotalPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PersonID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vQuote">
+    <Key>
+      <PropertyRef Name="CustomerNO" />
+    </Key>
+    <Property Name="QuoteID" Type="Int32" />
+    <Property Name="QuoteTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="QuoteTypeID" Type="Int32" />
+    <Property Name="IncludeCatalogStatus" Type="Boolean" />
+    <Property Name="PenworthyUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="CustAutoID" Type="Int32" />
+    <Property Name="CustomerNO" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="DivisionNo" Type="Int32" />
+    <Property Name="PID" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="QuoteTypeText" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="StatusDescription" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="RepUserID" Type="Int32" />
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="QuoteTotalPrice" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="vWebUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="CreatedDate" />
+      <PropertyRef Name="UpdatedDate" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CommunicationEmail" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CustAutoID" Type="Int32" />
+    <Property Name="IsPrimaryUser" Type="Boolean" />
+    <Property Name="PersonID" Type="Int32" />
+    <Property Name="CustomerNO" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PID" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_AppUser_AppUserTypes">
+    <End Role="AppUserTypes" Type="PenworthyModel.AppUserType" Multiplicity="1" />
+    <End Role="AppUser" Type="PenworthyModel.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserTypes">
+        <PropertyRef Name="UserTypeID" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="UserTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Author">
+    <End Role="Author" Type="PenworthyModel.Author" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteCatalog_CalTagInfo">
+    <End Role="CalTagInfo" Type="PenworthyModel.CalTagInfo" Multiplicity="0..1" />
+    <End Role="QuoteCallTag" Type="PenworthyModel.QuoteCallTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CalTagInfo">
+        <PropertyRef Name="CalTagInfoID" />
+      </Principal>
+      <Dependent Role="QuoteCallTag">
+        <PropertyRef Name="CalTagInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptions_CatalogColumnType_ColumnType">
+    <End Role="CatalogColumnType" Type="PenworthyModel.CatalogColumnType" Multiplicity="0..1" />
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogColumnType">
+        <PropertyRef Name="CatalogColumnTypeID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptions">
+        <PropertyRef Name="ColumnType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubject_CatalogInfoID">
+    <End Role="CatalogInformation" Type="PenworthyModel.CatalogInformation" Multiplicity="0..1" />
+    <End Role="CatalogSubject" Type="PenworthyModel.CatalogSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogInformation">
+        <PropertyRef Name="CatalogInfoID" />
+      </Principal>
+      <Dependent Role="CatalogSubject">
+        <PropertyRef Name="CatalogInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogProfileValidation_CatalogSubjectOptions">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="0..1" />
+    <End Role="CatalogProfileValidation" Type="PenworthyModel.CatalogProfileValidation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogProfileValidation">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogProfileValidation_CatalogSubjectOptions1">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="0..1" />
+    <End Role="CatalogProfileValidation" Type="PenworthyModel.CatalogProfileValidation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogProfileValidation">
+        <PropertyRef Name="CatalogSubjectOptionRequiredID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="1" />
+    <End Role="CatalogSoftwareVersionMapping" Type="PenworthyModel.CatalogSoftwareVersionMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CatalogSoftwareVersionMapping">
+        <PropertyRef Name="CatSubOptSoftwareValID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSoftwareVersionMapping_CatalogSubjectOptionValues1">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="1" />
+    <End Role="CatalogSoftwareVersionMapping" Type="PenworthyModel.CatalogSoftwareVersionMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CatalogSoftwareVersionMapping">
+        <PropertyRef Name="CatSubOptVersionValID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectID">
+    <End Role="CatalogSubject" Type="PenworthyModel.CatalogSubject" Multiplicity="1" />
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubject">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectItemIDMapping_CatalogSubjectOptionID">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="1" />
+    <End Role="CatalogSubjectItemIDMapping" Type="PenworthyModel.CatalogSubjectItemIDMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectItemIDMapping">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectItemIDMapping_ItemID">
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="0..1" />
+    <End Role="CatalogSubjectItemIDMapping" Type="PenworthyModel.CatalogSubjectItemIDMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectItemIDMapping">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectoptionProtector_CatalogSubjectoption">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="1" />
+    <End Role="CatalogSubjectOptionProtector" Type="PenworthyModel.CatalogSubjectOptionProtector" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionProtector">
+        <PropertyRef Name="CSOID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionProtector">
+    <End Role="CatalogSubjectOptionProtector" Type="PenworthyModel.CatalogSubjectOptionProtector" Multiplicity="1" />
+    <End Role="CatalogSubjectOptionProtectorValue" Type="PenworthyModel.CatalogSubjectOptionProtectorValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionProtector">
+        <PropertyRef Name="CSOProtectorID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionProtectorValue">
+        <PropertyRef Name="CSOProtectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionProtectorValue_CatalogSubjectOptionValue">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="1" />
+    <End Role="CatalogSubjectOptionProtectorValue" Type="PenworthyModel.CatalogSubjectOptionProtectorValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionProtectorValue">
+        <PropertyRef Name="CSOValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogProtectorInformation_CustomerCatalogProtectorValue">
+    <End Role="CatalogSubjectOptionProtectorValue" Type="PenworthyModel.CatalogSubjectOptionProtectorValue" Multiplicity="1" />
+    <End Role="CustomerCatalogProtectorInformation" Type="PenworthyModel.CustomerCatalogProtectorInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionProtectorValue">
+        <PropertyRef Name="CSOProtectorvalueID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogProtectorInformation">
+        <PropertyRef Name="CCProtectorValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionID">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="0..1" />
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptions_Item_ItemID">
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="0..1" />
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptions">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectoptionShelfReady_CatalogSubjectoption">
+    <End Role="CatalogSubjectOptions" Type="PenworthyModel.CatalogSubjectOption" Multiplicity="1" />
+    <End Role="CatalogSubjectoptionShelfReady" Type="PenworthyModel.CatalogSubjectoptionShelfReady" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptions">
+        <PropertyRef Name="CatalogSubjectOptionID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectoptionShelfReady">
+        <PropertyRef Name="CSOID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionShelfReady">
+    <End Role="CatalogSubjectoptionShelfReady" Type="PenworthyModel.CatalogSubjectoptionShelfReady" Multiplicity="1" />
+    <End Role="CatalogSubjectOptionShelfReadyValue" Type="PenworthyModel.CatalogSubjectOptionShelfReadyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectoptionShelfReady">
+        <PropertyRef Name="CSOShelfReadyID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionShelfReadyValue">
+        <PropertyRef Name="CSOShelfReadyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CatalogSubjectOptionShelfReadyValue_CatalogSubjectOptionValue">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="1" />
+    <End Role="CatalogSubjectOptionShelfReadyValue" Type="PenworthyModel.CatalogSubjectOptionShelfReadyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CatalogSubjectOptionShelfReadyValue">
+        <PropertyRef Name="CSOValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogShelfReadyInformation_CustomerCatalogShelfReadyValue">
+    <End Role="CatalogSubjectOptionShelfReadyValue" Type="PenworthyModel.CatalogSubjectOptionShelfReadyValue" Multiplicity="1" />
+    <End Role="CustomerCatalogShelfReadyInformation" Type="PenworthyModel.CustomerCatalogShelfReadyInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionShelfReadyValue">
+        <PropertyRef Name="CSOShelfReadyvalueID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogShelfReadyInformation">
+        <PropertyRef Name="CCShelfReadyValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_CatalogSubjectOptionValueID">
+    <End Role="CatalogSubjectOptionValues" Type="PenworthyModel.CatalogSubjectOptionValue" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CatalogSubjectOptionValues">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CatalogSubjectOptionValueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Group_PageToDisplay">
+    <End Role="CollectionsDisplayPage" Type="PenworthyModel.CollectionsDisplayPage" Multiplicity="0..1" />
+    <End Role="Group" Type="PenworthyModel.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionsDisplayPage">
+        <PropertyRef Name="PageToDisplayID" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="PageToDisplay" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAddress_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerAddress" Type="PenworthyModel.CustomerAddress" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerAddress">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogInformation_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerRep_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerRep" Type="PenworthyModel.CustomerRep" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerRep">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerSeriesCharacter_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerSeriesCharacter" Type="PenworthyModel.CustomerSeriesCharacter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerSeriesCharacter">
+        <PropertyRef Name="CusAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerShipToAddress_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerShipToAddress" Type="PenworthyModel.CustomerShipToAddress" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerShipToAddress">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerTitles_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="1" />
+    <End Role="CustomerTitles" Type="PenworthyModel.CustomerTitle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="CustomerTitles">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Customer">
+    <End Role="Customer" Type="PenworthyModel.Customer" Multiplicity="0..1" />
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustAutoID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="CustAutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogProtectorInformation_CustomerCatalogInformation">
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.CustomerCatalogInformation" Multiplicity="0..1" />
+    <End Role="CustomerCatalogProtectorInformation" Type="PenworthyModel.CustomerCatalogProtectorInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerCatalogInformation">
+        <PropertyRef Name="CustomerCatID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogProtectorInformation">
+        <PropertyRef Name="CCatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerCatalogShelfReadyInformation_CustomerCatalogInformation">
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.CustomerCatalogInformation" Multiplicity="0..1" />
+    <End Role="CustomerCatalogShelfReadyInformation" Type="PenworthyModel.CustomerCatalogShelfReadyInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerCatalogInformation">
+        <PropertyRef Name="CustomerCatID" />
+      </Principal>
+      <Dependent Role="CustomerCatalogShelfReadyInformation">
+        <PropertyRef Name="CCatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_CustomerCatalogInformation">
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="0..1" />
+    <End Role="CustomerCatalogInformation" Type="PenworthyModel.CustomerCatalogInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="CustomerCatalogInformation">
+        <PropertyRef Name="LoggedInUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerRep_RepUser">
+    <End Role="RepUser" Type="PenworthyModel.RepUser" Multiplicity="1" />
+    <End Role="CustomerRep" Type="PenworthyModel.CustomerRep" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepUser">
+        <PropertyRef Name="RepUserID" />
+      </Principal>
+      <Dependent Role="CustomerRep">
+        <PropertyRef Name="RepUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerSeriesCharacter_SeriesCharacter">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="CustomerSeriesCharacter" Type="PenworthyModel.CustomerSeriesCharacter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="CustomerSeriesCharacter">
+        <PropertyRef Name="SCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerTag_Tag">
+    <End Role="Tag" Type="PenworthyModel.Tag" Multiplicity="0..1" />
+    <End Role="CustomerTag" Type="PenworthyModel.CustomerTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="CustomerTag">
+        <PropertyRef Name="TageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_DWSelectionID">
+    <End Role="DWSelectionStatus" Type="PenworthyModel.DWSelectionStatu" Multiplicity="1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DWSelectionStatus">
+        <PropertyRef Name="DWSelectionID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="DWSelectionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAQ_FAQCategoriesID">
+    <End Role="FAQCategories" Type="PenworthyModel.FAQCategory" Multiplicity="1" />
+    <End Role="FAQ" Type="PenworthyModel.FAQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAQCategories">
+        <PropertyRef Name="FAQCategoryID" />
+      </Principal>
+      <Dependent Role="FAQ">
+        <PropertyRef Name="FAQCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAQDetails_FAQID">
+    <End Role="FAQ" Type="PenworthyModel.FAQ" Multiplicity="1" />
+    <End Role="FAQDetails" Type="PenworthyModel.FAQDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAQ">
+        <PropertyRef Name="FAQId" />
+      </Principal>
+      <Dependent Role="FAQDetails">
+        <PropertyRef Name="FAQId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Group_RoleId">
+    <End Role="webpages_Roles" Type="PenworthyModel.webpages_Roles" Multiplicity="0..1" />
+    <End Role="Group" Type="PenworthyModel.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="UserRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupPackage_GroupID">
+    <End Role="Group" Type="PenworthyModel.Group" Multiplicity="0..1" />
+    <End Role="GroupPackage" Type="PenworthyModel.GroupPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupPackage">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupStyle_GroupID">
+    <End Role="Group" Type="PenworthyModel.Group" Multiplicity="1" />
+    <End Role="GroupStyle" Type="PenworthyModel.GroupStyle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupStyle">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageItem_GroupID">
+    <End Role="Group" Type="PenworthyModel.Group" Multiplicity="0..1" />
+    <End Role="GroupPackageItem" Type="PenworthyModel.GroupPackageItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="GroupPackageItem">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupPackage_PackageID">
+    <End Role="Package" Type="PenworthyModel.Package" Multiplicity="0..1" />
+    <End Role="GroupPackage" Type="PenworthyModel.GroupPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="GroupPackage">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupPackageItem_Item_ItemID">
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="1" />
+    <End Role="GroupPackageItem" Type="PenworthyModel.GroupPackageItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="GroupPackageItem">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupPackageItem_Package">
+    <End Role="Package" Type="PenworthyModel.Package" Multiplicity="0..1" />
+    <End Role="GroupPackageItem" Type="PenworthyModel.GroupPackageItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="GroupPackageItem">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupPackageItem_PackageSub">
+    <End Role="PackageSubPackage" Type="PenworthyModel.PackageSubPackage" Multiplicity="0..1" />
+    <End Role="GroupPackageItem" Type="PenworthyModel.GroupPackageItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PackageSubPackage">
+        <PropertyRef Name="PackageSubID" />
+      </Principal>
+      <Dependent Role="GroupPackageItem">
+        <PropertyRef Name="PackageSubID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Character">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="PrimeryCharacter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_ItemHistory">
+    <End Role="ItemHistory" Type="PenworthyModel.ItemHistory" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemHistory">
+        <PropertyRef Name="ItemHistoryID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="ItemHistoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Publisher">
+    <End Role="Publisher" Type="PenworthyModel.Publisher" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Series">
+    <End Role="SeriesAndCharacter" Type="PenworthyModel.SeriesAndCharacter" Multiplicity="0..1" />
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeriesAndCharacter">
+        <PropertyRef Name="SCID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="Series" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_ItemID">
+    <End Role="Item" Type="PenworthyModel.Item" Multiplicity="1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItemTag_Tag">
+    <End Role="Tag" Type="PenworthyModel.Tag" Multiplicity="0..1" />
+    <End Role="ItemTag" Type="PenworthyModel.ItemTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="ItemTag">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Package_RoleId">
+    <End Role="webpages_Roles" Type="PenworthyModel.webpages_Roles" Multiplicity="0..1" />
+    <End Role="Package" Type="PenworthyModel.Package" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Package">
+        <PropertyRef Name="UserRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageSubPackage_PackageID">
+    <End Role="Package" Type="PenworthyModel.Package" Multiplicity="1" />
+    <End Role="PackageSubPackage" Type="PenworthyModel.PackageSubPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="PackageSubPackage">
+        <PropertyRef Name="PackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PackageSubPackage_SubPackageID">
+    <End Role="Package" Type="PenworthyModel.Package" Multiplicity="1" />
+    <End Role="PackageSubPackage" Type="PenworthyModel.PackageSubPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="PackageID" />
+      </Principal>
+      <Dependent Role="PackageSubPackage">
+        <PropertyRef Name="SubPackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Publisher_Publisher">
+    <End Role="Publisher" Type="PenworthyModel.Publisher" Multiplicity="1" />
+    <End Role="Publisher1" Type="PenworthyModel.Publisher" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherID" />
+      </Principal>
+      <Dependent Role="Publisher1">
+        <PropertyRef Name="PublisherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quote_QuoteType">
+    <End Role="QuoteType" Type="PenworthyModel.QuoteType" Multiplicity="0..1" />
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuoteType">
+        <PropertyRef Name="QuoteTypeID" />
+      </Principal>
+      <Dependent Role="Quote">
+        <PropertyRef Name="QuoteTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quote_Status">
+    <End Role="Status" Type="PenworthyModel.Status" Multiplicity="0..1" />
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Quote">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quote_User">
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="1" />
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Quote">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteCatalog_Quote">
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="0..1" />
+    <End Role="QuoteCallTag" Type="PenworthyModel.QuoteCallTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="QuoteCallTag">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteDetail_Quote">
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="0..1" />
+    <End Role="QuoteDetail" Type="PenworthyModel.QuoteDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="QuoteDetail">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteSubmitSaveInfo_Quote">
+    <End Role="Quote" Type="PenworthyModel.Quote" Multiplicity="1" />
+    <End Role="QuoteSubmitSaveInfo" Type="PenworthyModel.QuoteSubmitSaveInfo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="QuoteSubmitSaveInfo">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteSubmitSaveInfo_QuoteType">
+    <End Role="QuoteType" Type="PenworthyModel.QuoteType" Multiplicity="0..1" />
+    <End Role="QuoteSubmitSaveInfo" Type="PenworthyModel.QuoteSubmitSaveInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuoteType">
+        <PropertyRef Name="QuoteTypeID" />
+      </Principal>
+      <Dependent Role="QuoteSubmitSaveInfo">
+        <PropertyRef Name="QuoteTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteSubmitSaveInfo_SourceType">
+    <End Role="SourceType" Type="PenworthyModel.SourceType" Multiplicity="0..1" />
+    <End Role="QuoteSubmitSaveInfo" Type="PenworthyModel.QuoteSubmitSaveInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SourceType">
+        <PropertyRef Name="SourceID" />
+      </Principal>
+      <Dependent Role="QuoteSubmitSaveInfo">
+        <PropertyRef Name="SourceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RepUser_User">
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="1" />
+    <End Role="RepUser" Type="PenworthyModel.RepUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RepUser">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tag_TagType">
+    <End Role="TagType" Type="PenworthyModel.TagType" Multiplicity="1" />
+    <End Role="Tag" Type="PenworthyModel.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagType">
+        <PropertyRef Name="TagTypeID" />
+      </Principal>
+      <Dependent Role="Tag">
+        <PropertyRef Name="TagTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPreferences_User">
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="1" />
+    <End Role="UserPreferences" Type="PenworthyModel.UserPreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserPreferences">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="webpages_UsersInRoles">
+    <End Role="webpages_Roles" Type="PenworthyModel.webpages_Roles" Multiplicity="*" />
+    <End Role="User" Type="PenworthyModel.User" Multiplicity="*" />
+  </Association>
+  <ComplexType Name="spgetCustomers_Result">
+    <Property Type="Int32" Name="CustAutoID" Nullable="false" />
+    <Property Type="String" Name="CustomerNO" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="CustomerStatus" Nullable="false" />
+    <Property Type="Int32" Name="DivisionNo" Nullable="true" />
+    <Property Type="String" Name="PID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Comp_PORequirements" Nullable="true" MaxLength="40" />
+    <Property Type="Decimal" Name="AgingCategories2" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="AgingCategories3" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="AgingCategories4" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="Comp_stickratecy" Nullable="true" Precision="24" Scale="6" />
+    <Property Type="Decimal" Name="Comp_stickratepy" Nullable="true" Precision="24" Scale="6" />
+    <Property Type="String" Name="TaxScheduleID" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedDate" Nullable="false" Precision="23" />
+  </ComplexType>
+</Schema>

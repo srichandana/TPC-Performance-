@@ -1,0 +1,1061 @@
+﻿@model TPC.Core.Models.ViewModels.CatalogInfoViewModel
+@using TPC.Core.Models.Models;
+@using TPC.Core.Models.ViewModels;
+@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+
+@{
+    ViewBag.Title = "Cataloging";
+    Type t = @Model.GetType();
+    PropertyInfo[] propertysArray = @Model.GetType().GetProperties();
+   
+   
+}
+<div class="hide">
+    @Html.Hidden("hdnCatalogMappingText", string.Join(";", Model.ValidationCatalogBasicProfileModel.Select(x => x.Key + "=" + x.Value).ToArray()));
+    <input id="hdnCatalogInsertStatus" type="hidden" value="@ViewBag.CatalogInsertStatus" />
+</div>
+<div id="cataloging" class="span12 body-text">
+    @using (Html.BeginForm("AddCatalogInfoData", "CatalogInfo", FormMethod.Post, new { custUserID = ViewContext.ViewData["customerID"] }))
+    {
+        @Html.Hidden("custUserID", @Model.ThisUserID)
+        if (Roles.IsUserInRole("Repo") || Roles.IsUserInRole("AdminRep"))
+        {
+        <div id="divBasicProfileInformation" class="place-left contentText">
+
+            <div class="place-left span12">
+                @foreach (PropertyInfo property in t.GetProperties())
+                {
+                    Type obj = property.PropertyType;
+                    if (property.Name.Contains("ShelfReady"))
+                    {
+                    <table class="span12">
+                        <tr>
+                            <td colspan="6" class="tdheadingText">
+                                @Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })
+                            </td>
+
+                        </tr>
+                        @foreach (PropertyInfo childprop in obj.GetProperties())
+                        {
+                            Type childobj = childprop.PropertyType;
+                            if (childobj.Name.Contains("Dictionary") == true)
+                            {
+                                Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null);
+                            <tr>
+                                @if (dct != null && dct.Count() > 0)
+                                {
+                                    foreach (string key in dct.Keys)
+                                    {
+                                        var displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    <td class="div-labelwidth" colspan="2">@Html.Label(displayname)</td>
+                                    <td class="div-contentwidth">@Html.DropDownList(key + "-" + displayname,
+                                new SelectList(dct[key].ToList(), ViewData[displayname + "-" + key]), "--Select--", new { @class = "controlswidth" })</td>
+                                    }
+                                }
+                            </tr>
+
+                            }
+                            else if (childobj.Name.Contains("Model") == true)
+                            {
+                            <tr>
+                                <td colspan="6">
+                                    <b>@Html.Label(((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name, new { id = "lblHeading", @class = "labeldivheight" })</b>
+                                </td>
+                            </tr>
+                                foreach (PropertyInfo childmodelprop in childobj.GetProperties())
+                                {
+                                    if (childmodelprop.PropertyType.Name.Contains("Dictionary") == true)
+                                    {
+                                        Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childmodelprop.GetValue(childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null), null);
+
+                                        if (dct != null && dct.Count() > 0)
+                                        {
+                            <tr>
+                                @foreach (string key in dct.Keys)
+                                {
+                                    if (key.Contains("Bottom"))
+                                    {
+                                    <td class="div-labelwidth" colspan="2">@Html.Label(key)</td>
+                                    <td class="div-contentwidth">@Html.DropDownList(key,
+                                new SelectList(dct[key].ToList(), ViewData[key]), "--Select--", new { @class = "controlswidth" })</td>
+                                    }
+                                    else
+                                    {
+                                        var displayname = ((DisplayAttribute)childmodelprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    <td class="div-labelwidth" style="white-space: nowrap;">@Html.Label(displayname)</td>  
+                                    <td class="div-labelwidth padding5">@Html.Label(key)</td>
+                                    <td class="div-contentwidth controlpadding">@Html.DropDownList(key + "-" + displayname,
+                                new SelectList(dct[key].ToList(), ViewData[displayname + "-" + key]), "--Select--", new { @class = "controlswidth" })
+                                    </td>
+                                    }
+                                }
+                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </table>
+                    }
+                    else if (obj.Name.Contains("Dictionary"))
+                    {
+                        string borderdivcss = property.Name.Contains("CatalogSpecialItems") == true ? "borderblack" : "";
+                    <div class="place-left span12 @borderdivcss">
+                        @if (property.Name.Contains("CatalogItemPrice"))
+                        {
+                            <div class="place-left tdheadingText span12 ">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                            Dictionary<string, CatalogItemPrice> dctCatalogtype = (Dictionary<string, CatalogItemPrice>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                            double totalPrice = 0.00;
+                            <div class="place-left span12 padding5 nlp nrp nbp">
+                                <table id="tblCatalogInfo" class="span12 " border="1">
+                                    <thead>
+                                        <tr>
+                                            <th class=" div-MainHeight20 div-span2_5 controlpadding">Item Name
+                                            </th>
+                                            <th class="div-MainHeight20 div-span2_5 controlpadding">Item Price
+                                            </th>
+                                            <th class=" div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.ProtectorText
+                                            </th>
+                                            <th class="div-MainHeight20  controlpadding">Shelf Ready (All
+                                                <input type="checkbox" id="chkShelfReady" name="txtbox" />
+                                                )
+                                            </th>
+
+                                            <th class="div-MainHeight20 div-span2_5 controlpadding">Price
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (string key in dctCatalogtype.Keys)
+                                        {
+
+                                            double colPrice = 0.00;
+                                            if (key != @Resources.TCPResources.ProtectorText && key != @Resources.TCPResources.ShelfReadyUnitText)
+                                            {
+                                              
+
+                                            <tr>
+                                                <td class="div-MainHeight20 div-span2_5 padding-left3">
+                                                    @{
+                                                    
+                                                bool checkedkey = ViewData[key].ToString() == "false" || ViewData[key].ToString() == "" ? false : true;
+                                                colPrice = checkedkey == true ? dctCatalogtype[key].ItemPrice : colPrice;
+
+                                                //  string checkedkeystatusClass = checkedkey == false ? "true" : "false";
+                                                    }
+                                                    @Html.CheckBox(@key, checkedkey, new { Class = "itmprice chkstatus" }) @key
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+                                                    @dctCatalogtype[key].ItemPrice.ToString("C")
+
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+
+                                                    @for (int j = 0; j < dctCatalogtype[key].ProtectorCount; j++)
+                                                    {
+                                                        string tmpkey1 = "CatalogOptions-" + key + "-" + Resources.TCPResources.ProtectorText + "+" + j;
+                                                        bool checkedkey2 = (ViewData[tmpkey1].ToString() == "false" || ViewData[tmpkey1].ToString() == "") ? false : true;
+                                                        colPrice = checkedkey2 == true ? colPrice + dctCatalogtype["Protector"].ItemPrice : colPrice;
+                                                        @Html.CheckBox(tmpkey1, checkedkey2, new { Class = "itmprice ", @disabled = "disabled", itmprice = dctCatalogtype["Protector"].ItemPrice.ToString() })   
+                                                   
+                                                    }
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+
+                                                    @for (int i = 0; i < dctCatalogtype[key].ShelfListCardCount; i++)
+                                                    {
+                                                        // string 
+                                                        string ShelfListCardCount = i > 0 ? "hide" : "";
+                                                        string tmpkey = "CatalogOptions-" + key + "-" + Resources.TCPResources.ShelfReadyUnitText + "+" + i;
+                                                        bool checkedkey1 = (ViewData[tmpkey].ToString() == "false" || ViewData[tmpkey].ToString() == "") ? false : true;
+                                                        colPrice = checkedkey1 == true ? colPrice + dctCatalogtype["Shelf Ready Unit"].ItemPrice : colPrice;
+                                                        @Html.CheckBox(tmpkey, checkedkey1, new { Class = "itmprice " + ShelfListCardCount, @disabled = "disabled", itmprice = dctCatalogtype["Shelf Ready Unit"].ItemPrice.ToString() })   
+                                                    }
+
+                                                </td>
+
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding itmperprice">
+                                                    @{totalPrice = totalPrice + colPrice;}
+                                                    @colPrice.ToString("C")
+
+                                                </td>
+                                            </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot style="border-color: white;" class="border-bottom">
+                                        <tr>
+                                            <th class="text-right div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.CatalogingPriceperBookText :</th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding" id="ttlprice">
+                                                @String.Format("{0:c}", @totalPrice)
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                           
+                        }
+                        else
+                        {
+
+                            int order = ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order;
+                            if (order != -1)
+                            {
+
+                                if (property.Name.Contains("Kit"))
+                                {
+                            <div class="place-left tdheadingText span12 ">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                                    Dictionary<string, List<string>> dctKiTtype = (Dictionary<string, List<string>>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                                    foreach (string key in dctKiTtype.Keys)
+                                    {
+                            <div class="place-left span6_5 div-MainHeight25">
+                                <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                    @Html.Label(key)
+                                </div>
+                                <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                    @Html.DropDownList(key,
+                                new SelectList(dctKiTtype[key].ToList(), ViewData[key]), "--Select--", new { @class = "controlswidth" }
+                                )
+                                </div>
+                            </div>
+                                    }
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                }
+                                else
+                                {
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                    Dictionary<string, string> dctCatlogSpecialItems = (Dictionary<string, string>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                                    foreach (string key in dctCatlogSpecialItems.Keys)
+                                    {
+                                        string maindivwdithCss = key.Contains("Instructions") == true ? "span6_5" : "span6_8";
+                                        string subdivcwidthcss = key.Contains("Instructions") == true ? "span6" : "div-labelwidth";
+                            <div class="place-left   @maindivwdithCss div-MainHeight25 ">
+                                <div class="place-left div-MainHeight20 @subdivcwidthcss padding5">
+                                    @Html.Label(key)
+                                </div>
+                                <div class="place-left  div-MainHeight20 padding5  div-contentwidth controlpadding">
+                                    @if (key.Contains("Instructions"))
+                                    {
+                                        @Html.TextArea(key, string.IsNullOrEmpty(ViewData[key].ToString()) ? string.Empty : ViewData[key].ToString(), new { @class = "controlTextAreawidth controlheight" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox(key, string.IsNullOrEmpty(ViewData[key].ToString()) ? string.Empty : ViewData[key].ToString(), new { @class = "controlswidth controlheight validationInstructions" })
+                                    }
+                                </div>
+                            </div>
+                                    }
+                            <div class="place-left span12 div-MainHeight10"></div>
+                            <div class="place-left span12 text-right padding5">
+                                <div class="place-right span87">
+                                    <input type="submit" value="Update" id="btnUpdateCatalogInfoDetail" class="CheckValidations" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" />
+                                </div>
+                                <div class="place-right">
+                                    <label id="catalogInsertStatus"></label>
+                                </div>
+
+                            </div>
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                }
+
+                            }
+                        }
+                    </div>
+                   
+                    }
+
+                    else
+                    {
+                        if (!(property.Name.Contains("ThisUserID") || property.Name.Contains("UserVM")))
+                        {
+                    <div class="place-left span6_5 padding5 nlp nrp  div-bgstyle">
+
+                        <div class="place-left div-mainHeadingText">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                        @foreach (PropertyInfo childprop in obj.GetProperties())
+                        {
+                            Type childobj = childprop.PropertyType;
+                            var displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+
+                            if (childobj.Name.Contains("Dictionary") == true)
+                            {
+               
+                            <div class="place-left span6_5 div-MainHeight25 ">
+                                <b>@Html.Label(displayname)</b>
+                            </div>
+                            <div class="place-left span6_5">
+                                @{
+                                Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null);
+                                }
+                                @foreach (string key in dct.Keys)
+                                {
+                                    if (dct[key].FirstOrDefault() != string.Empty)
+                                    {
+                                    <div class="place-left span6_5 div-MainHeight25">
+                                        <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                            @*@Html.Label(key)*@
+                                            <label for="@key">@key<strong class="hide starDisplay" style="color: red; margin: 5px 0">*</strong></label>
+                                        </div>
+                                        <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                            @Html.DropDownList(key,
+                                new SelectList(dct[key].ToList(), ViewData[key]), "--Select--", new { @class = "controlswidth ddl" }
+                                )
+                                        </div>
+                                    </div>
+                                    }
+
+                                    else
+                                    {
+                                        string emailaddressposition = key == "Email Address" ? "margintop33" : "";
+                                        string emailaddressValiadtion = key == "Email Address" ? "emailValidation" : "";
+                                    <div class="place-left span6_5 div-MainHeight25 @emailaddressposition">
+                                        <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                            <label for="@key">@key<strong class="hide starDisplay @key" style="color: red; margin: 5px 0">*</strong></label>
+                                        </div>
+                                        <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                            @if (key.Contains("Comments"))
+                                            {
+                                                @Html.TextArea(key, ViewData[key].ToString(), 3, 20, new { @class = "controlswidth " })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBox(key, ViewData[key], new { @class = "controlswidth " + emailaddressValiadtion })
+                                            }
+                                        </div>
+
+
+
+                                    </div> 
+                                    }
+
+                                }
+                            </div>
+              
+                            }
+                            else
+                            {
+                            <div class="place-left span6_5 div-MainHeight25">
+                                <div class="place-left div-labelwidth  div-MainHeight20 padding5">
+                                    @{
+                                displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    }
+                                    <label for="@displayname">@displayname <strong class="hide starDisplay" style="color: red; margin: 5px 0">*</strong></label>
+                                    @* @Html.DisplayName(displayname) *@
+                                </div>
+                                <div class="place-right  div-contentwidth controlpadding div-MainHeight20">
+
+                                    @Html.TextBox(childprop.Name.Trim(), string.IsNullOrEmpty(ViewData[childprop.Name].ToString()) ? string.Empty : ViewData[childprop.Name].ToString(), new { @class = "controlswidth controlheight" })
+
+                                </div>
+                            </div>
+                            }
+
+                        }
+
+                        <div class="place-left span6_5 div-contentheight1"></div>
+                    </div>
+                        }
+                    }
+                }
+
+            </div>
+        </div>
+        <div id="divShelfReadySpecificationSheet" class="place-left">
+            <div class="place-left span7 div-contentheight1"></div>
+            <div class="place-left span12">
+
+                <table>
+                    <tr>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.OutsideOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideFrontOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideBackOptionsText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.verticalTopDownText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.VerticalBottomUpText</td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                    </tr>
+                    <tr>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>E</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">F</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.BackText</td>
+                                    <td class="tdtextalignRight">I</td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">H</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>A</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">B</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FrontText</td>
+                                    <td class="tdtextalignRight"></td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">D</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>J</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">K</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>L</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">M</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>R</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">S</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>T</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">U</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>V</td>
+                                    <td colspan="2" class="tdtextalignRight">W</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>X</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Y</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid" style="height: 80px; width: 80px; border: 1px solid black;">
+                                <tr>
+                                    <td>N</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">O</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Q</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="padding10"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignTop padding10 nrp nbp ntp">
+                                        <tdverticaltext>@Resources.TCPResources.TopDownText</tdverticaltext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignBottom padding10 nrp nbp ntp">
+                                        <tdverticalbottomuptext>@Resources.TCPResources.BootomUpText</tdverticalbottomuptext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="padding10"></td>
+                        <td class="tdvalignBottom">
+                            <input type="submit" value="Save" name="CatalogSaveStaus" id="btnSaveCatalogDetails" class="CheckValidations" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" /></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="span12 place-right">
+            <div class="place-right">
+            </div>
+
+        </div>
+        }
+        else if (Roles.IsUserInRole("CustomerShipTo"))
+        {
+        <div id="divCustomerBasicProfileInformation" class="place-left contentText">
+
+            <div class="place-left span12">
+                @foreach (PropertyInfo property in t.GetProperties())
+                {
+
+
+                    Type obj = property.PropertyType;
+                    if (property.Name.Contains("ShelfReady"))
+                    {
+                    <table class="span12">
+                        <tr>
+                            <td colspan="6" class="tdheadingText">
+                                @Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })
+                            </td>
+
+                        </tr>
+                        @foreach (PropertyInfo childprop in obj.GetProperties())
+                        {
+                            Type childobj = childprop.PropertyType;
+
+                            if (childobj.Name.Contains("Dictionary") == true)
+                            {
+                                Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null);
+                            <tr>
+                                @if (dct != null && dct.Count() > 0)
+                                {
+                                    foreach (string key in dct.Keys)
+                                    {
+
+                                        var displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    <td class="div-labelwidth" colspan="2">@Html.Label(displayname)</td>   
+                                    <td class="div-contentwidth ">@Html.Label(ViewData[displayname + "-" + key] == null ? "" : ViewData[displayname + "-" + key].ToString(), new { @class = "controlswidth" })   </td>
+                                       
+
+                                    }
+                                }
+                            </tr>
+                            }
+                            else if (childobj.Name.Contains("Model") == true)
+                            {
+                            <tr>
+                                <td colspan="6">
+                                    <b>@Html.Label(((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name, new { id = "lblHeading", @class = "labeldivheight" })</b>
+                                </td>
+                            </tr>
+                                foreach (PropertyInfo childmodelprop in childobj.GetProperties())
+                                {
+                                    if (childmodelprop.PropertyType.Name.Contains("Dictionary") == true)
+                                    {
+                                        Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childmodelprop.GetValue(childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null), null);
+
+                                        if (dct != null && dct.Count() > 0)
+                                        {
+                            <tr>
+                                @foreach (string key in dct.Keys)
+                                {
+                                    if (key.Contains("Bottom"))
+                                    {
+                                    <td class="div-labelwidth" colspan="2">@Html.Label(key)</td>
+                                    <td class="div-contentwidth">
+                                        @Html.Label(ViewData[key] == null ? "" : ViewData[key].ToString(), new { @class = "controlswidth" })</td>
+                                    }
+                                    else
+                                    {
+                                        var displayname = ((DisplayAttribute)childmodelprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    <td class="div-labelwidth" style="white-space: nowrap;">@Html.Label(displayname)</td>  
+                                    <td class="div-labelwidth padding5">@Html.Label(key)</td>
+                                    <td class="div-contentwidth ">
+                                        @Html.Label(ViewData[displayname + "-" + key] == null ? "" : ViewData[displayname + "-" + key].ToString(), new { @class = "controlswidth" })
+                                    </td>
+                                    }
+                                }
+                            </tr>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </table>
+               
+                    }
+                    else if (obj.Name.Contains("Dictionary"))
+                    {
+                        string borderdivcss = property.Name.Contains("CatalogSpecialItems") == true ? "borderblack" : "";
+                    <div class="place-left span12 @borderdivcss">
+                        @if (property.Name.Contains("CatalogItemPrice"))
+                        {
+                            <div class="place-left tdheadingText span12 ">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                            Dictionary<string, CatalogItemPrice> dctCatalogtype = (Dictionary<string, CatalogItemPrice>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                            double totalPrice = 0.00;
+                            <div class="place-left span12 padding5 nlp nrp nbp">
+                                <table id="tblCatalogInfo" class="span12 " border="1">
+                                    <thead>
+                                        <tr>
+                                            <th class=" div-MainHeight20 div-span2_5 controlpadding">Item Name
+                                            </th>
+                                            <th class="div-MainHeight20 div-span2_5 controlpadding">Item Price
+                                            </th>
+                                            <th class=" div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.ProtectorText
+                                            </th>
+                                            <th class="div-MainHeight20  controlpadding">Shelf Ready (All
+                                                <input type="checkbox" id="chkShelfReady" name="txtbox" />
+                                                )
+                                            </th>
+
+                                            <th class="div-MainHeight20 div-span2_5 controlpadding">Price
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (string key in dctCatalogtype.Keys)
+                                        {
+
+                                            double colPrice = 0.00;
+                                            if (key != @Resources.TCPResources.ProtectorText && key != @Resources.TCPResources.ShelfReadyUnitText)
+                                            {
+                                              
+
+                                            <tr>
+                                                <td class="div-MainHeight20 div-span2_5 padding-left3">
+                                                    @{
+                                                    
+                                                bool checkedkey = ViewData[key].ToString() == "false" || ViewData[key].ToString() == "" ? false : true;
+                                                colPrice = checkedkey == true ? dctCatalogtype[key].ItemPrice : colPrice;
+
+                                                //  string checkedkeystatusClass = checkedkey == false ? "true" : "false";
+                                                    }
+                                                    @Html.CheckBox(@key, checkedkey, new { Class = "itmprice chkstatus" }) @key
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+                                                    @dctCatalogtype[key].ItemPrice.ToString("C")
+
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+
+                                                    @for (int j = 0; j < dctCatalogtype[key].ProtectorCount; j++)
+                                                    {
+                                                        string tmpkey1 = "CatalogOptions-" + key + "-" + Resources.TCPResources.ProtectorText + "+" + j;
+                                                        bool checkedkey2 = (ViewData[tmpkey1].ToString() == "false" || ViewData[tmpkey1].ToString() == "") ? false : true;
+                                                        colPrice = checkedkey2 == true ? colPrice + dctCatalogtype["Protector"].ItemPrice : colPrice;
+                                                        @Html.CheckBox(tmpkey1, checkedkey2, new { Class = "itmprice ", @disabled = "disabled", itmprice = dctCatalogtype["Protector"].ItemPrice.ToString() })   
+                                                   
+                                                    }
+                                                </td>
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding">
+
+                                                    @for (int i = 0; i < dctCatalogtype[key].ShelfListCardCount; i++)
+                                                    {
+                                                        // string 
+                                                        string ShelfListCardCount = i > 0 ? "hide" : "";
+                                                        string tmpkey = "CatalogOptions-" + key + "-" + Resources.TCPResources.ShelfReadyUnitText + "+" + i;
+                                                        bool checkedkey1 = (ViewData[tmpkey].ToString() == "false" || ViewData[tmpkey].ToString() == "") ? false : true;
+                                                        colPrice = checkedkey1 == true ? colPrice + dctCatalogtype["Shelf Ready Unit"].ItemPrice : colPrice;
+                                                        @Html.CheckBox(tmpkey, checkedkey1, new { Class = "itmprice " + ShelfListCardCount, @disabled = "disabled", itmprice = dctCatalogtype["Shelf Ready Unit"].ItemPrice.ToString() })   
+                                                    }
+
+                                                </td>
+
+
+                                                <td class="text-center div-MainHeight20 div-span2_5 controlpadding itmperprice">
+                                                    @{totalPrice = totalPrice + colPrice;}
+                                                    @colPrice.ToString("C")
+
+                                                </td>
+                                            </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot style="border-color: white;" class="border-bottom">
+                                        <tr>
+                                            <th class="text-right div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding"></th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding">@Resources.TCPResources.CatalogingPriceperBookText :</th>
+                                            <th class="text-center div-MainHeight20 div-span2_5 controlpadding" id="ttlprice">
+                                                @String.Format("{0:c}", @totalPrice)
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                           
+                        }
+                        else
+                        {
+                            var order = ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault());
+                            if (order.Order != -1)
+                            {
+                                if (property.Name.Contains("Kit"))
+                                {
+                            <div class="place-left tdheadingText span12 ">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                                    Dictionary<string, List<string>> dctKiTtype = (Dictionary<string, List<string>>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                                    foreach (string key in dctKiTtype.Keys)
+                                    {
+                            <div class="place-left span6_5 div-MainHeight25">
+                                <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                    @Html.Label(key)
+                                </div>
+                                <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                    @Html.Label(ViewData[key] == null ? "" : ViewData[key].ToString(), new { @class = "controlswidth" })
+                                </div>
+                            </div>
+                                    }
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                }
+                                else
+                                {
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                    Dictionary<string, string> dctCatlogSpecialItems = (Dictionary<string, string>)(Model.GetType().GetProperty(property.Name).GetValue(Model, null));
+                                    foreach (string key in dctCatlogSpecialItems.Keys)
+                                    {
+                                        string maindivwdithCss = key.Contains("Instructions") == true ? "span6_5" : "span6_8";
+                                        string subdivcwidthcss = key.Contains("Instructions") == true ? "span6" : "div-labelwidth";
+                            <div class="place-left   @maindivwdithCss div-MainHeight25 ">
+                                <div class="place-left div-MainHeight20 @subdivcwidthcss padding5">
+                                    @Html.Label(key)
+                                </div>
+                                <div class="place-left  div-MainHeight20 padding5  div-contentwidth controlpadding">
+                                    @if (key.Contains("Instructions"))
+                                    {
+                                        @Html.TextArea(key, string.IsNullOrEmpty(ViewData[key].ToString()) ? string.Empty : ViewData[key].ToString(), new { @class = "controlTextAreawidth controlheight" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBox(key, string.IsNullOrEmpty(ViewData[key].ToString()) ? string.Empty : ViewData[key].ToString(), new { @class = "controlswidth controlheight validationInstructions" })
+                                    }
+                                </div>
+                            </div>
+                                    }
+                            <div class="place-left span12 div-MainHeight10"></div>
+                            <div class="place-left span12 text-right padding5">
+                                <input type="submit" value="Update" id="btnUpdateCatalogInfoDetail" class="CheckValidations" style="background: #99bfe6; color: black; padding: 4px 12px; border-radius: 0" />
+                            </div>
+                            <div class="place-left span12 div-MainHeight10"></div>
+                                }
+                            }
+                        }
+                    </div>
+                    }
+
+                    else
+                    {
+                        if (!(property.Name.Contains("ThisUserID") || property.Name.Contains("UserVM")))
+                        {  
+                    <div class="place-left span6_5 div-bgstyle">
+                        <div class="place-left div-mainHeadingText">@Html.Label(property.Name, new { id = "lblHeading", @class = "labeldivheight" })</div>
+                        @foreach (PropertyInfo childprop in obj.GetProperties())
+                        {
+                            Type childobj = childprop.PropertyType;
+                            var displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+
+                            if (childobj.Name.Contains("Dictionary") == true)
+                            {
+               
+                            <div class="place-left span6_5 div-MainHeight25 ">
+                                <b>@Html.Label(displayname)</b>
+                            </div>
+                            <div class="place-left span6_5">
+                                @{
+                                Dictionary<string, List<string>> dct = (Dictionary<string, List<string>>)childprop.GetValue(Model.GetType().GetProperty(property.Name).GetValue(Model, null), null);
+                                }
+                                @foreach (string key in dct.Keys)
+                                {
+                                    if (dct[key].FirstOrDefault() != string.Empty)
+                                    {
+                                    <div class="place-left span6_5 div-MainHeight25">
+                                        <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                            @Html.Label(key)
+                                        </div>
+                                        <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                            @Html.Label(ViewData[key] == null ? "" : ViewData[key].ToString(), new { @class = "controlswidth" })
+                                        </div>
+                                    </div>
+                                    }
+
+                                    else
+                                    {
+                                    <div class="place-left span6_5 div-MainHeight25">
+                                        <div class="place-left div-MainHeight20 div-labelwidth padding5">
+                                            @Html.Label(key)
+                                        </div>
+                                        <div class="place-right  div-MainHeight20  div-contentwidth controlpadding">
+                                            @if (key.Contains("Comments"))
+                                            {
+                                                @Html.Label(ViewData[key].ToString(), new { @class = "controlswidth " })
+                                            }
+                                            else
+                                            {
+                                                <label  for="@ViewData[key].ToString()" class="controlswidth">@ViewData[key].ToString()</label>
+                                            }
+                                        </div>
+
+
+
+                                    </div> 
+                                    }
+
+                                }
+                            </div>
+              
+                            }
+                            else
+                            {
+                            <div class="place-left span6_5 div-MainHeight25">
+                                <div class="place-left div-labelwidth  div-MainHeight20 padding5">
+                                    @{
+                                displayname = ((DisplayAttribute)childprop.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                                    }
+                                    @Html.Label(displayname)
+                                </div>
+                                <div class="place-right  div-contentwidth controlpadding div-MainHeight20">
+
+                                    @Html.Label(ViewData[childprop.Name].ToString(), new { @class = "controlswidth controlheight" })
+
+                                </div>
+                            </div>
+                            }
+
+
+                        }
+
+                        <div class="place-left span6_5 div-contentheight1"></div>
+                    </div>
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+      
+        <div id="divCustomerShelfReadySpecificationSheet" class="place-left">
+            <div class="place-left span7 div-contentheight1"></div>
+            <div class="place-left span12">
+
+                <table>
+                    <tr>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.OutsideOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideFrontOptionsText</td>
+                        <td colspan="4" class="tdtextalignCenter">@Resources.TCPResources.InsideBackOptionsText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.verticalTopDownText</td>
+                        <td class="padding10"></td>
+                        <td colspan="4">@Resources.TCPResources.VerticalBottomUpText</td>
+                        <td class="padding10"></td>
+                    </tr>
+                    <tr>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>E</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">F</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.BackText</td>
+                                    <td class="tdtextalignRight">I</td>
+                                </tr>
+                                <tr>
+                                    <td>G</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">H</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>A</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">B</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FrontText</td>
+                                    <td class="tdtextalignRight"></td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">D</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>J</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">K</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>L</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">M</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>R</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">S</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>T</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">U</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid">
+                                <tr>
+                                    <td>V</td>
+                                    <td colspan="2" class="tdtextalignRight">W</td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.FlyLeafText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>X</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Y</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td class="tdvalignTop">
+                            <table class="tablebordersolid" style="height: 80px; width: 80px; border: 1px solid black;">
+                                <tr>
+                                    <td>N</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">O</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td class="tdtextalignCenter">@Resources.TCPResources.CoverText</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>P</td>
+                                    <td></td>
+                                    <td class="tdtextalignRight">Q</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                        <td class="padding10"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignTop padding10 nrp nbp ntp">
+                                        <tdverticaltext>@Resources.TCPResources.TopDownText</tdverticaltext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding5"></td>
+                        <td colspan="4">
+                            <table style="height: 80px; width: 50px; border: 1px solid black;">
+                                <tr>
+                                    <td class="tdvalignBottom padding10 nrp nbp ntp">
+                                        <tdverticalbottomuptext>@Resources.TCPResources.BootomUpText</tdverticalbottomuptext>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="padding10"></td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="span12 place-right">
+            <div class="place-right">
+            </div>
+
+        </div>
+        }
+    }
+</div>
+
+

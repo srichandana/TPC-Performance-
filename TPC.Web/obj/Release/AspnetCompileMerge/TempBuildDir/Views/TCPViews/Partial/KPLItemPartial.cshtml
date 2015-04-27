@@ -1,0 +1,128 @@
+﻿@model TPC.Core.Models.ItemViewModel
+@using TPC.Core.Models;
+@using TPC.Common.Enumerations;
+@using System.Configuration;
+@{
+    string currentDisplaytext = Model.QuoteTypeText == @Resources.TCPResources.DecisionWizardliText ? "DW" :
+        (Model.QuoteTypeText == @Resources.TCPResources.ShoppingCartText1 ? "Cart" : "Quote");
+    string constantText = "...";
+    string formatTitleText = string.Empty;
+    string checkLogin = WebSecurity.IsAuthenticated == true ? "AddCart" : "login";
+    string nonPreviewitem = string.Empty;
+}
+@if (Roles.IsUserInRole(UserRolesEnum.CustomerShipTo.ToString()) || !WebSecurity.IsAuthenticated)
+{
+    currentDisplaytext = "Cart";
+}
+ @if(Model.QuoteTypeText == "Preview")
+{
+        nonPreviewitem = Model.IsPreviewItem == true ? "" : "div-disable";
+}
+<div id="Item" class="body-text ">
+
+    <div id="ViewDetailItem" class="singleImgWidth  margin10  nlm ntm nbm place-left">
+        <div id="@Model.ItemID" class="place-left singleImgWidth text-center">
+            @*  @if (Roles.IsUserInRole("CustomerShipTo"))
+            {
+                *@
+            <div id="Shoppingcart">
+                @if (@Model.IsInSCDWQuote == true)
+                {
+                    <div id="InCart">
+                        <div id="carttext-@Model.ItemID" class="carttext-@Model.ItemID">
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (Model.IsInCustomerTitles == true && (Model.CharecterBroughtBefore == false || Model.SeriesBroughtBefore == false))
+                                {
+                                <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                                else if ((Model.SeriesBroughtBefore == true || Model.CharecterBroughtBefore == true) && Model.IsInCustomerTitles == false)
+                                {
+                                <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                              
+                            }<input type="checkbox" id="chkItem1" class="group2 hide" data-price="@Model.IPrice" value="@Model.ItemID" checked="checked"/>
+                            In @currentDisplaytext
+                        </div>
+                        <div id="carttextlink-@Model.ItemID" class="hide carttextlink-@Model.ItemID">
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (Model.IsInCustomerTitles == true && (Model.CharecterBroughtBefore == false || Model.SeriesBroughtBefore == false))
+                                {
+                                <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                                else if ((Model.SeriesBroughtBefore == true || Model.CharecterBroughtBefore == true) && Model.IsInCustomerTitles == false)
+                                {
+                                <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                              
+                            }
+                             <input type="checkbox" id="1" class="AddCart hide" data-price="@Model.IPrice" data-itemid="@Model.ItemID" value="@Model.ItemID"/>
+                            <button id="1" name="1" value="1" data-itemid="@Model.ItemID" class="@checkLogin" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div id="AddToCart">
+                        <div id="carttext-@Model.ItemID" class="hide carttext-@Model.ItemID">
+
+                            <input type="checkbox" data-price="@Model.IPrice" id="chkItem1" class="group2 hide" value="@Model.ItemID" checked="checked"/>
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (Model.IsInCustomerTitles == true && (Model.CharecterBroughtBefore == false || Model.SeriesBroughtBefore == false))
+                                {
+                                <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar yellowstar"></i>
+                                }
+                                else if ((Model.SeriesBroughtBefore == true || Model.CharecterBroughtBefore == true) && Model.IsInCustomerTitles == false)
+                                {
+                                <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar yellowstar"></i>
+                                }
+                                
+                            } 
+                            In @currentDisplaytext
+                        </div>
+                        <div id="carttextlink-@Model.ItemID" class="carttextlink-@Model.ItemID @nonPreviewitem">
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (Model.IsInCustomerTitles == true && (Model.CharecterBroughtBefore == false || Model.SeriesBroughtBefore == false))
+                                {
+                                <i class="icon-star-3 fg-yellow itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                                else if ((Model.SeriesBroughtBefore == true || Model.CharecterBroughtBefore == true) && Model.IsInCustomerTitles == false)
+                                {
+                                <i class="icon-star-3 button-fg itemTextSize pos-abs imgstar yellowstar2"></i>
+                                }
+                                
+                            }
+                             <input type="checkbox" data-price="@Model.IPrice" id="1" class="AddCart hide" data-itemid="@Model.ItemID" value="@Model.ItemID" />
+                            <button id="1" name="1" value="1" data-itemid="@Model.ItemID" class="@checkLogin" style="background-color:white;color:#2e92cf;padding:0px;font-family:'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif" >Add To @currentDisplaytext</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="singleImgWidth place-left text-center margin5 ntm nbm  ItemImageheight">
+            <a title="@Model.ItemID" class="popup-with-zoom-anim ItemDetailSeries makemefirst" href="#small-dialog" >
+                @*<img src="@Url.Content(ConfigurationManager.AppSettings["ImagesH80"] + Model.ISBN + ".jpg")" class="shadow">*@
+                <img  class="shadow" src="~/Image/Getimage?id=@String.Format("{1}{2}{0}{3}", Model.ISBN, ConfigurationManager.AppSettings["ImagesH80"], "\\", ".jpg")">
+            </a>
+        </div>
+        <div class="place-left itemTextWidth margin5 ntm nbm   ItemTitleheight itemTextSize ">
+            @{
+                formatTitleText = Model.Title.Length > 11 ? Model.Title.ToString().Insert(11, "\n") : Model.Title.ToString();
+                formatTitleText = formatTitleText.Length > 15 ? formatTitleText.Substring(0, 15) + constantText : formatTitleText;
+            }
+          @*  <div class="text-center lnhtin">
+                <a title="@Model.ItemID" class="popup-with-zoom-anim ItemDetailSeries makemefirst" href="#small-dialog" >@formatTitleText</a>
+            </div>*@
+        </div>
+        <div id="chkBoxes" class="hide check ">
+            <div>
+                <input type="checkbox" id="chkItem" class="group1 @nonPreviewitem" data-price="@Model.IPrice" data-title="@Model.Title" data-author="@Model.Author" data-isbn="@Model.ISBN" data-ar="@Model.ARLevel" data-lexile="@Model.Lexile" value="@Model.ItemID" checked="@Model.IsSelected"/>@Model.Title
+            </div>
+        </div>
+    </div>
+</div>

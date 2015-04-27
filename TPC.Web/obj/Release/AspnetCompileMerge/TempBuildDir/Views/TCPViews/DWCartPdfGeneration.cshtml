@@ -1,0 +1,300 @@
+﻿@model TPC.Core.Models.ViewModels.CartDWPdfModel
+@using System.Configuration;
+
+@{                        
+    Layout = null;
+    string quoteTableWidths = string.Empty;
+    string dafaultcolSpan = "5";
+    string colSpan = "6";
+    bool isShoppingCart = Model.QuoteTypeID == 13;
+    bool isDW = Model.QuoteTypeID == 2;
+    if (isShoppingCart)
+    {
+        quoteTableWidths = "30;30;26;20;9;12;14;11;15";
+    }
+    else if (isDW)
+    {
+        quoteTableWidths = "40;40;35;10;10;16";
+        dafaultcolSpan = "3";
+    }
+    else
+    {
+        quoteTableWidths = "40;36;20;10;13;12;13;20";
+    }
+    double totalPrice = Model.CartListView.Sum(e => e.Price);
+    double taxPrice = 0;
+    if (Model.SalesTax > 0)
+    {
+        taxPrice = (totalPrice * (double)Model.SalesTax);
+    }
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <table width="100%" cellpadding="1" cellspacing="0.5" widths="25;1;25;20;15">
+            <row>
+        <cell horizontalalign="Center">
+        </cell>
+                   <cell horizontalalign="right">
+            <chunk style="font-size:9;font-weight:normal;"> </chunk>
+        </cell>
+        <cell  horizontalalign="Center">   
+              <chunk style="font-size:9;font-weight:bold;padding-top:10"><p style="vertical-align:text-bottom;font-size:9px;font-weight:normal"> <br /><br />   <br />
+               To submit your order and for all order questions, please contact: </p></chunk>
+        </cell>                    <cell horizontalalign="right">
+              
+        </cell>
+        <cell  horizontalalign="left">
+        </cell>
+        
+    </row>
+
+            <row>
+        <cell horizontalalign="Center">
+           
+        </cell>
+       
+                      <cell horizontalalign="right">
+            <chunk style="font-size:9;font-weight:normal;"></chunk>
+        </cell>
+        <cell  horizontalalign="Center">
+              <chunk style="font-size:9;font-weight:bold;"><p style="font-size:8px;">
+               
+                   @Model.RepoAddress.RepName <br />
+                @Model.RepoAddress.RepEmail   <br />
+                @Model.RepoAddress.Persphone
+                                                         </p></chunk>
+        </cell>
+                    <cell horizontalalign="right">
+         
+        </cell>
+        <cell  horizontalalign="left">
+            
+        </cell>
+    </row>
+
+
+        </table>
+        <table width="100%" cellpadding="1.0" cellspacing="0.1" widths="@quoteTableWidths" red="0" green="0" blue="0">
+            <row>
+                        <cell borderwidth="0.5" left="true"  top="true" bottom="true" right="true"   horizontalalign="left">
+           
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> Title</chunk>
+        </cell>
+                 @if (isShoppingCart || isDW)
+                 {
+                  <cell borderwidth="0.5" top="true" bottom="true" horizontalalign="left" right="true">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  Series</chunk>
+        </cell>
+                 }
+                 <cell borderwidth="0.5" top="true" bottom="true" right="true" horizontalalign="left" >
+            <chunk style="font-size:8;font-weight:normal;" align="Center">   Author</chunk>
+        </cell>
+                
+                  @if (isDW == false)
+                  {         <cell borderwidth="0.5"  top="true" bottom="true"  right="true"   horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> ISBN</chunk>
+        </cell>     }
+               
+ <cell borderwidth="0.5"  top="true" bottom="true"  right="true"   horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> AR</chunk>
+        </cell>
+               <cell borderwidth="0.5"  top="true" bottom="true"  right="true"   horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center"> Lexile</chunk>
+        </cell>
+                
+         @if (isDW == false)
+         {  <cell borderwidth="0.5" top="true" bottom="true" horizontalalign="Center"  right="true">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">Item Price</chunk>
+        </cell>
+        <cell borderwidth="0.5" top="true" bottom="true" horizontalalign="Center"  right="true">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">    Quantity</chunk>
+        </cell>
+         }
+        <cell borderwidth="0.5" right="true"  top="true" bottom="true" horizontalalign="left"  >
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  Total</chunk>
+        </cell>
+       
+    </row>
+
+            @foreach (var Cvm in Model.CartListView)
+            {
+                if (Cvm.ItemPrice > 0)
+                {
+                <row>
+            <cell  borderwidth="0.5" horizontalalign="left" left="true"  right="true"  >
+                 <chunk style="font-size:8;">
+                        @if (Cvm.ItemId != "Catalog")
+                        {
+                        <a href="@ConfigurationManager.AppSettings["serverUrl"]@Url.Action("GetProducts", "ItemContainerPartial", new { groupID = 1, currentPageIndex = 1, noofItemsPerPage = 60, quoteID = Model.UserVM.CurrentQuoteID, fromPdf = true, itemId = @Cvm.ItemId })" target="_blank" style="font-size:8px;text-decoration:underline">@Cvm.Title</a> 
+                        }
+                        else
+                        {
+                        <a style="font-size:8px">@Cvm.Title</a> 
+                        }
+                 </chunk>
+                @*<chunk style="font-size:8;">  <a href="@Url.Action("GetProductDetails", "Default", new { quoteID = Model.UserVM.CurrentQuoteID, quoteType = "Products" })" style="font-size:8px">@Cvm.Title</a></chunk>*@
+            </cell>       @if (isShoppingCart || isDW)
+                          { <cell right="true">
+                <chunk style="font-size:8;font-weight:normal;"> @Cvm.Series</chunk>
+            </cell>
+                          }
+                     <cell right="true">
+                <chunk style="font-size:8;"> @Cvm.Author</chunk>
+            </cell>
+                    @if (isDW == false)
+                    {               
+                      <cell right="true"  >
+                <chunk style="font-size:8;"> @Cvm.ISBN</chunk>
+            </cell>     }
+                      <cell borderwidth="0.5"  right="true"   horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  @Cvm.AR </chunk>
+        </cell>
+                     <cell borderwidth="0.5"  right="true"   horizontalalign="left">
+            <chunk style="font-size:8;font-weight:normal;" align="Center">  @Cvm.Lexile </chunk>
+        </cell>
+           @if (isDW == false)
+           {    <cell  horizontalalign="Center" right="true">
+                <chunk style="font-size:8;font-weight:normal;">   @String.Format("{0:C}", Cvm.ItemPrice)</chunk>
+            </cell>
+                       <cell  right="true">
+                <chunk style="font-size:8;">    @Cvm.Quantity</chunk>
+            </cell>  }
+            <cell  borderwidth="0.5" horizontalalign="left" right="true"  >
+                <chunk style="font-size:8;font-weight:normal;"> @String.Format("{0:C}", Cvm.Price)  </chunk>
+            </cell>
+           
+        </row>
+                }
+            }
+            @if (@Model.CartListView.Count > 0)
+            {
+                <row>
+                        <cell  borderwidth="0.5" bottom="true" right="true" left="true">
+            
+        </cell>
+       
+       @if (isDW == false)
+       { <cell bottom="true">
+           
+        </cell>
+
+                 <cell   bottom="true" >
+          
+        </cell>   }
+                                     @if (isShoppingCart || isDW)
+                                     {
+                     <cell bottom="true">
+           
+        </cell>
+                                     }
+                @if (isDW == false)
+                { 
+                      <cell   bottom="true" >
+          
+        </cell>     
+                } <cell bottom="true" right="true" >
+          
+        </cell>
+        <cell  bottom="true" right="true" >
+           
+        </cell>
+      
+        <cell bottom="true" right="true" >
+          
+        </cell>  
+          <cell bottom="true" right="true" >
+          
+        </cell>
+       
+    </row> 
+            }
+
+
+            <row>
+
+            <cell horizontalalign="Center"  borderwidth="0.5"  left="true" right="true" >
+                <chunk style="font-size:8;font-weight:bold;">    Sales Tax</chunk>
+            </cell>
+                  
+          <cell colspan="@dafaultcolSpan" >  
+              
+                <chunk style="font-size:8;"></chunk>
+            </cell>   @if (isShoppingCart || isDW)
+                      {<cell>
+          
+        </cell>     }
+                           @if (isDW == false)
+                           {
+                               colSpan = "6";
+                                    <cell  borderwidth="0.5" >
+           
+        </cell>       }
+                           else
+                           {
+                               colSpan = "4";
+                           }
+        <cell  borderwidth="0.5" left="true" right="true">
+                  <chunk style="font-size:8;font-weight:bold;">   @String.Format("{0:C}",taxPrice)</chunk> 
+        </cell> </row>
+            <row>
+
+            <cell horizontalalign="Center"  borderwidth="0.5"  left="true" right="true" >
+                <chunk style="font-size:8;font-weight:bold;">    Total Price</chunk>
+            </cell>
+                  
+          <cell colspan="@dafaultcolSpan" >  
+              
+                <chunk style="font-size:8;"></chunk>
+            </cell>   @if (isShoppingCart || isDW)
+                      {<cell>
+          
+        </cell>     }
+                           @if (isDW == false)
+                           {
+                               colSpan = "6";
+                                    <cell  borderwidth="0.5" >
+           
+        </cell>       }
+                           else
+                           {
+                               colSpan = "4";
+                           }
+        <cell  borderwidth="0.5" left="true" right="true">
+                  <chunk style="font-size:8;font-weight:bold;">   @String.Format("{0:C}", (totalPrice+taxPrice))</chunk> 
+        </cell> </row>
+            <row>
+                        <cell  borderwidth="0.5" bottom="true" right="true" left="true">
+            
+        </cell>
+       
+        <cell bottom="true" colspan="@colSpan">
+           
+        </cell>
+                
+       @if (isDW == false)
+       {
+                 <cell bottom="true" right="true" >
+          
+        </cell>
+       }
+          @if (isShoppingCart || isDW)
+          { <cell bottom="true" right="true" >
+          
+        </cell>  }
+       
+    </row>
+
+
+
+
+        </table>
+    </div>
+</body>
+</html>

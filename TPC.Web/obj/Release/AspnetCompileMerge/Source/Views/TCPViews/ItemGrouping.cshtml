@@ -1,0 +1,257 @@
+﻿@model TPC.Core.Models.ViewModels.ItemGroupingViewModel
+@using TPC.Core.Models;
+@using System.Reflection;
+@using TPC.Core.Infrastructure;
+@{
+    ViewBag.Title = "ItemGrouping";
+    Type t = @Model.GetType();
+    PropertyInfo[] propertysArray = @Model.GetType().GetProperties();
+}
+
+
+<script type="text/ecmascript">
+    
+    $(document).ready(function () {
+
+        $("#ItemIDs option[value=" + @Model.ItemIDs.First().ItemValue + "]").attr("selected", "selected");
+       
+        $('#ItemIDs').change(function () {
+          
+            var selectedItem = document.getElementById("ItemIDs").value;
+          
+            $.ajax({
+
+                url: "@Url.Content("~/ItemGrouping/GetListOfItems")",
+                type: "POST",
+
+                data: { itemID: selectedItem },
+                datatype: 'html',
+                success: function (data) {
+                    var result = $('<div />').append(data).find('#description').html();
+                    $('#description').html(result);
+                    $("#ItemIDs option[value=" + selectedItem + "]").attr("selected", "selected");
+                }
+            })
+           
+        });
+        
+
+        $('#AddGroup').click(function () {
+
+            $('#GroupandParentGroupSelection').removeClass('hide');
+
+        });
+
+        $('.GroupName').click(function () {
+            if ($(this).is('.Searchborder')) {
+                $(this).removeClass('Searchborder');
+            }
+            else {
+                $('.GroupName').removeClass('Searchborder');
+                $(this).addClass('Searchborder');
+            }
+            var groupName = $(this).html();
+
+            $('.selecteGroupName').html(groupName);
+            $('#selecteGroupName').attr('title', $(this).id);
+            //alert($(this).attr('id'));
+
+        });
+
+
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in',
+        });
+
+        $('#addGroupType').click(function () {
+           
+            var newGroupType = document.getElementById('newGroupType').value;
+            var selectedItem = document.getElementById("ItemIDs").value;
+            $.ajax({
+                url: "@Url.Content("~/ItemGrouping/AddNewGroupType")",
+                type: "POST",
+                data: { groupType: newGroupType, ItemID: selectedItem },
+                datatype: 'html',
+                success: function (data) {
+
+                    var result = $('<div />').append(data).find('#divGroupType').html();
+                    $('#divGroupType').html(result);
+
+                }
+
+            });
+
+            $.magnificPopup.close();
+        });
+
+        $('#cancelGroupTypePopup').click(function () {
+           
+            $.magnificPopup.close();
+        });
+
+        $('#cancelGroup').click(function () {
+         
+            $('#GroupandParentGroupSelection').addClass('hide');
+        });
+
+
+        $('#addParentGroup').click(function () {
+            var groupName = $('#selectedListGroup li.Searchborder').attr('id');
+
+            var groupType = document.getElementById("LstGroupTypes").value;
+
+            $.ajax({
+                url: "@Url.Content("~/ItemGrouping/AddGroupParentage")",
+                type: "POST",
+                data: { childGroupID: groupName, parentGroupID: groupType },
+                datatype: 'html',
+                success: function (data) {
+                    var result = $('<table />').append(data).find('#GroupandParentGroupSelection').html();
+                    $('#GroupandParentGroupSelection').html(result);
+
+                }
+
+            });
+
+
+        });
+
+     
+       
+      
+
+
+      
+    });
+</script>
+
+<div class="place-left span1" style="font-weight: bold">Item# :</div>
+<div  class=" place-left div-contentheight ui-widget" >
+    
+           @* <div class="place-left dropdownTable" style="width:100%; height:50px; z-index:2; position:fixed; " >
+                 <input type="text" name="search" id="ItemNos" placeholder="Item#" list="ItemIDs"  autocomplete="off" style="width:145px" class="" >*@
+                @* <select id="combobox">
+                     @foreach (ComboBase item in @Model.ItemIDs)
+                     {
+                         <option value="@item.ItemValue">@item.ItemValue </option>
+                     } 
+                 </select>*@
+                  @Html.DropDownListFor(e => e.ItemIDs, new SelectList(Model.ItemIDs, "ItemID", "ItemValue"), new {@class="dropdownWidth ",id="ItemIDs" })
+                  
+
+            @*</div>
+            <div class="place-left dropdownTable" style="width:100%; height:50px; z-index:1; position:absolute; top:131px; left:110px; "  >
+               </div>*@
+    
+  
+</div>
+
+
+<div class="place-left tdheadingText span12 margin5 nlm">@Html.Label("Item Details:", new { id = "lblHeading", @class = "labeldivheight" })</div>
+<div id="description" class="span12 place-left ">
+    <div class="span6 place-left ">
+   
+        @foreach (PropertyInfo property in @Model.KPLItemListVM.GetType().GetProperties())
+        {
+           
+                if (property.Name != "QuoteFlag" && property.Name != "QuoteID" && property.Name != "IsSelected" && property.Name != "DWSelectionStatus" && property.Name != "ItemID" && property.Name != "Barcode" && property.Name != "ISBN")
+                {
+                    
+            <div class="span3 place-left  div-labelwidth divAutoHeight">@property.Name </div>
+                    string value = string.IsNullOrEmpty(Convert.ToString(@Model.KPLItemListVM.GetType().GetProperty(property.Name).GetValue(Model.KPLItemListVM, null))) ? "---" : @Model.KPLItemListVM.GetType().GetProperty(property.Name).GetValue(Model.KPLItemListVM, null).ToString();
+                    
+                    
+            <div class="span3 place-left divAutoHeight div-labelwidth">@value</div>
+                       
+                }
+           
+        }
+            
+    </div>
+
+
+</div>
+
+<div class="place-left tdheadingText span12 margin5 nlm">@Html.Label("Group Names", new { id = "lblHeading", @class = "labeldivheight" })</div>
+<div class="place-left span5">
+    <div id="selectedListGroup" style="height: 180px;" class="list-htscroll  Searchborder span5">
+        <ul>
+            @foreach (ItemGroupViewModel group in @Model.LstItemGVM)
+            {
+                <li class="GroupName" id="@group.GroupID">@group.GroupName</li>
+            }
+        </ul>
+    </div>
+    <div class="place-left">
+        <button id="AddGroup"><i class="icon-plus-2 fg-green"></i></button>
+    </div>
+</div>
+<div id="GroupandParentGroupSelection" class="place-left span6 hide margin10 ntm" style="border: 1px solid">
+    <div class="place-left span5 margin5 ntm">
+        <div class="place-left span2 div-MainHeight20">Group Name :</div>
+        <div class="place-left span3 div-MainHeight20">
+            <label id="selecteGroupName" class="selecteGroupName" style="line-height: 0.3em"></label>
+        </div>
+    </div>
+    <div class="place-left span5 margin5 ntm">
+        <div class="place-left span2 div-MainHeight20">Group Type:</div>
+        <div id="divGroupType" class="place-left span3 div-MainHeight20">
+            @Html.DropDownListFor(e => e.LstGroupTypes, new SelectList(Model.LstGroupTypes, "ItemID", "ItemValue"), "--Select GroupType--")
+            <a class="popup-with-zoom-anim" href="#CreateQuote-dialog"><i class="icon-plus-2 fg-green"></i></a>
+
+        </div>
+
+
+
+    </div>
+    <div class="place-left span5 margin5 ntm">
+        <div class="place-left span2 div-MainHeight20">Parent Groups:</div>
+        <div style="height: 130px;" class="list-htscroll place-left  Searchborder span3">
+            <ul>
+                @foreach (ComboBase group in @Model.LstGroupTypes)
+                {
+                    <li class="groupType" id="@group.ItemID"><a href="#" style="color: black">@group.ItemValue</a></li>
+                }
+            </ul>
+        </div>
+
+    </div>
+    <div class="place-right span5">
+        <div class="place-right padding5">
+            <input type="button" id="cancelGroup" value="Cancel" />
+        </div>
+        <div class="place-right padding5">
+            <input type="button" id="addParentGroup" value="Ok" />
+        </div>
+
+    </div>
+</div>
+
+<div class="place-left zoom-anim-dialog mfp-hide " id="CreateQuote-dialog">
+    <h3 class="center button-bg" style="color: white;">Create GroupType</h3>
+    <div class="place-left padding15 ntp">
+        <div class="place-left padding15 ntp span2">GroupType : </div>
+        <div class="place-left">
+            <input type="text" id="newGroupType" />
+        </div>
+        <div class="place-right span5">
+            <div class="place-right padding5">
+                <input type="button" id="cancelGroupTypePopup" value="Cancel" />
+            </div>
+            <div class="place-right padding5">
+                <input type="button" id="addGroupType" value="Ok" />
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

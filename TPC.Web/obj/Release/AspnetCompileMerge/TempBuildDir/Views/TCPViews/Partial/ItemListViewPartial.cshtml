@@ -1,0 +1,393 @@
+﻿@model TPC.Core.Models.ItemListViewModel
+@{
+    int NoOfPages = (int)Math.Ceiling((@Model.SelectionCount) / (double)Convert.ToInt32(Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID));
+}
+
+<div class="hide">
+    @Html.Hidden("hdnNoofpages", NoOfPages)
+    <input type="hidden" id="hdnPreviewStatus" value="@Resources.TCPResources.DetailList" />
+</div>
+<div id="displayItems" class="place-left span12 ">
+    <div>
+    </div>
+    <div id="divStatusList" class="span12 place-left contentTextSmall" style="position: fixed; z-index: 1; margin-top: -5px;">
+        <table id="tblStatusList" class="span12 ">
+            <tr>
+                <td>
+                    @if (Model.QuoteType == Resources.TCPResources.DecisionWizardliText)
+                    {                                                                                                           
+                        <div id="pb1" class="progress-bar custom-progress-bar" data-role="progress-bar" data-color="#99bfe6"></div>
+                    }
+                </td>
+            </tr>
+            <tr>
+                @if (Model.QuoteType == Resources.TCPResources.DecisionWizardliText)
+                {
+                    <td>
+                        <div id="divStatus" class="span6 place-left contentTextSmall">
+                            <table id="tblStatus" class="span6 ">
+                                <tr>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="SelectAll" value="0">
+                                    </td>
+                                    <td style="width: 53px">
+                                        <label class="place-left LableHdTD ">All</label>
+                                        <label class="place-left lableValTD" id="0">(@Convert.ToInt32(@Model.noOfYesCount + @Model.noOfNoCount + @Model.noOfMaybeCount + @Model.noOfNewCount))</label>
+                                    </td>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="1">
+                                    </td>
+                                    <td>
+                                        <label class="place-left LableHdTD">Yes</label>
+                                        <label class="place-left lableValTD" id="1">(@Model.noOfYesCount)</label>
+                                        <label class="place-left LableHdTD">&nbsp;Price&nbsp; </label>
+                                        <label class="place-left LableHdTD" id="lblYesPrice">@String.Format("{0:C}", Model.YesTotalPrice)</label>
+                                    </td>
+
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="2">
+                                    </td>
+                                    <td style="width: 53px">
+                                        <label class="place-left LableHdTD">No</label>
+                                        <label class="place-left lableValTD" id="2">(@Model.noOfNoCount)</label>
+                                    </td>
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="3">
+                                    </td>
+                                    <td style="width: 76px">
+                                        <label class="place-left LableHdTD">Maybe</label>
+                                        <label class="place-left lableValTD" id="3">(@Model.noOfMaybeCount)</label>
+                                    </td>
+
+                                    <td style="width: 17px">
+                                        <input type="checkbox" name="group2" class="case" value="5">
+                                    </td>
+                                    <td style="width: 53px">
+                                        <label class="place-left LableHdTD">New</label>
+                                        <label class="place-left lableValTD" id="5">(@Model.noOfNewCount)</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                }
+                <td>
+                    <div class=" place-right ">
+                        <table id="tb1" class=" place-right">
+                            <tr>
+                                <td style="">
+                                    <div class="place-right  divWidth">
+                                        <div class="place-left lableWidth" style="font-family: Calibri; font-size: 15px; padding-top: 0.2em">Show:</div>
+                                        <div id="ddl" class="place-left span1">@Html.DropDownList("ddlPageDenomination", new SelectList(Model.pageDenomination, "ItemID", "ItemValue", @Model.pageDenomination.Where(e => e.Selected == true).FirstOrDefault().ItemID), "--Select--")</div>
+                                    </div>
+                                </td>
+                                </tr>
+                        </table>
+                    </div>
+                </td>
+                <td class="place-right span3">
+                    <div class=" place-right span3">
+                        <table id="tb1page" class="span3 place-right">
+                            <tr>
+                                <td>
+                                    <div class="place-right " id="gotoPageDiv">
+                                        <ul class="navPagination">
+                                            @if (NoOfPages <= 4)
+                                            {
+
+                                                if ((NoOfPages == 1) || (NoOfPages == 0))
+                                                {
+                                                <li class="paginationDisplay " title="p">Previous</li>
+                                                       
+                                                <li class="paginationDisplay ">1</li>
+                                                       
+                                                <li class="paginationDisplay " title="n">Next</li>
+                                                }
+                                                else
+                                                {
+                                                    if (@Model.currentPageIndex == 1)
+                                                    {
+                                                            
+                                                <li class="paginationDisplay ">Previous</li>
+                                                    }
+                                                    else
+                                                    {
+                                                <li class="paginationDisplay "><a class="gotoPage first" href="#" id="perviousPage" title="p">Previous</a></li>
+                                                    }
+                                                    for (int i = 0; i < NoOfPages; i++)
+                                                    {
+                                                        if (@Model.currentPageIndex == (i + 1))
+                                                        {
+                                                <li class="paginationDisplay ">@(i + 1)</li>
+                                                        }
+
+                                                        else
+                                                        {
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(i + 1)>@(i + 1)</a></li>
+                                                        }
+                                                    }
+                                                    if (@Model.currentPageIndex == NoOfPages)
+                                                    {
+                                                <li class="paginationDisplay ">Next</li>
+                                                    }
+                                                    else
+                                                    {
+                                                <li class="paginationDisplay "><a class="gotoPage last" href="#" id="nextPage" title="n">Next</a></li>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (@Model.currentPageIndex == 1)
+                                                {
+                                                <li class="paginationDisplay ">Previous</li>
+                                                <li class="paginationDisplay ">1</li>
+                                                }
+                                                else
+                                                {
+                                                <li class="paginationDisplay "><a class="gotoPage first" href="#" id="perviousPage" title="p">Previous</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#" id="1" title="1">1</a></li>
+                                                }
+
+                                                if (@Model.currentPageIndex == 1)
+                                                {
+                                                <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 1)  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                                <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                                                    if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages || (@Model.currentPageIndex + 3) != NoOfPages)
+                                                    {
+                                                <li class="paginationDisplay ">...</li>
+                                                    }
+                                                }
+                                                else if ((@Model.currentPageIndex - 1 == 1))
+                                                {
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                                <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                                                <li class="paginationDisplay ">...</li>
+                                                }
+                                                else if ((@Model.currentPageIndex - 1 == 2))
+                                                {
+                                                <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex - 1)  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                                    if (NoOfPages != 5)
+                                                    {
+                                                <li class="paginationDisplay ">...</li>
+                                                    }
+
+                                                }
+                                                else if (@Model.currentPageIndex == NoOfPages)
+                                                {
+                                                <li class="paginationDisplay ">...</li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                                }
+                                                else if (@Model.currentPageIndex + 1 == NoOfPages)
+                                                {
+                                                <li class="paginationDisplay ">...</li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id=@Model.currentPageIndex>@(Model.currentPageIndex)</a></li>
+                                                }
+                                                else if (@Model.currentPageIndex + 2 == NoOfPages)
+                                                {
+                                                <li class="paginationDisplay ">...</li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@(Model.currentPageIndex - 1)" id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id=@Model.currentPageIndex>@(Model.currentPageIndex)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@(Model.currentPageIndex + 1)" id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                                }
+                                                else
+                                                {
+
+                                                    
+                                                <li class="paginationDisplay">...</li>
+                                             
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>        
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                                <li class="paginationDisplay ">...</li> 
+                                                       
+                                                 
+                                                      
+
+                                                }
+                                                if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages)
+                                                {
+                                                <li class="paginationDisplay "><a class="gotoPage" href="#"   title="@NoOfPages">@NoOfPages</a></li>
+                                                }
+                                                if (@Model.currentPageIndex == NoOfPages)
+                                                {
+                                                <li class="paginationDisplay ">Next</li>
+                                                }
+                                                else
+                                                {
+                                                <li class="paginationDisplay "><a class="gotoPage last" href="#" id="nextPage" title="n">Next</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="div-MainHeight20 span12 place-left border-top"></div>
+    <div id="ItemListView" class="body-text span12" style="margin-top: 54px">
+        @Html.Partial("../TCPViews/Partial/SingleItemListViewPartial", @Model.KPLItemListVM)
+    </div>
+    <div id="divBottomList" class="span12 place-left contentTextSmall">
+
+        <div class=" place-right span5">
+            <table id="tb1" class="span6 place-right">
+                <tr>
+                    <td style=""></td>
+                    <td style="width: 2%; vertical-align: top"></td>
+                    <td>
+                        <div class="place-right " id="gotoPageDiv">
+                            <ul class="navPagination">
+                                @if (NoOfPages <= 4)
+                                {
+
+                                    if ((NoOfPages == 1) || (NoOfPages == 0))
+                                    {
+                                    <li class="paginationDisplay " title="p">Previous</li>
+                                                       
+                                    <li class="paginationDisplay ">1</li>
+                                                       
+                                    <li class="paginationDisplay " title="n">Next</li>
+                                    }
+                                    else
+                                    {
+                                        if (@Model.currentPageIndex == 1)
+                                        {
+                                                            
+                                    <li class="paginationDisplay ">Previous</li>
+                                        }
+                                        else
+                                        {
+                                    <li class="paginationDisplay "><a class="gotoPage first" href="#" id="perviousPage" title="p">Previous</a></li>
+                                        }
+                                        for (int i = 0; i < NoOfPages; i++)
+                                        {
+                                            if (@Model.currentPageIndex == (i + 1))
+                                            {
+                                    <li class="paginationDisplay ">@(i + 1)</li>
+                                            }
+
+                                            else
+                                            {
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(i + 1)>@(i + 1)</a></li>
+                                            }
+                                        }
+                                        if (@Model.currentPageIndex == NoOfPages)
+                                        {
+                                    <li class="paginationDisplay ">Next</li>
+                                        }
+                                        else
+                                        {
+                                    <li class="paginationDisplay "><a class="gotoPage last" href="#" id="nextPage" title="n">Next</a></li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (@Model.currentPageIndex == 1)
+                                    {
+                                    <li class="paginationDisplay ">Previous</li>
+                                    <li class="paginationDisplay ">1</li>
+                                    }
+                                    else
+                                    {
+                                    <li class="paginationDisplay "><a class="gotoPage first" href="#" id="perviousPage" title="p">Previous</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#" id="1" title="1">1</a></li>
+                                    }
+
+                                    if (@Model.currentPageIndex == 1)
+                                    {
+                                    <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 1)  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                    <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                                        if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages || (@Model.currentPageIndex + 3) != NoOfPages)
+                                        {
+                                    <li class="paginationDisplay ">...</li>
+                                        }
+                                    }
+                                    else if ((@Model.currentPageIndex - 1 == 1))
+                                    {
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                    <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex + 2)  title=@(Model.currentPageIndex + 2)>@(Model.currentPageIndex + 2)</a></li>
+                                    <li class="paginationDisplay ">...</li>
+                                    }
+                                    else if ((@Model.currentPageIndex - 1 == 2))
+                                    {
+                                    <li class="paginationDisplay "><a  class ="gotoPage" href="#" id=@(Model.currentPageIndex - 1)  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1) id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                        if (NoOfPages != 5)
+                                        {
+                                    <li class="paginationDisplay ">...</li>
+                                        }
+
+                                    }
+                                    else if (@Model.currentPageIndex == NoOfPages)
+                                    {
+                                    <li class="paginationDisplay ">...</li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                    }
+                                    else if (@Model.currentPageIndex + 1 == NoOfPages)
+                                    {
+                                    <li class="paginationDisplay ">...</li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1) id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id=@Model.currentPageIndex>@(Model.currentPageIndex)</a></li>
+                                    }
+                                    else if (@Model.currentPageIndex + 2 == NoOfPages)
+                                    {
+                                    <li class="paginationDisplay ">...</li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@(Model.currentPageIndex - 1)" id=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex" id=@Model.currentPageIndex>@(Model.currentPageIndex)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@(Model.currentPageIndex + 1)" id=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                    }
+                                    else
+                                    {
+
+                                                    
+                                    <li class="paginationDisplay">...</li>
+                                             
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex - 1)>@(Model.currentPageIndex - 1)</a></li>        
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title="@Model.currentPageIndex">@(Model.currentPageIndex)</a></li>
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"  title=@(Model.currentPageIndex + 1)>@(Model.currentPageIndex + 1)</a></li>
+                                    <li class="paginationDisplay ">...</li> 
+                                                       
+                                                 
+                                                      
+
+                                    }
+                                    if ((@Model.currentPageIndex + 1) != NoOfPages || (@Model.currentPageIndex + 2) != NoOfPages)
+                                    {
+                                    <li class="paginationDisplay "><a class="gotoPage" href="#"   title="@NoOfPages">@NoOfPages</a></li>
+                                    }
+                                    if (@Model.currentPageIndex == NoOfPages)
+                                    {
+                                    <li class="paginationDisplay ">Next</li>
+                                    }
+                                    else
+                                    {
+                                    <li class="paginationDisplay "><a class="gotoPage last" href="#" id="nextPage" title="n">Next</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    <button title="Close (Esc)" type="button" class="mfp-close">X</button>
+    <div id="loadingSetView">
+    </div>
+</div>

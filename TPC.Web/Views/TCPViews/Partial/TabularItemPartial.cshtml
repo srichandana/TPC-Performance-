@@ -1,0 +1,1106 @@
+﻿@*@model List<TPC.Core.Models.KPLBasedCommonViewModel>*@
+@model TPC.Core.Models.KPLItemConatinerViewModel
+@using TPC.Core.Models;
+@using TPC.Core.Models.ViewModels;
+@using System.Reflection;
+@using System.Runtime.CompilerServices;
+@using System.ComponentModel.DataAnnotations;
+
+
+@{
+    Type type = Model.KPLBasedVM.FirstOrDefault().GetType();
+    List<PropertyInfo> lstPropertyInfo = Model.KPLBasedVM.FirstOrDefault().GetType().GetProperties().Where(e => ((DisplayAttribute)e.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order != -1).ToList();
+    var pageName = "TabularItemPartial";
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+    List<string> defaultColumns = Resources.TCPResources.DefaultKPLValues.Split(',').ToList<string>();
+
+    string x;
+
+    string quoteTYpe = ViewData["QuoteType"].ToString();
+}
+<script id="js">
+    var jsonModel;
+    var datatable;
+    var selectChanged = false;
+    $(document).ready(function () {
+        $('.MoveLeft').click(function(){
+            $('body').scrollLeft(0);
+        });
+        var quoteType = "@quoteTYpe";
+        $('#ResetColumn').click(function(){
+            var allColumns
+            var defaultColumns = [];
+            allColumns = String("@Resources.TCPResources.DefaultKPLValues");
+
+            $('#ColumnsSelect2 tbody input').each(function(){
+                var id=  this.id;
+                var rowIndex = $('#tblKPLItemList th[id=' + id + ']').index();// row[0].sectionRowIndex;
+                var columnIndex = (rowIndex);
+                $('#tblKPLItemList .preview td:nth-child(' + (columnIndex + 1) + ')').removeClass('testpreview');
+                $('#tblKPLItemList .notpreview  td:nth-child.div-disable(' + (columnIndex + 1) + ')').removeClass('preview').removeClass('test');
+                $('#tblKPLItemList  th:nth-child(' + (columnIndex + 1) + ')').addClass('hide');
+                $('#tblKPLItemList  td:nth-child.div-disable(' + (columnIndex + 1) + ')').removeClass('previewShow');
+            });
+            $('#ColumnsSelect2 tbody').html('');
+            $('.display  th').addClass('hide');
+            $('#tblKPLItemList td').addClass('hide');
+            $('#ColumnsSelect tbody input').removeAttr("checked", "checked");
+            for(var i=0;i<"@defaultColumns.Count()";i++)
+            {
+                defaultColumns.push(allColumns.split(',')[i]);
+                $('#'+defaultColumns[i]).attr("checked", "checked");
+                var id = defaultColumns[i];
+                var row = $('#'+id).closest('tr').html();
+                //$('#ColumnsSelect2 tbody').append('<tr class="' + id + '">' + row + '</tr>');
+                $('.display  th[id=' + id + '],#tblKPLItemList td[id=' + id + ']').removeClass('hide');
+                $('.display  th:first').removeClass('hide');
+                $('#tblKPLItemList td:nth-child(1)').removeClass('hide');
+            }
+            $('.dataTable,.dataTables_wrapper , .dataTables_scroll').attr('style','width:960px');
+            $('.dataTables_scroll').attr('style','width:1000px');
+
+            datatable.fnSortNeutral();
+            $('.puppetClass').addClass('hide');
+            var count = $('.preview').length -  $('.puppetClass').length;
+            $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            if(quoteType=='Preview')
+            {
+                $('#Show_All').prop('checked', false).attr('value','true');
+                $('.div-disable').addClass('hide');
+                var count = $('.preview').length;
+                $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            }
+        });
+
+        $("#ColumnDraggable2").sortable({
+            revert: true,
+            change: function () {
+                SelectedColumns();
+            }
+        });
+
+        CustomColumnSelect();
+        var thisId ;
+        var Checkedrow ;
+        function CustomColumnSelect()
+        {
+            //Popup columns selecting, deselecting and changing the order of the table
+            $('#ColumnsSelect tbody input,#ColumnsSelect2 tbody input').unbind().on("click",function () {
+                thisId = this.id;
+
+                var order = $(this).attr('data-order');
+                if ($(".ischeck").length == $(".ischeck:checked").length) {
+                    $("#isVisible").attr("checked", "checked");
+                } else {
+                    $("#isVisible").removeAttr("checked");
+                }
+
+                var checked = $(this).is(":checked");
+                var cell = $(this).parent("td");
+                var row = $(cell).parent("tr");
+                var rowIndex = $('#tblKPLItemList th[id=' + thisId + ']').index();// row[0].sectionRowIndex;
+                var columnIndex = (rowIndex);
+                var tblcolumnscount = $('#tblKPLItemList td').length;
+                if ($('#tblKPLItemList td').length == 0) {
+
+                    var colselect = 1;
+                    $('#tblKPLItemList td,#tblKPLItemList th').addClass('hide');
+                    $('#tblKPLItemList-sticky td,#tblKPLItemList-sticky th').addClass('hide');
+                    $('#tblKPLItemList ,tblKPLItemList-sticky').removeClass('hide');
+                    $('#tblKPLItemList td:nth-child(' + (colselect + 1) + '),#tblKPLItemList th:nth-child(' + (colselect + 1) + ')').removeClass('hide');
+                    $('#tblKPLItemList-sticky td:nth-child(' + (colselect + 1) + '),#tblKPLItemList-sticky th:nth-child(' + (colselect + 1) + ')').removeClass('hide');
+                }
+
+                if (checked) {
+                    var Firsttableid = $(this).closest('table').attr('id');
+                    if (Firsttableid == 'ColumnsSelect') {
+                        Checkedrow = $(this).closest('tr').html();
+                        $('#ColumnsSelect2 tbody').append('<tr class="' + thisId + '">' + Checkedrow + '</tr>');
+                        $("#ColumnsSelect2 tbody input").attr("checked", "checked");
+                    }
+                    $('#tblKPLItemList .preview td:nth-child(' + (columnIndex + 1) + '),.display th:nth-child(' + (columnIndex + 1) + ')').removeClass('hide');
+                    $('#tblKPLItemList .preview td:nth-child(' + (columnIndex + 1) + ')').addClass('testpreview');
+                    $('#tblKPLItemList  td:nth-child.div-disable(' + (columnIndex + 1) + ')').addClass('preview').addClass('test');
+                    if($("#Show_All").attr('value') == "false")
+                    {
+                        $('#tblKPLItemList td:nth-child.div-disable(' + (columnIndex + 1) + ')').removeClass('hide').removeClass('hide');
+                        $('#tblKPLItemList .notpreview  td:nth-child.test(' + (columnIndex + 1) + ')').removeClass('hide');
+
+                    }
+
+                    var dataWidth = $('.dataTable').width();
+                    $('.dataTable,.dataTables_wrapper , .dataTables_scroll').attr('style','width:'+dataWidth+'px');
+                    var headerWidth = $('.dataTables_scrollHeadInner').width();
+                    var orderarray=[7,8,9,12,20,23,24];
+                    if($.inArray(parseInt(order),orderarray)> -1)
+                    {
+                        headerWidth = headerWidth +30;
+                    }
+                    else
+                    {
+                        headerWidth = headerWidth +100;
+                    }
+                    $('.dataTables_scroll').attr('style','width:'+headerWidth+'px');
+                    $('.dataTables_scrollBody').attr('style','overflow-y:scroll;overflow-x:hidden;');
+                    datatable.fnSortNeutral();
+                } else {
+                    var Secondtableid = $(this).closest('table').attr('id');
+                    if (Secondtableid == 'ColumnsSelect2') {
+                        row.hide();
+                    }
+                    $("#ColumnsSelect2 tbody tr." + thisId).hide();
+                    $('input:checkbox[id=' + thisId + ']').attr('checked', false);
+                    $('Description').attr('checked', false);
+                    $('#tblKPLItemList  td:nth-child(' + (columnIndex + 1) + '),.display th:nth-child(' + (columnIndex + 1) + ')').addClass('hide');
+                    $('#tblKPLItemList-sticky  td:nth-child(' + (columnIndex + 1) + '),#tblKPLItemList-sticky th:nth-child(' + (columnIndex + 1) + ')').addClass('hide');
+                    $('#tblKPLItemList  td:nth-child.div-disable(' + (columnIndex + 1) + ')').removeClass('previewShow');
+                    $('#tblKPLItemList .preview td:nth-child(' + (columnIndex + 1) + ')').removeClass('testpreview');
+                    $('#tblKPLItemList  td:nth-child.div-disable(' + (columnIndex + 1) + ')').removeClass('preview').removeClass('test');
+                    $('#tblKPLItemList  td:nth-child.previewShow(' + (columnIndex + 1) + ')').addClass('hide');
+                    var dataWidth = $('.dataTables_scroll').width();
+                    $('.dataTable,.dataTables_wrapper , .dataTables_scroll').attr('style','width:'+dataWidth+'px');
+                    var headerWidth = $('.dataTables_scrollHeadInner').width();
+                    headerWidth = headerWidth -100;
+                    $('.dataTables_scroll').attr('style','width:'+dataWidth+'px');
+                    datatable.fnSortNeutral();
+                }
+                $('#tblKPLItemList').show()//.removeClass('hide');
+                SelectedColumns();
+                CustomColumnSelect();
+            });
+        }
+
+        datatable = $('#tblKPLItemList').dataTable(
+            {
+                "scrollY":        "483px",
+                "scrollCollapse": true,
+                "paging":         false,
+                "order": [[ 9, "desc" ]]
+
+            }
+            );
+
+        $('.ischeck').each(function () {
+            if ($(this).is(':checked')) {
+                var id = this.id;
+                var row = $(this).closest('tr').html();
+                $('#ColumnsSelect2 tbody').append('<tr class="' + id + '">' + row + '</tr>');
+                CustomColumnSelect();
+            } else {
+            }
+
+        });
+
+        $('#Barcode').keyup(function (e) {
+            if (e.keyCode == 13) {
+                var value = $(this).val();
+                var noWhitespaceValue = value.replace(/\s+/g, '');
+                var noWhitespaceCount = noWhitespaceValue.length;
+                if (noWhitespaceCount % 13 === 0) {
+                    $.ajax({
+                        url: "../ItemListView/ViewSingleItemByISBN",
+                        type: "POST",
+                        data: { ISBN: value, QuoteID: String(@Model.KPLBasedVM.FirstOrDefault().QuoteID) },
+                        datatype: 'html',
+                        success: function (data) {
+                            if(data=='')
+                            {
+                                $("#Barcode").effect("shake",{times:4}, 100 );
+                                $("#Barcode").val('');
+                            }
+                            else
+                            {
+                                $('.small-dialog').css("height", "640px");
+                                $('.small-dialog').css("width", "960px").css('margin', '0 auto 0');
+                                $.magnificPopup.open({
+                                    items: {
+                                        src: $('#barcode-dialog').html(),
+                                        type: 'inline'
+                                    },
+                                    modal: true
+                                });
+                                // SetItemsPriceandCountinKPL(data, 'Inc');
+                                $('#BarcodeloadingSetView').html('');
+                                $('#BarcodeloadingSetView').html(data);
+                                $('#Barcode').val('');
+                                $('.group2').removeClass('hide');
+                            }
+                        },
+                        error: function (data) {
+                            $("#Barcode").effect("shake",{times:4}, 100 );
+                            $("#Barcode").val('');
+                        }
+                    });
+                }
+                else
+                {
+                    $("#Barcode").effect("shake",{times:4}, 100 );
+                    $("#Barcode").val('');
+                }
+            }
+
+            //   selectChanged = 1;
+
+        });
+
+        $('#RemoveFilter, .SearchClose').click(function () {
+            datatable.fnDestroy();
+            datatable = $('#tblKPLItemList').dataTable(
+            {
+                "scrollY": "483px",
+                "scrollCollapse": true,
+                "paging": false,
+                "order": [[9, "desc"]]
+            }
+            );
+            $('.searchfilter').focus();
+            $("input[type=text],input[type=search]").each(function () {
+                this.value = '';
+            });
+            DisplayItemCount();
+            return false;
+        });
+
+
+        var $trrow = $("#tblKPLItemList tfoot tr:first");
+        jsonModel = @Html.Raw(serializer.Serialize(Model.KPLBasedVM.ToList()));
+        @*var jsonfilterModel =jsonModel;*@
+        ItemPriceCount(0,"All");
+
+
+        $('.dataTables_scrollHead').css('background-color', 'rgb(153, 191, 230)');
+
+        $('.case').click(function (event) {
+            if ($(this).is(':checked')) {
+                $(this).siblings('label').html('x');
+                var itemid = $(this).attr('value');
+                $.ajax({
+                    url: "@Url.Content("~/ItemListView/UpdateKPLBuilderQuote")",
+                    type: "POST",
+                    data: { QuoteID: String("@ViewData["QuoteID"]"), itemID: itemid },
+                    datatype: 'html',
+                    success: function (data) {
+                        var itemId= data;
+                        ItemPriceCount(itemid,"Inc");
+                    },
+                });
+            } else {
+                $(this).siblings('label').html('');
+                var itemid = $(this).attr('value');
+                var tbl = jQuery('#tblKPLItemList');
+                $.ajax({
+                    url: "@Url.Content("~/ItemContainerPartial/DeleteItemFromQuote")",
+                    type: "POST",
+                    data: { quoteID: String("@ViewData["QuoteID"]"), itemID: itemid },
+                    datatype: 'html',
+                    success: function (data) {
+                        var itemId= data;
+                        ItemPriceCount(itemid,"Dec");
+
+                    }
+                });
+            }
+            selectChanged = true;
+        });
+
+        $('.sorting_asc').click(function(){
+            if(selectChanged == true)
+            {
+                datatable.fnDestroy();
+                datatable = $('#tblKPLItemList').dataTable(
+                {
+                    "scrollY":        "483px",
+                    "scrollCollapse": true,
+                    "paging":         false,
+                    "order": [[ 0, "asc" ]]
+                }
+                );
+                var dataWidth = $('.dataTables_scroll').width();
+                $('.dataTable,.dataTables_wrapper , .dataTables_scroll').attr('style','width:'+dataWidth+'px');
+                var headerWidth = $('.dataTables_scrollHeadInner').width();
+                headerWidth = headerWidth +100;
+                $('.dataTables_scroll').attr('style','width:'+headerWidth+'px');
+                datatable.fnSortNeutral();
+            }
+            selectChanged = false;
+        });
+
+        $(".BtnDeleteCancel").click(function () {
+            $.magnificPopup.close();
+        });
+
+        $('.group2').live("click",function () {
+            var itemid = $(this).attr('value');
+            var itemPrice = $(this).attr('data-price');
+            $.ajax({
+                url: "@Url.Content("~/ItemContainerPartial/DeleteItemFromQuote")",
+                type: "POST",
+                data: { quoteID: String(@Model.KPLBasedVM.FirstOrDefault().QuoteID), itemID: itemid },
+                datatype: 'html',
+                success: function (data) {
+                    var itemId = data;
+                    var datainput = [];
+                    datainput.push(itemid);
+                    datainput.push(itemPrice);
+                    SetItemsPriceandCountinKPL(datainput, 'Dec');
+
+                }
+            });
+        });
+
+
+        SelectedColumns();
+        var width = $('#tblKPLItemList tbody tr:first').width();
+        $('.dataTables_wrapper , .dataTables_scroll').css('width',width+'px');
+
+        if(!$('#Show_puppets').is(":checked"))
+        {
+
+            $('.puppetClass').addClass('hide');
+            var count = $('.preview').length -  $('.puppetClass').length;
+            $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+        }
+        $('#Show_puppets').on("click", function () {
+            var checked = $(this).is(':checked');
+            if(!checked)
+            {
+                $('#Show_puppets').removeAttr('checked');
+            }
+            if (checked == true) {
+                $('#Show_puppets').attr('checked','checked');
+                if(quoteType=='Preview')
+                {
+
+                    var count = $('.preview').length +  $('.puppetClass').length;
+                    $('.puppetClass').removeClass('hide');
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries ');
+                }
+                else{
+                    $('.puppetClass').removeClass('hide');
+                    var count = $('.searchKpl').length;
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+                }
+            }
+
+            else  if(quoteType =="Preview")
+            {
+                var count = $('.preview').length
+                $('.puppetClass').addClass('hide');
+                $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            }
+
+            else{
+
+                $('.puppetClass').addClass('hide');
+                var count = $('.searchKpl').length - $('.puppetClass').length;
+                $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            }
+        });
+
+        var searchkpllen = $('.searchKpl').length;
+        var puppetClasslen = $('.puppetClass').length;
+        var previewlen = $('.preview').length;
+        var previewquoteandshowpuppets = puppetClasslen + previewlen;
+
+        var totalrecords = searchkpllen;
+
+        var totalrecordswithuncheck = previewlen -  puppetClasslen;
+
+        var totalrecordwithoutpuppets = searchkpllen -  puppetClasslen;
+
+
+        var showpuppets =  $('.preview').length +  $('.puppetClass').length;
+        var withoutpuppets = ('.preview').length;
+
+        var totalrecordscopy;
+        $('.searchfilter').keyup(function(e)
+        {
+            DisplayItemCount();
+        });
+
+        function DisplayItemCount()
+        {
+            var count;
+            if(quoteType=='Preview')
+            {
+                if($('#Show_puppets').is(":checked") && !$('#Show_All').is(":checked"))
+                {
+                    count = $('.preview').length;
+
+                }else if(!$('#Show_puppets').is(":checked") && $('#Show_All').is(":checked"))
+                { count = $('.searchKpl').length;
+                }else {
+                    count = $('.preview').length;
+                }
+
+            }
+            else{
+                if(!$('#Show_puppets').is(":checked") || $('#Show_All').is(":checked"))
+                {
+                    count = $('.preview').length -  $('.puppetClass').length;
+                }
+                else{
+                    count = $('.preview').length;
+
+                }
+            }
+
+            if(quoteType !='Preview')
+            {
+                if(!$('#Show_puppets').is(":checked"))
+                {
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ totalrecordswithuncheck +' total entries)');
+                }
+                else
+                {
+
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ totalrecords +' total entries)');
+                }
+            }
+            else{
+                if($('#Show_puppets').is(":checked") && !$('#Show_All').is(":checked"))
+                {
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ previewquoteandshowpuppets +' total entries)');
+                }
+                else if (!$('#Show_puppets').is(":checked") && $('#Show_All').is(":checked"))
+                {
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ searchkpllen +' total entries)');
+                }
+                else if(!$('#Show_puppets').is(":checked") && !$('#Show_All').is(":checked"))
+                { $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ previewlen +' total entries)');}
+                else{
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries (filtered from '+ searchkpllen +' total entries)');
+                }
+            }
+        }
+
+
+        $('#Show_All').on("click", function () {
+            var checked = $(this).is(':checked');
+            if (checked == true) {
+                $(this).attr('value','false');
+                $('#tblKPLItemList .preview td.testpreview').removeClass('hide');
+                $('#tblKPLItemList .notpreview  td.preview').removeClass('hide').removeClass('hide');
+                $('.div-disable').each(function(){
+                    if($(this).hasClass('previewShow')){
+                        $(this).removeClass('hide');
+                    }
+                });
+                $('#Show_puppets').removeAttr('checked');
+                $('#showpuppet').addClass('div-disable div-bgopacity');
+
+                var count = $('.searchKpl').length;
+                $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            }
+            else {
+                $('.div-disable').addClass('hide');
+                $(this).attr('value','true');
+                $('#showpuppet').removeClass('div-disable div-bgopacity hide');
+                var count = $('.preview').length;
+                $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+            }
+        });
+        $('.sorting , .sorting_asc').on("click",function(){
+            if(quoteType=='Preview')
+            {
+                var checked = $('#Show_All').is(':checked');
+                if (checked == true) {
+                    var count = $('.searchKpl').length;//.format({format:"#,###", locale:"us"});
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+                }
+                else {
+                    var count = $('.preview').length;
+                    $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+                }
+            }
+            DisplayItemCount();
+        });
+
+        if("@quoteTYpe" == 'Preview')
+        {
+            var count = $('.preview').length;
+            $('#tblKPLItemList_info').html();
+            $('#tblKPLItemList_info').html('Showing 1 to '+count+' of '+count+' entries');
+        }
+
+        $('#Loading').addClass('hide');
+    });
+
+    function SetItemsPriceandCountinKPL(data, type) {
+        var tblarrayItemsList = [];
+        var tblItemPrice = 0;
+        var setItemIdsList = [];
+        var setItemsPrice = 0;
+
+        $.each(jsonModel, function (i, val) {
+            if (val["IsChecked"] == "checked") {
+                tblarrayItemsList.push(val["ItemID"]);
+            }
+        });
+
+
+        var divitemCount = parseInt($("#itemcount").text().replace(':', ''));
+        var divItemPrice = parseFloat($("#totalprice").text().replace(':   $', '').replace(',', ''));
+        var setitemCount = 0;
+        var setItemPrice = 0;
+        if (type == 'Dec') {
+
+            if ($.inArray((data[0]), tblarrayItemsList) > -1) {
+                $('#tblKPLItemList tbody tr').find('td[id=Select]').children('input[type=checkbox][value=' + data[0] + ']').prop('checked', false);
+                $.each(jsonModel, function (i, val) {
+                    if (val["ItemID"] == data[0]) {
+
+                        val["IsChecked"] = "";
+                    }
+                });
+                setItemIdsList.push(data[0]);
+                setItemsPrice = parseFloat(setItemsPrice) + parseFloat(data[1]);
+            }
+
+            setitemCount = parseInt(divitemCount) - setItemIdsList.length;
+            setItemPrice = parseFloat(divItemPrice) - parseFloat(setItemsPrice);
+        }
+        else {
+            var findGroup = false;
+            $(data).find('.group1').each(function () {
+                if(!$(this).hasClass("div-disable")){
+                    var itemvalue = this.value;
+                    if ($.inArray((itemvalue), tblarrayItemsList) > -1) {
+                    }
+                    else {
+                        setItemIdsList.push(itemvalue);
+                        setItemsPrice = parseFloat(setItemsPrice) + parseFloat($(this).attr('data-price'));
+                        $('#tblKPLItemList tbody tr').find('td[id=Select]').children('input[type=checkbox][value=' + itemvalue + ']').attr('checked', 'checked');
+                        $.each(jsonModel, function (i, val) {
+                            if (val["ItemID"] == itemvalue) {
+
+                                val["IsChecked"] = "checked";
+                            }
+                        });
+                    }
+                    findGroup = true;
+                }
+            });
+
+            if(findGroup == false && !$(data).find('.quotestatus').hasClass("div-disable"))
+            {
+
+                var itemid = $(data).find('#divImg').children('img').attr('id');
+                $('#tblKPLItemList tbody tr').find('td[id=Select]').children('input[type=checkbox][value=' + itemid + ']').attr('checked', 'checked');
+                setItemIdsList.push(itemid);
+                var price = $(data).find('.quotestatus').attr('data-price');
+                setItemsPrice = parseFloat(setItemsPrice) + parseFloat(price);
+            }
+            setitemCount = parseInt(divitemCount) + setItemIdsList.length;
+            setItemPrice = parseFloat(divItemPrice) + parseFloat(setItemsPrice);
+        }
+
+        $("#itemcount").text(" : " + setitemCount);
+        $("#totalprice").text(":   $"+ commaSeparateNumber(setItemPrice.toFixed(2)));
+
+    }
+
+    $(function () {
+        // add multiple select / deselect functionality
+        $("#selectall").click(function () {
+            $('.case').attr('checked', this.checked);
+        });
+
+        // if all checkbox are selected, check the selectall checkbox
+        // and viceversa
+        $(".case").click(function () {
+
+            var chk = $(this).attr("checked");
+            $(this).attr("checked", chk);
+            if ($(".case").length == $(".case:checked").length) {
+                $("#selectall").attr("checked", "checked");
+            } else {
+                $("#selectall").removeAttr("checked");
+
+            }
+
+        });
+    });
+
+    function SelectedColumns() {
+        $('#btnOk').unbind().click(function () {
+            var defaultColumns = "@Resources.TCPResources.DefaultKPLValues";
+            groupIdsList = [];
+            for(var i=0;i<"@defaultColumns.Count";i++)
+            {
+                var columnName=defaultColumns.toString().split(',')[i];
+                if ($.inArray(columnName, groupIdsList) == -1) {
+                    groupIdsList.push(columnName);
+                }
+            }
+            $('#ColumnsSelect2').find('.ischeck:checked').each(function () {
+                var columnName=this.id;
+                if ($.inArray(columnName, groupIdsList) == -1) {
+                    groupIdsList.push(columnName);
+                }
+            });
+            $.ajax({
+                url: "@Url.Content("~/UserPreference/UserPreferredColumns")",
+                type: "POST",
+                data: { userPreferred: groupIdsList.toString(), Type: String("@pageName") },
+                success: function (data) {
+                    var tbl = jQuery('#tblKPLItemList');
+                    var tbl2 = jQuery('#tblKPLItemList-sticky');
+                    for (var i in groupIdsList) {
+                        var rowIndex = tbl.find('th[id=' + groupIdsList[i] + ']').index();
+                        jQuery.moveColumn(tbl, rowIndex, i);
+                        jQuery.moveColumn(tbl2, rowIndex, i);
+                    }
+                    var SelectRowIndex = tbl.find('th[id=Select]').index();
+                    jQuery.moveColumn(tbl, SelectRowIndex, 0);
+                    jQuery.moveColumn(tbl2, SelectRowIndex, 0);
+                }
+            });
+            $.magnificPopup.close();
+        });
+
+    }
+
+    function ItemPrice(ItemID,ItemStatus) {
+        ItemPriceCount(ItemID,ItemStatus);
+        $("#tblKPLItemList").find('tr>td').each(function(){
+            if ($(this).find('input[type=checkbox]').hasClass('case')) {
+                if($(this).children('input[type=checkbox]').attr('value')==ItemID){
+                    $(this).children('input[type=checkbox]').attr('checked','checked');
+                }
+            }
+        });
+    }
+
+    function commaSeparateNumber(val){
+        while (/(\d+)(\d{3})/.test(val.toString())){
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        }
+        return val;
+    }
+
+    function ItemPriceCount(itemId,ItemStatus) {
+        var total=0.0;
+        switch (ItemStatus) {
+            case "Inc":
+                $.each(jsonModel,function(i,val){
+                    if(val["ItemID"]==itemId)
+                    {
+                        total=val["Price"];
+                        val["IsChecked"]="checked";
+                    }
+                });
+
+                var itemscount=parseInt($("#itemcount").text().replace(':',''))+1;
+                $("#itemcount").text(" : "+itemscount);
+                total=parseFloat($("#totalprice").text().replace(':   $','').replace(',',''))+parseFloat(total);
+                $("#totalprice").text(":   $"+ commaSeparateNumber(total.toFixed(2)));
+                break;
+            case "Dec":
+                $.each(jsonModel,function(i,val){
+                    if(val["ItemID"]==itemId)
+                    {
+                        total=val["Price"];
+                        val["IsChecked"]="";
+                    }
+                });
+
+                var itemscount=parseInt($("#itemcount").text().replace(':',''))-1;
+                $("#itemcount").text(" : "+itemscount);
+                total=parseFloat($("#totalprice").text().replace(':   $','').replace(',',''))-parseFloat(total);
+
+                $("#totalprice").text(":   $"+ commaSeparateNumber(total.toFixed(2)));
+                break;
+            case "All":
+                var itemscount=0;
+
+                $.each(jsonModel,function(i,val){
+                    if(val["IsChecked"]=="checked")
+                    {
+                        itemscount= parseInt(itemscount)+1;
+                        total=parseFloat(total)+parseFloat(val["Price"]);
+                    }
+                });
+
+                $("#itemcount").text(" : "+itemscount);
+
+                $("#totalprice").text(":   $"+ commaSeparateNumber(total.toFixed(2)));
+                break;
+            default:
+
+        }
+    }
+
+</script>
+<div class="hide">
+    @*@Html.Hidden("hdnKPLViewModel", @Html.Raw(serializer.Serialize(Model.KPLBasedVM)))
+        @Html.Hidden("hdnKPLViewModel100", @Html.Raw(serializer.Serialize(Model.KPLBasedVM.Take(100))))*@
+</div>
+<div id="divTableData" class="hide"></div>
+<div id="divSCtable">
+    <table id="tblKPLItemList" class="display table striped hovered border-left">
+        <thead class="tabular">
+            <tr>
+                <th id="Select" style="background-color: #99bfe6">Select&nbsp;&nbsp;</th>
+                @foreach (string preferencename in Model.Columns)
+                {
+                    string pName = ((DisplayAttribute)new TPC.Core.Models.KPLBasedCommonViewModel().GetType().GetProperty(preferencename).GetCustomAttribute(typeof(DisplayAttribute), false)).Name;
+
+                    if (!string.IsNullOrEmpty(pName))
+                    {
+                        if (pName == "Series" || pName == "Title" || pName == "Primary Character")
+                        {
+                            <th id="@preferencename" class="labelHeight" style="white-space: nowrap;background-color:#99bfe6">X&nbsp;&nbsp;&nbsp;</th>
+                        }
+                        if (pName == "DWDate")
+                        {
+                            if (quoteTYpe == "Decision Wizard")
+                            {
+                                <th id="@preferencename" class="labelHeight" style="white-space: nowrap;background-color:#99bfe6">@pName&nbsp;&nbsp;</th>
+                            }
+                        }
+                        else
+                        {
+                            <th id="@preferencename" class="labelHeight" style="white-space: nowrap;background-color:#99bfe6">@pName&nbsp;&nbsp;</th>
+                        }
+                    }
+                }
+
+                @foreach (PropertyInfo property in new TPC.Core.Models.KPLBasedCommonViewModel().GetType().GetProperties())
+                {
+                    int order = ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order;
+                    var displaynme = ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Name;
+                    if (order != -1 && !Model.Columns.Contains(property.Name))
+                    {
+                        if (property.Name == "DWDate")
+                        {
+                            if (quoteTYpe == "Decision Wizard")
+                            {
+                                <th id="@property.Name" class="labelHeight hide" style="white-space: nowrap;background-color:#99bfe6">@Html.DisplayName(displaynme)&nbsp;&nbsp;</th>
+                            }
+                        }
+                        else
+                        {
+                            <th id="@property.Name" class="labelHeight hide" style="white-space: nowrap;background-color:#99bfe6">@Html.DisplayName(displaynme)&nbsp;&nbsp;</th>
+                        }
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (KPLBasedCommonViewModel kplVM in Model.KPLBasedVM)
+            {
+                string previewStatus = kplVM.IsPreviewItem == false ? "div-disable div-bgopacity hide" : "";
+                string previewTrue = kplVM.IsPreviewItem == true ? "preview" : "notpreview";
+                string puppetclass = kplVM.Type.Trim() == "PUP" ? "puppetClass" : "";
+                <tr id="@kplVM.ItemID" class="searchKpl @previewTrue @puppetclass" style="white-space: nowrap; overflow: hidden;">
+                    @if (kplVM.IsChecked == "checked")
+                    {
+                        <td id="Select" class="Select border-right @previewStatus previewShow" style="text-align: center; padding: 3px">
+                            @Html.CheckBox("cbSelect", new { id = "cbSelect", @class = "case", value = @kplVM.ItemID, @checked = @kplVM.IsChecked })
+                            <label class="hide">x</label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td id="Select" class="Select border-right @previewStatus previewShow" style="text-align: center; padding: 3px">
+                            @Html.CheckBox("cbSelect", new { id = "cbSelect", @class = "case", value = @kplVM.ItemID })
+                            <label class="hide"></label>
+                        </td>
+                    }
+                    @{ Type kplType = kplVM.GetType();}
+                    @foreach (string preferencename in Model.Columns)
+                    {
+                        //PropertyInfo pinfo = kplVM.GetType().GetProperty(preferencename);
+                        //if (pinfo != null)
+                        //{
+                        if (preferencename == "Title")
+                        {
+                            string titleclassname = kplVM.IsInCustomerTitles == true ? "tdBackground-color" : "";
+                            x = kplVM.IsInCustomerTitles == true ? "X" : "";
+                            if (x != "")
+                            {
+                                <td id="@preferencename" class="@preferencename @titleclassname @previewStatus border-right previewShow" style="padding:3px">&nbsp;&nbsp;@x</td>
+                            }
+                            else
+                            {
+                                <td id="@preferencename" class="@preferencename @titleclassname @previewStatus border-right previewShow" style="padding:3px">
+                                    <label class="hide">zz</label>
+                                </td>
+                            }
+                            <td id="@preferencename" class="@preferencename @titleclassname @previewStatus border-right previewShow" style="padding:3px">
+                                <a title="@kplVM.ItemID" data-title="@kplVM.IsInCustomerTitles" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog">@kplType.GetProperty(preferencename).GetValue(kplVM, null)</a>
+                            </td>
+                        }
+                        else
+                        {
+                            string charcterclassname = string.Empty;
+                            if (preferencename == "Primarycharacter")
+                            {
+                                charcterclassname = kplVM.CharecterBroughtBefore == true ? "tdBackground-color" : "";
+                                x = kplVM.CharecterBroughtBefore == true ? "X" : "";
+                                if (x != "")
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">&nbsp;&nbsp;@x</td>
+                                }
+                                else
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">
+                                        <label class="hide">zz</label>
+                                    </td>
+                                }
+                            }
+                            if (preferencename == "Series")
+                            {
+                                charcterclassname = kplVM.SeriesBroughtBefore == true ? "tdBackground-color" : "";
+                                x = kplVM.SeriesBroughtBefore == true ? "X" : "";
+                                if (x != "")
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">&nbsp;&nbsp;@x</td>
+                                }
+                                else
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">
+                                        <label class="hide">zz</label>
+                                    </td>
+                                }
+                            }
+                            if (kplType.GetProperty(preferencename).GetValue(kplVM, null) != null)
+                            {
+                                if (preferencename == "DWDate")
+                                {
+                                    if (quoteTYpe == "Decision Wizard")
+                                    {
+                                        <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">
+                                            @kplType.GetProperty(preferencename).GetValue(kplVM, null)
+                                        </td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">
+                                        @if (preferencename == "Price")
+                                        {
+                                            @String.Format("{0:N2}", kplType.GetProperty(preferencename).GetValue(kplVM, null));
+                                        }
+                                        else
+                                        {
+                                            @kplType.GetProperty(preferencename).GetValue(kplVM, null)
+                                        }
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                if (preferencename != "DWDate")
+                                {
+                                    <td id="@preferencename" class="@preferencename @charcterclassname @previewStatus border-right previewShow" style="padding:3px">
+                                        <label class="hide">zz</label>
+                                    </td>
+                                }
+                            }
+                            //}
+                        }
+                    }
+
+                    @foreach (PropertyInfo property in lstPropertyInfo)
+                    {
+
+                        if (!Model.Columns.Contains(property.Name))
+                        {
+                            if (property.Name == "Title")
+                            {
+                                string titleclassname = kplVM.IsInCustomerTitles == true ? "tdBackground-color" : "";
+                                x = kplVM.IsInCustomerTitles == true ? "X" : "";
+                                if (x != "")
+                                {
+                                    <td id="@property.Name" class="@property.Name @titleclassname @previewStatus border-right" style="padding:3px">&nbsp;&nbsp;@x</td>
+                                }
+                                else
+                                {
+                                    <td id="@property.Name" class="@property.Name @titleclassname @previewStatus border-right" style="padding:3px">
+                                        <label class="hide">zz</label>
+                                    </td>
+                                }
+                                <td id="@property.Name" class="hide @property.Name @titleclassname @previewStatus border-right" style="padding:3px"><a title="@kplVM.ItemID" data-title="@kplVM.IsInCustomerTitles" class="popup-with-zoom-anim ItemDetailSeries" href="#small-dialog">@type.GetProperty(property.Name).GetValue(kplVM, null)</a></td>
+                            }
+                            else
+                            {
+                                string charcterclassname = string.Empty;
+                                if (property.Name == "Primarycharacter")
+                                {
+                                    charcterclassname = kplVM.CharecterBroughtBefore == true ? "tdBackground-color" : "";
+                                    x = kplVM.CharecterBroughtBefore == true ? "X" : "";
+                                    if (x != "")
+                                    {
+                                        <td id="@property.Name" class="@property.Name @charcterclassname @previewStatus border-right" style="padding:3px">&nbsp;&nbsp;@x</td>
+                                    }
+                                    else
+                                    {
+                                        <td id="@property.Name" class="@property.Name @charcterclassname @previewStatus border-right" style="padding:3px">
+                                            <label class="hide">zz</label>
+                                        </td>
+                                    }
+                                }
+                                if (property.Name == "Series")
+                                {
+                                    charcterclassname = kplVM.SeriesBroughtBefore == true ? "tdBackground-color" : "";
+                                }
+                                if (property.Name == "DWDate")
+                                {
+                                    if (quoteTYpe == "Decision Wizard")
+                                    {
+                                        <td id="@property.Name" class="hide @property.Name @charcterclassname @previewStatus border-right" style="padding:3px">@type.GetProperty(property.Name).GetValue(kplVM, null)</td>
+                                    }
+                                }
+                                if (type.GetProperty(property.Name).GetValue(kplVM, null) != null)
+                                {
+                                    if (property.Name != "DWDate")
+                                    {
+                                        <td id="@property.Name" class="hide @property.Name @charcterclassname @previewStatus border-right" style="padding:3px">@type.GetProperty(property.Name).GetValue(kplVM, null)</td>
+                                    }
+                                }
+                                else
+                                {
+                                    if (property.Name != "DWDate")
+                                    {
+                                        <td id="@property.Name" class="hide @property.Name @charcterclassname @previewStatus border-right" style="padding:3px">
+                                            <label class="hide">zz</label>
+                                        </td>
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="Columns-dialog" class="place-left zoom-anim-dialog span9 mfp-hide contentText Searchborder">
+    <div class="place-left span5" style="height: 20px;">
+        <a id="ResetColumn" href="#" class="">Set Default</a>
+    </div>
+    <div class="span4">
+        <table id="ColumnsSelect" class="span4 border place-left">
+            <thead class="ColumnfixedHeader">
+                <tr>
+                    <th>
+                        @*  <input id="isVisible" type="checkbox" name="cbcolumn" />
+                            &nbsp;Visible
+                        *@
+                    </th>
+                    <th>
+                        Additional Columns
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="ColumnDraggable" class="ColumnscrollContent">
+
+
+                @foreach (PropertyInfo property in Model.KPLBasedVM.FirstOrDefault().GetType().GetProperties().OrderBy(p => ((DisplayAttribute)p.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order))
+                {
+                    string pName = ((DisplayAttribute)property.GetCustomAttribute(typeof(DisplayAttribute), false)).Name;
+                    int order = ((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order;
+                    List<int> lstOrder = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
+
+                    if (order != -1 && !lstOrder.Contains(order) && pName != "Price")
+                    {
+                        if (property.Name == "DWDate")
+                        {
+                            if (quoteTYpe == "Decision Wizard")
+                            {
+                                <tr class="@property.Name">
+                                    <td></td>
+                                    @if (Model.Columns.Contains(property.Name))
+                                    {
+                                        <td>
+                                            <input type="checkbox" class="ischeck" name="cbcolumn" checked="checked" data-order="@((((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order))" id=@property.Name />
+                                        </td>
+                                        <td style="white-space: nowrap">
+                                            @Html.Label(pName, new { id = "lbl", @class = "labelcbHeight" })
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <input type="checkbox" class="ischeck" name="cbcolumn" data-order="@((((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order))" id=@property.Name />
+                                        </td>
+                                        <td style="white-space: nowrap">
+                                            @Html.Label(pName, new { id = "lbl", @class = "labelcbHeight" })
+                                        </td>
+                                    }
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+
+                            <tr class="@property.Name">
+                                <td></td>
+                                @if (Model.Columns.Contains(property.Name))
+                                {
+                                    <td>
+                                        <input type="checkbox" class="ischeck" name="cbcolumn" checked="checked" data-order="@((((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order))" id=@property.Name />
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        @Html.Label(pName, new { id = "lbl", @class = "labelcbHeight" })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <input type="checkbox" class="ischeck" name="cbcolumn" data-order="@((((DisplayAttribute)property.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()).Order))" id=@property.Name />
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        @Html.Label(pName, new { id = "lbl", @class = "labelcbHeight" })
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="place-left div-contentheight divspanWidth1">
+    </div>
+    <div class="place-left span4">
+        <table id="ColumnsSelect2" class="span4 border place-left">
+            <thead class="ColumnfixedHeader">
+                <tr>
+                    <th>
+                        @* <input id="isVisible2" type="checkbox" name="cbcolumn" />
+                            &nbsp;Visible
+                        *@
+                    </th>
+                    <th>
+                        Selected Columns
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="ColumnDraggable2" class="ColumnscrollContent"></tbody>
+        </table>
+        <div class="div-contentheight contentText text-right">
+            <button id="btnOk">OK</button>
+            <button class="BtnDeleteCancel">Cancel</button>
+        </div>
+    </div>
+
+
+</div>
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+    @*dont remove style*@
+    <button id="mp-close" title="Close (Esc)" type="button" class="mfp-close">X</button>
+    <div id="loadingSetView">
+        @*PartialView Will Load Here*@
+    </div>
+    <div id="ItemListView">
+    </div>
+</div>

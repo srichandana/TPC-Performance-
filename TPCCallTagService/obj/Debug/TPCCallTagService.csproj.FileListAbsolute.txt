@@ -1,0 +1,120 @@
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\log4net.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\log4net.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+C:\Users\Nest1\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\Elmah.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+G:\GITHUB_TPC\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.Resources.DWEmailType.resources
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+G:\GITHUB_TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\Elmah.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+F:\Srikanth\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.Resources.DWEmailType.resources
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+F:\Srikanth\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\Elmah.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.Resources.DWEmailType.resources
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+F:\MyFolder\Office\TPC\Repositary\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\Elmah.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.Resources.DWEmailType.resources
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+C:\Users\NTC\Documents\GitHub\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe.config
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.exe
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPCCallTagService.pdb
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\Elmah.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Core.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Context.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Common.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\AutoMapper.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\EntityFramework.dll
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Core.pdb
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Context.pdb
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\TPC.Common.pdb
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\AutoMapper.xml
+G:\My Projects\TPC\TPC\TPCCallTagService\bin\Debug\EntityFramework.xml
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csprojResolveAssemblyReference.cache
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.ProjectInstaller.resources
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.Resources.DWEmailType.resources
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.csproj.GenerateResource.Cache
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.exe
+G:\My Projects\TPC\TPC\TPCCallTagService\obj\Debug\TPCCallTagService.pdb

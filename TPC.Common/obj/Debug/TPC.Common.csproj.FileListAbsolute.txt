@@ -1,0 +1,50 @@
+F:\MyFolder\Office\TPC\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\TPC\TPC.Common\bin\Debug\log4net.dll
+F:\MyFolder\Office\TPC\TPC\TPC.Common\bin\Debug\log4net.xml
+G:\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+G:\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+G:\GitHub\TPC\TPC.Common\bin\Debug\log4net.dll
+G:\GitHub\TPC\TPC.Common\bin\Debug\log4net.xml
+G:\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+G:\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\bin\Debug\log4net.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\bin\Debug\log4net.xml
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+C:\Users\Nest1\Documents\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+G:\GITHUB_TPC\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+G:\GITHUB_TPC\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+G:\GITHUB_TPC\TPC\TPC.Common\bin\Debug\log4net.dll
+G:\GITHUB_TPC\TPC\TPC.Common\bin\Debug\log4net.xml
+G:\GITHUB_TPC\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+G:\GITHUB_TPC\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+F:\Srikanth\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+F:\Srikanth\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+F:\Srikanth\GitHub\TPC\TPC.Common\bin\Debug\log4net.dll
+F:\Srikanth\GitHub\TPC\TPC.Common\bin\Debug\log4net.xml
+F:\Srikanth\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+F:\Srikanth\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Debug\log4net.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\bin\Debug\log4net.xml
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\bin\Debug\log4net.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\bin\Debug\log4net.xml
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.csprojResolveAssemblyReference.cache
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+C:\Users\NTC\Documents\GitHub\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
+F:\MyFolder\Office\TPC\Repositary\TPC\TPC.Common\obj\Debug\TPC.Common.csprojResolveAssemblyReference.cache
+G:\My Projects\TPC\TPC\TPC.Common\bin\Debug\TPC.Common.dll
+G:\My Projects\TPC\TPC\TPC.Common\bin\Debug\TPC.Common.pdb
+G:\My Projects\TPC\TPC\TPC.Common\bin\Debug\log4net.dll
+G:\My Projects\TPC\TPC\TPC.Common\bin\Debug\log4net.xml
+G:\My Projects\TPC\TPC\TPC.Common\obj\Debug\TPC.Common.dll
+G:\My Projects\TPC\TPC\TPC.Common\obj\Debug\TPC.Common.pdb
